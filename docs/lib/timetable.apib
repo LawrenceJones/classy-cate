@@ -1,0 +1,161 @@
+# Group Timetable
+Provides access to information on set exercises during the specified period.
+
+## Timetable [/api/timetable/{year}/{period}/{class}]
+Every timetable view is defined by the desired year, period and class of the student viewing.
+
++ Parameters
+  + class(string,`c2`) ... Desired timetable class.
+  + period(number,`5`) ... Number of 1..6 that represents term periods from Sept to Summer.
+  + year(number,`2013`) ... Year of study for the timetable.
+
++ Model (application/json)
+
+  {# {{{
+    _meta: {
+      link: "/api/timetable/2013/5/c2",
+      year: 2013,
+      period: 5,
+      class: "c2",
+      start: 1398639600000,
+      end: 1403823600000 
+    },
+    courses: [
+      {
+        _meta: {
+          link: "/api/courses/2013/203"
+        }
+        cid: "203",                             // Course ID, unique with year
+        name: "Human-Centered Design",          // Name of course
+        exercises: [
+          {
+            _meta: {
+              link: "/api/courses/2013/203/exercises/1"
+            }
+            num: 1,                           // Exercise number, sequential
+            type: "PROJ",                     // Type of exercise
+            title: "HCD Presentation",        // Exercise title by CATe
+            start: 1401663600000,             // Moment at which exercise became active
+            end: 1402009200000,               // Deadline or handin moment for exercise
+            // Formatted mailto reference to autostart email with appropriate subject
+            mailto: "mailto:mjw03@doc.ic.ac.uk?subject=Module 203 - 'Human-Centered Design' - Exercise 1",
+            handin: null,       // Link to the CATe handin page
+            submission: true,   // This exercise requires a submission
+            group: true,        // This exercise is run in groups
+            assessed: true,     // True if the grade for this exercise counts toward students degree
+            givens: {
+              _meta: {
+                link: "/api/courses/2013/203/exercises/1/givens"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }# }}}
+
+### Retrieve timetable [GET]
+
+# Group Course
+Course related resources of CATe API.
+
+## Course [/api/courses/{year}/{cid}]
+Each course is referenced by the year it was run along with it's cid (course ID). Both year and cid are required to find a course.
+
++ Parameters
+  + cid (string,`202`) ... The unique identifier for the course in CATe.
+  + year (number,`2013`) ... Year that the course was run.
+
++ Model (application/json)# {{{
+
+  {
+    _meta: {
+      link: "/api/courses/2013/202"
+    }
+    cid: "202",
+    name: "Software Engineering - Algorithms",
+    terms: [2],
+    classes: [
+      "c2", "j2", "v5"
+    ],
+    notes: {
+      _meta: {
+        link: "/api/courses/2013/202/notes"
+      },
+      collection: [
+        {
+          number: 1,
+          restype: "pdf",
+          title: "Administration",
+          link: "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:458::NOTES:lmj112",
+          time: 1390151094000,
+          discussions: [
+            {
+              title: "Where to find old Algorithm's notes",
+              _link: "/api/discussions/987654"
+            }
+          ]
+        }
+      ]
+    },
+    exercises: {
+      _meta: {
+        link: "/api/courses/2013/202/exercises"
+      }
+    }
+  }# }}}
+
+### Retrieve a Single Course [GET]
++ Request
+  + Headers
+    Authorization: Bearer TOKEN
+
++ Response 200
+
+  [Course][]
+
++ Response 401
+
+
+## Course Collection [/api/courses/{year}]
+Collection of all courses run on the given academic year.
+
+Represented as an array of embedded Courses, each course stating it's `cid`, `name` and respective href to more details.
+
++ Parameters
+  + year (number,`2013`) ... Year that desired courses were run.
+
++ Model (application/json)
+
+  [# {{{
+    {
+      cid: "202",
+      name: "Software Engineering - Algorithms",
+      classes: [
+        "c2", "j2", "v5"
+      ],
+      terms: [2],
+      _link: "/api/courses/2013/202"
+    },
+    {
+      cid: "211",
+      name: "Operating Systems",
+      classes: [
+        "c2", "j2"
+      ],
+      terms: [2],
+      _link: "/api/courses/2013/211"
+    }
+  ]# }}}
+
+### Index Courses run during Year [GET]
++ Request
+  + Headers
+    Authorization: Bearer TOKEN
+
++ Response 200
+
+  [Course Collection][]
+
++ Response 401
+

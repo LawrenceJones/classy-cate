@@ -1,0 +1,85 @@
+# Group Authentication
+
+## Login [/authenticate]
+
+CATe API makes use of JSON WebTokens to make requests on behalf of users to the underlying CATe/DoC services.
+
+The basic setup requries an initial authorization request, where the user supplies their college login and password.
+
+Credentials are then encrypted to generate a token string, which is passed back to the client on a 200 response.
+
+Any requests to routes prefixed with `/api` must then include the token in the HTTP `Authorization` header.
+
+Example header. `Authorization: Bearer TOKEN`
+
++ Model (application/json)
+    {
+        _meta: {
+        link: "/api/users/lmj112",
+        login: "lmj112",
+        tid: 14678,
+        token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoibG1qMTE"
+        },
+        validFrom: 1348873200000,             // Time for which this student is enrolled
+        validTo: 1474930800000,               // Limit of current enrolment status
+        tid: 14678,                           // Teach ID, an index into the teachdb database
+        login: "lmj112",                              // College login
+        email: "lawrence.jones12@imperial.ac.uk",     // College email
+        salutaion: "Mr.",                             // Official salutation Mr, Mrs, Ms...
+        fname: "Lawrence",                            // Firstname
+        lname: "Jones",                               // Lastname
+        origin: "HOME",                               // Student status
+        entryYear: 2012,                              // Year arrived at college
+        url: "http://www.doc.ic.ac.uk/~lmj112",       // Personal college sites
+        cand: "00730706",                             // Official candidate number
+        profile: "https://cate.doc.ic.ac.uk/photo/student/pics12/lmj112.jpg",   // url of CATe profile picture
+        courses: [
+        {
+            _meta: {
+            link: "/api/courses/2012/112",
+            year: 2012,
+            cid: "112"
+            },
+            cid: "112",                 // Course ID, unique with year of study
+            name: "Hardware",           // Name of course
+            eid: "C114",                // Associated exam ID
+            terms: [1],                 // Terms studied
+            classes: ["c1"]             // Classes that are enrolled into this course
+        },
+        {
+            _meta: {
+            link: "/api/courses/2013/240",
+            year: 2013,
+            cid: "240"
+            },
+            cid: "240",
+            name: "Models of Computation",
+            eid: "C244",
+            terms: [1],
+            classes: ["c2", "j2", "j3"]
+        }
+        ]
+        enrolment: [
+        {
+            year: 2012,   // In 2012, this student was enrolled in
+            class: "c1"   // class C1.
+        },
+        {
+            year: 2013,
+            class: "c2"
+        }
+        ]
+    }
+
+### Generate new auth token [POST]
+
++ Request (application/json)
+    + Body
+        [MODEL User](auth.req)
+
++ Response 200 (application/json)
+    + Body
+        [Login]
+
++ Response 401 (application/json)
+

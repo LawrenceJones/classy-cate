@@ -1,0 +1,32 @@
+FORMAT: 1A
+HOST: cvm-g1327131.doc.ic.ac.uk:55000
+
+# Grep-Doc API
+
+The API built on top of Imperial College's CATe VLE system.
+
+A brief few points about this API are...
+
+- All `/api` routes should be requested with an HTTP `Authorization` header
+- Any embedded resources in JSON will have a `_link` property that states the route to that particular resource
+- All Date and Times are represented as a count of milliseconds from midnight 01/01/1970
+
+Various acronyms are used throughout the site to reference different resources. An explanation of these is shown below.
+
+It is important to note that `cid` and `eid` change dependent on the academic year. The acronyms are more to differentiate between other forms of ID than to be used independently to index these resources.
+
+| Acronym | Literal | Usage | Example |
+| ------- | ------- | ----- | ------- |
+| `cid`   | `Course ID` | References a course by the DoC code | `211, Operating Systems` |
+| `tid`   | `Teachdb ID` | Represents the index into the teachdb database for this item | `14678, lmj112` |
+| `eid`   | `Exam ID` | Represents the exam code | `C224, Software Engineering` |
+
+As a side note on API performance, the vast majority of our routes are bottlenecked by the response times of their
+remote resource. Taking Student information for example, a Student's data is parsed in a two level process, first
+resolving a Students teachdb ID from their given login, and then indexing into the teachdb page to parse more information.
+
+[INCLUDE lib/auth]
+
+[INCLUDE lib/timetable]
+
+[INCLUDE lib/grades]
