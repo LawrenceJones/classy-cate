@@ -1,0 +1,73 @@
+#module_template.module_table.hidden
+  .row
+    .span12
+      h3.module-title
+      table.table.table-striped.table-bordered.module-grades
+        tr
+          th ID
+          th Type
+          th Title
+          th Set By
+          th Declaration
+          th Extension
+          th Submission
+          th.grade-column Grade
+#exercise_template.hidden
+  table
+    tr
+      td
+        span.exercise-id
+      td
+        span.exercise-type
+      td
+        span.exercise-title
+      td
+        span.exercise-set-by
+      td
+        span.exercise-declaration
+      td
+        span.exercise-extension
+      td
+        span.exercise-submission
+      td
+        .exercise-grade-container
+          .progress
+            .bar
+              .exercise-grade
+.row
+  .span12
+    h2 Grades for Required Modules
+    #cc-required-modules
+.row
+  .span12
+    h2 Grades for Optional Modules
+    #cc-optional-modules
+.row
+  .span6
+    h2 Key&quest;
+    table.table.table-bordered
+      tr
+        td Coming Soon
+  .span6
+    h2 Stats
+    table.table.table-bordered
+      tr
+        td
+          b Subscription Last Updated
+        td
+          span#cc-subscription-updated
+      tr
+        td
+          b Submissions Completed
+        td
+          span#cc-submissions-completed
+      tr
+        td
+          b Submissions Extended
+        td
+          span#cc-submissions-extended
+      tr
+        td
+          b Submissions Late
+        td
+          span#cc-submissions-late

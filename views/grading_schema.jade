@@ -1,0 +1,24 @@
+mixin grade(lower, upper, mark)
+  tr
+    td= '[' + lower + '-' + upper + '] %'
+    td
+      .progress.progress-success
+        .bar(style='width: '+upper+'%')= mark
+
+#grading-schema-modal.modal.hide.fade
+  .modal-header
+    button.close(aria-hidden='true', data-dismiss='modal', type='button') &times;
+    .clearfix
+  .modal-body
+    table.table.table-bordered
+      tr
+        th Percentage
+        th.grade-column Grade
+      +grade('90',  '100',  'A*')
+      +grade('80',  '89',   'A+')
+      +grade('70',  '79',   'A')
+      +grade('60',  '69',   'B')
+      +grade('50',  '59',   'C')
+      +grade('40',  '49',   'D')
+      +grade('30',  '39',   'E')
+      +grade('0',   '29',   'F')
