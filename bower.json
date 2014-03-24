@@ -1,0 +1,25 @@
+{
+  "name": "classy-cate",
+  "version": "0.0.0",
+  "homepage": "https://github.com/LawrenceJones/classy-cate",
+  "authors": [
+    "Lawrence Jones <lawrence.jones12@imperial.ac.uk>"
+  ],
+  "description": "Makes cate prettier :)",
+  "main": "app/app.coffee",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.2.14",
+    "bootstrap": "~3.1.1",
+    "jquery": "~2.1.0"
+  }
+}

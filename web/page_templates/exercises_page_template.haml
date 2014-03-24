@@ -1,0 +1,55 @@
+.row
+  .span12
+    %h2
+      %span{:id => "term_title"} Timetable of Exercises
+      %div.term-navigation
+        %span.btn.exercise-navigation-btn{:id => "back_term_btn", :style => "margin-right:14px"}
+          %i.icon-double-angle-left
+        %span.btn.exercise-navigation-btn{:id => "next_term_btn"}
+          %i.icon-double-angle-right
+
+#notes-modal.modal.hide.fade
+  .modal-header#notes-modal-header
+    %button{:type => "button", :class => "close", :"data-dismiss" => "modal", :"aria-hidden" => "true"} &times;
+  .modal-body#notes-modal-body
+    %table.table.wide_table.table-striped.table-bordered
+      %thead
+        %tr
+          %th ID
+          %th Link
+      %tbody#notes-modal-tbody
+        %tr
+          %td
+          %td
+
+#givens-modal.modal.hide.fade
+  .modal-header#givens-modal-header
+    %button{:type => "button", :class => "close", :"data-dismiss" => "modal", :"aria-hidden" => "true"} &times;
+  .modal-body#givens-modal-body
+    %table.table.wide_table.table-striped.table-bordered#givens-table
+      %thead
+        %tr
+          %th.type TYPE
+      %tbody
+        %tr
+          %td
+          %td
+
+%table#exercises_template.table.wide_table.module_table.table-striped.table-bordered.hidden
+  %tr
+    %th{:style => "width:200px"} ID
+    %th Name
+    %th Set On
+    %th Due On
+    %th Spec Link
+    %th Given link
+
+%table
+  %tr#exercise_row_template.hidden
+    %td.id NA
+    %td.name NA
+    %td.set NA
+    %td.due NA
+    %td.spec NA
+    %td.given NA
+

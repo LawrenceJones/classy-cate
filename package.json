@@ -1,0 +1,28 @@
+{
+  "name": "classy-cate",
+  "description": "",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node target/app.js",
+    "prepublish": "make deploy"
+  },
+  "dependencies": {
+    "npm": "1.2.25",
+    "express": "3.x",
+    "coffee-script": "1.7.1",
+    "mongoose": "*",
+    "bower": "*",
+    "jade": "*",
+    "node-sass": "latest",
+    "q": "^1.0.1",
+    "express-jwt": "^0.2.0",
+    "bcrypt-nodejs": "0.0.3",
+    "jsonwebtoken": "^0.1.0",
+    "cheerio": "^0.13.1"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": "0.10.x"
+  }
+}

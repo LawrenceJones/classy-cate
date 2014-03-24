@@ -1,0 +1,324 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	Development	//
+#	stylesheets/mixins.scss	/^  #{$prop}-bottom: $val;$/;"	i
+#	stylesheets/mixins.scss	/^  #{$prop}-left: $val;$/;"	i
+#	stylesheets/mixins.scss	/^  #{$prop}-right: $val;$/;"	i
+#	stylesheets/mixins.scss	/^  #{$prop}-top: $val;$/;"	i
+.active	stylesheets/bookings.scss	/^    &.active {$/;"	c
+.active	stylesheets/textstyles.scss	/^.active { color: $active-blue; }$/;"	c
+.active .arrow	stylesheets/postcomposer.scss	/^  &.active .arrow {$/;"	c
+.active > a	stylesheets/navbar.scss	/^    &.active > a {$/;"	c
+.arrow	stylesheets/arrows.scss	/^.arrow {$/;"	c
+.arrow:nth-child	stylesheets/arrows.scss	/^  & > .arrow:nth-child(1) {$/;"	c
+.arrow:nth-child	stylesheets/arrows.scss	/^  & > .arrow:nth-child(2) {$/;"	c
+.bold	stylesheets/bookings.scss	/^    &.bold {$/;"	c
+.booking-col	stylesheets/bookings.scss	/^  .booking-col {$/;"	c
+.booking-timeline	stylesheets/bookings.scss	/^.booking-timeline {$/;"	c
+.bookings-page	stylesheets/bookings.scss	/^.bookings-page {$/;"	c
+.bookings-page .bookings-list	stylesheets/bookings.scss	/^.bookings-page .bookings-list {$/;"	c
+.bookings-page .list-group-item	stylesheets/bookings.scss	/^.bookings-page .list-group-item {$/;"	c
+.bookings-page .list-group-item .details	stylesheets/bookings.scss	/^.bookings-page .list-group-item .details {$/;"	c
+.bookings-view	stylesheets/bookings.scss	/^.bookings-view { $/;"	c
+.bookings-view .booking-header	stylesheets/bookings.scss	/^.bookings-view .booking-header {$/;"	c
+.bookings-view .booking-row	stylesheets/bookings.scss	/^.bookings-view .booking-row {$/;"	c
+.bookings-view .user-details	stylesheets/bookings.scss	/^.bookings-view .user-details {$/;"	c
+.bookings-view span.booking-date	stylesheets/bookings.scss	/^.bookings-view span.booking-date {$/;"	c
+.border	stylesheets/postcomposer.scss	/^  .border {$/;"	c
+.btn-group	stylesheets/pickers.scss	/^    .btn-group {$/;"	c
+.btn:last-child	stylesheets/google.scss	/^  .btn:last-child {$/;"	c
+.btn:nth-child	stylesheets/pickers.scss	/^    .btn:nth-child(1) {$/;"	c
+.btn:nth-child	stylesheets/pickers.scss	/^    .btn:nth-child(2) {$/;"	c
+.cell-content	stylesheets/postcomposer.scss	/^    .cell-content {$/;"	c
+.centered	stylesheets/mixins.scss	/^} .centered { @include centered; }$/;"	c
+.clearfix	stylesheets/mixins.scss	/^.clearfix {$/;"	c
+.danger	stylesheets/textstyles.scss	/^} .danger {$/;"	c
+.editable	stylesheets/postcomposer.scss	/^    &.editable {$/;"	c
+.google-locator	stylesheets/google.scss	/^.google-locator {$/;"	c
+.google-map-query	stylesheets/google.scss	/^.google-map-query {$/;"	c
+.google-map-query.input-group	stylesheets/google.scss	/^.input-group {$/;"	c
+.google-map-querytable.suggestions	stylesheets/google.scss	/^table.suggestions {$/;"	c
+.list-group-item-text	stylesheets/bookings.scss	/^  .list-group-item-text {$/;"	c
+.md	stylesheets/panes.scss	/^  &.md { @include size(100px); }$/;"	c
+.money	stylesheets/textstyles.scss	/^.money {$/;"	c
+.name	stylesheets/textstyles.scss	/^.name {$/;"	c
+.navbar	stylesheets/navbar.scss	/^.navbar {$/;"	c
+.pane	stylesheets/panes.scss	/^.pane {$/;"	c
+.pane	stylesheets/textstyles.scss	/^.pane {$/;"	c
+.pane.login	stylesheets/login.scss	/^.pane.login {$/;"	c
+.popover	stylesheets/popovers.scss	/^.popover {$/;"	c
+.post	stylesheets/post.scss	/^.post {$/;"	c
+.post-composer	stylesheets/postcomposer.scss	/^.post-composer {$/;"	c
+.post-composer .post-change .change-date	stylesheets/postcomposer.scss	/^.post-composer .post-change .change-date {$/;"	c
+.post-composer .post-change .change-hourly	stylesheets/postcomposer.scss	/^.post-composer .post-change .change-hourly {$/;"	c
+.post-composer .post-change .change-location	stylesheets/postcomposer.scss	/^.post-composer .post-change .change-location {$/;"	c
+.post-composer .post-change .change-time	stylesheets/postcomposer.scss	/^.post-composer .post-change .change-time {$/;"	c
+.post-composer .post-content	stylesheets/postcomposer.scss	/^.post-composer .post-content {$/;"	c
+.post-composer .post-content .post-change	stylesheets/postcomposer.scss	/^.post-composer .post-content .post-change {$/;"	c
+.post-composer .post-content .post-change .change-selection	stylesheets/postcomposer.scss	/^.post-composer .post-content .post-change .change-selection {$/;"	c
+.post-composer .post-submit	stylesheets/postcomposer.scss	/^.post-composer .post-submit {$/;"	c
+.post-composer .post-type-selector	stylesheets/postcomposer.scss	/^.post-composer .post-type-selector {$/;"	c
+.post-composer .post-type-selector li	stylesheets/postcomposer.scss	/^.post-composer .post-type-selector li {$/;"	c
+.post-composer.post-content.post-change.change-selection	stylesheets/postcomposer.scss	/^.change-selection {$/;"	c
+.post.left	stylesheets/post.left.scss	/^.post.left {$/;"	c
+.post.post-column	stylesheets/post.scss	/^.post-column {$/;"	c
+.post.post-column.post-bubble	stylesheets/post.scss	/^.post-bubble {$/;"	c
+.post.post-column.post-bubblespan.change-value	stylesheets/post.scss	/^span.change-value {$/;"	c
+.post.post-column.post-bubbleul.post-list	stylesheets/post.scss	/^ul.post-list {$/;"	c
+.post.right	stylesheets/post.right.scss	/^.post.right {$/;"	c
+.post.seq-arrow	stylesheets/post.scss	/^.seq-arrow {$/;"	c
+.postimg.profile	stylesheets/post.scss	/^img.profile {$/;"	c
+.postspan.mssg-time	stylesheets/post.scss	/^span.mssg-time {$/;"	c
+.profile	stylesheets/bookings.scss	/^  .profile {$/;"	c
+.register	stylesheets/login.scss	/^  .register {$/;"	c
+.row.pane-content	stylesheets/panes.scss	/^  .row.pane-content {$/;"	c
+.search	stylesheets/bookings.scss	/^  .search {$/;"	c
+.search	stylesheets/panes.scss	/^    .search {$/;"	c
+.seq-arrow	stylesheets/post.left.scss	/^  .seq-arrow {$/;"	c
+.seq-arrow	stylesheets/post.right.scss	/^  .seq-arrow {$/;"	c
+.seq-post-timeline	stylesheets/post.scss	/^.seq-post-timeline {$/;"	c
+.seq-time-picker	stylesheets/pickers.scss	/^.seq-time-picker {$/;"	c
+.seq-time-picker .am-pm	stylesheets/pickers.scss	/^.seq-time-picker .am-pm {$/;"	c
+.sm	stylesheets/panes.scss	/^  &.sm { @include size(50px); }$/;"	c
+.success	stylesheets/textstyles.scss	/^.success {$/;"	c
+.suggestions-wrapper.suggestionstd:hover{	stylesheets/post.scss	/^  $border: 3px solid #428bca;$/;"	c
+.toolbar	stylesheets/navbar.scss	/^  .col-md-#{$i} .toolbar {$/;"	c
+.toolbar-segmented	stylesheets/navbar.scss	/^.toolbar-segmented {$/;"	c
+.user-text	stylesheets/bookings.scss	/^  .user-text {$/;"	c
+.value	stylesheets/postcomposer.scss	/^        &.value {$/;"	c
+.warning	stylesheets/textstyles.scss	/^} .warning {$/;"	c
+0.45	stylesheets/vars.scss	/^$shadow-color:            rgba(12, 12, 12, 0.45);$/;"	s
+0.9	stylesheets/vars.scss	/^$bookings-fa-grey:        rgba(58, 60, 63, 0.9);$/;"	s
+1	stylesheets/arrows.scss	/^  & > .arrow:nth-child(1) {$/;"	s
+1	stylesheets/pickers.scss	/^    .btn:nth-child(1) {$/;"	s
+1	stylesheets/postcomposer.scss	/^      &:nth-child(1) {$/;"	s
+12	stylesheets/vars.scss	/^$shadow-color:            rgba(12, 12, 12, 0.45);$/;"	s
+2	stylesheets/arrows.scss	/^  & > .arrow:nth-child(2) {$/;"	s
+2	stylesheets/navbar.scss	/^        &:nth-child(2) {$/;"	s
+2	stylesheets/pickers.scss	/^    .btn:nth-child(2) {$/;"	s
+58	stylesheets/vars.scss	/^$bookings-fa-grey:        rgba(58, 60, 63, 0.9);$/;"	s
+60	stylesheets/vars.scss	/^$bookings-fa-grey:        rgba(58, 60, 63, 0.9);$/;"	s
+63	stylesheets/vars.scss	/^$bookings-fa-grey:        rgba(58, 60, 63, 0.9);$/;"	s
+Arial	stylesheets/vars.scss	/^$font-family: "Myriad Pro", Myriad, "Liberation Sans", "Nimbus Sans L", "Helvetica Neue", Helvetica, Arial, sans-serif;$/;"	s
+Helvetica	stylesheets/vars.scss	/^$font-family: "Myriad Pro", Myriad, "Liberation Sans", "Nimbus Sans L", "Helvetica Neue", Helvetica, Arial, sans-serif;$/;"	s
+Helvetica Neue	stylesheets/vars.scss	/^$font-family: "Myriad Pro", Myriad, "Liberation Sans", "Nimbus Sans L", "Helvetica Neue", Helvetica, Arial, sans-serif;$/;"	s
+Liberation Sans	stylesheets/vars.scss	/^$font-family: "Myriad Pro", Myriad, "Liberation Sans", "Nimbus Sans L", "Helvetica Neue", Helvetica, Arial, sans-serif;$/;"	s
+Myriad	stylesheets/vars.scss	/^$font-family: "Myriad Pro", Myriad, "Liberation Sans", "Nimbus Sans L", "Helvetica Neue", Helvetica, Arial, sans-serif;$/;"	s
+Myriad Pro	stylesheets/vars.scss	/^$font-family: "Myriad Pro", Myriad, "Liberation Sans", "Nimbus Sans L", "Helvetica Neue", Helvetica, Arial, sans-serif;$/;"	s
+Nimbus Sans L	stylesheets/vars.scss	/^$font-family: "Myriad Pro", Myriad, "Liberation Sans", "Nimbus Sans L", "Helvetica Neue", Helvetica, Arial, sans-serif;$/;"	s
+a.sign-up 	stylesheets/login.scss	/^  a.sign-up {$/;"	s
+a:hover 	stylesheets/navbar.scss	/^    a:hover {$/;"	s
+active-blue:             #428bca	stylesheets/vars.scss	/^$active-blue:             #428bca;$/;"	s
+activeText 	stylesheets/navbar.scss	/^    @mixin activeText {$/;"	s
+after 	stylesheets/mixins.scss	/^  &:after {$/;"	s
+arrow	stylesheets/arrows.scss	/^  @include arrow("down", $arrow-down, $size, $bg-col, $db-col);$/;"	s
+arrow	stylesheets/arrows.scss	/^  @include arrow("left", $arrow-left, $size, $bg-col, $db-col);$/;"	s
+arrow	stylesheets/arrows.scss	/^  @include arrow("right", $arrow-right, $size, $bg-col, $db-col);$/;"	s
+arrow	stylesheets/arrows.scss	/^  @include arrow("up", $arrow-up, $size, $bg-col, $db-col);$/;"	s
+arrow	stylesheets/arrows.scss	/^@mixin arrow($dir, $dirs, $size, $bg-col, $bd-col) {$/;"	s
+arrow-down	stylesheets/arrows.scss	/^  @include arrow("down", $arrow-down, $size, $bg-col, $db-col);$/;"	s
+arrow-down	stylesheets/arrows.scss	/^@mixin arrow-down($size, $bg-col, $db-col) {$/;"	s
+arrow-down:   right	stylesheets/arrows.scss	/^$arrow-down:   right,   left,     top;$/;"	s
+arrow-left	stylesheets/arrows.scss	/^  @include arrow("left", $arrow-left, $size, $bg-col, $db-col);$/;"	s
+arrow-left	stylesheets/arrows.scss	/^@mixin arrow-left($size, $bg-col, $db-col) {$/;"	s
+arrow-left:   top	stylesheets/arrows.scss	/^$arrow-left:   top,     bottom,   right;$/;"	s
+arrow-props: 	stylesheets/post.vars.scss	/^$arrow-props: $post-arrow-size, white, $pane-border;$/;"	s
+arrow-right	stylesheets/arrows.scss	/^  @include arrow("right", $arrow-right, $size, $bg-col, $db-col);$/;"	s
+arrow-right	stylesheets/arrows.scss	/^@mixin arrow-right($size, $bg-col, $db-col) {$/;"	s
+arrow-right:  top	stylesheets/arrows.scss	/^$arrow-right:  top,     bottom,   left;$/;"	s
+arrow-up	stylesheets/arrows.scss	/^  @include arrow("up", $arrow-up, $size, $bg-col, $db-col);$/;"	s
+arrow-up	stylesheets/arrows.scss	/^@mixin arrow-up($size, $bg-col, $db-col) {$/;"	s
+arrow-up:     right	stylesheets/arrows.scss	/^$arrow-up:     right,   left,     bottom;$/;"	s
+background: none	stylesheets/postcomposer.scss	/^      background: none;$/;"	s
+bd-col	stylesheets/arrows.scss	/^    border-#{nth($dirs,3)}: $size+1 solid $bd-col;$/;"	s
+bd-col	stylesheets/arrows.scss	/^@mixin arrow($dir, $dirs, $size, $bg-col, $bd-col) {$/;"	s
+before 	stylesheets/postcomposer.scss	/^        &:before { content: '£'; }$/;"	s
+bg-col	stylesheets/arrows.scss	/^    border-#{nth($dirs,3)}: $size solid $bg-col;$/;"	s
+bg-col	stylesheets/arrows.scss	/^  @include arrow("down", $arrow-down, $size, $bg-col, $db-col);$/;"	s
+bg-col	stylesheets/arrows.scss	/^  @include arrow("left", $arrow-left, $size, $bg-col, $db-col);$/;"	s
+bg-col	stylesheets/arrows.scss	/^  @include arrow("right", $arrow-right, $size, $bg-col, $db-col);$/;"	s
+bg-col	stylesheets/arrows.scss	/^  @include arrow("up", $arrow-up, $size, $bg-col, $db-col);$/;"	s
+bg-col	stylesheets/arrows.scss	/^@mixin arrow($dir, $dirs, $size, $bg-col, $bd-col) {$/;"	s
+bg-col	stylesheets/arrows.scss	/^@mixin arrow-down($size, $bg-col, $db-col) {$/;"	s
+bg-col	stylesheets/arrows.scss	/^@mixin arrow-left($size, $bg-col, $db-col) {$/;"	s
+bg-col	stylesheets/arrows.scss	/^@mixin arrow-right($size, $bg-col, $db-col) {$/;"	s
+bg-col	stylesheets/arrows.scss	/^@mixin arrow-up($size, $bg-col, $db-col) {$/;"	s
+bg-default:              #fafafa	stylesheets/vars.scss	/^$bg-default:              #fafafa;$/;"	s
+bg-pane:                 #ffffff	stylesheets/vars.scss	/^$bg-pane:                 #ffffff;$/;"	s
+body 	stylesheets/structural.scss	/^html, body {$/;"	s
+bookings-fa-grey:        rgba	stylesheets/vars.scss	/^$bookings-fa-grey:        rgba(58, 60, 63, 0.9);$/;"	s
+border	stylesheets/post.scss	/^  border-left:   $border;$/;"	s
+border	stylesheets/post.scss	/^  border-right:  $border;$/;"	s
+border-#	stylesheets/arrows.scss	/^    border-#{nth($dirs,1)}: $size solid transparent;$/;"	s
+border-#	stylesheets/arrows.scss	/^    border-#{nth($dirs,1)}: $size+1 solid transparent;$/;"	s
+border-#	stylesheets/arrows.scss	/^    border-#{nth($dirs,2)}: $size solid transparent;$/;"	s
+border-#	stylesheets/arrows.scss	/^    border-#{nth($dirs,2)}: $size+1 solid transparent;$/;"	s
+border-#	stylesheets/arrows.scss	/^    border-#{nth($dirs,3)}: $size solid $bg-col;$/;"	s
+border-#	stylesheets/arrows.scss	/^    border-#{nth($dirs,3)}: $size+1 solid $bd-col;$/;"	s
+border-bottom-left-radius: 2px	stylesheets/pickers.scss	/^      border-bottom-left-radius: 2px;$/;"	s
+border-bottom-right-radius: 2px	stylesheets/pickers.scss	/^      border-bottom-right-radius: 2px;$/;"	s
+border-left:   	stylesheets/post.scss	/^  border-left:   $border;$/;"	s
+border-radius	stylesheets/pickers.scss	/^        border-radius: $border-radius;$/;"	s
+border-radius: 	stylesheets/pickers.scss	/^        border-radius: $border-radius;$/;"	s
+border-radius: 3px	stylesheets/vars.scss	/^$border-radius: 3px;$/;"	s
+border-right:  	stylesheets/post.scss	/^  border-right:  $border;$/;"	s
+border-top-left-radius: 2px	stylesheets/pickers.scss	/^      border-top-left-radius: 2px;$/;"	s
+border-top-right-radius: 2px	stylesheets/pickers.scss	/^      border-top-right-radius: 2px;$/;"	s
+border: 3px solid #428bca	stylesheets/post.scss	/^  $border: 3px solid #428bca;$/;"	s
+border: none	stylesheets/postcomposer.scss	/^      border: none;$/;"	s
+bottom	stylesheets/arrows.scss	/^$arrow-left:   top,     bottom,   right;$/;"	s
+bottom	stylesheets/arrows.scss	/^$arrow-right:  top,     bottom,   left;$/;"	s
+bottom	stylesheets/arrows.scss	/^$arrow-up:     right,   left,     bottom;$/;"	s
+bottom: 	stylesheets/mixins.scss	/^  #{$prop}-bottom: $val;$/;"	s
+button	stylesheets/postcomposer.scss	/^  button, span { float: right; }$/;"	s
+button-width	stylesheets/pickers.scss	/^        min-width: $button-width;$/;"	s
+button-width	stylesheets/pickers.scss	/^        width: $button-width;$/;"	s
+button.btn	stylesheets/login.scss	/^  button.btn, input.form-control {$/;"	s
+button.btn 	stylesheets/postcomposer.scss	/^  button.btn {$/;"	s
+button.btn 	stylesheets/structural.scss	/^button.btn {$/;"	s
+centered 	stylesheets/mixins.scss	/^@mixin centered {$/;"	s
+change-value-font-size	stylesheets/postcomposer.scss	/^        font-size: $change-value-font-size;$/;"	s
+change-value-font-size: 26px	stylesheets/postcomposer.scss	/^$change-value-font-size: 26px;$/;"	s
+clickable 	stylesheets/mixins.scss	/^@mixin clickable {$/;"	s
+column-h-padding: 16px	stylesheets/post.vars.scss	/^$column-h-padding: 16px;$/;"	s
+danger-red:              #D9534F	stylesheets/vars.scss	/^$danger-red:              #D9534F;$/;"	s
+db-col	stylesheets/arrows.scss	/^  @include arrow("down", $arrow-down, $size, $bg-col, $db-col);$/;"	s
+db-col	stylesheets/arrows.scss	/^  @include arrow("left", $arrow-left, $size, $bg-col, $db-col);$/;"	s
+db-col	stylesheets/arrows.scss	/^  @include arrow("right", $arrow-right, $size, $bg-col, $db-col);$/;"	s
+db-col	stylesheets/arrows.scss	/^  @include arrow("up", $arrow-up, $size, $bg-col, $db-col);$/;"	s
+db-col	stylesheets/arrows.scss	/^@mixin arrow-down($size, $bg-col, $db-col) {$/;"	s
+db-col	stylesheets/arrows.scss	/^@mixin arrow-left($size, $bg-col, $db-col) {$/;"	s
+db-col	stylesheets/arrows.scss	/^@mixin arrow-right($size, $bg-col, $db-col) {$/;"	s
+db-col	stylesheets/arrows.scss	/^@mixin arrow-up($size, $bg-col, $db-col) {$/;"	s
+dd 	stylesheets/bookings.scss	/^    dd {$/;"	s
+dim	stylesheets/mixins.scss	/^  height: $dim;$/;"	s
+dim	stylesheets/mixins.scss	/^  width: $dim;$/;"	s
+dim	stylesheets/mixins.scss	/^@mixin size($dim) {$/;"	s
+dir	stylesheets/arrows.scss	/^@mixin arrow($dir, $dirs, $size, $bg-col, $bd-col) {$/;"	s
+dir 	stylesheets/arrows.scss	/^    @if $dir != 'right' { margin-left: 1px; }$/;"	s
+dirs	stylesheets/arrows.scss	/^@mixin arrow($dir, $dirs, $size, $bg-col, $bd-col) {$/;"	s
+dl.horizontal 	stylesheets/bookings.scss	/^  dl.horizontal {$/;"	s
+down	stylesheets/arrows.scss	/^  @include arrow("down", $arrow-down, $size, $bg-col, $db-col);$/;"	s
+dt 	stylesheets/bookings.scss	/^    dt {$/;"	s
+font-family	stylesheets/navbar.scss	/^          font-family: $font-family;$/;"	s
+font-family	stylesheets/textstyles.scss	/^  font-family: $font-family;$/;"	s
+font-family: 	stylesheets/navbar.scss	/^          font-family: $font-family;$/;"	s
+font-family: 	stylesheets/textstyles.scss	/^  font-family: $font-family;$/;"	s
+font-family: 	stylesheets/vars.scss	/^$font-family: "Myriad Pro", Myriad, "Liberation Sans", "Nimbus Sans L", "Helvetica Neue", Helvetica, Arial, sans-serif;$/;"	s
+font-size: 	stylesheets/postcomposer.scss	/^        font-size: $change-value-font-size;$/;"	s
+font-size: 12px	stylesheets/navbar.scss	/^        font-size: 12px;$/;"	s
+grey-dark:               #242424	stylesheets/vars.scss	/^$grey-dark:               #242424;$/;"	s
+grey-darker:             #222222	stylesheets/vars.scss	/^$grey-darker:             #222222;$/;"	s
+grey-default:            #3F4447	stylesheets/vars.scss	/^$grey-default:            #3F4447;$/;"	s
+grey-light:              #A9ABB3	stylesheets/vars.scss	/^$grey-light:              #A9ABB3;$/;"	s
+h-margin	stylesheets/mixins.scss	/^@mixin h-margin($val) { @include horizontal(margin, $val); }$/;"	s
+h-padding	stylesheets/mixins.scss	/^@mixin h-padding($val) { @include horizontal(padding, $val); }$/;"	s
+height: 	stylesheets/mixins.scss	/^  height: $dim;$/;"	s
+horizontal	stylesheets/mixins.scss	/^@mixin h-margin($val) { @include horizontal(margin, $val); }$/;"	s
+horizontal	stylesheets/mixins.scss	/^@mixin h-padding($val) { @include horizontal(padding, $val); }$/;"	s
+horizontal	stylesheets/mixins.scss	/^@mixin horizontal($prop, $val) {$/;"	s
+hr.skinny 	stylesheets/bookings.scss	/^  hr.skinny {$/;"	s
+html	stylesheets/structural.scss	/^html, body {$/;"	s
+i from 1 through 9 	stylesheets/navbar.scss	/^@for $i from 1 through 9 {$/;"	s
+i.fa 	stylesheets/postcomposer.scss	/^  i.fa {$/;"	s
+i.fa.booking-status 	stylesheets/bookings.scss	/^  i.fa.booking-status {$/;"	s
+i.fa.booking-status 	stylesheets/bookings.scss	/^  span.booking-date, i.fa.booking-status {$/;"	s
+img.nav-logo 	stylesheets/navbar.scss	/^  img.nav-logo {$/;"	s
+img.profile	stylesheets/post.right.scss	/^  img.profile, span.mssg-time {$/;"	s
+img.profile 	stylesheets/panes.scss	/^img.profile {$/;"	s
+input.form-control 	stylesheets/login.scss	/^  button.btn, input.form-control {$/;"	s
+input.form-control 	stylesheets/login.scss	/^  input.form-control {$/;"	s
+label.remember 	stylesheets/login.scss	/^  label.remember {$/;"	s
+left	stylesheets/arrows.scss	/^  @include arrow("left", $arrow-left, $size, $bg-col, $db-col);$/;"	s
+left	stylesheets/arrows.scss	/^$arrow-down:   right,   left,     top;$/;"	s
+left	stylesheets/arrows.scss	/^$arrow-right:  top,     bottom,   left;$/;"	s
+left	stylesheets/arrows.scss	/^$arrow-up:     right,   left,     bottom;$/;"	s
+left: 	stylesheets/mixins.scss	/^  #{$prop}-left: $val;$/;"	s
+li 	stylesheets/navbar.scss	/^  li {$/;"	s
+li 	stylesheets/pickers.scss	/^        li {$/;"	s
+li 	stylesheets/post.scss	/^  & > li {$/;"	s
+li:last-child 	stylesheets/post.scss	/^  & > li:last-child {$/;"	s
+margin	stylesheets/mixins.scss	/^@mixin h-margin($val) { @include horizontal(margin, $val); }$/;"	s
+margin	stylesheets/mixins.scss	/^@mixin v-margin($val) { @include vertical(margin, $val); }$/;"	s
+margin-left: 1px	stylesheets/arrows.scss	/^    @if $dir != 'right' { margin-left: 1px; }$/;"	s
+margin-top: 1px	stylesheets/arrows.scss	/^    margin-top: 1px;$/;"	s
+max-height: 115px	stylesheets/pickers.scss	/^        max-height: 115px;$/;"	s
+min-width: 	stylesheets/pickers.scss	/^        min-width: $button-width;$/;"	s
+nav.default 	stylesheets/navbar.scss	/^nav.default {$/;"	s
+nav.toolbar 	stylesheets/navbar.scss	/^nav.toolbar {$/;"	s
+nav.toolbar-skinny 	stylesheets/navbar.scss	/^nav.toolbar-skinny {$/;"	s
+nth-child	stylesheets/navbar.scss	/^        &:nth-child(2) {$/;"	s
+nth-child	stylesheets/postcomposer.scss	/^      &:nth-child(1) {$/;"	s
+overflow-y: scroll	stylesheets/pickers.scss	/^        overflow-y: scroll;$/;"	s
+padding	stylesheets/mixins.scss	/^@mixin h-padding($val) { @include horizontal(padding, $val); }$/;"	s
+padding	stylesheets/mixins.scss	/^@mixin v-padding($val) { @include vertical(padding, $val); }$/;"	s
+pane-border	stylesheets/post.vars.scss	/^$arrow-props: $post-arrow-size, white, $pane-border;$/;"	s
+pane-border:             #dddddd	stylesheets/vars.scss	/^$pane-border:             #dddddd;$/;"	s
+post-arrow-size	stylesheets/post.vars.scss	/^$arrow-props: $post-arrow-size, white, $pane-border;$/;"	s
+post-arrow-size: 7px	stylesheets/post.vars.scss	/^$post-arrow-size: 7px;$/;"	s
+profile-xs-size: 37px	stylesheets/post.vars.scss	/^$profile-xs-size: 37px;$/;"	s
+prop	stylesheets/mixins.scss	/^@mixin horizontal($prop, $val) {$/;"	s
+prop	stylesheets/mixins.scss	/^@mixin vertical($prop, $val) {$/;"	s
+right	stylesheets/arrows.scss	/^    @if $dir != 'right' { margin-left: 1px; }$/;"	s
+right	stylesheets/arrows.scss	/^  @include arrow("right", $arrow-right, $size, $bg-col, $db-col);$/;"	s
+right	stylesheets/arrows.scss	/^$arrow-left:   top,     bottom,   right;$/;"	s
+right: 	stylesheets/mixins.scss	/^  #{$prop}-right: $val;$/;"	s
+sans-serif	stylesheets/vars.scss	/^$font-family: "Myriad Pro", Myriad, "Liberation Sans", "Nimbus Sans L", "Helvetica Neue", Helvetica, Arial, sans-serif;$/;"	s
+shadow-color:            rgba	stylesheets/vars.scss	/^$shadow-color:            rgba(12, 12, 12, 0.45);$/;"	s
+size	stylesheets/arrows.scss	/^  @include arrow("down", $arrow-down, $size, $bg-col, $db-col);$/;"	s
+size	stylesheets/arrows.scss	/^  @include arrow("left", $arrow-left, $size, $bg-col, $db-col);$/;"	s
+size	stylesheets/arrows.scss	/^  @include arrow("right", $arrow-right, $size, $bg-col, $db-col);$/;"	s
+size	stylesheets/arrows.scss	/^  @include arrow("up", $arrow-up, $size, $bg-col, $db-col);$/;"	s
+size	stylesheets/arrows.scss	/^@mixin arrow($dir, $dirs, $size, $bg-col, $bd-col) {$/;"	s
+size	stylesheets/arrows.scss	/^@mixin arrow-down($size, $bg-col, $db-col) {$/;"	s
+size	stylesheets/arrows.scss	/^@mixin arrow-left($size, $bg-col, $db-col) {$/;"	s
+size	stylesheets/arrows.scss	/^@mixin arrow-right($size, $bg-col, $db-col) {$/;"	s
+size	stylesheets/arrows.scss	/^@mixin arrow-up($size, $bg-col, $db-col) {$/;"	s
+size	stylesheets/mixins.scss	/^@mixin size($dim) {$/;"	s
+size solid 	stylesheets/arrows.scss	/^    border-#{nth($dirs,3)}: $size solid $bg-col;$/;"	s
+size solid transparent	stylesheets/arrows.scss	/^    border-#{nth($dirs,1)}: $size solid transparent;$/;"	s
+size solid transparent	stylesheets/arrows.scss	/^    border-#{nth($dirs,2)}: $size solid transparent;$/;"	s
+size+1 solid 	stylesheets/arrows.scss	/^    border-#{nth($dirs,3)}: $size+1 solid $bd-col;$/;"	s
+size+1 solid transparent	stylesheets/arrows.scss	/^    border-#{nth($dirs,1)}: $size+1 solid transparent;$/;"	s
+size+1 solid transparent	stylesheets/arrows.scss	/^    border-#{nth($dirs,2)}: $size+1 solid transparent;$/;"	s
+span 	stylesheets/bookings.scss	/^      span {$/;"	s
+span 	stylesheets/postcomposer.scss	/^  button, span { float: right; }$/;"	s
+span.booking-date	stylesheets/bookings.scss	/^  span.booking-date, i.fa.booking-status {$/;"	s
+span.booking-date 	stylesheets/bookings.scss	/^  span.booking-date {$/;"	s
+span.booking-status 	stylesheets/bookings.scss	/^  span.booking-status {$/;"	s
+span.end 	stylesheets/postcomposer.scss	/^    span.end {$/;"	s
+span.mssg-time 	stylesheets/post.right.scss	/^  img.profile, span.mssg-time {$/;"	s
+span.start 	stylesheets/postcomposer.scss	/^    span.start {$/;"	s
+sub-size: 27px	stylesheets/bookings.scss	/^  $sub-size: 27px;$/;"	s
+success-green:           #5CB85C	stylesheets/vars.scss	/^$success-green:           #5CB85C;$/;"	s
+top	stylesheets/arrows.scss	/^$arrow-down:   right,   left,     top;$/;"	s
+top: 	stylesheets/mixins.scss	/^  #{$prop}-top: $val;$/;"	s
+ul.dropdown-menu 	stylesheets/pickers.scss	/^      ul.dropdown-menu {$/;"	s
+unselectable 	stylesheets/mixins.scss	/^@mixin unselectable {$/;"	s
+up	stylesheets/arrows.scss	/^  @include arrow("up", $arrow-up, $size, $bg-col, $db-col);$/;"	s
+v-margin	stylesheets/mixins.scss	/^@mixin v-margin($val) { @include vertical(margin, $val); }$/;"	s
+v-padding	stylesheets/mixins.scss	/^@mixin v-padding($val) { @include vertical(padding, $val); }$/;"	s
+val	stylesheets/mixins.scss	/^  #{$prop}-bottom: $val;$/;"	s
+val	stylesheets/mixins.scss	/^  #{$prop}-left: $val;$/;"	s
+val	stylesheets/mixins.scss	/^  #{$prop}-right: $val;$/;"	s
+val	stylesheets/mixins.scss	/^  #{$prop}-top: $val;$/;"	s
+val	stylesheets/mixins.scss	/^@mixin h-margin($val) { @include horizontal(margin, $val); }$/;"	s
+val	stylesheets/mixins.scss	/^@mixin h-padding($val) { @include horizontal(padding, $val); }$/;"	s
+val	stylesheets/mixins.scss	/^@mixin horizontal($prop, $val) {$/;"	s
+val	stylesheets/mixins.scss	/^@mixin v-margin($val) { @include vertical(margin, $val); }$/;"	s
+val	stylesheets/mixins.scss	/^@mixin v-padding($val) { @include vertical(padding, $val); }$/;"	s
+val	stylesheets/mixins.scss	/^@mixin vertical($prop, $val) {$/;"	s
+vertical	stylesheets/mixins.scss	/^@mixin v-margin($val) { @include vertical(margin, $val); }$/;"	s
+vertical	stylesheets/mixins.scss	/^@mixin v-padding($val) { @include vertical(padding, $val); }$/;"	s
+vertical	stylesheets/mixins.scss	/^@mixin vertical($prop, $val) {$/;"	s
+vertical-align: middle	stylesheets/navbar.scss	/^        vertical-align: middle;$/;"	s
+warning-amber:           #F0AD4E	stylesheets/vars.scss	/^$warning-amber:           #F0AD4E;$/;"	s
+white	stylesheets/post.vars.scss	/^$arrow-props: $post-arrow-size, white, $pane-border;$/;"	s
+width: 	stylesheets/mixins.scss	/^  width: $dim;$/;"	s
+width: 	stylesheets/pickers.scss	/^        width: $button-width;$/;"	s
+width: 20px	stylesheets/postcomposer.scss	/^      width: 20px;$/;"	s
+z-index: 1	stylesheets/arrows.scss	/^    z-index: 1;$/;"	s
+z-index: 2	stylesheets/arrows.scss	/^    z-index: 2;$/;"	s
