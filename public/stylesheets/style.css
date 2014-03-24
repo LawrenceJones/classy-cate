@@ -1,1 +1,176 @@
+/*
+ * Name: Classy CATE
+ * Author: Peter Hamilton
+ */
+.navbar {
+  margin-top: 15px; }
+
+.profile-picture-container {
+  max-width: 180px; }
+
+#page-content {
+  min-height: 200px; }
+
+.profile-image {
+  max-width: 120px; }
+
+a i {
+  font-size: 20px;
+  cursor: pointer; }
+
+.centered {
+  text-align: center; }
+
+.list-text {
+  margin-left: 30px; }
+
+.list-icon-container {
+  float: left; }
+
+.section-header {
+  margin-top: 0;
+  font-size: 30px; }
+
+.footer {
+  text-align: center;
+  padding: 30px 0;
+  margin-top: 40px;
+  border-top: 1px solid #E5E5E5;
+  background-color: whiteSmoke; }
+
+#old-cate-button-container {
+  margin-top: 20px; }
+
+select {
+  width: 150px; }
+
+.form-horizontal .control-label {
+  width: 60px; }
+
+.form-horizontal .controls {
+  margin-left: 80px; }
+
+th.grade-column {
+  width: 20%;
+  min-width: 130px; }
+
+#grading-schema-modal {
+  width: 300px;
+  margin-left: -150px; }
+  #grading-schema-modal .close {
+    margin-top: -5px; }
+  #grading-schema-modal .progress {
+    margin-bottom: 0px; }
+
+.module_table tr {
+  height: 30px; }
+  .module_table tr td {
+    vertical-align: middle; }
+
+#exercises_table > tbody > tr > td {
+  vertical-align: middle; }
+  #exercises_table > tbody > tr > td .btn {
+    margin-right: 10px;
+    margin-left: 5px; }
+
+#exercises_template > tbody > tr > td {
+  vertical-align: middle; }
+
+td.id {
+  width: 10%;
+  text-align: center; }
+
+td.name {
+  width: 35%;
+  padding-left: 5px; }
+
+td.set, td.due, td.spec, td.given {
+  text-align: center;
+  width: 13.75%; }
+
+.exercise-navigation-btn i {
+  line-height: 20px !important; }
+
+#exercise-nav {
+  float: right;
+  display: inline;
+  margin-top: 3px;
+  position: relative; }
+
+#term-selector {
+  float: right; }
+
+#class-selector {
+  float: left;
+  margin-right: 15px; }
+
+#ex-go-btn {
+  float: right; }
+
+#current-class {
+  margin: 5px 0px 0px 0px; }
+
+#fade {
+  background-color: black;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 1; }
+
+#notesContent {
+  background: white;
+  position: absolute;
+  width: 500px;
+  top: 20%;
+  left: 50%;
+  margin-left: -250px;
+  box-shadow: 0 0 20px black;
+  z-index: 2; }
+
+#notesContent th {
+  height: 35px; }
+
+#notesContent th.id, #givens-table th.id {
+  width: 15px; }
+
+.term-navigation {
+  margin-top: 4px;
+  float: right; }
+
+.wide_table {
+  width: 100%; }
+
+.timeline_toggle {
+  float: right;
+  margin-top: 6px;
+  cursor: pointer; }
+
+.timeline_toggle:hover {
+  color: #0988BD; }
+
+div[class="tooltip-inner"] {
+  font-weight: normal;
+  line-height: 20px; }
+
+.timeline_slider {
+  position: relative;
+  width: 100%; }
+
+#exercises_table th {
+  text-align: center; }
+
+#exercises_table td {
+  vertical-align: middle; }
+
+#exercises_table .module {
+  width: 23%; }
+
+#exercises_table .id_name {
+  width: 40%; }
+
+.due_label {
+  width: 45px; }
 

@@ -44,6 +44,7 @@ clean:
 	@-echo "Cleaning *.js files"
 	@-rm -f $(LIB)
 	@-rm -f $(ASSETS)
+	@-rm -rf target/*
 
 # Phony rebuild target
 rebuild: clean all
