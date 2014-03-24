@@ -1,5 +1,3 @@
-mongoose = require 'mongoose'
-
 module.exports = (app) ->
 
   app.use '/api', (req, res, next) ->
