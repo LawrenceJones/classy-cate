@@ -1,4 +1,15 @@
-.container
+mixin scripts
+  script(src='/lib/jquery/dist/jquery.js')
+  script(src='/lib/angular/angular.js')
+  script(src='/lib/bootstrap/dist/js/bootstrap.js')
+  script(src='/js/app.js')
+
+mixin stylesheets
+  link(rel='stylesheet', type='text/css', href='/lib/bootstrap/dist/css/bootstrap.css')
+  link(rel='stylesheet', type='text/css', href='/lib/font-awesome/css/font-awesome.css')
+  link(rel='stylesheet', type='text/css', href='/css/app.css')
+
+mixin navbar
   .navbar
     .navbar-inner
       .container
@@ -29,20 +40,35 @@
                 span Change Year
                 b.caret
               ul#cc-year-dropdown.dropdown-menu(role='menu')
-  #page-content
-  .row
-    #old-cate-button-container.span12.centered
-      span#old-cate-button.btn.btn-mini But I liked the old CATE&excl;
-footer.footer
-  .container
-    p
-      | Created out of frustration and &heartsuit; by
-      a(href='http://pete-hamilton.co.uk') Pete Hamilton &NonBreakingSpace;
-      a(href='http://www.twitter.com/peterejhamilton')
-        i.icon-twitter
-      a(href='http://www.github.com/petehamilton')
-        i.icon-github
-    p
-      | This journey is 1&percnt; finished&period; Help lessen the pain -
-      a(href='https://github.com/petehamilton/classy-cate')
-        i.icon-github-alt
+
+mixin footer
+  footer.footer
+    .container
+      p
+        | Created out of frustration and &heartsuit; by
+        a(href='http://pete-hamilton.co.uk') Pete Hamilton &NonBreakingSpace;
+        a(href='http://www.twitter.com/peterejhamilton')
+          i.icon-twitter
+        a(href='http://www.github.com/petehamilton')
+          i.icon-github
+      p
+        | This journey is 1&percnt; finished&period; Help lessen the pain -
+        a(href='https://github.com/petehamilton/classy-cate')
+          i.icon-github-alt
+
+doctype html
+html(lang='en-US', ng-app='classy')
+  head
+    title Classy
+    +stylesheets()
+  body
+    include components/navbar
+    .background
+      .container(ui-view)
+        +navbar()
+        #page-content
+        .row
+          #old-cate-button-container.span12.centered
+            span#old-cate-button.btn.btn-mini But I liked the old CATE&excl;
+      +footer()
+  +scripts()
