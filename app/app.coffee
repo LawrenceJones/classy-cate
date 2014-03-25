@@ -3,6 +3,7 @@ express    = require 'express'
 fs         = require 'fs'
 path       = require 'path'
 cheerio    = require 'cheerio'
+jwt        = require 'express-jwt'
 
 # Local modules
 config   = require './config'
@@ -22,12 +23,15 @@ app = (configure = (app, config) ->
   app.use express.json()                                    # json
   app.use express.urlencoded()                              # params
 
+  # Decode the user credentials
+  ## app.use '/api', jwt
+  ##   secret: config.express.SECRET
+
   # For testing, configure auth_header on req
   app.use '/api', (req, res, next) ->
-    req.creds =
+    req.user =
       user: config.cate.USER
       pass: config.cate.PASS
-      sendImmediately: true
     next()
 
   # Live compilation, shouldn't be used in production

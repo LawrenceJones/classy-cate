@@ -10,3 +10,4 @@ copyTl.sh
 creds
 public/lib
 tags
+node_modules

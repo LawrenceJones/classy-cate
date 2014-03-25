@@ -19,7 +19,8 @@
     "express-jwt": "^0.2.0",
     "bcrypt-nodejs": "0.0.3",
     "jsonwebtoken": "^0.1.0",
-    "cheerio": "^0.13.1"
+    "cheerio": "^0.13.1",
+    "jquery": "^2.1.0"
   },
   "devDependencies": {},
   "engines": {

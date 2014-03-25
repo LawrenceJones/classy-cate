@@ -2,6 +2,12 @@
  * Name: Classy CATE
  * Author: Peter Hamilton
  */
+html, body, .background {
+  height: 100%; }
+
+body {
+  position: relative; }
+
 .navbar {
   margin-top: 15px; }
 
@@ -36,10 +42,15 @@ a i {
   padding: 30px 0;
   margin-top: 40px;
   border-top: 1px solid #E5E5E5;
-  background-color: whiteSmoke; }
-
-#old-cate-button-container {
-  margin-top: 20px; }
+  background-color: whiteSmoke;
+  bottom: 0px;
+  position: absolute;
+  width: 100%; }
+  .footer .old-cate.btn {
+    width: 180px;
+    margin-left: -90px;
+    margin-top: -80px;
+    position: absolute; }
 
 select {
   width: 150px; }
