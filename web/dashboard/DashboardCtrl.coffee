@@ -1,10 +1,11 @@
 classy = angular.module 'classy'
 
-classy.factory 'Dashboard', (CateResource, $rootScope) ->
-  class Dashboard extends CateResource('/api/dashboard')
+classy.factory 'Dashboard', (CateResource, $rootScope, $q) ->
+  return class Dashboard extends CateResource('/api/dashboard')
     @get: ->
       promise = super
       promise.then (res) ->
+        cached = res
         $rootScope.available_years = res.available_years
       return promise
 

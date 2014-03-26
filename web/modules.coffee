@@ -31,8 +31,10 @@ classy.config [
 
 ]
 
-classy.run ['$state', '$rootScope', ($state, $rootScope) ->
-  $state.transitionTo 'dashboard'
+classy.run ['$state', '$rootScope', 'Dashboard'
+  ($state, $rootScope, Dashboard) ->
+    Dashboard.get()
+    $state.transitionTo 'dashboard'
 ]
   
 
