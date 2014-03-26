@@ -29,7 +29,8 @@
 #     {views}/layout.jade
 #
 #     GET /partials/:name
-#     {views}/:name/:name.jade
+#     {views}/:name.jade          <- 1st preference
+#     {views}/:name/:name.jade    <- fallback
 #
 #     GET /partials/:name/:file.jade
 #     {views}/:name/:file.jade
@@ -56,17 +57,21 @@ module.exports = (options) ->
 
   genPath = (name, file) ->
     if name and file
-      path.join options.views, name, "#{file}.jade"
+      return [path.join options.views, name, "#{file}.jade"]
     else if name
-      path.join options.views, name, "#{name}.jade"
+      inViews = path.join options.views, "#{name}.jade"
+      inDir = path.join options.views, name, "#{name}.jade"
+      return [inViews, inDir]
     else
-      path.join options.views, 'layout.jade'
+      [path.join options.views, 'layout.jade']
 
   (req, res, next) ->
     if (/get/i.test req.method) and (urlRex.test req.path)
       [_,_,name,_,file] = req.path.match urlRex
-      if jpath = genPath name, file
-        return res.send jade.renderFile jpath
+      if jpaths = genPath name, file
+        for jpath in jpaths
+          if fs.existsSync jpath
+            return res.send jade.renderFile jpath
     do next
       
             
