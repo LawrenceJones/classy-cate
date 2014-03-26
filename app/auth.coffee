@@ -1,5 +1,6 @@
 jwt = require 'jsonwebtoken'
 config = require './config'
+Cate = require './cate'
 
 module.exports = (app) ->
 
@@ -13,17 +14,22 @@ module.exports = (app) ->
     reject = (res, mssg) ->
       res.send 401, mssg || 'Invalid email/pass'
 
-    creds = [email, pass] = [req.body.email, req.body.pass]
+    creds = [user, pass] = [req.body.user, req.body.pass].map (c) ->
+      c.replace /(^[\r\n\s]*)|([\r\n\s]*$)/g, ''
     valid = creds.reduce((a,c) ->
       a && c? && typeof c == 'string' && c != ''
     , true)
     if not valid then reject res, 'Either email or pass not supplied'
     else
-      token = jwt.sign {
-        user: req.body.user
-        pass: req.body.pass
-      }, config.express.SECRET, {expiresInMinutes: 60*1}
-      res.json token
+      authed = Cate.auth user, pass
+      authed.then ->
+        token = jwt.sign {
+          user: req.body.user
+          pass: req.body.pass
+        }, config.express.SECRET, {expiresInMinutes: 60*1}
+        res.json token
+      authed.catch (err) ->
+        reject res, 'Authentication failed'
 
 
 

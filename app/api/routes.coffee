@@ -1,11 +1,8 @@
-$q = require 'q'
-
 Dashboard = require '../cate/dashboard'
 Exercises = require '../cate/exercises'
-
-grades    = require './grades'
-notes     = require './notes'
-givens    = require './givens'
+Givens    = require '../cate/givens'
+Notes     = require '../cate/notes'
+Grades    = require '../cate/grades'
 
 module.exports = (app) ->
 
@@ -13,7 +10,10 @@ module.exports = (app) ->
     Dashboard.get req, res
   app.get '/api/exercises', (req, res) ->
     Exercises.get req, res
-  app.get '/api/grades', grades.getGrades
-  app.get '/api/notes', notes.getNotes
-  app.get '/api/givens', givens.getGivens
+  app.get '/api/givens', (req, res) ->
+    Givens.get req, res
+  app.get '/api/notes', (req, res) ->
+    Notes.get req, res
+  app.get '/api/grades', (req, res) ->
+    Grades.get req, res
 

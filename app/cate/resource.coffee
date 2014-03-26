@@ -1,7 +1,7 @@
 $ = require 'cheerio'
 request = require 'request'
 
-class CateResource
+module.exports = class CateResource
 
   @cateResource: true
 
@@ -29,6 +29,4 @@ class CateResource
       }) 'body'
       cate_res = new @ $page
       res.json cate_res.data
-
-module.exports = CateResource
 

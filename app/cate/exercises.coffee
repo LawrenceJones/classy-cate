@@ -114,7 +114,7 @@ process_exercise_cells = ($cells, module_name, dates) ->
   return exercises.sort (a,b) ->
     if a.start < b.start then -1 else 1
 
-class Exercises extends CateResource
+module.exports = class Exercises extends CateResource
 
   # Extracts the table containing exercises
   getTimetable: ->
@@ -208,4 +208,3 @@ class Exercises extends CateResource
   @url: ->
     'https://cate.doc.ic.ac.uk/timetable.cgi?period=3&class=c2&keyt=2013%3Anone%3Anone%3Almj112'
 
-module.exports = Exercises

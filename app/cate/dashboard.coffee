@@ -1,7 +1,7 @@
 $ = require 'cheerio'
 CateResource = require './resource'
 
-class Dashboard extends CateResource
+module.exports = class Dashboard extends CateResource
 
   getVersion: ->
     version = @$page
@@ -113,6 +113,4 @@ class Dashboard extends CateResource
 
   @url: (req) ->
     'https://cate.doc.ic.ac.uk'
-
-module.exports = Dashboard
 
