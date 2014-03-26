@@ -1,11 +1,11 @@
-cheerio = require 'cheerio'
+$ = require 'cheerio'
 request = require 'request'
 
 class CateResource
 
   @cateResource: true
 
-  constructor: (@$, @$page) ->
+  constructor: (@$page) ->
     @data = {}
     do @parse
 
@@ -23,11 +23,11 @@ class CateResource
         pass: req.user.pass
         sendImmediately: true
     request options, (err, data, body) =>
-      $ = cheerio.load body, {
+      $page = ($.load body, {
         xmlMode: true
         lowerCaseTags: true
-      }
-      cate_res = new @ $, $ 'body'
+      }) 'body'
+      cate_res = new @ $page
       res.json cate_res.data
 
 module.exports = CateResource

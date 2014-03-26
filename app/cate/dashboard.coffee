@@ -1,3 +1,4 @@
+$ = require 'cheerio'
 CateResource = require './resource'
 
 class Dashboard extends CateResource
@@ -25,18 +26,18 @@ class Dashboard extends CateResource
       .elemAt 'table', 1
       .elemAt 'tr', 1
       .find 'td'
-      .map (i, e) => @$(e).text()
+      .map (i, e) -> $(e).text()
 
   getAvailableYears: ->
     yearText = {}
     available_years = @$page
       .find('select[name=newyear] option')[1..]
       .map (index, elem) =>
-        val = @$(elem)
+        val = $(elem)
           .attr('value')
           .match(/keyp=(\d+)/)[1]
         year = parseInt val, 10
-        yearText[year] = @$(elem).html()
+        yearText[year] = $(elem).html()
     available_years = Object.keys yearText
 
   getLinks: ->
@@ -46,7 +47,7 @@ class Dashboard extends CateResource
       .find 'tr'
 
     hrefs = other_func_links.map (i, r) =>
-      h = @$(r).find('a').attr 'href'
+      h = $(r).find('a').attr 'href'
 
   getClass: ->
     klass = @$page.find('input[name=class]:checked').val()
