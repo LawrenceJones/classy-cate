@@ -1,73 +1,56 @@
-#module_template.module_table.hidden
+mixin module-collection(cname)
+  .col-md-12(ng-repeat!='module in '+cname)
+    h3.module-title {{ module.name }}
+    table.table.table-striped.table-bordered.module-grades
+      tr
+        th ID
+        th Type
+        th Title
+        th Set By
+        th Declaration
+        th Extension
+        th Submission
+        th.grade-column Grade
+      tr(ng-repeat!='ex in module.exercises')
+        td {{ ex.id }}
+        td {{ ex.type }}
+        td {{ ex.title }}
+        td {{ ex.set_by }}
+        td {{ ex.declaration }}
+        td {{ ex.extension }}
+        td {{ ex.submission }}
+        td
+          .progress.grade-bar(data-grade!='ex.grade')
+            .bar {{ ex.grade }}
+
+mixin stat-row(label, binding)
+  tr
+    td
+      b= label
+    td
+      span= '{{ ' + binding + ' }}'
+          
+.grades(ng-controller='GradesCtrl')
+  .row(ng-show!='grades.optional_modules.length + grades.required_modules.length == 0')
+    h2 No published grades.
+  .row(ng-show!='grades.required_modules.length > 0')
+    .col-md-12
+      h2 Grades for Required Modules
+      +module-collection('grades.required_modules')
+  .row(ng-show!='grades.optional_modules.length > 0')
+    .col-md-12
+      h2 Grades for Optional Modules
+      +module-collection('grades.optional_modules')
   .row
-    .span12
-      h3.module-title
-      table.table.table-striped.table-bordered.module-grades
+    .col-md-6
+      h2 Key&quest;
+      table.table.table-bordered
         tr
-          th ID
-          th Type
-          th Title
-          th Set By
-          th Declaration
-          th Extension
-          th Submission
-          th.grade-column Grade
-#exercise_template.hidden
-  table
-    tr
-      td
-        span.exercise-id
-      td
-        span.exercise-type
-      td
-        span.exercise-title
-      td
-        span.exercise-set-by
-      td
-        span.exercise-declaration
-      td
-        span.exercise-extension
-      td
-        span.exercise-submission
-      td
-        .exercise-grade-container
-          .progress
-            .bar
-              .exercise-grade
-.row
-  .span12
-    h2 Grades for Required Modules
-    #cc-required-modules
-.row
-  .span12
-    h2 Grades for Optional Modules
-    #cc-optional-modules
-.row
-  .span6
-    h2 Key&quest;
-    table.table.table-bordered
-      tr
-        td Coming Soon
-  .span6
-    h2 Stats
-    table.table.table-bordered
-      tr
-        td
-          b Subscription Last Updated
-        td
-          span#cc-subscription-updated
-      tr
-        td
-          b Submissions Completed
-        td
-          span#cc-submissions-completed
-      tr
-        td
-          b Submissions Extended
-        td
-          span#cc-submissions-extended
-      tr
-        td
-          b Submissions Late
-        td
-          span#cc-submissions-late
+          td Coming Soon
+    .col-md-6
+      h2 Stats
+      table.table.table-bordered
+        +stat-row('Subscription Last Updated', 'stats.subscription_last_updated')
+        +stat-row('Submissions Completed', 'stats.submissions_completed')
+        +stat-row('Submissions Extended', 'stats.submissions_extended')
+        +stat-row('Submissions Late', 'stats.submissions_late')
