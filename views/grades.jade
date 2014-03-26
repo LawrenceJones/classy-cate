@@ -20,8 +20,7 @@ mixin module-collection(cname)
         //td.ext {{ ex.extension }}
         td.sub {{ ex.submission }}
         td
-          .progress.grade-bar(data-grade!='ex.grade')
-            .bar {{ ex.grade }}
+          .grade-bar(data-grade!='ex.grade')
 
 mixin stat-row(label, binding)
   tr
@@ -48,7 +47,7 @@ mixin stat-row(label, binding)
     .col-md-6
       h2 Stats
       table.table.table-bordered
-        +stat-row('Subscription Last Updated', 'stats.subscription_last_updated')
-        +stat-row('Submissions Completed', 'stats.submissions_completed')
-        +stat-row('Submissions Extended', 'stats.submissions_extended')
-        +stat-row('Submissions Late', 'stats.submissions_late')
+        +stat-row('Subscription Last Updated', 'grades.stats.subscription_last_updated')
+        +stat-row('Submissions Completed', 'grades.stats.submissions_completed')
+        +stat-row('Submissions Extended', 'grades.stats.submissions_extended')
+        +stat-row('Submissions Late', 'grades.stats.submissions_late')
