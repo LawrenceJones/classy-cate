@@ -6,6 +6,13 @@
   max-width: 180px;
 }
 
+/* Table containing user details */
+table.user-details {
+  .label-row {
+    width: 210px;
+  }
+}
+
 /* Links to other cate functionality */
 ul.other-links {
   li.list-group-item {

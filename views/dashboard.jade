@@ -9,7 +9,7 @@ mixin detail-row(label, binding)
 
 mixin details-table
   h1.section-header Identity
-  table.table.table-bordered.table-striped
+  table.user-details.table.table-bordered.table-striped
     tbody
       +detail-row('First Name', 'dashboard.first_name')
       +detail-row('Last Name', 'dashboard.last_name')
@@ -81,28 +81,29 @@ mixin exercises-nav
           +list-anchor('r6', 'PhD')
           +list-anchor('ext', 'External')
 
-.row
-  .col-md-8
-    +details-table()
-  .col-md-4
-    +other-links()
-hr
-.row
-  .col-md-12
-    h1.section-header
-      | Exercises
-      +exercises-nav()
-    h3 Due in next week...
-    table.exercises-table.table.table-hover.wide_table.module_table.table-striped.table-bordered.hidden
-      tr
-        th.module Module
-        th.id-name ID - Name
-        th.small Due On
-        th.small Spec Link
-        th.small Given link
-      tr.hide
-        td.id(style='text-align : left') NA
-        td.name(style='text-align : left') NA
-        td.due NA
-        td.spec NA
-        td.given NA
+.dashboard(ng-controller='DashboardCtrl')
+  .row
+    .col-md-8
+      +details-table()
+    .col-md-4
+      +other-links()
+  hr
+  .row
+    .col-md-12
+      h1.section-header
+        | Exercises
+        +exercises-nav()
+      h3 Due in next week...
+      table.exercises-table.table.table-hover.wide_table.module_table.table-striped.table-bordered.hidden
+        tr
+          th.module Module
+          th.id-name ID - Name
+          th.small Due On
+          th.small Spec Link
+          th.small Given link
+        tr.hide
+          td.id(style='text-align : left') NA
+          td.name(style='text-align : left') NA
+          td.due NA
+          td.spec NA
+          td.given NA
