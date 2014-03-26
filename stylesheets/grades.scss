@@ -1,6 +1,26 @@
-th.grade-column {
-  width: 20%;
-  min-width: 130px
+table.module-grades {
+  .id {
+    width: 5%;
+  }
+  .title {
+    width: 35%;
+  }
+  .set {
+    width: 10%;
+  }
+  .sub {
+    overflow: hidden;
+    width: 25%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  th.grade-column {
+    width: 20%;
+    min-width: 100px;
+  }
+  .progress {
+    margin-bottom: 0px;
+  }
 }
 
 #grading-schema-modal {

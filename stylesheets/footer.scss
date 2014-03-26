@@ -1,0 +1,20 @@
+.footer {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  height: 126px;
+  width: 100%;
+  text-align: center;
+  padding: 30px 0;
+  margin-top: 40px;
+  border-top: 1px solid #E5E5E5;
+  background-color: whiteSmoke;
+  .old-cate.btn {
+    $old-btn-width: 180px;
+    width: $old-btn-width;
+    margin-left: -$old-btn-width/2;
+    margin-top: -80px;
+    position: absolute;
+  }
+}
+

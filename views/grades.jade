@@ -1,24 +1,24 @@
 mixin module-collection(cname)
-  .col-md-12(ng-repeat!='module in '+cname)
+  div(ng-repeat!='module in '+cname)
     h3.module-title {{ module.name }}
     table.table.table-striped.table-bordered.module-grades
       tr
-        th ID
-        th Type
-        th Title
-        th Set By
-        th Declaration
-        th Extension
-        th Submission
+        th.id ID
+        //th.type Type
+        th.title Title
+        th.set Set By
+        //th.dec Declaration
+        //th.ext Extension
+        th.sub Submission
         th.grade-column Grade
       tr(ng-repeat!='ex in module.exercises')
-        td {{ ex.id }}
-        td {{ ex.type }}
-        td {{ ex.title }}
-        td {{ ex.set_by }}
-        td {{ ex.declaration }}
-        td {{ ex.extension }}
-        td {{ ex.submission }}
+        td.id {{ ex.id }}
+        //td.type {{ ex.type }}
+        td.title {{ ex.title }}
+        td.set {{ ex.set_by }}
+        //td.dec {{ ex.declaration }}
+        //td.ext {{ ex.extension }}
+        td.sub {{ ex.submission }}
         td
           .progress.grade-bar(data-grade!='ex.grade')
             .bar {{ ex.grade }}
@@ -31,8 +31,6 @@ mixin stat-row(label, binding)
       span= '{{ ' + binding + ' }}'
           
 .grades(ng-controller='GradesCtrl')
-  .row(ng-show!='grades.optional_modules.length + grades.required_modules.length == 0')
-    h2 No published grades.
   .row(ng-show!='grades.required_modules.length > 0')
     .col-md-12
       h2 Grades for Required Modules

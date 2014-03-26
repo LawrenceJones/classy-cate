@@ -8,8 +8,10 @@ text_extract = ($elem) ->
 
 # Extracts header info.
 process_header_row = ($row) ->
+  if $row.find('td').length < 4 then return
+  if (name = text_extract $row.elemAt 'td', 0).trim() == '' then return
   # TODO: Regex out the fluff
-  name: text_extract $row.elemAt 'td', 0
+  name: name
   term: text_extract $row.elemAt 'td', 1
   submission: text_extract $row.elemAt 'td', 2
   level: text_extract $row.elemAt 'td', 3
@@ -17,6 +19,7 @@ process_header_row = ($row) ->
 
 # Extracts submission details from jQuery $row.
 process_grade_row = ($row) ->
+  if (name = $row.elemAt('td', 2).text().trim()) == '' then return
   id:           parseInt(text_extract $row.elemAt('td',  0))
   type:         text_extract  $row.elemAt  'td',  1
   title:        text_extract  $row.elemAt  'td',  2
@@ -39,10 +42,11 @@ extract_modules = ($table) ->
     if tds.length > 1 # Ignore spacer/empty rows
       if $(tds[0]).attr('colspan')
         current_module = process_header_row $row_elem
-        modules.push current_module
+        modules.push current_module if current_module?
       else
-        current_module.exercises.push process_grade_row $row_elem
-  return modules
+        ex = process_grade_row $row_elem
+        current_module.exercises.push ex if ex?
+  return modules.filter (m) -> m.exercises.length > 0
 
 module.exports = class Grades extends CateResource
 

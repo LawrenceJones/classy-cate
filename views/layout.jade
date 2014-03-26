@@ -16,8 +16,9 @@ html(lang='en-US', ng-app='classy')
     title Classy
     +stylesheets()
   body
-    .container
-      include navbar
-      #page-content(ui-view)
-    include footer
+    .wrapper
+      .container
+        include navbar
+        #page-content(ui-view)
+      include footer
   +scripts()
