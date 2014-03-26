@@ -13,13 +13,17 @@ classy.config [
     # Include http authorization middleware
     $httpProvider.interceptors.push 'authInterceptor'
 
-    # Routing home
     $stateProvider.state 'dashboard', {
       url: '/'
       templateUrl: '/partials/dashboard'
     }
 
-    # Routing for login
+    $stateProvider.state 'grades', {
+      url: '/grades'
+      templateUrl: '/partials/grades'
+    }
+
+
     $stateProvider.state 'login', {
       url: '/login'
       templateUrl: '/partials/login'
