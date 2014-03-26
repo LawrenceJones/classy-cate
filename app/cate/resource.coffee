@@ -3,6 +3,8 @@ request = require 'request'
 
 class CateResource
 
+  @cateResource: true
+
   constructor: (@$, @$page) ->
     @data = {}
     do @parse
@@ -12,6 +14,8 @@ class CateResource
 
   # GET handler for requesting information
   @get: (req, res) ->
+    if not @cateResource
+      throw Error 'Must be called from CateResource'
     options =
       url: @url req
       auth:

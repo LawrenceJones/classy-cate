@@ -1,4 +1,5 @@
 CateResource = require './resource'
+$ = require 'cheerio'
 
 # Converts a CATE style date into a JS Date object
 # e.g. '2013-1-7' -> Mon Jan 07 2013 00:00:00 GMT+0000 (GMT)
@@ -20,9 +21,9 @@ month_to_int = (m) ->
 # Extracts months from table row
 # e.g. ["January", "February", "March"]
 # $tr - The Timetable table row jQuery Object
-extract_months = ($tr, $ = require 'jquery') ->
-  $th = ($(cell) for cell in $tr.find('th'))
-  $month_cells = ($ c for c in $th when c.attr('bgcolor') == "white")
+extract_months = ($tr) ->
+  headers = ($(cell) for cell in $tr.find('th'))
+  $month_cells = ($ c for c in headers when $(c).attr('bgcolor') == "white")
   month_names = (c.text().replace(/\s+/g, '') for c in $month_cells)
   month_ids = month_names.map month_to_int
   return month_ids
@@ -30,12 +31,11 @@ extract_months = ($tr, $ = require 'jquery') ->
 # Extracts days from table row
 # e.g. ["1", "2", "3"]
 # $tr - The Timetable table row jQuery Object
-extract_days = ($tr, $ = require 'jquery') ->
+extract_days = ($tr) ->
   $th = ($(cell) for cell in $tr.find('th'))
   days_text = (c.text() for c in $th)
   valid_days = (d for d in days_text when d.replace(/\s+/g, '') != '')
-  days_as_ints = valid_days.map (d) -> parseFloat d, 10
-  return days_as_ints
+  valid_days.map (d) -> parseFloat d, 10
 
 # Extracts module details from a cell jQuery object
 process_module_cell = ($cell) ->
@@ -46,59 +46,79 @@ process_module_cell = ($cell) ->
     notesLink : $cell.find('a').eq(0).attr('href')
   }
 
+process_exercise_cell = ($ex_cell, current_date, colSpan) ->
+
+  # Extracts both id and type of exercise, returns [id, type]
+  extract_id_type = ->
+    $ex_cell # [id, type]
+      .elemAt('b', 0)
+      .text().split(':')
+
+  # Extracts the links
+  extract_hrefs = ->
+    links = {}
+    rexs =
+      mailto:  /mailto/i
+      spec:    /SPECS/i
+      givens:  /given/i
+      handin:  /handins/i
+    $ex_cell
+      .find('a')
+      .toArray()
+      .reduce ((a,c) ->
+        $c = $ c; if $c.attr('href')? then a.push $c.attr 'href'; a), []
+      .map (href) ->
+        for own k,rex of rexs
+          links[k] ?= if rex.test href then href else null
+    return links
+
+  [id, type] = extract_id_type $ex_cell
+  hrefs = extract_hrefs()
+
+  name = $ex_cell
+    .text()[(id.length + type.length + 2)..]
+    .replace(/[\s\n\r\b]*$/, '')
+  end = new Date(current_date.getTime())
+  end.setDate(end.getDate() + colSpan - 1)
+
+  id: id, type: type, name: name
+  start: new Date(current_date.getTime()), end: end
+  mailto: hrefs.mailto, spec: hrefs.spec
+  givens: hrefs.givens, handin: hrefs.handin
+
+
 # Add the parsed exercises to the given module
 # module - the module to attach the exercises to
 # exercise_cells - An array of cells (jQuery objects)
-populate_exercises_from_cells = (_module, exercise_cells, $ = require 'jquery') ->
-  if not exercise_cells? then return null
-  _module.exercises ?= []
+process_exercise_cells = ($cells, module_name, dates) ->
+
+  if not $cells? then return null
+  exercises = []
 
   current_date = parse_date dates.start
   current_date.setDate(current_date.getDate() - dates.colBufferToFirst)
 
-  exercise_cells.map (ex_cell) ->
-    colSpan = parseInt($(ex_cell).attr('colspan') ? 1)
+  for ex_cell in $cells
+    $ex_cell = $ ex_cell
+
+    colSpan = parseInt($ex_cell.attr('colspan') ? 1)
     colSpan = 1 if colSpan == NaN
-    if $(ex_cell).attr('bgcolor')? and $(ex_cell).find('a').length != 0
-      [id, type] = $(ex_cell)
-        .elemAt('b', 0)
-        .text().split(':')
-      hrefs = $(ex_cell)
-        .find('a')
-        .reduce ((a,c) ->
-          $c = $ c; if $c.attr('href')? then a.push $c; a), []
-      [mailto, spec, givens, handin] = [null, null, null, null]
-      for href in hrefs
-        if /mailto/i.test(href)
-          mailto = href
-        else if /SPECS/i.test(href)
-          spec = href
-        else if /given/i.test(href)
-          givens = href
-        else if /handins/i.test(href)
-          handin = href
 
-      name = $(ex_cell)
-        .text()[(id.length + type.length + 2)..]
-        .replace(/^\s+|\s+$/g,'')
-      name = $(ex_cell).text()
-      end = new Date(current_date.getTime())
-      end.setDate(end.getDate() + colSpan - 1)
-      exercise_data = {
-        id: id, type: type, name: name
-        moduleName : _module.name
-        start: new Date(current_date.getTime()), end: end
-        mailto: mailto, spec: spec, givens: givens, handin: handin
-      }
+    if $ex_cell.attr('bgcolor')? and $ex_cell.find('a').length != 0
+      ex = process_exercise_cell $ex_cell, current_date, colSpan
+      ex.moduleName = module_name
+      exercises.push ex
 
-      _module.exercises.push(exercise_data)
     current_date.setDate (current_date.getDate() + colSpan)
+
+  return exercises.sort (a,b) ->
+    if a.start < b.start then -1 else 1
 
 class Exercises extends CateResource
 
   # Extracts the table containing exercises
   getTimetable: ->
-    (@$ tb for tb in @$page.find('table') when $(tb).attr('border') == "0")[0]
+    ($ tb for tb in @$page.find('table') when $(tb).attr('border') == "0")[0]
 
   # Extracts full title e.g. Spring Term 2012-2013
   getTermTitle: ->
@@ -127,12 +147,12 @@ class Exercises extends CateResource
 
     year = if first_month < 9 then years[1] else years[0]
 
-    day_headers = $full_table
+    day_headers = $timetable
       .elemAt('tr', 2)
       .find('th')
 
     col_buf = 0
-    col_buf += 1 while @$(day_headers[col_buf]).is(":empty")
+    col_buf += 1 while $(day_headers[col_buf]).is(":empty")
 
     [first_day, others..., last_day] =
       extract_days $timetable.find('tr').eq(2)
@@ -143,7 +163,7 @@ class Exercises extends CateResource
       colBufferToFirst: col_buf - 1
     }
 
-  getModules: ->
+  getModules: (dates) ->
 
     $timetable = @getTimetable()
 
@@ -152,7 +172,7 @@ class Exercises extends CateResource
     is_module = ($elem) ->
       $elem.find('font').attr('color') == "blue"
 
-    allRows = $full_table.find('tr')
+    allRows = $timetable.find('tr')
     modules = []
     count = 0
     while count < allRows.length
@@ -171,9 +191,9 @@ class Exercises extends CateResource
         $ex_cells.push($(current_row).find('td')[4..])
         $ex_cells = (cs for cs in $ex_cells when cs?)
 
-        process_exercises_from_cells(module_data, cells) for cells in $ex_cells
-        module_data.exercises.sort (a,b) ->
-          if a.start < b.start then -1 else 1
+        ex_chunks = $ex_cells.map (cells) ->
+          process_exercise_cells cells, module_data.name, dates
+        module_data.exercises = [].concat ex_chunks...
         modules.push module_data
       count += following_row_count + 1
     return modules
@@ -182,8 +202,10 @@ class Exercises extends CateResource
     dates = @getStartEndDates()   # WRONG
     @data =
       start : dates.start, end : dates.end
-      modules : @getModules()
+      modules : @getModules dates
       term_title : @getTermTitle()
 
   @url: ->
     'https://cate.doc.ic.ac.uk/timetable.cgi?period=3&class=c2&keyt=2013%3Anone%3Anone%3Almj112'
+
+module.exports = Exercises

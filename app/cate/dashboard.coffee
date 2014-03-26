@@ -84,7 +84,7 @@ class Dashboard extends CateResource
     available_years = @getAvailableYears()
 
     timetable_url =
-      "/timetable.cgi?period=#{klass.period}&class=#{klass.klass}&keyt=#{keyt}"
+      "/timetable.cgi?period=#{period}&class=#{klass}&keyt=#{keyt}"
 
     @data =
       # current_url: current_url
