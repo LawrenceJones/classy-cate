@@ -16,7 +16,6 @@ classy.config [
     # Routing home
     $stateProvider.state 'dashboard', {
       url: '/'
-      abstract: true
       templateUrl: '/partials/dashboard'
     }
 

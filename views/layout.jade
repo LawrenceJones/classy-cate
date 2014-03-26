@@ -1,6 +1,7 @@
 mixin scripts
   script(src='/lib/jquery/dist/jquery.js')
   script(src='/lib/angular/angular.js')
+  script(src='/lib/angular-ui-router/release/angular-ui-router.js')
   script(src='/lib/bootstrap/dist/js/bootstrap.js')
   script(src='/js/app.js')
 
@@ -15,8 +16,8 @@ html(lang='en-US', ng-app='classy')
     title Classy
     +stylesheets()
   body
-    .container(ui-view)
+    .container
       include navbar
-      #page-content
+      #page-content(ui-view)
     include footer
   +scripts()

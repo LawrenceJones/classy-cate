@@ -1,0 +1,15 @@
+#notesContent {
+  background : white;
+  position:absolute;
+  width:500px; top:20%;left:50%;
+  margin-left:-250px;
+  box-shadow: 0 0 20px black; z-index:2;
+}
+
+#notesContent th {
+  height : 35px;
+}
+#notesContent th.id, #givens-table th.id {
+  width : 15px;
+}
+

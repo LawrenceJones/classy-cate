@@ -2,150 +2,107 @@ include grading_schema
 
 mixin detail-row(label, binding)
   tr
-    td
+    td.label-row
       b= label
     td
       span!= '{{ ' + binding + ' }}'
 
-#identity-container.row
-  .span8
-    h1.section-header Identity
-    table.table.table-bordered.table-striped
-      tbody
-        tr
-          td.profile-picture-container(rowspan='7', width='120px')
-            img#cc-identity-profile-image.profile-image(src='')
-          td
-            b First Name
-          td
-            span!= '{{ dashboard.first_name }}'
-        +detail-row('Last Name', 'dashboard.last_name')
-        +detail-row('Login', 'dashboard.login')
-        +detail-row('Category', 'dashboard.category')
-        +detail-row('Candidate No.', 'dashboard.candidate_number')
-        +detail-row('CID', 'dashboard.cid')
-        +detail-row('Personal Tutor', 'dashboard.personal_tutor')
-  .span4
-    h1.section-header Other Links
-    ul.nav.nav-tabs.nav-stacked
-      li.disabled
-        a(href='#')
-          .list-icon-container
-            i.icon-bar-chart
-          .list-text Analytics
-      li
-        a#cc-other-grading-schema(data-target='#grading-schema-modal', data-toggle='modal', href='#', role='button')
-          .list-icon-container
-            i.icon-key
-          .list-text Department Grading Schema
-      li.disabled
-        a#cc-other-documentation(href='#')
-          .list-icon-container
-            i.icon-file-alt
-          .list-text Documentation
-      li
-        a#cc-other-extensions(href='#')
-          .list-icon-container
-            i.icon-exclamation-sign
-          .list-text Late Submissions&sol;Extensions
-      li.disabled
-        a(href='#')
-          .list-icon-container
-            i.icon-briefcase
-          .list-text Lecture Notes &plus; Exs Registration
-      li
-        a#cc-other-projects-portal(href='#')
-          .list-icon-container
-            i.icon-lightbulb
-          .list-text Projects Portal
-      li.disabled
-        a(href='#')
-          .list-icon-container
-            i.icon-magic
-          .list-text Special Activities
+mixin details-table
+  h1.section-header Identity
+  table.table.table-bordered.table-striped
+    tbody
+      +detail-row('First Name', 'dashboard.first_name')
+      +detail-row('Last Name', 'dashboard.last_name')
+      +detail-row('Login', 'dashboard.login')
+      +detail-row('Category', 'dashboard.category')
+      +detail-row('Candidate No.', 'dashboard.candidate_number')
+      +detail-row('CID', 'dashboard.cid')
+      +detail-row('Personal Tutor', 'dashboard.personal_tutor')
+
+mixin profile-pic
+  td.profile-picture-container(rowspan='7', width='120px')
+    img#cc-identity-profile-image.profile-image(src='')
+
+mixin other-link(text, uri, fa)
+  li.list-group-item(class!=attributes.class)
+    i.fa(class!=fa)
+    a(href!=uri)= text
+
+mixin other-links
+  h1.section-header Other Links
+  ul.list-group.other-links
+    +other-link('Analytics', '#', 'fa-bar-chart-o')
+    +other-link('Dept Grading Schema', '#', 'fa-key')
+    +other-link('Documentation', '#', 'fa-book')
+    +other-link('Late Submissions / Extensions', '#', 'fa-exclamation')
+    +other-link('Lecture Notes', '#', 'fa-briefcase')
+    +other-link('Projects Portal', '#', 'fa-lightbulb-o')
+    +other-link('Special Activities', '#', 'fa-magic')
+
+mixin list-anchor(val, text)
+  li
+    a(value!=val)= text
+
+mixin exercises-nav
+  .exercise-nav
+    .row.top
+      .term-selector.btn-group(data-toggle='buttons-radio')
+        button.btn.btn-default(value='1') Autumn
+        button.btn.btn-default(value='3') Spring
+        button.btn.btn-default(value='5') Summer
+        button.btn.btn-default(value='6') June-July
+    .row.bottom
+      button.btn.btn-default Go!
+      span.current-class.label
+      .class-selector.btn-group
+        button.btn.btn-default.dropdown-toggle(data-toggle='dropdown', href='#')
+          | Select Class
+          span.caret
+        ul.dropdown-menu
+          +list-anchor('c1', 'COMP 1')
+          +list-anchor('c1', 'COMP 1')
+          +list-anchor('c2', 'COMP 2')
+          +list-anchor('c3', 'COMP 3')
+          +list-anchor('c4', 'COMP 4')
+          +list-anchor('j1', 'JMC 1')
+          +list-anchor('j2', 'JMC 2')
+          +list-anchor('j3', 'JMC 3')
+          +list-anchor('j4', 'JMC 4')
+          +list-anchor('i2', 'ISE 2')
+          +list-anchor('i3', 'ISE 3')
+          +list-anchor('i4', 'ISE 4')
+          +list-anchor('v5', 'Computing')
+          +list-anchor('s5', 'Computing Spec')
+          +list-anchor('a5', 'Advanced')
+          +list-anchor('r5', 'Research')
+          +list-anchor('y5', 'Industrial')
+          +list-anchor('b5', 'Bioinformatic')
+          +list-anchor('occ', 'Occasional')
+          +list-anchor('r6', 'PhD')
+          +list-anchor('ext', 'External')
+
+.row
+  .col-md-8
+    +details-table()
+  .col-md-4
+    +other-links()
 hr
-#exercises-container.row
-  .span12
+.row
+  .col-md-12
     h1.section-header
       | Exercises
-      #exercise-nav
-        #term-selector.btn-group(data-toggle='buttons-radio')
-          button.btn(value='1') Autumn
-          button.btn(value='3') Spring
-          button.btn(value='5') Summer
-          button.btn(value='6') June-July
-        br
-        button#ex-go-btn.btn Go&excl;
-        span#current-class.label
-        #class-selector.btn-group
-          a.btn.dropdown-toggle(data-toggle='dropdown', href='#')
-            | Select Class
-            span.caret
-          ul.dropdown-menu
-            li
-              a(value='c1') COMP 1
-            li
-              a(value='c2') COMP 2
-            li
-              a(value='c3') COMP 3
-            li
-              a(value='c4') COMP 4
-            li
-              a(value='j1') JMC 1
-            li
-              a(value='j2') JMC 2
-            li
-              a(value='j3') JMC 3
-            li
-              a(value='j4') JMC 4
-            li
-              a(value='i2') ISE 2
-            li
-              a(value='i3') ISE 3
-            li
-              a(value='i4') ISE 4
-            li
-              a(value='v5') Computing
-            li
-              a(value='s5') Computing Spec&period;
-            li
-              a(value='a5') Advanced
-            li
-              a(value='r5') Research
-            li
-              a(value='y5') Industrial
-            li
-              a(value='b5') Bioinformatic
-            li
-              a(value='occ') Occasional
-            li
-              a(value='r6') PhD
-            li
-              a(value='ext') External
-  h3 Due in next week&period;&period;&period;
-  table#exercises_table.table.table-hover.wide_table.module_table.table-striped.table-bordered.hidden
-    tr
-      th.module(style='text-align : left') Module
-      th.id_name(style='text-align : left') ID - Name
-      th.small Due On
-      th.small Spec Link
-      th.small Given link
-  table
-    tr#exercise_row_template.hidden
-      td.id(style='text-align : left') NA
-      td.name(style='text-align : left') NA
-      td.due NA
-      td.spec NA
-      td.given NA
-#givens-modal.modal.hide.fade
-  #givens-modal-header.modal-header
-    button.close(aria-hidden='true', data-dismiss='modal', type='button') &times;
-  #givens-modal-body.modal-body
-    table#givens-table.table.wide_table.table-striped.table-bordered
-      thead
-        tr
-          th.type TYPE
-      tbody
-        tr
-          td
-          td
+      +exercises-nav()
+    h3 Due in next week...
+    table.exercises-table.table.table-hover.wide_table.module_table.table-striped.table-bordered.hidden
+      tr
+        th.module Module
+        th.id-name ID - Name
+        th.small Due On
+        th.small Spec Link
+        th.small Given link
+      tr.hide
+        td.id(style='text-align : left') NA
+        td.name(style='text-align : left') NA
+        td.due NA
+        td.spec NA
+        td.given NA

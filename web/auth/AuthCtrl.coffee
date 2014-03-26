@@ -1,3 +1,4 @@
+auth = angular.module 'auth'
 auth.controller 'AuthCtrl', (Auth, $scope, $http, $window, $state) ->
 
   $scope.input =

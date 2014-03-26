@@ -1,3 +1,4 @@
+auth = angular.module 'auth'
 auth.directive 'authLogout', (Auth) ->
   restrict: 'AC'
   link: ($scope, $elem, attr) ->
