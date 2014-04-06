@@ -2,6 +2,12 @@ mixin li-anchor(text, state)
   li
     a(ui-sref!=state)= text
 
+mixin extra-links
+  li
+    a#nav-teachdb(href='https://teachdb.doc.ic.ac.uk/db/') Teach DB
+  li
+    a#nav-internalreg(href='https://dbc.doc.ic.ac.uk/internalreg') Module Registration
+
 .navbar.navbar-default
   .container-fluid
     .navbar-header
@@ -18,10 +24,8 @@ mixin li-anchor(text, state)
         +li-anchor('Exercises', 'exercises')
         +li-anchor('Grades', 'grades')
         +li-anchor('Exams', 'exams')
-        li
-          a#nav-teachdb(href='https://teachdb.doc.ic.ac.uk/db/') Teach DB
-        li
-          a#nav-internalreg(href='https://dbc.doc.ic.ac.uk/internalreg') Module Registration
+        .visible-lg.visible-md
+          +extra-links()
       ul.nav.navbar-right.navbar-nav.change-year
         li.dropdown
           a.dropdown-toggle(data-toggle='dropdown')

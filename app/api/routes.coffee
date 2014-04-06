@@ -17,6 +17,8 @@ module.exports = (app) ->
     Notes.get req, res
   app.get '/api/grades', (req, res) ->
     Grades.get req, res
+  app.get '/api/myexams', (req, res) ->
+    Exams.getMyExams req, res
   app.get '/api/exams', (req, res) ->
     Exams.get req, res
 

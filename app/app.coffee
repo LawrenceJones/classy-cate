@@ -55,6 +55,9 @@ app = (configure = (app, config) ->
 cheerio::elemAt = (sel, i) ->
   (@find sel).eq i
 
+# Start database
+(require './db')(config)
+
 # Load routes in given order
 [
   './auth'
