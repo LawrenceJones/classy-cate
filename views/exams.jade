@@ -1,0 +1,18 @@
+mixin exams-collection
+  table.table.table-striped.table-bordered.exams-table
+    tr
+      th.title Title
+      th.date Date
+      th.time Time
+      th.duration Duration
+    tr(ng-repeat!='exam in exams')
+      td.title {{ exam.title }}
+      td.date {{ exam.date }}
+      td.time {{ exam.time }}
+      td.duration {{ exam.duration }}
+
+.exams(ng-controller='ExamsCtrl')
+  .row
+    .col-md-12
+      h2 Your Exams
+      +exams-collection

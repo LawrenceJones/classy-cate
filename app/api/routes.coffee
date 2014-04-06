@@ -3,6 +3,7 @@ Exercises = require '../cate/exercises'
 Givens    = require '../cate/givens'
 Notes     = require '../cate/notes'
 Grades    = require '../cate/grades'
+Exams     = require '../cate/exams'
 
 module.exports = (app) ->
 
@@ -16,4 +17,6 @@ module.exports = (app) ->
     Notes.get req, res
   app.get '/api/grades', (req, res) ->
     Grades.get req, res
+  app.get '/api/exams', (req, res) ->
+    Exams.get req, res
 
