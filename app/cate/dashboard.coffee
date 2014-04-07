@@ -105,6 +105,7 @@ module.exports = class Dashboard extends CateResource
       individual_records_link: individual_records_link
       default_class: klass
       default_period: period
+      year: keyt.match(/^(\d+):/)[1]
       keyt: keyt
       timetable_url: timetable_url
 

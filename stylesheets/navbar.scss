@@ -2,6 +2,10 @@
   margin-top: 15px;
 }
 ul.change-year {
+  span.year {
+    font-weight: bold;
+    margin-right: 6px;
+  }
   .available-years {
     $btn-width: 124px;
     width: $btn-width;
