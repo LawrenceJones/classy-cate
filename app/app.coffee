@@ -23,17 +23,17 @@ app = (configure = (app, config) ->
   app.use express.json()                                    # json
   app.use express.urlencoded()                              # params
 
-  # Decode the user credentials
-  app.use '/api', jwt
-    secret: config.express.SECRET
-
   # For testing, configure auth_header on req
-  # if config.cate.USER && config.cate.PASS
-  #   app.use '/api', (req, res, next) ->
-  #     req.user =
-  #       user: config.cate.USER
-  #       pass: config.cate.PASS
-  #     next()
+  if config.cate.USER && config.cate.PASS
+    app.use '/api', (req, res, next) ->
+      req.user =
+        user: config.cate.USER
+        pass: config.cate.PASS
+      next()
+  else
+    # Decode the user credentials
+    app.use '/api', jwt
+      secret: config.express.SECRET
 
   # Live compilation, shouldn't be used in production
   if app.settings.env == 'development'
