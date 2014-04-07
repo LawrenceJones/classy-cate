@@ -11,6 +11,15 @@ classy.factory 'CateResource', ($q, $http) -> (url) ->
       angular.extend @, data
       cached = this
 
+    # Simply retrieves data from the given url, cushioned in a promise.
+    @makeReq: (url, method = 'GET') ->
+      deferred = $q.defer()
+      req = $http({
+        url: url
+        method: method
+      })
+
+    # Basic get to retrieve cate resource data.
     @get: ->
       deferred = $q.defer()
       self = this

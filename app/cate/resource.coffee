@@ -7,7 +7,7 @@ module.exports = class CateResource
 
   constructor: (@$page) ->
     @data = {}
-    do @parse
+    @parse.apply @, arguments
 
   parse: ->
     throw new Error 'Override the parse method!!'
@@ -19,7 +19,6 @@ module.exports = class CateResource
 
   @jquerify: (body) ->
     $.load body, {
-      xmlMode: true
       lowerCaseTags: true
     }
 

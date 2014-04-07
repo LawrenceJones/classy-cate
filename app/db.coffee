@@ -24,3 +24,6 @@ module.exports = (config, reset) ->
     './exams/exam_model'
   ]
     .map (modelPath) -> (require modelPath)
+    .map (Model) ->
+      Model.remove {}, (err) ->
+        if err? then console.error err

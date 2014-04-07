@@ -10,25 +10,18 @@ examSchema = mongoose.Schema
     required: true
     index:
       unique: true
-  title:
+      dropDups: true
+  titles: [
     type: String
     trim: true
     required: true
-  klass:
+  ]
+  classes: [
     type: String
     trim: true
-  papers: [
-    year:
-      type: String
-      required: true
-    url:
-      type: String
-      required: true
-    modelAnswers: [
-      author: String
-      url: String
-    ]
+    default: []
   ]
-  
+  papers: require './paper_model'
+
 Exam = mongoose.model 'Exam', examSchema
 module.exports = Exam
