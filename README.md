@@ -2,46 +2,6 @@
 
 CATE, without ~~the~~ as much hurt.
 
-![Classy CATE](https://f.cloud.github.com/assets/510845/117032/1bde6e48-6c18-11e2-9452-0a37d6cd08d6.png "Classy CATE")
-
-
-## Installation
-  - [Chrome](https://www.google.com/intl/en/chrome/browser/)
-    - Install [TamperMonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=en)
-    - Visit http://classy-cate.herokuapp.com/classy-cate.user.js
-    - Agree/Install
-    - Alternatively, install it as a [third party user script](http://solidsprite.com/2012/08/how-to-install-third-party-userscripts-in-chrome-mac-os-x/)
-  - [Firefox](http://www.mozilla.org/en-US/firefox/new/)
-    - Install [Greasemonkey](https://addons.mozilla.org/en-US/firefox/addon/greasemonkey/)
-    - Visit http://classy-cate.herokuapp.com/classy-cate.user.js
-    - Agree/Install
-
-## Rough TODO List (Please Help)
-
-- Scrub last vestige of CATE from homepage - the favicon! Use [this](http://stackoverflow.com/questions/260857/changing-website-favicon-dynamically/260876#260876)
-- Non-Undergrads may experience missing/broken links. I have no idea.
-
-## Ideas
-
-- Put yours here!
-
-## Development
-
-**TODO: These are out of date!!**
-To develop and help improve classy-cate, do the following:
-
-1. Install gems: `bundle install`
-1. Run the server with `foreman start`
-2. Modify `classy-cate.user.js` to point to your local server assets
-3. Modify `views/classy-cate.coffee.erb` and `views/classy-cate.less` to add/modify functionality as you wish!
-
-## Want to help, but don't have a clue?
-
-Hopefully some first years will want to contribute to this project. If
-you're one of them, but are put off by what seems like a stupid amount
-of complexity just to get it working, then have a look at [this](https://github.com/LawrenceJones/classy-cate/wiki/Getting-off-the-Ground-for-Development) page to get you started.
-
-
 ## References
 
 - [jQuery](http://api.jquery.com/jQuery/) as a Javascript Framework
