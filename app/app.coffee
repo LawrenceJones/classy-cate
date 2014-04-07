@@ -24,29 +24,30 @@ app = (configure = (app, config) ->
   app.use express.urlencoded()                              # params
 
   # Decode the user credentials
-  ## app.use '/api', jwt
-  ##   secret: config.express.SECRET
+  app.use '/api', jwt
+    secret: config.express.SECRET
 
   # For testing, configure auth_header on req
-  app.use '/api', (req, res, next) ->
-    req.user =
-      user: config.cate.USER
-      pass: config.cate.PASS
-    next()
+  # if config.cate.USER && config.cate.PASS
+  #   app.use '/api', (req, res, next) ->
+  #     req.user =
+  #       user: config.cate.USER
+  #       pass: config.cate.PASS
+  #     next()
 
   # Live compilation, shouldn't be used in production
   if app.settings.env == 'development'
     app.get '/env', (req, res) -> res.send 'dev'
-    cssget   = require './midware/styles'
-    app.use partials                                           # jade
-      views:  config.paths.views_dir
-      prefix: '/partials'
+    cssget = require './midware/styles'
     app.get '/css/app.css', cssget config.paths.styles_dir     # sass
     app.get '/js/app.js', ngget                                # app.js
       angularPath: config.paths.web_dir
     
   # Asset serving
   app.use express.static config.paths.public_dir            # static
+  app.use partials                                          # jade
+    views:  config.paths.views_dir
+    prefix: '/partials'
 
   return app
 

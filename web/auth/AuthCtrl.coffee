@@ -12,7 +12,7 @@ auth.controller 'AuthCtrl', (Auth, $scope, $http, $window, $state) ->
   $scope.submit = ->
     authed = Auth.login $scope.input.user, $scope.input.pass
     authed.then (data) ->
-      $state.transitionTo 'bookings'
+      $state.transitionTo 'dashboard'
     authed.catch ->
       $scope.denied = true
 

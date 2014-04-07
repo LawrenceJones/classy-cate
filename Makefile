@@ -11,7 +11,7 @@ SRC := $(shell find app -name "*.coffee")
 LIB := $(SRC:$(SRC_DIR)/%.coffee=$(OUT_DIR)/%.js)
 
 # Web assets
-WEB  := web/classy.coffee $(shell find web -name "*.coffee")
+WEB  := web/modules.coffee $(shell find web -name "*.coffee")
 SASS := $(shell find stylesheets -name "*.scss")
 
 ASSETS := public/js/app.js public/stylesheets/style.css

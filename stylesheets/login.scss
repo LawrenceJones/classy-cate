@@ -1,0 +1,34 @@
+.pane.login {
+  $buffer-size: 25px;
+  max-width: 330px;
+  padding: 15px;
+  margin: 120px auto;
+  .buffer {
+    margin-top: $buffer-size;
+  }
+  button.btn, input.form-control {
+    border-radius: 1px;
+  }
+  input.form-control {
+    margin-top: $buffer-size/2;
+  }
+  label.remember {
+    float: right;
+  }
+  a.sign-up {
+    top: $buffer-size;
+    float: left;
+    position: relative;
+  }
+}
+
+.pane.login {
+  background-color: rgb(248, 248, 248);
+  border: 1px solid #d7d7d7;
+  .submit.btn {
+    width: 100%;
+  }
+  .register {
+    text-align: right;
+  }
+}

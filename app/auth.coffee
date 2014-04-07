@@ -19,7 +19,7 @@ module.exports = (app) ->
     valid = creds.reduce((a,c) ->
       a && c? && typeof c == 'string' && c != ''
     , true)
-    if not valid then reject res, 'Either email or pass not supplied'
+    if not valid then reject res, 'Either login or pass not supplied'
     else
       authed = Cate.auth user, pass
       authed.then ->
@@ -27,7 +27,8 @@ module.exports = (app) ->
           user: req.body.user
           pass: req.body.pass
         }, config.express.SECRET, {expiresInMinutes: 60*1}
-        res.json token
+        res.json
+          token: token
       authed.catch (err) ->
         reject res, 'Authentication failed'
 
