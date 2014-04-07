@@ -163,6 +163,31 @@ table.module-grades .progress {
   #grading-schema-modal .progress {
     margin-bottom: 0px; }
 
+.pane.login {
+  max-width: 330px;
+  padding: 15px;
+  margin: 120px auto; }
+  .pane.login .buffer {
+    margin-top: 25px; }
+  .pane.login button.btn, .pane.login input.form-control {
+    border-radius: 1px; }
+  .pane.login input.form-control {
+    margin-top: 12.5px; }
+  .pane.login label.remember {
+    float: right; }
+  .pane.login a.sign-up {
+    top: 25px;
+    float: left;
+    position: relative; }
+
+.pane.login {
+  background-color: #f8f8f8;
+  border: 1px solid #d7d7d7; }
+  .pane.login .submit.btn {
+    width: 100%; }
+  .pane.login .register {
+    text-align: right; }
+
 .navbar {
   margin-top: 15px; }
 

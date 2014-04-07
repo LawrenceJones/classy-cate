@@ -11,3 +11,4 @@ creds
 public/lib
 tags
 node_modules
+*.log

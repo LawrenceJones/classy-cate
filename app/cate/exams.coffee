@@ -1,19 +1,25 @@
 $ = require 'cheerio'
 request = require 'request'
 $q = require 'q'
-config = require '../config'
-CateResource = require './resource'
 mongoose = require 'mongoose'
-Exam = mongoose.model 'Exam'
+config = require '../config'
+
+# Cate resources
+CateResource = require './resource'
 MyExams = require './my_exams'
 
+# Mongoose models
+Exam = mongoose.model 'Exam'
+
+# Base domain and exam expiry rate.
+DOMAIN = 'https://exams.doc.ic.ac.uk'
+EXPIRY = 30 * 60 * 60 * 1000
+
+# Allows pushing to an array if element is not already present.
 Array::addUnique = (elem, eq = ((a,b) -> a == b)) ->
   found = false
   found |= eq _elem, elem for _elem in @
   @push elem if not found
-
-DOMAIN = 'https://exams.doc.ic.ac.uk'
-EXPIRY = 10 * 60 * 60 * 1000
 
 # Produces an array of the year anchor links.
 getYearAnchors = ($uls) ->

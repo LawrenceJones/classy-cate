@@ -128,7 +128,7 @@
       var authed;
       authed = Auth.login($scope.input.user, $scope.input.pass);
       authed.then(function(data) {
-        return $state.transitionTo('bookings');
+        return $state.transitionTo('dashboard');
       });
       return authed["catch"](function() {
         return $scope.denied = true;

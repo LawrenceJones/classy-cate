@@ -20,7 +20,8 @@
     "bcrypt-nodejs": "0.0.3",
     "jsonwebtoken": "^0.1.0",
     "cheerio": "^0.13.1",
-    "jquery": "^2.1.0"
+    "jquery": "^2.1.0",
+    "request": "*"
   },
   "devDependencies": {},
   "engines": {
