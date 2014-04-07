@@ -1,9 +1,11 @@
 # NPM modules
 express    = require 'express'
+https      = require 'https'
 fs         = require 'fs'
 path       = require 'path'
 cheerio    = require 'cheerio'
 jwt        = require 'express-jwt'
+forceSSL   = require 'express-force-ssl'
 
 # Local modules
 config   = require './config'
@@ -68,6 +70,7 @@ cheerio::elemAt = (sel, i) ->
     (require routePath)(app)
 
 # Load app
-server = app.listen (PORT = process.env.PORT || 80), ->
-  console.log "Listening at localhost:#{PORT}"
+server = https.createServer config.https_conf, app
+server.listen (PORT = process.env.PORT || 443), ->
+  console.log "Listening at https://localhost:#{PORT}"
 

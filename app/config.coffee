@@ -2,6 +2,7 @@ fs   = require 'fs'
 path = require 'path'
 
 root_dir = path.join (__dirname || process.cwd()), '..'
+key_dir = path.join root_dir, 'keys'
 
 if fs.existsSync (creds = path.join root_dir, 'creds')
   [user, pass] = (fs.readFileSync creds, 'utf8').split '\n'
@@ -11,7 +12,8 @@ module.exports = config =
     IP:   '127.0.0.1'
     PORT: process.env.PORT || 4567
     # Assign secret
-    SECRET: 'ser7y5K$234@jiode89sej898djoi'
+    SECRET: (process.env.APP_SECRET ||
+             fs.readFileSync path.join(key_dir, 'secret.key'))
   cate:
     USER: user
     PASS: pass
@@ -29,5 +31,10 @@ module.exports = config =
     styles_dir: path.join root_dir, 'stylesheets'
     web_dir:    path.join root_dir, 'web'
   exams_timestamp: null
+  https_conf:
+    key:  (process.env.SERVER_KEY ||
+           fs.readFileSync path.join(key_dir, 'server-key.pem'), 'utf8')
+    cert: (process.env.SERVER_CERT ||
+           fs.readFileSync path.join(key_dir, 'server-cert.pem'), 'utf8')
 
   
