@@ -13,7 +13,10 @@ Exam = mongoose.model 'Exam'
 
 # Base domain and exam expiry rate.
 DOMAIN = 'https://exams.doc.ic.ac.uk'
-EXPIRY = 30 * 60 * 60 * 1000
+EXPIRY = 24 * 60 * 60 * 1000 # 24 hours
+
+# The earliest year to be parsed from the archives.
+EARLIEST_ARCHIVE = 1999
 
 # Allows pushing to an array if element is not already present.
 Array::addUnique = (elem, eq = ((a,b) -> a == b)) ->
@@ -26,13 +29,34 @@ getYearAnchors = ($uls) ->
   $li = $($uls[2]).find 'li'
   $anchors = ($(li).find 'a' for li in $li)
 
+# Generates simple link object for an archive collection.
+makeLink = (year) ->
+  year: "#{year}-#{year + 1}"
+  url: CateExam.yearUrl year
+  deferred: $q.defer()
+
+# Parses the numerical year from the label. '2011-2012' -> 2011.
+parseYear = (label) ->
+  parseInt label.match(/^(\d+)-/)[1], 10
+
+# Sorts links by their age.
+sortLinks = (links) ->
+  links.sort (a,b) -> parseYear(a.year) - parseYear(b.year)
+
 # Pull out the links to each of the past paper years.
-extractYearLinks = ($page) ->
+extractYearLinks = ($page, includeArchives) ->
   anchors = getYearAnchors $page.find('ul') || []
-  anchors.map (a) ->
-    year: $(a).text()
-    url: $(a).attr 'href'
-    deferred: $q.defer()
+  links = anchors
+    .map (a) ->
+      year: $(a).text()
+      url: "#{DOMAIN}/#{(a).attr 'href'}"
+      deferred: $q.defer()
+  if includeArchives
+    endOfArchives = parseYear links[0].year
+    y = EARLIEST_ARCHIVE - 1
+    while ++y < endOfArchives
+      links.unshift makeLink y
+  sortLinks links
 
 module.exports = class CateExam extends CateResource
 
@@ -86,7 +110,7 @@ module.exports = class CateExam extends CateResource
     jquerify = @jquerify
     promises = links.map (link) ->
       deferred = link.deferred
-      linkUrl = "#{DOMAIN}/#{link.url}"
+      linkUrl = link.url
       options = { url: linkUrl, auth: auth }
       request options, (err, data, body) ->
         deferred.resolve
@@ -121,7 +145,7 @@ module.exports = class CateExam extends CateResource
       options = { url: @url(req), auth: auth}
       request options, (err, data, body) =>
         $page = jquerify(body)('body')
-        links = extractYearLinks $page
+        links = extractYearLinks $page, true # get archive too
         done = @getAllLinkPages links, auth
         done.then (years) =>
           cate_res = new self req, $page, years
@@ -138,3 +162,14 @@ module.exports = class CateExam extends CateResource
   @url: (req) ->
     DOMAIN # contains base links
 
+  # URL of the page indexing the paper archives
+  @archiveUrl: ->
+    "#{DOMAIN}/archive.html"
+
+  # Generates the url for a specific years set of papers.
+  @yearUrl: (year) ->
+    y = parseInt year, 10
+    key = [y, y+1]
+      .map (c) -> c.toString().slice -2
+      .join '-'
+    url = "#{DOMAIN}/pastpapers/papers.#{key}"
