@@ -3,9 +3,9 @@ mixin li-anchor(text, state)
     a= text
 
 mixin extra-links
-  li
+  li.visible-lg.visible-md
     a#nav-teachdb(href='https://teachdb.doc.ic.ac.uk/db/') Teach DB
-  li
+  li.visible-lg
     a#nav-internalreg(href='https://dbc.doc.ic.ac.uk/internalreg') Module Registration
 
 .navbar.navbar-default
@@ -24,6 +24,7 @@ mixin extra-links
         +li-anchor('Exercises', 'exercises')
         +li-anchor('Grades', 'grades')
         +li-anchor('Exams', 'exams')
+        +extra-links()
       ul.nav.navbar-right.navbar-nav.change-year
         li.dropdown
           a.dropdown-toggle(data-toggle='dropdown')
