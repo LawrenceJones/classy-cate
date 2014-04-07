@@ -1,4 +1,5 @@
 CateResource = require './resource'
+config = require '../config'
 $ = require 'cheerio'
 
 DOMAIN = 'https://cate.doc.ic.ac.uk'
@@ -221,17 +222,19 @@ module.exports = class Exercises extends CateResource
 
   @url: (req) ->
     [period, klass, year, user] = [
-      req.params.period || config.cate.cached_period
-      req.params.klass
-      req.params.year   || currentYear()
-      req.params.user.user
+      req.query.period || config.cate.cached_period
+      req.query.klass
+      req.query.year   || currentYear()
+      req.user.user
     ]
-    [
+    url = [
       "#{DOMAIN}/timetable.cgi"
       "?period=#{period}"
       "&class=#{klass}"
       "&keyt=#{year}"
       "%3Anone%3Anone%3A"
       "#{user}"
-    ].join()
+    ].join ''
+    console.log url
+    url
 

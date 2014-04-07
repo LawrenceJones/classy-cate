@@ -2,18 +2,16 @@ classy = angular.module 'classy'
 
 classy.factory 'Exams', (CateResource, $q) ->
   myExams = []
-  deferred = $q.defer()
   class Exams extends CateResource('/api/exams')
-
-    # Keeps track of whether the data is loaded.
-    @loaded: deferred.promise
 
     # Gets the exams that the user is timetabled for.
     @getMyExams: ->
+      deferred = $q.defer()
       @makeReq('/api/myexams').success (data) =>
-        deferred.resolve data
+        deferred.resolve data.exams
         myExams = (e.id for e in data.exams)
       deferred.promise
+
 
     # Evalutates whether the given exam id is one the user
     # is timetables to take.

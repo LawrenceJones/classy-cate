@@ -5,6 +5,11 @@ classy = angular.module 'classy', [
   'auth'
 ]
 
+Date::format = ->
+  [d, m] = [@getDate(), @getMonth() + 1].map (n) ->
+    ('00' + n).slice -2
+  "#{d}/#{m}/#{@getFullYear()}"
+
 # Configure the routes for the module
 classy.config [
   '$httpProvider', '$stateProvider', '$urlRouterProvider',
@@ -29,23 +34,32 @@ classy.config [
       templateUrl: '/partials/grades'
     }
 
-    $urlRouterProvider.when '/exercises', ($rootScope, $state) ->
-      $state.transitionTo 'exercises', {
+    # Redirect any blank attempts to access exercises.
+    $urlRouterProvider.when '/exercises', ($rootScope, $state, $stateParams) ->
+      params =
         year: $rootScope.current_year
         klass: $rootScope.default_klass
         period: $rootScope.default_period
-      }
+      for own k,v of $stateParams
+        params[k] = v if v?
+      $state.transitionTo 'exercises', params
+
 
     $stateProvider.state 'exercises', {
       url: '/exercises?year&period&klass'
       templateUrl: '/partials/exercises'
+      resolve:
+        exercises: ($stateParams, Exercises, Dashboard) ->
+          Dashboard.get().then ->
+            Exercises.get $stateParams
+      controller: 'ExercisesCtrl'
     }
 
     $stateProvider.state 'exams', {
       url: '/exams'
       resolve:
         exams: (Exams) -> Exams.get()
-        myexams: (Exams) -> Exams.getMyExams().then (data) -> data.exams
+        myexams: (Exams) -> Exams.getMyExams()
       controller: 'ExamsCtrl'
       templateUrl: '/partials/exams'
     }

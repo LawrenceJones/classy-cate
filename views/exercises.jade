@@ -1,9 +1,7 @@
 mixin next-prev-terms
-  .term-navigation
-    span.btn.exercise-navigation-btn(style='margin-right:14px')
-      i.icon-double-angle-left
-    span.btn.exercise-navigation-btn
-      i.icon-double-angle-right
+  .term-navigation.btn-group
+    button.btn.btn-default(ng-click!='changePeriod(-1)') Prev
+    button.btn.btn-default(ng-click!='changePeriod(1)') Next
 
 mixin notes-modal
   #notes-modal.modal.hide.fade
@@ -37,24 +35,37 @@ mixin givens-modal
 .row
   .col-md-12
     h2
-      | Timetable of Exercises
+      | {{ exercises.term_title }}
       +next-prev-terms()
+.row
+  .col-md-12
+    .lead
+      | Runnning from {{ exercises.start }} to {{ exercises.end }}.
+      span(ng-show!='exercises.modules.length == 0')
+        br
+        | There are no handins for this period.
 
-
-
-table.table.table-striped.table-bordered
-  tr
-    th(style='width:200px') ID
-    th Name
-    th Set On
-    th Due On
-    th Spec Link
-    th Given link
-table
-  tr#exercise_row_template.hidden
-    td.id NA
-    td.name NA
-    td.set NA
-    td.due NA
-    td.spec NA
-    td.given NA
+.row(ng-repeat!='module in exercises.modules')
+  .col-md-12
+    h3
+      {{ module.id }}: {{ module.name }}
+      .notes-link(module='module')
+    table.table.table-striped.table-bordered
+      tr
+        th ID
+        th Name
+        th.visible-lg.visible-md Set On
+        th Due On
+        th Spec Link
+        th Given link
+      tr(ng-repeat!='ex in module.exercises')
+        td.id {{ ex.id }}:{{ ex.type }}
+        td.name {{ ex.name || 'NA' }}
+        td.visible-lg.visible-md.set {{ ex.start.format() }}
+        td.due {{ ex.end.format() }}
+        td.spec
+          a(ng-href!="{{ 'https://cate.doc.ic.ac.uk/' + ex.spec }}", ng-show='ex.spec') Spec Link
+          span(ng-show='!ex.spec') NA
+        td.given
+          a.givens-link(exercise='ex', ng-show='ex.givens') Givens
+          span(ng-show='!ex.givens') NA

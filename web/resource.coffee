@@ -15,12 +15,13 @@ classy.factory 'CateResource', ($q, $http) -> (url, key, cache = true) ->
       })
 
     # Basic get to retrieve cate resource data.
-    @get: ->
+    @get: (params = {}) ->
       deferred = $q.defer()
       self = this
       req = $http({
         method: 'GET'
         url: url
+        params: params
         cache: cache
       })
       req.success (data) ->
