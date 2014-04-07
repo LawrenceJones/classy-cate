@@ -227,7 +227,7 @@ module.exports = class Exercises extends CateResource
       req.query.year   || currentYear()
       req.user.user
     ]
-    url = [
+    [
       "#{DOMAIN}/timetable.cgi"
       "?period=#{period}"
       "&class=#{klass}"
@@ -235,6 +235,4 @@ module.exports = class Exercises extends CateResource
       "%3Anone%3Anone%3A"
       "#{user}"
     ].join ''
-    console.log url
-    url
 

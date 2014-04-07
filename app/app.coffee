@@ -5,7 +5,6 @@ fs         = require 'fs'
 path       = require 'path'
 cheerio    = require 'cheerio'
 jwt        = require 'express-jwt'
-forceSSL   = require 'express-force-ssl'
 
 # Local modules
 config   = require './config'
@@ -25,17 +24,16 @@ app = (configure = (app, config) ->
   app.use express.json()                                    # json
   app.use express.urlencoded()                              # params
 
-  # For testing, configure auth_header on req
-  if config.cate.USER && config.cate.PASS
-    app.use '/api', (req, res, next) ->
-      req.user =
-        user: config.cate.USER
-        pass: config.cate.PASS
-      next()
-  else
-    # Decode the user credentials
-    app.use '/api', jwt
-      secret: config.express.SECRET
+  # If on heroku, force https
+  if process.env.ON_HEROKU then app.use (req, res, next) ->
+    reqType = req.headers['x-forwarded-proto']
+    if reqType == 'https' then next()
+    else
+      res.redirect "https://#{req.headers.host}#{req.url}"
+
+  # Decode the user credentials
+  app.use '/api', jwt
+    secret: config.express.SECRET
 
   # Live compilation, shouldn't be used in production
   if app.settings.env == 'development'
@@ -70,9 +68,6 @@ cheerio::elemAt = (sel, i) ->
     (require routePath)(app)
 
 # Load app
-app.listen (PORT = process.env.PORT || 443), ->
+app.listen (PORT = process.env.PORT || 80), ->
   console.log "Listening at https://localhost:#{PORT}"
 
-# server = https.createServer config.https_conf, app
-# server.listen (PORT = process.env.PORT || 443), ->
-#   console.log "Listening at https://localhost:#{PORT}"
