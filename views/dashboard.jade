@@ -46,11 +46,9 @@ mixin list-anchor(val, text)
 mixin exercises-nav
   .exercise-nav
     .row.top
-      .term-selector.btn-group(data-toggle='buttons-radio')
-        button.btn.btn-default(value='1') Autumn
-        button.btn.btn-default(value='3') Spring
-        button.btn.btn-default(value='5') Summer
-        button.btn.btn-default(value='6') June-July
+      .term-selector.btn-group.buttons-radio(model="input.period"
+        options="periodOptions",
+        active-value!='adjustPeriod')
     .row.bottom
       button.btn.btn-default Go!
       span.current-class.label

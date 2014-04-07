@@ -124,7 +124,7 @@ module.exports = class CateExam extends CateResource
         links = extractYearLinks $page
         done = @getAllLinkPages links, auth
         done.then (years) =>
-          cate_res = new self $page, years
+          cate_res = new self req, $page, years
           cate_res.dbUpdated
             .then -> self.get req, res
             .catch (err) ->

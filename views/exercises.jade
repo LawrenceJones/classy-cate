@@ -1,38 +1,48 @@
+mixin next-prev-terms
+  .term-navigation
+    span.btn.exercise-navigation-btn(style='margin-right:14px')
+      i.icon-double-angle-left
+    span.btn.exercise-navigation-btn
+      i.icon-double-angle-right
+
+mixin notes-modal
+  #notes-modal.modal.hide.fade
+    #notes-modal-header.modal-header
+      button.close(aria-hidden='true', data-dismiss='modal', type='button') &times;
+    #notes-modal-body.modal-body
+      table.table.wide_table.table-striped.table-bordered
+        thead
+          tr
+            th ID
+            th Link
+        tbody#notes-modal-tbody
+          tr
+            td
+            td
+
+mixin givens-modal
+  #givens-modal.modal.hide.fade
+    #givens-modal-header.modal-header
+      button.close(aria-hidden='true', data-dismiss='modal', type='button') &times;
+    #givens-modal-body.modal-body
+      table#givens-table.table.wide_table.table-striped.table-bordered
+        thead
+          tr
+            th.type TYPE
+        tbody
+          tr
+            td
+            td
+
 .row
-  .span12
+  .col-md-12
     h2
-      span#term_title Timetable of Exercises
-      .term-navigation
-        span#back_term_btn.btn.exercise-navigation-btn(style='margin-right:14px')
-          i.icon-double-angle-left
-        span#next_term_btn.btn.exercise-navigation-btn
-          i.icon-double-angle-right
-#notes-modal.modal.hide.fade
-  #notes-modal-header.modal-header
-    button.close(aria-hidden='true', data-dismiss='modal', type='button') &times;
-  #notes-modal-body.modal-body
-    table.table.wide_table.table-striped.table-bordered
-      thead
-        tr
-          th ID
-          th Link
-      tbody#notes-modal-tbody
-        tr
-          td
-          td
-#givens-modal.modal.hide.fade
-  #givens-modal-header.modal-header
-    button.close(aria-hidden='true', data-dismiss='modal', type='button') &times;
-  #givens-modal-body.modal-body
-    table#givens-table.table.wide_table.table-striped.table-bordered
-      thead
-        tr
-          th.type TYPE
-      tbody
-        tr
-          td
-          td
-table#exercises_template.table.wide_table.module_table.table-striped.table-bordered.hidden
+      | Timetable of Exercises
+      +next-prev-terms()
+
+
+
+table.table.table-striped.table-bordered
   tr
     th(style='width:200px') ID
     th Name

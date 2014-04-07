@@ -1,6 +1,18 @@
 CateResource = require './resource'
 $ = require 'cheerio'
 
+DOMAIN = 'https://cate.doc.ic.ac.uk'
+
+
+# Returns the current Cate based year. This means anything
+# past christmas is rounded down one year.
+currentYear = ->
+  d = new Date()
+  year = d.getFullYear()
+  if d.getMonth() < 8 # September
+    year--
+  return year
+
 # Converts a CATE style date into a JS Date object
 # e.g. '2013-1-7' -> Mon Jan 07 2013 00:00:00 GMT+0000 (GMT)
 parse_date = (input) ->
@@ -201,10 +213,25 @@ module.exports = class Exercises extends CateResource
   parse: ->
     dates = @getStartEndDates()   # WRONG
     @data =
-      start : dates.start, end : dates.end
-      modules : @getModules dates
-      term_title : @getTermTitle()
+      year: @req.params.year
+      period: @req.params.period
+      start: dates.start, end: dates.end
+      modules: @getModules dates
+      term_title: @getTermTitle()
 
-  @url: ->
-    'https://cate.doc.ic.ac.uk/timetable.cgi?period=3&class=c2&keyt=2013%3Anone%3Anone%3Almj112'
+  @url: (req) ->
+    [period, klass, year, user] = [
+      req.params.period || config.cate.cached_period
+      req.params.klass
+      req.params.year   || currentYear()
+      req.params.user.user
+    ]
+    [
+      "#{DOMAIN}/timetable.cgi"
+      "?period=#{period}"
+      "&class=#{klass}"
+      "&keyt=#{year}"
+      "%3Anone%3Anone%3A"
+      "#{user}"
+    ].join()
 

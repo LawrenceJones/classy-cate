@@ -23,6 +23,11 @@ classy.config [
       templateUrl: '/partials/grades'
     }
 
+    $stateProvider.state 'exercises', {
+      url: '/exercises?year&period&klass'
+      templateUrl: '/partials/exercises'
+    }
+
     $stateProvider.state 'exams', {
       url: '/exams'
       templateUrl: '/partials/exams'

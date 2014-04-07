@@ -1,4 +1,5 @@
 $ = require 'cheerio'
+config = require '../config'
 CateResource = require './resource'
 
 module.exports = class Dashboard extends CateResource
@@ -59,10 +60,6 @@ module.exports = class Dashboard extends CateResource
 
   parse: ->
 
-    # current_url = document.URL
-    # current_year = current_url.match("keyp=([0-9]+)")[1] #TODO: Error check
-    # current_user = current_url.match("[0-9]+:(.*)")[1] # TODO: Error Check
-
     version = @getVersion()
     [
       first_name, last_name, login
@@ -87,10 +84,10 @@ module.exports = class Dashboard extends CateResource
     timetable_url =
       "/timetable.cgi?period=#{period}&class=#{klass}&keyt=#{keyt}"
 
+    # Updates the cached current period.
+    config.cate.cached_period = period
+
     @data =
-      # current_url: current_url
-      # current_year: current_year
-      # current_user: current_user
       version: version
       profile_image_src: profile_image_src
       first_name: first_name
