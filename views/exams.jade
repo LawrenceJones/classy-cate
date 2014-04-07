@@ -11,6 +11,10 @@ mixin exams-collection
       td.time {{ exam.time }}
       td.duration {{ exam.duration }}
 
+mixin paper-btn(repeat)
+  button.btn.btn-default(ng-href!="{{ paper.url }}", ng-repeat!=repeat)
+    a {{ paper.year }}
+
 mixin paper-anchor
   a(ng-href!="{{ paper.url }}") {{ paper.year }}
 
@@ -25,16 +29,15 @@ mixin paper-dd(cut)
 
 mixin paper-btns(cut, klass)
   .btn-group.paper-btns(ng-class!="{round: exam.papers.length <"+cut+"}", class=klass)
-    button.btn.btn-default(ng-repeat!='paper in firstFew(exam, '+cut+')')
-      +paper-anchor()
+    +paper-btn('paper in firstFew(exam, '+cut+')')
     +paper-dd(cut)
 
 mixin all-exams
-  table.table.table-striped.table-bordered.all-exams-table(ng-controller!='PaperCtrl')
+  table.table.table-striped.table-bordered.all-exams-table
     tr
       th.title Title
       th.papers Papers
-    tr(ng-repeat!='exam in exams')
+    tr(ng-repeat!='exam in exams | filter:input.search')
       td.title {{ exam.fulltitle() }}
       td.papers
         +paper-btns(3, 'visible-lg')
@@ -48,8 +51,8 @@ mixin all-exams
       h2 Your Exams
       +exams-collection
   .row
-    .col-md-12
+    .col-md-12(ng-controller!='PaperCtrl')
       h2
         | All Exams
-        input.exam-search.form-control(placeholder='Search')
+        input.exam-search.form-control(placeholder='Search', ng-model!='input.search')
       +all-exams
