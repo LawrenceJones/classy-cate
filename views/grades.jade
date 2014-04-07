@@ -29,7 +29,7 @@ mixin stat-row(label, binding)
     td
       span= '{{ ' + binding + ' }}'
           
-.grades(ng-controller='GradesCtrl')
+.grades
   .row(ng-show!='grades.required_modules.length > 0')
     .col-md-12
       h2 Grades for Required Modules

@@ -7,9 +7,11 @@ classy.factory 'Dashboard', (CateResource, $rootScope, $q) ->
       promise.then (res) ->
         $rootScope.available_years = res.available_years
         $rootScope.current_year ?= res.year
+        $rootScope.default_period ?= res.default_period
+        $rootScope.default_klass ?= res.default_class
       return promise
 
-classy.controller 'DashboardCtrl', ($scope, Dashboard) ->
+classy.controller 'DashboardCtrl', ($scope, dash) ->
 
   $scope.input =
     period: 0, klass: null
@@ -60,9 +62,8 @@ classy.controller 'DashboardCtrl', ($scope, Dashboard) ->
     for o in collection
       if o.value == value then return o
 
-  Dashboard.get().then (dash) ->
-    $scope.dashboard = dash
-    $scope.input.klass =
-      find dash.default_class, $scope.klassOptions
-    $scope.input.period = periodLabelLookup dash.default_period
+  $scope.dashboard = dash
+  $scope.input.klass =
+    find dash.default_class, $scope.klassOptions
+  $scope.input.period = periodLabelLookup dash.default_period
 

@@ -31,9 +31,7 @@ classy.factory 'Exams', (CateResource, $q) ->
       "#{@id}: #{@title()}"
         
 
-classy.controller 'ExamsCtrl', ($scope, Exams) ->
-  Exams.get().then (exams) ->
-    $scope.exams = exams
-  Exams.getMyExams().then (data) ->
-    $scope.myexams = data.exams
+classy.controller 'ExamsCtrl', ($scope, exams, myexams) ->
+  $scope.exams = exams
+  $scope.myexams = myexams
 
