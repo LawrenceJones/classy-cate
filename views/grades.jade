@@ -4,21 +4,21 @@ mixin module-collection(cname)
     table.table.table-striped.table-bordered.module-grades
       tr
         th.id ID
-        //th.type Type
+        th.visible-lg.type Type
         th.title Title
-        th.set Set By
-        //th.dec Declaration
+        th.hidden-xs.hidden-sm.set Set By
+        th.visible-lg.dec Declaration
         //th.ext Extension
-        th.sub Submission
+        th.hidden-xs.sub Submission
         th.grade-column Grade
       tr(ng-repeat!='ex in module.exercises')
         td.id {{ ex.id }}
-        //td.type {{ ex.type }}
+        td.visible-lg.type {{ ex.type }}
         td.title {{ ex.title }}
-        td.set {{ ex.set_by }}
-        //td.dec {{ ex.declaration }}
+        td.hidden-xs.hidden-sm.set {{ ex.set_by }}
+        td.visible-lg.dec {{ ex.declaration }}
         //td.ext {{ ex.extension }}
-        td.sub {{ ex.submission }}
+        td.hidden-xs.sub {{ ex.submission }}
         td
           .grade-bar(data-grade!='ex.grade')
 

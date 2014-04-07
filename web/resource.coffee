@@ -1,15 +1,10 @@
 classy = angular.module 'classy'
-classy.factory 'CateResource', ($q, $http) -> (url) ->
-
-  cached = null
+classy.factory 'CateResource', ($q, $http) -> (url, key, cache = true) ->
 
   class CateResource
 
     constructor: (data) ->
-      if cached?
-        throw Error 'Should not be recalling constructor'
       angular.extend @, data
-      cached = this
 
     # Simply retrieves data from the given url, cushioned in a promise.
     @makeReq: (url, method = 'GET') ->
@@ -26,14 +21,13 @@ classy.factory 'CateResource', ($q, $http) -> (url) ->
       req = $http({
         method: 'GET'
         url: url
+        cache: cache
       })
       req.success (data) ->
-        if cached?
-          angular.extend cached, data
-        else cached = new self data
-        deferred.resolve cached
-      if cached?
-        deferred.resolve cached
+        if data instanceof Array
+          data = (new self elem for elem in data)
+        else data = new self data
+        deferred.resolve data
       deferred.promise
 
 

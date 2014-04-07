@@ -1,5 +1,5 @@
 mixin exams-collection
-  table.table.table-striped.table-bordered.exams-table
+  table.table.table-striped.table-bordered.my-exams-table
     tr
       th.title Title
       th.date Date
@@ -11,8 +11,45 @@ mixin exams-collection
       td.time {{ exam.time }}
       td.duration {{ exam.duration }}
 
+mixin paper-anchor
+  a(ng-href!="{{ paper.url }}") {{ paper.year }}
+
+mixin paper-dd(cut)
+  .btn-group(ng-show!='exam.papers.length > '+(cut + 1))
+    button.btn.btn-default.dropdown-toggle(data-toggle='dropdown')
+      | More
+      span.caret
+    ul.dropdown-menu
+      li(ng-repeat!='paper in lastFew(exam, '+cut+')')
+        +paper-anchor()
+
+mixin paper-btns(cut, klass)
+  .btn-group.paper-btns(ng-class!="{round: exam.papers.length <"+cut+"}", class=klass)
+    button.btn.btn-default(ng-repeat!='paper in firstFew(exam, '+cut+')')
+      +paper-anchor()
+    +paper-dd(cut)
+
+mixin all-exams
+  table.table.table-striped.table-bordered.all-exams-table(ng-controller!='PaperCtrl')
+    tr
+      th.title Title
+      th.papers Papers
+    tr(ng-repeat!='exam in exams')
+      td.title {{ exam.fulltitle() }}
+      td.papers
+        +paper-btns(3, 'visible-lg')
+        +paper-btns(2, 'visible-md')
+        +paper-btns(1, 'visible-sm visible-xs')
+
+
 .exams(ng-controller='ExamsCtrl')
   .row
     .col-md-12
       h2 Your Exams
       +exams-collection
+  .row
+    .col-md-12
+      h2
+        | All Exams
+        input.exam-search.form-control(placeholder='Search')
+      +all-exams

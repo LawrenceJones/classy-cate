@@ -5,11 +5,8 @@ classy.factory 'Dashboard', (CateResource, $rootScope, $q) ->
     @get: ->
       promise = super
       promise.then (res) ->
-        cached = res
         $rootScope.available_years = res.available_years
       return promise
-
-
 
 classy.controller 'DashboardCtrl', ($scope, Dashboard) ->
   Dashboard.get().then (dash) ->

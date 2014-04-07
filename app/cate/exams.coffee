@@ -105,9 +105,7 @@ module.exports = class CateExam extends CateResource
     if !@cacheExpired()
       console.log 'Fetching db'
       Exam.find {}, (err, exams) ->
-        console.log exams
-        if err?
-          res.send 500
+        if err? then res.send 500
         else
           res.json exams
     else
