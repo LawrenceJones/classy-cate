@@ -70,7 +70,9 @@ cheerio::elemAt = (sel, i) ->
     (require routePath)(app)
 
 # Load app
-server = https.createServer config.https_conf, app
-server.listen (PORT = process.env.PORT || 443), ->
+app.listen (PORT = process.env.PORT || 443), ->
   console.log "Listening at https://localhost:#{PORT}"
 
+# server = https.createServer config.https_conf, app
+# server.listen (PORT = process.env.PORT || 443), ->
+#   console.log "Listening at https://localhost:#{PORT}"
