@@ -48,7 +48,7 @@ mixin givens-modal
 .row(ng-repeat!='module in exercises.modules')
   .col-md-12
     h3
-      {{ module.id }}: {{ module.name }}
+      | {{ module.id }}: {{ module.name }}
       .notes-link(module='module')
     table.table.table-striped.table-bordered
       tr

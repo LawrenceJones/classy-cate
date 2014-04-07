@@ -35,16 +35,11 @@ classy.config [
     }
 
     # Redirect any blank attempts to access exercises.
-    $urlRouterProvider.when '/exercises', ($rootScope, $state, $stateParams) ->
-      params =
-        year: $rootScope.current_year
-        klass: $rootScope.default_klass
-        period: $rootScope.default_period
-      for own k,v of $stateParams
-        params[k] = v if v?
+    $urlRouterProvider.when '/exercises', ($state, $stateParams, Exercises) ->
+      params = Exercises.initParams $stateParams
       $state.transitionTo 'exercises', params
 
-
+    # Exercises state, defined by the year klass period params.
     $stateProvider.state 'exercises', {
       url: '/exercises?year&period&klass'
       templateUrl: '/partials/exercises'

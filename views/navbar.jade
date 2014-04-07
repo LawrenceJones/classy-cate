@@ -1,6 +1,6 @@
 mixin li-anchor(text, state)
-  li
-    a(ui-sref!=state)= text
+  li(ui-sref!=state, ui-sref-active='active')
+    a= text
 
 mixin extra-links
   li
@@ -16,7 +16,7 @@ mixin extra-links
         span.icon-bar
         span.icon-bar
         span.icon-bar
-      a.navbar-brand CATE
+      a.navbar-brand(ui-sref='dashboard') CATE
       span#cc-version
     .collapse.navbar-collapse#nav-links
       ul.nav.navbar-nav

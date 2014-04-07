@@ -2,25 +2,28 @@ classy = angular.module 'classy'
 
 classy.factory 'Dashboard', (CateResource, $rootScope, $q) ->
   return class Dashboard extends CateResource('/api/dashboard')
+
+    # Adjusts for the holiday periods
+    @adjustPeriod: (p) ->
+      if (p % 2 == 0) or p is 7
+        p - 1
+      else p
+
     @get: ->
       promise = super
-      promise.then (res) ->
+      promise.then (res) =>
         $rootScope.available_years = res.available_years
         $rootScope.current_year ?= res.year
-        $rootScope.default_period ?= res.default_period
+        $rootScope.default_period ?= @adjustPeriod(res.default_period)
         $rootScope.default_klass ?= res.default_class
       return promise
 
-classy.controller 'DashboardCtrl', ($scope, dash) ->
+classy.controller 'DashboardCtrl', ($scope, $state, Dashboard, dash) ->
 
   $scope.input =
     period: 0, klass: null
 
-  # Adjusts for the holiday periods
-  $scope.adjustPeriod = (p) ->
-    if (p % 2 == 0) or p is 7
-      p - 1
-    else p
+  $scope.adjustPeriod = Dashboard.adjustPeriod
 
   $scope.periodOptions = [
     { label: 'Autumn', value: 1 }
@@ -57,6 +60,13 @@ classy.controller 'DashboardCtrl', ($scope, dash) ->
     { value: 'r6', label: 'PhD' }
     { value: 'ext', label: 'External' }
   ]
+
+  $scope.gotoExercises = ->
+    $state.transitionTo 'exercises', {
+      klass: $scope.input.klass.value
+      period: $scope.input.period.value
+      year: $scope.current_year
+    }
 
   find = (value, collection) ->
     for o in collection
