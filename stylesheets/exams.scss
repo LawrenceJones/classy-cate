@@ -4,8 +4,21 @@ table.all-exams-table {
   }
 }
 
-input.exam-search {
+.floated {
   float: right;
+}
+
+.mine {
+  font-size: 14px;
+  line-height: 34px;
+  margin-right: 10px;
+  font-weight: normal;
+  input {
+    margin-left: 4px;
+  }
+}
+
+.exam-search {
   width: 35%;
 }
 

@@ -37,7 +37,7 @@ mixin all-exams
     tr
       th.title Title
       th.papers Papers
-    tr(ng-repeat!='exam in exams | filter:input.search')
+    tr(ng-repeat!='exam in exams | filter:input.search | filter:mine')
       td.title {{ exam.fulltitle() }}
       td.papers
         +paper-btns(3, 'visible-lg')
@@ -54,5 +54,9 @@ mixin all-exams
     .col-md-12(ng-controller!='PaperCtrl')
       h2
         | All Exams
-        input.exam-search.form-control(placeholder='Search', ng-model!='input.search')
+        .input-group.exam-search.floated
+          input.form-control(placeholder='Search', ng-model!='input.search')
+        span.muted.floated.mine
+          | Mine only?
+          input(type='checkbox', ng-model!='input.mineonly')
       +all-exams
