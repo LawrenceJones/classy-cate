@@ -24,6 +24,10 @@ classy.factory 'Exams', (CateResource, $q) ->
     title: ->
       @titles[0]
 
+    # Lists other titles
+    otherTitles: ->
+      @titles[1..].join ', '
+
     # Concatenated ID and title
     fulltitle: ->
       "#{@id}: #{@title()}"

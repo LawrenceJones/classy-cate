@@ -1,1 +1,13 @@
-h1 View! Tada!
+
+// The exam is in scope as EXAM.
+.row
+  .col-md-12
+    h1 {{ exam.fulltitle() }}
+    span.lead(ng-show="exam.titles.length > 1")
+      {{ exam.titles.join(', ') }}
+.row
+  .col-md-12(ng-show='exam.papers.length > 0')
+    h2 All Papers
+    table.table.table-bordered.table-striped
+      tr
+        th Year

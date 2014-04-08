@@ -161,15 +161,27 @@ module.exports = class CateExams extends CateResource
   # database. Every EXPIRY milliseconds, any request made
   # to the server will update it's cache against exams.doc.
   @index: (req, res) ->
+    fetched = (deferred = $q.defer()).promise
     if !@cacheExpired()
-      getAllFromDb req, res
+      getAllFromDb deferred
     else
-      scrape = @scrapeAll req
-      scrape.then (exams) ->
-        res.json exams
-      scrape.catch (err) ->
-        console.error "Exam scraping failed: #{err}"
-        res.send 500
+      @scrapeAll req, deferred
+    fetched.then (exams) ->
+      res.json exams
+    fetched.catch (err) ->
+      console.error "Fetching Exam data failed: #{err}"
+      res.send 500
+
+  # GET /exams/:id
+  # Receives an id parameter and returns the exam info from
+  # the database table. If cache has expired will update table
+  # first.
+  @get: (req, res) ->
+    query = Exam.findOne {id: req.params.id}
+    query.exec (err, exam) ->
+      if err? then res.send 500
+      else
+        res.json exam
 
   # Fetches the exams that the student is timetabled for.
   @getMyExams: ->

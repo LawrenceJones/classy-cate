@@ -37,7 +37,8 @@ mixin all-exams
       th.title Title
       th.papers Papers
     tr(ng-repeat!='exam in exams | filter:input.search | filter:mine')
-      td.title {{ exam.fulltitle() }}
+      td.title
+        a(exam-link='exam')
       td.papers
         +paper-btns(3, 'visible-lg')
         +paper-btns(2, 'visible-md')

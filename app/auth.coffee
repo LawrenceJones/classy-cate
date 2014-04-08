@@ -2,6 +2,9 @@ jwt = require 'jsonwebtoken'
 config = require './config'
 Cate = require './cate'
 
+# In minutes
+TOKEN_EXPIRY = 12 * 60
+
 module.exports = (app) ->
 
   app.use '/api', (req, res, next) ->
@@ -26,7 +29,7 @@ module.exports = (app) ->
         token = jwt.sign {
           user: req.body.user
           pass: req.body.pass
-        }, config.express.SECRET, {expiresInMinutes: 60*1}
+        }, config.express.SECRET, {expiresInMinutes: TOKEN_EXPIRY}
         res.json
           token: token
       authed.catch (err) ->

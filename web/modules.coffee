@@ -64,10 +64,10 @@ classy.config [
 
     # Per exam view of that subject.
     $stateProvider.state 'exams.view', {
-      url: '/exams/:id'
+      url: '/:id'
       resolve:
         exam: (Exams, $stateParams) ->
-          Exams.get {id: $stateParams.id}
+          Exams.getOneById $stateParams.id
       controller: 'ExamViewCtrl'
       templateUrl: '/partials/exam_view'
     }

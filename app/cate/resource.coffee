@@ -8,6 +8,8 @@ module.exports = class CateResource
   @cateResource: true
   @termDates: new Object()
 
+  # Initialises a data object and then proxies all
+  # arguments along to a parsing function.
   constructor: (@req, @$page) ->
     @data = {}
     @parse.apply @, Array::slice.call(arguments, 1)
@@ -15,11 +17,13 @@ module.exports = class CateResource
   parse: ->
     throw new Error 'Override the parse method!!'
 
+  # Creates an authentication object from a request handle.
   @createAuth: (req) ->
     user: req.user.user
     pass: req.user.pass
     sendImmediately: true
 
+  # Loads html into a jquery wrapper.
   @jquerify: (body) ->
     $.load body, {
       lowerCaseTags: true
