@@ -45,7 +45,7 @@ module.exports = class CateResource
     req.end()
     deferred.promise
 
-  # GET handler for requesting information
+  # GET handler for requesting index of information.
   @get: (req, res) ->
     if not @cateResource
       throw Error 'Must be called from CateResource'

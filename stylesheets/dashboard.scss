@@ -9,7 +9,12 @@
 /* Table containing user details */
 table.user-details {
   .label-row {
-    width: 210px;
+    width: 130px;
+  }
+  td {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
 }
 

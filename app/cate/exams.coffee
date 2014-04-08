@@ -32,7 +32,7 @@ getYearAnchors = ($uls) ->
 # Generates simple link object for an archive collection.
 makeLink = (year) ->
   year: "#{year}-#{year + 1}"
-  url: CateExam.yearUrl year
+  url: CateExams.yearUrl year
   deferred: $q.defer()
 
 # Parses the numerical year from the label. '2011-2012' -> 2011.
@@ -58,107 +58,124 @@ extractYearLinks = ($page, includeArchives) ->
       links.unshift makeLink y
   sortLinks links
 
-module.exports = class CateExam extends CateResource
+# Given a paper repo page, a year string, url to the
+# initial page and the exams shared object, it extracts
+# the relevant data.
+extractPapers = ($page, year, url, exams) ->
+  groups = new Object()
+  $node = $page.children().eq(0)
+  while $node.length > 0 && !/By class/.test $node.html()
+    $node = $node.next()
+  currentClass = null
+  while ($node = $node.next()).length > 0 && !/^Complete/.test $node.text()
+    if $node.is 'h3'
+      currentClass = $node.text()
+    else
+      $a = $node.find 'a'
+      if $a.length > 0
+        [id, title] = $a.text().split ': '
+        exam = (exams[id] ?= {})
+        exam.id = id
+        (exam.titles ?= []).addUnique title
+        (exam.papers ?= []).addUnique {
+          year: year
+          url: "#{url}/#{$a.attr 'href'}"
+        }, (a,b) -> a.year == b.year
+        (exam.classes ?= []).push currentClass
 
-  # Given a paper repo page, a year string, url to the
-  # initial page and the exams shared object, it extracts
-  # the relevant data.
-  extractPapers: ($page, year, url, exams) ->
-    groups = new Object()
-    $node = $page.children().eq(0)
-    while $node.length > 0 && !/By class/.test $node.html()
-      $node = $node.next()
-    currentClass = null
-    while ($node = $node.next()).length > 0 && !/^Complete/.test $node.text()
-      if $node.is 'h3'
-        currentClass = $node.text()
-      else
-        $a = $node.find 'a'
-        if $a.length > 0
-          [id, title] = $a.text().split ': '
-          exam = (exams[id] ?= {})
-          exam.id = id
-          (exam.titles ?= []).addUnique title
-          (exam.papers ?= []).addUnique {
-            year: year
-            url: "#{url}/#{$a.attr 'href'}"
-          }, (a,b) -> a.year == b.year
-          (exam.classes ?= []).push currentClass
+# Generates a promise that is resolved with the jquerified
+# html from each link repository page.
+getAllLinkPages = (links, auth) ->
+  promises = links.map (link) ->
+    deferred = link.deferred
+    linkUrl = link.url
+    options = { url: linkUrl, auth: auth }
+    request options, (err, data, body) ->
+      deferred.resolve
+        year: link.year
+        url: linkUrl
+        $page: CateResource.jquerify(body)('body')
+    return deferred.promise
+  return $q.all promises
 
-  # Given exam data, updates the internal database to reflect
-  # any changes that may have occured.
-  # TODO - Ensure update, rather than replace.
-  updateDb: (exams) ->
-    promises = Object.keys(exams).map (k, i) ->
-      deferred = $q.defer()
-      model = new Exam(exam = exams[k])
-      model.save (err) ->
+# Returns all exams from the database.
+getAllFromDb = (deferred = $q.defer()) ->
+  console.log 'Fetching db'
+  Exam.find {}, (err, exams) ->
+    if err? then deferred.reject 500
+    else
+      deferred.resolve exams
+  return deferred.promise
+
+# Given exam data, updates the internal database to reflect
+# any changes that may have occured.
+# TODO - Ensure update, rather than replace.
+updateDb = (exams) ->
+  promises = Object.keys(exams).map (k, i) ->
+    deferred = $q.defer()
+    findOne = Exam.findOne {id: exams[k].id}
+    findOne.exec (err, exam) ->
+      if exam? then for p in exams[k].papers
+        exam.papers.addUnique p, (a,b) -> a.url == b.url
+      else exam = new Exam exams[k]
+      exam.save (err) ->
         if err? then deferred.reject err
-        else deferred.resolve model
-      return deferred.promise
-    $q.all promises
+        else deferred.resolve exam
+    return deferred.promise
+  $q.all promises
+
+# Module for parsing exam data from exams.doc.ic.ac.uk.
+# Caches all data into the mongodb Exams model.
+module.exports = class CateExams extends CateResource
 
   # Default extry parsing function.
   parse: ($page, years) ->
     exams = new Object()
-    @extractPapers y.$page, y.year, y.url, exams for y in years.reverse()
-    @dbUpdated = @updateDb exams
-
-  # Generates a promise that is resolved with the jquerified
-  # html from each link repository page.
-  @getAllLinkPages: (links, auth) ->
-    jquerify = @jquerify
-    promises = links.map (link) ->
-      deferred = link.deferred
-      linkUrl = link.url
-      options = { url: linkUrl, auth: auth }
-      request options, (err, data, body) ->
-        deferred.resolve
-          year: link.year
-          url: linkUrl
-          $page: jquerify(body)('body')
-      return deferred.promise
-    return $q.all promises
+    extractPapers y.$page, y.year, y.url, exams for y in years.reverse()
+    @dbUpdated = updateDb exams
 
   # Returns true if the cache requires updating.
   @cacheExpired: ->
     ts = config.exams_timestamp
     !ts? || ((Date.now() - ts) > EXPIRY)
 
-  # Overrides the default getter, needed for specific
+  # Scrapes all exams by scraping exams.doc.
+  @scrapeAll: (req, deferred = $q.defer()) ->
+    config.exams_timestamp = Date.now()
+    auth = CateResource.createAuth req
+    options = { url: @url(req), auth: auth}
+    request options, (err, data, body) =>
+      $page = @jquerify(body)('body')
+      links = extractYearLinks $page, true # get archive too
+      done = getAllLinkPages links, auth
+      done.then (years) =>
+        cate_res = new CateExams req, $page, years
+        cate_res.dbUpdated
+          .then -> getAllFromDb deferred
+    deferred.promise
+
+  # Indexes all the exams, regardless of whether a student
+  # is taking them.
   # exams.doc.ic.ac.uk access.
   # This resource caches data about all the exams in the
   # database. Every EXPIRY milliseconds, any request made
   # to the server will update it's cache against exams.doc.
-  @get: (req, res) ->
-    self = this
+  @index: (req, res) ->
     if !@cacheExpired()
-      console.log 'Fetching db'
-      Exam.find {}, (err, exams) ->
-        if err? then res.send 500
-        else
-          res.json exams
+      getAllFromDb req, res
     else
-      config.exams_timestamp = Date.now()
-      auth = @createAuth req
-      jquerify = @jquerify
-      options = { url: @url(req), auth: auth}
-      request options, (err, data, body) =>
-        $page = jquerify(body)('body')
-        links = extractYearLinks $page, true # get archive too
-        done = @getAllLinkPages links, auth
-        done.then (years) =>
-          cate_res = new self req, $page, years
-          cate_res.dbUpdated
-            .then -> self.get req, res
-            .catch (err) ->
-              console.error err
-              res.send 500
+      scrape = @scrapeAll req
+      scrape.then (exams) ->
+        res.json exams
+      scrape.catch (err) ->
+        console.error "Exam scraping failed: #{err}"
+        res.send 500
 
   # Fetches the exams that the student is timetabled for.
   @getMyExams: ->
     MyExams.get.apply MyExams, arguments
 
+  # Basic url for exams.doc.
   @url: (req) ->
     DOMAIN # contains base links
 

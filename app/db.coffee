@@ -25,5 +25,5 @@ module.exports = (config, reset) ->
   ]
     .map (modelPath) -> (require modelPath)
     .map (Model) ->
-      Model.remove {}, (err) ->
+      if process.env.RESET_DB then Model.remove {}, (err) ->
         if err? then console.error err

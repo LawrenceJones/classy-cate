@@ -8,6 +8,7 @@ module.exports = class Cate
   @Givens:     require  './givens'
   @Notes:      require  './notes'
   @Grades:     require  './grades'
+  @CateExams:  require  './exams'
 
   # Takes user login and password, resolves promise on whether
   # CATE has accepted the credentials.

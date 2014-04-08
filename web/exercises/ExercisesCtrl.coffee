@@ -33,6 +33,7 @@ classy.factory 'Exercises', (CateResource, Module, $rootScope, $q) ->
 classy.controller 'ExercisesCtrl', ($scope, $state, $stateParams, exercises) ->
 
   $scope.exercises = exercises
+  $scope.params = $stateParams
 
   $scope.changePeriod = (diff) ->
     period = parseInt($stateParams.period, 10) + diff

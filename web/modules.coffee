@@ -7,7 +7,7 @@ classy = angular.module 'classy', [
 
 Date::format = ->
   [d, m] = [@getDate(), @getMonth() + 1].map (n) ->
-    ('00' + n).slice -2
+    ('000' + n).slice -2
   "#{d}/#{m}/#{@getFullYear()}"
 
 # Configure the routes for the module
@@ -18,6 +18,7 @@ classy.config [
     # Include http authorization middleware
     $httpProvider.interceptors.push 'authInterceptor'
 
+    # Splash entry page with user info.
     $stateProvider.state 'dashboard', {
       url: '/'
       resolve:
@@ -26,6 +27,7 @@ classy.config [
       templateUrl: '/partials/dashboard'
     }
 
+    # Personal student record.
     $stateProvider.state 'grades', {
       url: '/grades'
       resolve:
@@ -50,6 +52,7 @@ classy.config [
       controller: 'ExercisesCtrl'
     }
 
+    # Index page for past papers.
     $stateProvider.state 'exams', {
       url: '/exams'
       resolve:
@@ -59,6 +62,17 @@ classy.config [
       templateUrl: '/partials/exams'
     }
 
+    # Per exam view of that subject.
+    $stateProvider.state 'exams.view', {
+      url: '/exams/:id'
+      resolve:
+        exam: (Exams, $stateParams) ->
+          Exams.get {id: $stateParams.id}
+      controller: 'ExamViewCtrl'
+      templateUrl: '/partials/exam_view'
+    }
+
+    # Login page for college credentials.
     $stateProvider.state 'login', {
       url: '/login'
       templateUrl: '/partials/login'

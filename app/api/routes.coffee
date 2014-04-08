@@ -1,9 +1,12 @@
-Dashboard = require '../cate/dashboard'
-Exercises = require '../cate/exercises'
-Givens    = require '../cate/givens'
-Notes     = require '../cate/notes'
-Grades    = require '../cate/grades'
-Exams     = require '../cate/exams'
+Cate = require '../cate'
+
+# Allow easy access to modules
+Dashboard = Cate.Dashboard
+Exercises = Cate.Exercises
+Givens = Cate.Givens
+Notes = Cate.Notes
+Grades = Cate.Grades
+CateExams = Cate.CateExams
 
 module.exports = (app) ->
 
@@ -17,8 +20,11 @@ module.exports = (app) ->
     Notes.get req, res
   app.get '/api/grades', (req, res) ->
     Grades.get req, res
+
   app.get '/api/myexams', (req, res) ->
-    Exams.getMyExams req, res
+    CateExams.getMyExams req, res
   app.get '/api/exams', (req, res) ->
-    Exams.get req, res
+    CateExams.index req, res
+  app.get '/api/exams/:id', (req, res) ->
+    CateExams.get req, res
 

@@ -1,7 +1,9 @@
 mixin next-prev-terms
   .term-navigation.btn-group
-    button.btn.btn-default(ng-click!='changePeriod(-1)') Prev
-    button.btn.btn-default(ng-click!='changePeriod(1)') Next
+    button.btn.btn-default(ng-click!='changePeriod(-1)', ng-class="{disabled: params.period == 1}")
+      | Prev
+    button.btn.btn-default(ng-click!='changePeriod(1)', ng-class="{disabled: params.period == 7}")
+      | Next
 
 mixin notes-modal
   #notes-modal.modal.hide.fade
