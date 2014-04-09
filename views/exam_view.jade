@@ -2,7 +2,9 @@
 // The exam is in scope as EXAM.
 .row
   .col-md-12
-    h1 {{ exam.fulltitle() }}
+    h1
+      | {{ exam.fulltitle() }}
+      .pp-shortcut-dd(paper-btns='exam', cut='-1', placeholder='Past Papers')
     span.lead(ng-show="exam.titles.length > 1")
       {{ exam.titles.join(', ') }}
 .row

@@ -7,6 +7,7 @@ classy.directive 'paperBtns', ($compile, $state) ->
   scope: true
   link: ($scope, $elem, attr) ->
     $scope.exam = $scope.$eval attr.paperBtns
-    $scope.cut = parseInt attr.cut, 10
+    $scope.placeholder = attr.placeholder
+    $scope.cut = parseInt (attr.cut || '3'), 10
 
 

@@ -7,7 +7,7 @@ mixin paper-anchor
 mixin paper-dd()
   .btn-group(ng-show!='exam.papers.length > cut + 1')
     button.btn.btn-default.dropdown-toggle(data-toggle='dropdown')
-      | More
+      | {{ placeholder || 'More' }}
       span.caret
     ul.dropdown-menu
       li(ng-repeat!='paper in lastFew(exam, cut)')

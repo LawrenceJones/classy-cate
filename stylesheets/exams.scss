@@ -26,6 +26,9 @@ table.all-exams-table {
 }
 
 .paper-btns {
+  .caret {
+    margin-left: 4px;
+  }
   .btn {
     width: 110px;
   }
@@ -34,3 +37,10 @@ table.all-exams-table {
   }
 }
 
+.pp-shortcut-dd {
+  button {
+    border-radius: 3px !important;
+    width: 120px !important;
+  }
+  float: right;
+}

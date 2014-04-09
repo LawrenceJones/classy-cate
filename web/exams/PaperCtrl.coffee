@@ -7,6 +7,7 @@ classy.controller 'PaperCtrl', ($scope, Exams) ->
   $scope.input.mineonly = true
   
   $scope.firstFew = (exam, cut) ->
+    if cut is -1 then return []
     exam.papers[0..cut]
   $scope.lastFew = (exam, cut) ->
     exam.papers[(cut+1)..]
