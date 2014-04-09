@@ -2,6 +2,9 @@ table.all-exams-table {
   .title {
     width: 50%;
   }
+  td {
+    vertical-align: middle !important;
+  }
 }
 
 .floated {
@@ -23,11 +26,8 @@ table.all-exams-table {
 }
 
 .paper-btns {
-  &.visible-lg .btn {
-    width: 110px;
-  }
   .btn {
-    width: 114px;
+    width: 110px;
   }
   &.round > .btn:last-child {
     border-radius: 3px !important;

@@ -1,0 +1,20 @@
+mixin paper-btn(repeat)
+  a.btn.btn-default(ng-href!="{{ paper.url }}", ng-repeat!=repeat) {{ paper.year }}
+
+mixin paper-anchor
+  a(ng-href!="{{ paper.url }}") {{ paper.year }}
+
+mixin paper-dd()
+  .btn-group(ng-show!='exam.papers.length > cut + 1')
+    button.btn.btn-default.dropdown-toggle(data-toggle='dropdown')
+      | More
+      span.caret
+    ul.dropdown-menu
+      li(ng-repeat!='paper in lastFew(exam, cut)')
+        +paper-anchor()
+
+.btn-group.paper-btns(ng-class!="{round: exam.papers.length < cut}", class=klass)
+  +paper-btn('paper in firstFew(exam, cut)')
+  +paper-dd()
+
+
