@@ -23,5 +23,11 @@ examSchema = mongoose.Schema
   ]
   papers: require './paper_model'
 
+# Returns lean exam with related modules.
+examSchema.methods.populateRelated = (mods = []) ->
+  data = @toJSON()
+  data.related = mods
+  return data
+
 Exam = mongoose.model 'Exam', examSchema
 module.exports = Exam

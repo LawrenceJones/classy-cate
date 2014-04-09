@@ -127,8 +127,9 @@ getAssociatedModules = (id = '') ->
   return [] if ids.length is 0
   rex = "^#{ids.join('|')}$"
   CateModule.find { id: $regex:rex }, (err, modules) ->
-    console.error err
-    console.log modules
+    if err? then deferred.reject err
+    else deferred.resolve modules
+  (deferred = $q.defer()).promise
 
 # Module for parsing exam data from exams.doc.ic.ac.uk.
 # Caches all data into the mongodb Exams model.
@@ -187,8 +188,8 @@ module.exports = class CateExams extends CateResource
     query.exec (err, exam) ->
       if err? then res.send 500
       else
-        getAssociatedModules exam.id
-        res.json exam
+        getAssociatedModules(exam.id).then (assoc) ->
+          res.json exam.populateRelated(assoc)
 
   # Fetches the exams that the student is timetabled for.
   @getMyExams: ->

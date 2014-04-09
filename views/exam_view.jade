@@ -6,7 +6,8 @@
       | {{ exam.fulltitle() }}
       .pp-shortcut-dd(paper-btns='exam', cut='-1', placeholder='Past Papers')
     span.lead(ng-show="exam.titles.length > 1")
-      {{ exam.titles.join(', ') }}
+      a.lead(ui-sref='exams') Exams
+      | &nbsp;/ {{ exam.titles.join(', ') }}
 .row
   .col-md-12(ng-show='exam.papers.length > 0')
     h2 All Papers
