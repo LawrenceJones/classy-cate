@@ -1,0 +1,16 @@
+.givens-modal
+  .givens-modal-header.modal-header
+    h3
+      | Givens for {{ exercise.name }}
+      button.close(aria-hidden='true', ng-click='close()', type='button') &times;
+  .givens-modal-body.modal-body
+    table.table.table-striped.table-bordered(ng-repeat='type in givens')
+      thead
+        tr
+          th.type {{ type.type }}
+      tbody
+        tr(ng-repeat='given in type.givens')
+          td
+            a(ng-href='{{given.link}}') {{ given.title }}
+
+

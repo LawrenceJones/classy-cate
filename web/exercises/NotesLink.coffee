@@ -2,11 +2,15 @@ classy = angular.module 'classy'
 
 classy.factory 'Notes', (CateResource, $q) ->
   class Notes extends CateResource('/api/notes')
+    constructor: (data) ->
+      super data
+      for note in @notes
+        if !/http:/.test note.link
+          note.link = "https://cate.doc.ic.ac.uk/#{note.link}"
 
 classy.controller 'NotesModalCtrl', ($scope, $modalInstance, notes, module) ->
   $scope.notes = notes.notes
   $scope.module = module
-  console.log arguments
   $scope.close = ->
     $modalInstance.dismiss 'cancel'
 

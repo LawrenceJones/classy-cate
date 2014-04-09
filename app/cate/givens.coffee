@@ -1,6 +1,8 @@
 $ = require 'cheerio'
 CateResource = require './resource'
 
+DOMAIN = 'https://cate.doc.ic.ac.uk'
+
 module.exports = class Givens extends CateResource
 
   parse: ->
@@ -26,6 +28,12 @@ module.exports = class Givens extends CateResource
     # categories = [ { type = 'TYPE', givens = [{title, link}] } ]
     @data = categories
 
-  @url: ->
-    'https://cate.doc.ic.ac.uk/given.cgi?key=2013:3:574:c2:new:lmj112'
+  # Links may not be prefixed with cate.doc, fix this.
+  @scrape: (req, url) ->
+    if not /cate\.doc\./.test url
+      url = "#{DOMAIN}/#{url}"
+    super req, url
+
+  @url: (req) ->
+    "#{DOMAIN}/#{req.query.link}"
 

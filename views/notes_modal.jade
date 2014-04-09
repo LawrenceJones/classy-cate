@@ -6,15 +6,15 @@
   .notes-modal-body.modal-body
     span.lead(ng-show='notes.length == 0')
       | No notes available for this course.
-    table.table.wide_table.table-striped.table-bordered(ng-show='notes.length > 0')
+    table.table.table-striped.table-bordered(ng-show='notes.length > 0')
       thead
         tr
           th ID
           th Link
       tbody
         tr(ng-repeat='note in notes')
-          td {{ $$index + 1 }}
+          td {{ $index + 1 }}
           td
-            a(ng-href='note.link') {{ note.title }}
+            a(ng-href='{{note.link}}') {{ note.title }}
 
 

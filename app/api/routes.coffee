@@ -6,6 +6,7 @@ Exercises = Cate.Exercises
 Givens = Cate.Givens
 Notes = Cate.Notes
 Grades = Cate.Grades
+Givens = Cate.Givens
 CateExams = Cate.CateExams
 
 module.exports = (app) ->
@@ -20,6 +21,8 @@ module.exports = (app) ->
     Notes.get req, res
   app.get '/api/grades', (req, res) ->
     Grades.get req, res
+  app.get '/api/givens', (req, res) ->
+    Givens.get req, res
 
   app.get '/api/myexams', (req, res) ->
     CateExams.getMyExams req, res

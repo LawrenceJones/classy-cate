@@ -5,20 +5,7 @@ mixin next-prev-terms
     button.btn.btn-default(ng-click!='changePeriod(1)', ng-class="{disabled: params.period == 7}")
       | Next
 
-mixin givens-modal
-  #givens-modal.modal.hide.fade
-    #givens-modal-header.modal-header
-      button.close(aria-hidden='true', data-dismiss='modal', type='button') &times;
-    #givens-modal-body.modal-body
-      table#givens-table.table.wide_table.table-striped.table-bordered
-        thead
-          tr
-            th.type TYPE
-        tbody
-          tr
-            td
-            td
-
+// TODO - Clean this up
 .row
   .col-md-12
     h2
@@ -54,5 +41,5 @@ mixin givens-modal
           a(ng-href!="{{ 'https://cate.doc.ic.ac.uk/' + ex.spec }}", ng-show='ex.spec') Spec Link
           span(ng-show='!ex.spec') NA
         td.given
-          a.givens-link(exercise='ex', ng-show='ex.givens') Givens
+          .givens-link(exercise='ex', ng-show='ex.givens') Givens
           span(ng-show='!ex.givens') NA
