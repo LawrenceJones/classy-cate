@@ -11,6 +11,9 @@ config   = require './config'
 ngget    = require './midware/angular'
 partials = require './midware/partials'
 
+# Load extra js utilities
+require './utilities'
+
 # Init app
 app = (configure = (app, config) ->
 

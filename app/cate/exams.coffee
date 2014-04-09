@@ -18,12 +18,6 @@ EXPIRY = 24 * 60 * 60 * 1000 # 24 hours
 # The earliest year to be parsed from the archives.
 EARLIEST_ARCHIVE = 1999
 
-# Allows pushing to an array if element is not already present.
-Array::addUnique = (elem, eq = ((a,b) -> a == b)) ->
-  found = false
-  found |= eq _elem, elem for _elem in @
-  @push elem if not found
-
 # Produces an array of the year anchor links.
 getYearAnchors = ($uls) ->
   $li = $($uls[2]).find 'li'

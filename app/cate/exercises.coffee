@@ -2,8 +2,12 @@ CateResource = require './resource'
 config = require '../config'
 $ = require 'cheerio'
 
-DOMAIN = 'https://cate.doc.ic.ac.uk'
+# Hook for db access to CateModules
+mongoose = require 'mongoose'
+CateModule = mongoose.model 'CateModule'
 
+# Base domain
+DOMAIN = 'https://cate.doc.ic.ac.uk'
 
 # Returns the current Cate based year. This means anything
 # past christmas is rounded down one year.
@@ -213,6 +217,10 @@ module.exports = class Exercises extends CateResource
 
   parse: ->
     dates = @getStartEndDates()   # WRONG
+    modules = @getModules dates
+    regged = CateModule.register modules, @req # IMPORTANT
+    regged.then (data) -> console.log 'DONE'
+    regged.catch (err) -> console.log err
     @data =
       year: @req.params.year
       period: @req.params.period

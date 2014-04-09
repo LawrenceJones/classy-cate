@@ -20,8 +20,9 @@ module.exports = (config, reset) ->
   db.once 'open', ->
     console.log 'Database successfully opened!'
  
-  [Exam] = [ # Load database models
+  [Exam, CateModule] = [ # Load database models
     './exams/exam_model'
+    './cate_modules/cate_module_model'
   ]
     .map (modelPath) -> (require modelPath)
     .map (Model) ->

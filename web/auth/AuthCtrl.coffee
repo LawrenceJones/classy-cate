@@ -10,9 +10,11 @@ auth.controller 'AuthCtrl', (Auth, $scope, $http, $window, $state) ->
     if $scope.denied then 'Invalid, try again' else 'Login'
 
   $scope.submit = ->
+    $scope.waiting = true
     authed = Auth.login $scope.input.user, $scope.input.pass
     authed.then (data) ->
       $state.transitionTo 'dashboard'
     authed.catch ->
       $scope.denied = true
+      $scope.waiting = false
 

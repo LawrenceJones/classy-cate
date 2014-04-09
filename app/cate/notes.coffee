@@ -1,6 +1,9 @@
 $ = require 'cheerio'
 CateResource = require './resource'
 
+# Base domain
+DOMAIN = 'https://cate.doc.ic.ac.uk'
+
 # Determines locality of links.
 link_is_remote = (link) ->
   link.attr('onclick')?
@@ -44,8 +47,19 @@ module.exports = class Notes extends CateResource
         title: get_note_title $row
         link:  get_note_link $row
       }
+    url = req.params.url || req.params.link || req.query.link
+    # Load the current payload into the database
+    CateModule.updateModuleNotes url, notes
     @data = { notes: notes }
 
-  @url: ->
-    'https://cate.doc.ic.ac.uk/notes.cgi?key=2013:19:3:c2:new:lmj112'
+  # Note links will typically be sourced from hyperlinks,
+  # therefore if the url looks like it's not containing
+  # cate.doc then adjust it accordingly.
+  @scrape: (req, url) ->
+    if not /cate\.doc\./.test url
+      url = "#{DOMAIN}/#{url}"
+    super req, url
+
+  @url: (req) ->
+    "#{DOMAIN}/#{req.query.link}"
 

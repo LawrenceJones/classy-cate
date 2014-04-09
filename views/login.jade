@@ -16,7 +16,7 @@ mixin user-pass
     .buffer
     .row.unselectable
       .col-md-12
-        button.submit.btn.btn-default.btn-lg(ng-click!='submit()', ng-class!="{'btn-warning': denied}") {{ btnMssg() }}
+        button.submit.btn.btn-default.btn-lg(ng-click!='submit()', ng-class!="{'btn-warning': denied, disabled: waiting}") {{ btnMssg() }}
     .row.unselectable.hide
       .col-md-8
         label.remember

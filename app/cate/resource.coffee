@@ -49,15 +49,29 @@ module.exports = class CateResource
     req.end()
     deferred.promise
 
+  # If url is already known, then this can be used, given
+  # a request handle with credentials, to pull data directly
+  # from that url and run parser.
+  @scrape: (req, url) ->
+    req.params.url = url
+    options = url: url, auth: @createAuth req
+    request options, (err, data, body) =>
+      if err? then return deferred.reject err
+      $page = @jquerify(body) 'body'
+      cate_res = new @ req, $page
+      res?.json? cate_res.data
+      deferred.resolve cate_res.data
+    deferred = $q.defer()
+    deferred.promise
+
   # GET handler for requesting index of information.
   @get: (req, res) ->
     if not @cateResource
       throw Error 'Must be called from CateResource'
-    options =
-      url: @url req
-      auth: @createAuth req
-    request options, (err, data, body) =>
-      $page = @jquerify(body) 'body'
-      cate_res = new @ req, $page
-      res.json cate_res.data
+    scrape = @scrape req, @url req
+    scrape.then (data) ->
+      res.json data
+    scrape.catch (err) ->
+      console.error err
+      res.send 500
 
