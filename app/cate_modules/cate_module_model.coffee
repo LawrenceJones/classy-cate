@@ -14,6 +14,10 @@ cateModuleSchema = mongoose.Schema
     index:
       unique: true
       dropDups: true
+  linkedExams: [
+    type: String
+    trim: true
+  ]
   titles: [
     type: String
     trim: true
@@ -56,8 +60,8 @@ cateModuleSchema.statics.register = register = (data, req) ->
       if !req then deferred.resolve module
       else
         if module.notesLink?
-          Notes.scrape(req, module.notesLink).then (notes) ->
-            module.addNotes notes
+          Notes.scrape(req, module.notesLink).then (data) ->
+            module.addNotes data.notes
         deferred.resolve module
   deferred = $q.defer()
   deferred.promise
@@ -72,11 +76,11 @@ cateModuleSchema.statics.updateModuleNotes = (url, notes) ->
 # module not found.
 # Not vital running procedure, no error checking required.
 cateModuleSchema.methods.addNotes = (notes) ->
-  console.log 'Add notes'
   for note in notes
     @notes.addUnique note, (a,b) ->
       a.link == b.link
-  @save()
+  @save (err) ->
+    console.error err.toString() if err?
 
 CateModule = mongoose.model 'CateModule', cateModuleSchema
 module.exports = CateModule

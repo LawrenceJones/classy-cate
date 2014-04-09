@@ -10,6 +10,7 @@ MyExams = require './my_exams'
 
 # Mongoose models
 Exam = mongoose.model 'Exam'
+CateModule = mongoose.model 'CateModule'
 
 # Base domain and exam expiry rate.
 DOMAIN = 'https://exams.doc.ic.ac.uk'
@@ -118,6 +119,17 @@ updateDb = (exams) ->
     return deferred.promise
   $q.all promises
 
+# Retrives cate modules that may be associated with the given
+# exam id. Looks for id matches against the numerical part of
+# the exam id. Exam ID C210, will match against 210 for example.
+getAssociatedModules = (id = '') ->
+  ids = id.match /(\d+)/g
+  return [] if ids.length is 0
+  rex = "^#{ids.join('|')}$"
+  CateModule.find { id: $regex:rex }, (err, modules) ->
+    console.error err
+    console.log modules
+
 # Module for parsing exam data from exams.doc.ic.ac.uk.
 # Caches all data into the mongodb Exams model.
 module.exports = class CateExams extends CateResource
@@ -175,6 +187,7 @@ module.exports = class CateExams extends CateResource
     query.exec (err, exam) ->
       if err? then res.send 500
       else
+        getAssociatedModules exam.id
         res.json exam
 
   # Fetches the exams that the student is timetabled for.
