@@ -5,21 +5,6 @@ mixin next-prev-terms
     button.btn.btn-default(ng-click!='changePeriod(1)', ng-class="{disabled: params.period == 7}")
       | Next
 
-mixin notes-modal
-  #notes-modal.modal.hide.fade
-    #notes-modal-header.modal-header
-      button.close(aria-hidden='true', data-dismiss='modal', type='button') &times;
-    #notes-modal-body.modal-body
-      table.table.wide_table.table-striped.table-bordered
-        thead
-          tr
-            th ID
-            th Link
-        tbody#notes-modal-tbody
-          tr
-            td
-            td
-
 mixin givens-modal
   #givens-modal.modal.hide.fade
     #givens-modal-header.modal-header
@@ -51,7 +36,7 @@ mixin givens-modal
   .col-md-12
     h3
       | {{ module.id }}: {{ module.name }}
-      .notes-link(module='module')
+      span.notes-link(module='module')
     table.table.table-striped.table-bordered
       tr
         th ID

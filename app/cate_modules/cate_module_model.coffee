@@ -3,8 +3,6 @@ $q = require 'q'
 # CateModule model
 Schema = (mongoose = require 'mongoose').Schema
 ObjectId = Schema.Types.ObjectId
-# Cate Resource access for Note parsing
-Notes = require '../cate/notes'
 
 cateModuleSchema = mongoose.Schema
   id:
@@ -83,5 +81,7 @@ cateModuleSchema.methods.addNotes = (notes) ->
     console.error err.toString() if err?
 
 CateModule = mongoose.model 'CateModule', cateModuleSchema
+# Cate Resource access for Note parsing
+Notes = require '../cate/notes'
 module.exports = CateModule
 

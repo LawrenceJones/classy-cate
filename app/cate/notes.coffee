@@ -1,6 +1,10 @@
 $ = require 'cheerio'
 CateResource = require './resource'
 
+# Cate Module from database
+mongoose = require 'mongoose'
+CateModule = mongoose.model 'CateModule'
+
 # Base domain
 DOMAIN = 'https://cate.doc.ic.ac.uk'
 

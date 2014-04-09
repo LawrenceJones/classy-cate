@@ -2,6 +2,7 @@
 auth = angular.module 'auth', []
 classy = angular.module 'classy', [
   'ui.router'
+  'ui.bootstrap.modal'
   'auth'
 ]
 

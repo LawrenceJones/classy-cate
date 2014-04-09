@@ -56,9 +56,6 @@ app = (configure = (app, config) ->
 
 )(express(), config)
 
-cheerio::elemAt = (sel, i) ->
-  (@find sel).eq i
-
 # Start database
 (require './db')(config)
 

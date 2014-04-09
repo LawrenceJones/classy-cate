@@ -3,7 +3,7 @@ ObjectId = mongoose.Schema.ObjectId
 $q = require 'q'
 
 # Initial db setup
-module.exports = (config, reset) ->
+module.exports = (config) ->
 
   [name, host, port] = [
     config.mongodb.NAME
@@ -19,7 +19,7 @@ module.exports = (config, reset) ->
     process.exit 1
   db.once 'open', ->
     console.log 'Database successfully opened!'
- 
+
   [Exam, CateModule] = [ # Load database models
     './exams/exam_model'
     './cate_modules/cate_module_model'
@@ -28,3 +28,4 @@ module.exports = (config, reset) ->
     .map (Model) ->
       if process.env.RESET_DB then Model.remove {}, (err) ->
         if err? then console.error err
+
