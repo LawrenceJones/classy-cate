@@ -3,6 +3,7 @@ auth = angular.module 'auth', []
 classy = angular.module 'classy', [
   'ui.router'
   'ui.bootstrap.modal'
+  'ui.bootstrap.accordion'
   'auth'
 ]
 
@@ -14,7 +15,7 @@ Date::format = ->
 # Configure the routes for the module
 classy.config [
   '$httpProvider', '$stateProvider', '$urlRouterProvider',
-  ($httpProvider,   $stateProvider,  $urlRouterProvider) ->
+  ($httpProvider,   $stateProvider,   $urlRouterProvider) ->
 
     # Include http authorization middleware
     $httpProvider.interceptors.push 'authInterceptor'
@@ -57,8 +58,8 @@ classy.config [
     $stateProvider.state 'exams', {
       url: '/exams'
       resolve:
-        exams: (Exams) -> Exams.get()
-        myexams: (Exams) -> Exams.getMyExams()
+        exams: (Exam) -> Exam.get()
+        myexams: (Exam) -> Exam.getMyExams()
       controller: 'ExamsCtrl'
       templateUrl: '/partials/exams'
     }
@@ -67,8 +68,8 @@ classy.config [
     $stateProvider.state 'exams.view', {
       url: '/:id'
       resolve:
-        exam: (Exams, $stateParams) ->
-          Exams.getOneById $stateParams.id
+        exam: (Exam, $stateParams) ->
+          Exam.getOneById $stateParams.id
       controller: 'ExamViewCtrl'
       templateUrl: '/partials/exam_view'
     }

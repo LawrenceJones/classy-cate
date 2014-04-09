@@ -3,14 +3,29 @@
 .row
   .col-md-12
     h1
-      | {{ exam.fulltitle() }}
-      .pp-shortcut-dd(paper-btns='exam', cut='-1', placeholder='Past Papers')
-    span.lead(ng-show="exam.titles.length > 1")
+      | {{ exam.title(true) }}
+      .pp-shortcut-dd.float-right-button(paper-btns='exam', cut='-1', placeholder='Past Papers')
+    span.lead
       a.lead(ui-sref='exams') Exams
       | &nbsp;/ {{ exam.titles.join(', ') }}
 .row
-  .col-md-12(ng-show='exam.papers.length > 0')
-    h2 All Papers
-    table.table.table-bordered.table-striped
-      tr
-        th Year
+  .related-notes.col-md-12(ng-show='exam.papers.length > 0')
+    h2
+      | Related Notes
+      span.light(ng-show='exam.related.length == 0') &nbsp; - None.
+    accordion(close-others='oneAtATime')
+      .panel.panel-default
+        .panel-heading
+          h4.panel-title.link-module-btn
+            a Link Module?
+      accordion-group.module-accordion(ng-repeat='module in exam.related', is-open='isopen')
+        accordion-heading
+          {{ module.name }}
+          i.pull-right.fa(ng-class="{'fa-angle-down': isopen, 'fa-angle-right': !isopen, bordered: isopen}")
+        table.table.table-striped.table-bordered.notes-table
+          tr
+          tr(ng-repeat='note in module.notes')
+            td.id {{ $index + 1 }}
+            td
+              a(ng-href='{{note.link}}') {{ note.title }}
+      

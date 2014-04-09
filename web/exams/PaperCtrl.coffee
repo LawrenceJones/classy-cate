@@ -1,6 +1,6 @@
 classy = angular.module 'classy'
 
-classy.controller 'PaperCtrl', ($scope, Exams) ->
+classy.controller 'PaperCtrl', ($scope, Exam) ->
 
   $scope.input =
     mineonly: false
@@ -13,7 +13,7 @@ classy.controller 'PaperCtrl', ($scope, Exams) ->
     exam.papers[(cut+1)..]
   $scope.mine = (exam) ->
     if not $scope.input.mineonly then return true
-    Exams.isMyExam exam.id
+    Exam.isMyExam exam.id
 
 
 

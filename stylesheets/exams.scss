@@ -37,10 +37,41 @@ table.all-exams-table {
   }
 }
 
-.pp-shortcut-dd {
+.float-right-button {
   button {
     border-radius: 3px !important;
     width: 120px !important;
   }
   float: right;
 }
+
+.link-module-btn {
+  color: #428bca;
+}
+
+.related-notes {
+  .panel-body {
+    padding: 0px;
+    margin: 0px;
+  }
+  .panel-collapse {
+    max-height: 260px;
+    overflow: scroll;
+  }
+
+  .module-accordion .panel-heading.bordered {
+    border-bottom: 1px solid #ddd;
+  }
+
+  .table-bordered.notes-table {
+    border: none;
+    td { border-top: none; }
+    td.id {
+      border-left: none;
+      width: 80px;
+    }
+  }
+
+
+}
+

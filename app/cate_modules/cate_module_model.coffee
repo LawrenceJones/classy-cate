@@ -16,11 +16,10 @@ cateModuleSchema = mongoose.Schema
     type: String
     trim: true
   ]
-  titles: [
+  name:
     type: String
     trim: true
     required: true
-  ]
   notesLink:
     type: String
     trim: true

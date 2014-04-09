@@ -9,7 +9,7 @@ classy.factory 'Exercise', ->
 
 classy.factory 'Module', (Exercise) ->
   class Module
-    constructor: (data) ->
+    constructor: (data, @exercises = []) ->
       angular.extend @, data
       @exercises = (new Exercise e for e in @exercises)
 

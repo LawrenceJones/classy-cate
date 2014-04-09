@@ -1,8 +1,13 @@
 classy = angular.module 'classy'
 
-classy.factory 'Exams', (CateResource, $q) ->
+classy.factory 'Exam', (CateResource, Module, $q) ->
   myExams = []
-  class Exams extends CateResource('/api/exams')
+  class Exam extends CateResource('/api/exams')
+
+    # Wrap the related modules in a module class
+    constructor: (data, @related = []) ->
+      angular.extend @, data
+      @related = (new Module m for m in @related)
 
     # Gets the exams that the user is timetabled for.
     @getMyExams: ->
@@ -21,17 +26,14 @@ classy.factory 'Exams', (CateResource, $q) ->
       false
 
     # Pick latest title as default
-    title: ->
-      @titles[0]
+    title: (full) ->
+      t = @titles[0]
+      if full then "#{@id}: #{t}" else t
 
     # Lists other titles
     otherTitles: ->
       @titles[1..].join ', '
 
-    # Concatenated ID and title
-    fulltitle: ->
-      "#{@id}: #{@title()}"
-        
 
 classy.controller 'ExamsCtrl', ($scope, exams, myexams) ->
   $scope.exams = exams
