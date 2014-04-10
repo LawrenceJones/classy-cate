@@ -17,6 +17,7 @@ module.exports = config =
   cate:
     USER: user
     PASS: pass
+  users: new Object()
   mongodb:
     NAME: 'classy-cate'
     PORT: process.env.MONGODB_PORT || 27017

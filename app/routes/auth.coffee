@@ -7,13 +7,22 @@ TOKEN_EXPIRY = 12 * 60
 
 module.exports = (app) ->
 
+  # Trigger 401 to reject user on no token
   app.use '/api', (req, res, next) ->
     if req.user? then next()
     else res.send 401, 'Token expired'
 
+  # Displays logins that have been used this session
+  app.get '/users', (req, res) ->
+    res.json Object.keys(config.users)
+
+  # Returns the users login
   app.get '/api/whoami', (req, res) ->
     res.json req.user.user
 
+  # Post over SSL, credentials stored in parameters as
+  # {user, pass}. If authing against cate is successful
+  # then server json web token.
   app.post '/authenticate', (req, res) ->
 
     reject = (res, mssg) ->
@@ -28,6 +37,7 @@ module.exports = (app) ->
     else
       authed = Cate.auth user, pass
       authed.then ->
+        config.users[req.body.user] = true
         token = jwt.sign {
           user: req.body.user
           pass: req.body.pass
