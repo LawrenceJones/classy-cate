@@ -13,7 +13,10 @@ auth.controller 'AuthCtrl', (Auth, $scope, $http, $window, $state) ->
     $scope.waiting = true
     authed = Auth.login $scope.input.user, $scope.input.pass
     authed.then (data) ->
-      $state.transitionTo 'dashboard'
+      if $window.blockedHash?
+        $window.location = $window.blockedHash
+        $window.blockedHash = null
+      else $state.transitionTo 'dashboard'
     authed.catch ->
       $scope.denied = true
       $scope.waiting = false

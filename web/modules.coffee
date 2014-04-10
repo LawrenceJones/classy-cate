@@ -7,6 +7,9 @@ classy = angular.module 'classy', [
   'auth'
 ]
 
+# Save the initial window state
+window.initialState = window.location.hash
+
 Date::format = ->
   [d, m] = [@getDate(), @getMonth() + 1].map (n) ->
     ('000' + n).slice -2
@@ -83,10 +86,7 @@ classy.config [
 
 ]
 
-classy.run ['$state', '$rootScope', 'Dashboard'
-  ($state, $rootScope, Dashboard) ->
-    Dashboard.get()
-    $state.transitionTo 'dashboard'
-]
+classy.run ($state, $rootScope, Dashboard) ->
+  Dashboard.get()
   
 
