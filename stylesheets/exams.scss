@@ -71,7 +71,12 @@ table.all-exams-table {
       width: 80px;
     }
   }
-
-
 }
 
+
+.upload-remove-btn a {
+  float: right;
+  margin-right: 6px;
+  color: #d9534f;
+  i { font-size: 16px; }
+}

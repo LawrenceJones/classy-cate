@@ -70,6 +70,7 @@ classy.config [
       resolve:
         exam: (Exam, $stateParams) ->
           Exam.getOneById $stateParams.id
+        me: (Auth) -> Auth.whoami()
       controller: 'ExamViewCtrl'
       templateUrl: '/partials/exam_view'
     }

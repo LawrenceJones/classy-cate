@@ -25,7 +25,7 @@ auth.factory 'Auth', ($q, $http, $window, $state) ->
           })
           req
             .success (data, status) ->
-              deferred.resolve (Auth.user = data.user)
+              deferred.resolve (Auth.user = JSON.parse data)
             .error (data) -> Auth.user = null
       deferred.promise
 

@@ -11,6 +11,8 @@ module.exports = (app) ->
     if req.user? then next()
     else res.send 401, 'Token expired'
 
+  app.get '/api/whoami', (req, res) ->
+    res.json req.user.user
 
   app.post '/authenticate', (req, res) ->
 

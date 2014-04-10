@@ -32,6 +32,20 @@ classy.factory 'Upload', ($http, $q) ->
         deferred.reject err
       deferred.promise
 
+    # Attemps to remove this instance from the server.
+    remove: ->
+      req = $http({
+        method: 'DELETE'
+        url: "/api/uploads/#{@_id}"
+      })
+      deferred = $q.defer()
+      req.success (data) ->
+        if data.error? then return deferred.reject data
+        deferred.resolve data
+      req.error (err) ->
+        deferred.reject err
+      deferred.promise
+
 classy.controller 'UploadModalCtrl',
   ($scope, $q, $modalInstance, Upload, exam, $http) ->
     $scope.exam = exam
@@ -62,6 +76,23 @@ classy.controller 'UploadModalCtrl',
         $modalInstance.dismiss 'close'
       saved.catch handleError
       saved.finally -> $scope.waiting = false
+
+classy.directive 'uploadRemoveBtn', (Upload) ->
+  restrict: 'AC'
+  controller: (Upload, $scope) ->
+    $scope.remove = (upload, exam) ->
+      console.log 'Removing!'
+      upload = new Upload upload
+      removed = upload.remove exam
+      removed.then ->
+        console.log 'Removed!'
+        exam.studentUploads = exam.studentUploads.filter (u) ->
+          u.url != upload.url
+  template: """
+    <a ng-click="remove(upload, exam)"><i class="fa fa-trash-o"></i></a>
+  """
+  scope: upload: '=', exam: '='
+  
 
 classy.directive 'uploadBtn', ($compile, $state) ->
   restrict: 'AC'

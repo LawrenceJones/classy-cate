@@ -35,15 +35,16 @@
     h2
       | Student Uploaded Materials
       .pull-right.upload-btn(exam='{{ exam }}') Upload Document
-    table.table.table-bordered.table-striped
+    table.table.table-bordered.table-striped.uploads-table
       tr
-        th Name
-        th Uploaded When
-        th Uploaded By
-        th Score
+        th.name Name
+        th.uploaded Uploaded When
+        th.author Uploaded By
+        th.score Score
       tr(ng-repeat='upload in exam.studentUploads')
         td
           a(ng-href='{{upload.url}}') {{ upload.name }}
+          span.upload-remove-btn(upload='upload', exam='exam', ng-show='me == upload.author')
         td
           span {{ upload.timestamp }}
         td

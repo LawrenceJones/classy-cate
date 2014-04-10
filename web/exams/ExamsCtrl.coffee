@@ -14,7 +14,7 @@ classy.factory 'Exam', (CateResource, Module, Upload, $q) ->
     @getMyExams: ->
       deferred = $q.defer()
       @makeReq('/api/myexams').success (data) =>
-        deferred.resolve data.exams
+        deferred.resolve (new Exam e for e in data.exams)
         myExams = (e.id for e in data.exams)
       deferred.promise
 
