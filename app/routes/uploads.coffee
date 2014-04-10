@@ -67,7 +67,9 @@ routes =
           return res.send 403
         upload.remove (err) ->
           if err? then return handleError err
-          res.send 204
+          gfs.remove {_id: upload._id}, (err) ->
+            if err? then return handleError err
+            res.send 204
 
   # POST /api/uploads/:id/:vote(up|down)
   vote: (req, res) ->
