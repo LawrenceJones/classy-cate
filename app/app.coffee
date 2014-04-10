@@ -61,8 +61,7 @@ app = (configure = (app, config) ->
 
 # Load routes in given order
 [
-  './auth'
-  './api/routes'
+  './routes'
 ]
   .map (routePath) ->
     (require routePath)(app)

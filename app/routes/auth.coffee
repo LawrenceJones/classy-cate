@@ -1,6 +1,6 @@
 jwt = require 'jsonwebtoken'
-config = require './config'
-Cate = require './cate'
+config = require '../config'
+Cate = require '../cate'
 
 # In minutes
 TOKEN_EXPIRY = 12 * 60

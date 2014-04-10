@@ -1,0 +1,31 @@
+mixin user-input(placeholder, model, hasError)
+  .form-group(ng-class="{'has-error': "+hasError+"}")
+    input.form-control.input-lg(
+      type='text'
+      ng-model!=model
+      placeholder!=placeholder)
+
+.upload-modal
+  .upload-modal-header.modal-header
+    h3
+      | Upload document to Exam {{ exam.id }}
+      button.close(aria-hidden='true', ng-click='close()', type='button') &times;
+  .notes-modal-body.modal-body.user-input
+    form.form-login
+      .row
+        .col-md-12.form-group
+          +user-input('Document Name', 'upload.name', "!valid.name")
+          +user-input('Document Link', 'upload.url', '!valid.url')
+      .row.unselectable.hide // TODO - Evaluate if people want this
+        .col-md-8.col-md-offset-4
+          label.pull-right
+            input(type='checkbox', ng-model!='upload.anonymous')
+            span &nbsp;Anonymous
+      .buffer
+      .row.unselectable
+        .col-md-12
+          button.centered.submit.btn.btn-default.btn-lg(ng-click!='submit()', ng-class!="{disabled: waiting}") Upload Document
+      hr
+      .row
+
+

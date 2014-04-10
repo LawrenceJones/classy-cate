@@ -22,6 +22,8 @@ examSchema = mongoose.Schema
     default: []
   ]
   papers: require './paper_model'
+  related: []
+  studentUploads: []
 
 # Returns lean exam with related modules.
 examSchema.methods.populateRelated = (mods = []) ->

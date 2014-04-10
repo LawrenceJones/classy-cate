@@ -1,26 +1,22 @@
-
 // The exam is in scope as EXAM.
 .row
   .col-md-12
     h1
-      | {{ exam.title(true) }}
+      | {{ exam.id }}: {{ exam.titles[0] }}
       .pp-shortcut-dd.float-right-button(paper-btns='exam', cut='-1', placeholder='Past Papers')
     span.lead
       a.lead(ui-sref='exams') Exams
       | &nbsp;/ {{ exam.titles.join(', ') }}
 .row
-  .related-notes.col-md-12(ng-show='exam.papers.length > 0')
+  .related-notes.col-md-12
+    hr
     h2
       | Related Notes
       span.light(ng-show='exam.related.length == 0') &nbsp; - None.
     accordion(close-others='oneAtATime')
-      .panel.panel-default
-        .panel-heading
-          h4.panel-title.link-module-btn
-            a Link Module?
       accordion-group.module-accordion(ng-repeat='module in exam.related', is-open='isopen')
         accordion-heading
-          {{ module.name }}
+          | {{ module.id }}: {{ module.name }}
           i.pull-right.fa(ng-class="{'fa-angle-down': isopen, 'fa-angle-right': !isopen, bordered: isopen}")
         table.table.table-striped.table-bordered.notes-table
           tr
@@ -28,4 +24,32 @@
             td.id {{ $index + 1 }}
             td
               a(ng-href='{{note.link}}') {{ note.title }}
+      .panel.panel-default
+        .panel-heading
+          h4.panel-title.link-module-btn
+            a Link Module?
       
+.row
+  .student-materials.col-md-12
+    hr
+    h2
+      | Student Uploaded Materials
+      .pull-right.upload-btn(exam='{{ exam }}') Upload Document
+    table.table.table-bordered.table-striped
+      tr
+        th Name
+        th Uploaded When
+        th Uploaded By
+        th Score
+      tr(ng-repeat='upload in exam.studentUploads')
+        td
+          a(ng-href='{{upload.url}}') {{ upload.name }}
+        td
+          span {{ upload.timestamp }}
+        td
+          a(ng-href='{{ upload.mailto }}') {{ upload.author }}
+        td
+          .upload-upvotes(upload='{{upload}}')
+            span Upvotes here
+        
+    

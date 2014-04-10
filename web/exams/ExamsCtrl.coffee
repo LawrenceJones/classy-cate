@@ -1,13 +1,14 @@
 classy = angular.module 'classy'
 
-classy.factory 'Exam', (CateResource, Module, $q) ->
+classy.factory 'Exam', (CateResource, Module, Upload, $q) ->
   myExams = []
   class Exam extends CateResource('/api/exams')
 
     # Wrap the related modules in a module class
-    constructor: (data, @related = []) ->
+    constructor: (data) ->
       angular.extend @, data
-      @related = (new Module m for m in @related)
+      @related = (new Module m for m in @related || [])
+      @studentUploads = (new Upload u for u in @studentUploads || [])
 
     # Gets the exams that the user is timetabled for.
     @getMyExams: ->
@@ -16,7 +17,6 @@ classy.factory 'Exam', (CateResource, Module, $q) ->
         deferred.resolve data.exams
         myExams = (e.id for e in data.exams)
       deferred.promise
-
 
     # Evalutates whether the given exam id is one the user
     # is timetables to take.

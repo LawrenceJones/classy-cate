@@ -11,6 +11,7 @@ MyExams = require './my_exams'
 # Mongoose models
 Exam = mongoose.model 'Exam'
 CateModule = mongoose.model 'CateModule'
+Upload = mongoose.model 'Upload'
 
 # Base domain and exam expiry rate.
 DOMAIN = 'https://exams.doc.ic.ac.uk'
@@ -96,7 +97,10 @@ getAllLinkPages = (links, auth) ->
 # Returns all exams from the database.
 getAllFromDb = (deferred = $q.defer()) ->
   console.log 'Fetching db'
-  Exam.find {}, (err, exams) ->
+  query = Exam
+    .find {}
+    .populate 'studentUploads'
+  query.exec (err, exams) ->
     if err? then deferred.reject 500
     else
       deferred.resolve exams
@@ -126,10 +130,11 @@ getAssociatedModules = (id = '') ->
   ids = id.match /(\d+)/g
   return [] if ids.length is 0
   rex = "^#{ids.join('|')}$"
+  deferred = $q.defer()
   CateModule.find { id: $regex:rex }, (err, modules) ->
     if err? then deferred.reject err
     else deferred.resolve modules
-  (deferred = $q.defer()).promise
+  deferred.promise
 
 # Module for parsing exam data from exams.doc.ic.ac.uk.
 # Caches all data into the mongodb Exams model.
@@ -179,17 +184,39 @@ module.exports = class CateExams extends CateResource
       console.error "Fetching Exam data failed: #{err}"
       res.send 500
 
+  # Pushed data into the associated modules and uploads fields.
+  @populate: (exam) ->
+    deferred = $q.defer()
+    modules = getAssociatedModules exam.id
+    modules.then (assoc) =>
+      exam.related = assoc
+      query = Upload.find {exam: exam._id}
+      query.exec (err, uploads) =>
+        if err? then return deferred.reject err
+        else
+          exam.studentUploads = uploads
+          deferred.resolve exam
+    modules.catch (err) ->
+      console.error err
+      res.send 500
+    deferred.promise
+
   # GET /exams/:id
   # Receives an id parameter and returns the exam info from
   # the database table. If cache has expired will update table
   # first.
   @get: (req, res) ->
-    query = Exam.findOne {id: req.params.id}
-    query.exec (err, exam) ->
+    query = Exam
+      .findOne {id: req.params.id}
+    query.exec (err, exam) =>
       if err? then res.send 500
       else
-        getAssociatedModules(exam.id).then (assoc) ->
-          res.json exam.populateRelated(assoc)
+        fetched = @populate(exam)
+        fetched.then (exam) ->
+          res.json exam
+        fetched.catch (err) ->
+          console.error err
+          res.send 500
 
   # Fetches the exams that the student is timetabled for.
   @getMyExams: ->

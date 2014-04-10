@@ -22,6 +22,7 @@ module.exports = (config) ->
 
   [Exam, CateModule] = [ # Load database models
     './exams/exam_model'
+    './exams/student_upload_model'
     './cate_modules/cate_module_model'
   ]
     .map (modelPath) -> (require modelPath)
