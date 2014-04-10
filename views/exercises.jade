@@ -38,7 +38,7 @@ mixin next-prev-terms
         td.visible-lg.visible-md.set {{ ex.start.format() }}
         td.due {{ ex.end.format() }}
         td.spec
-          a(ng-href!="{{ 'https://cate.doc.ic.ac.uk/' + ex.spec }}", ng-show='ex.spec') Spec Link
+          a(target='_blank', ng-href!="{{ 'https://cate.doc.ic.ac.uk/' + ex.spec }}", ng-show='ex.spec') Spec Link
           span(ng-show='!ex.spec') NA
         td.given
           .givens-link(exercise='ex', ng-show='ex.givens') Givens

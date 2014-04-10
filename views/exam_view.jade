@@ -43,7 +43,7 @@
         th.score Score
       tr(ng-repeat='upload in exam.studentUploads | orderBy:negScore')
         td
-          a(ng-href='{{upload.url}}') {{ upload.name }}
+          a(ng-href='{{upload.url}}', target='_blank') {{ upload.name }}
           span.upload-remove-btn(upload='upload', exam='exam', ng-show='me == upload.author')
         td
           span {{ upload.timestamp }}
