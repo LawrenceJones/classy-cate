@@ -7,11 +7,12 @@ classy.factory 'Exercise', ->
       @start = new Date @start
       @end = new Date @end
 
-classy.factory 'Module', (Exercise) ->
+classy.factory 'Module', (Exercise, Note) ->
   class Module
-    constructor: (data, @exercises = []) ->
+    constructor: (data) ->
       angular.extend @, data
-      @exercises = (new Exercise e for e in @exercises)
+      @exercises = (new Exercise e for e in @exercises || [])
+      @notes = (new Note n for n in @notes || [])
 
 
 classy.factory 'Exercises', (CateResource, Module, $rootScope, $q) ->
@@ -37,6 +38,5 @@ classy.controller 'ExercisesCtrl', ($scope, $state, $stateParams, exercises) ->
 
   $scope.changePeriod = (diff) ->
     period = parseInt($stateParams.period, 10) + diff
-    console.log period
     if period < 8 && period > 0
       $state.transitionTo 'exercises', {period: period}

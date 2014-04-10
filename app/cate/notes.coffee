@@ -54,7 +54,7 @@ module.exports = class Notes extends CateResource
     # Load the current payload into the database
     url = @req.params.link || @req.query.link
     CateModule.updateModuleNotes url, notes if url?
-    @data = { notes: notes }
+    @data = notes
 
   # Note links will typically be sourced from hyperlinks,
   # therefore if the url looks like it's not containing

@@ -10,8 +10,6 @@ routes =
 
     Exam.findOne {id: req.params.id}, (err, exam) ->
       if err? or !exam? then return res.send (err? && 500) || 401
-      console.log req.query
-
       verified = Upload.verifyUrl(req.query.url)
       verified.catch (err) -> res.json err
       verified.then ->

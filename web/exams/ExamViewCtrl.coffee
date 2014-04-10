@@ -5,6 +5,4 @@ classy.controller 'ExamViewCtrl', ($scope, exam, me) ->
     -(u.upvotes - u.downvotes)
   $scope.exam = exam
   $scope.me = me
-  console.log 'Exam view ctrl'
-  console.log exam
 

@@ -1,12 +1,11 @@
 classy = angular.module 'classy'
 
-classy.factory 'Notes', (CateResource, $q) ->
-  class Notes extends CateResource('/api/notes')
+classy.factory 'Note', (CateResource, $q) ->
+  class Note extends CateResource('/api/notes')
     constructor: (data) ->
       super data
-      for note in @notes
-        if !/http:/.test note.link
-          note.link = "https://cate.doc.ic.ac.uk/#{note.link}"
+      if !/http:/.test @link
+        @link = "https://cate.doc.ic.ac.uk/#{@link}"
 
 classy.controller 'NotesModalCtrl', ($scope, $modalInstance, notes, module) ->
   $scope.notes = notes.notes
@@ -16,7 +15,7 @@ classy.controller 'NotesModalCtrl', ($scope, $modalInstance, notes, module) ->
 
 classy.directive 'notesLink', ->
   restrict: 'CA'
-  controller: ($scope, $modal, Notes) ->
+  controller: ($scope, $modal, Note) ->
     $scope.open = (module) ->
       $modal.open
         templateUrl: '/partials/notes_modal'
@@ -24,7 +23,7 @@ classy.directive 'notesLink', ->
         backdrop: true
         resolve:
           module: -> module
-          notes: -> Notes.get { link: module.notesLink }
+          notes: -> Note.get { link: module.notesLink }
   template: """
     <span> - </span><a ng-click="open(module)">Notes</a>
   """

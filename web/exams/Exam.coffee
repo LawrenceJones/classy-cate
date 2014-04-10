@@ -7,6 +7,7 @@ classy.factory 'Exam', (CateResource, Module, Upload, $q) ->
     # Wrap the related modules in a module class
     constructor: (data) ->
       angular.extend @, data
+      @parent = true
       @related = (new Module m for m in @related || [])
       @studentUploads = (new Upload u for u in @studentUploads || [])
 

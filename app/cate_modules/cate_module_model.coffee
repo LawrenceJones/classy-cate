@@ -57,8 +57,8 @@ cateModuleSchema.statics.register = register = (data, req) ->
       if !req then deferred.resolve module
       else
         if module.notesLink?
-          Notes.scrape(req, module.notesLink).then (data) ->
-            module.addNotes data.notes
+          Notes.scrape(req, module.notesLink).then (notes) ->
+            module.addNotes notes
         deferred.resolve module
   deferred = $q.defer()
   deferred.promise
