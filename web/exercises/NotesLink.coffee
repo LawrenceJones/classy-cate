@@ -8,7 +8,7 @@ classy.factory 'Note', (CateResource, $q) ->
         @link = "https://cate.doc.ic.ac.uk/#{@link}"
 
 classy.controller 'NotesModalCtrl', ($scope, $modalInstance, notes, module) ->
-  $scope.notes = notes.notes
+  $scope.notes = notes
   $scope.module = module
   $scope.close = ->
     $modalInstance.dismiss 'cancel'
