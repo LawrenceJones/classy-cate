@@ -15,16 +15,15 @@ mixin user-input(placeholder, model, hasError)
       .row
         .col-md-12.form-group
           +user-input('Document Name', 'upload.name', "!valid.name")
-          +user-input('Document Link', 'upload.url', '!valid.url')
+          //+user-input('Document Link', 'upload.url', '!valid.url')
+          file-uploader(params='upload', url="{{ '/api/exams/' + exam.id + '/upload' }}"
+                        valid='upload.name.length > 6', req-handler='submitHandler')
       .row.unselectable.hide // TODO - Evaluate if people want this
         .col-md-8.col-md-offset-4
           label.pull-right
             input(type='checkbox', ng-model!='upload.anonymous')
             span &nbsp;Anonymous
       .buffer
-      .row.unselectable
-        .col-md-12
-          button.centered.submit.btn.btn-default.btn-lg(ng-click!='submit()', ng-class!="{disabled: waiting}") Upload Document
       hr
       .row
 

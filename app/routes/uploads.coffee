@@ -1,5 +1,13 @@
 request = require 'request'
 mongoose = require 'mongoose'
+express = require 'express'
+
+# Gridfs libraries
+fs = require 'fs'
+Grid = require 'gridfs-stream'
+gfs = Grid mongoose.connection.db, mongoose.mongo
+
+# Cate resources
 Exam = mongoose.model 'Exam'
 Upload = mongoose.model 'Upload'
 
@@ -7,22 +15,42 @@ routes =
 
   # POST /api/exams/:id/upload
   submitUpload: (req, res) ->
-
     Exam.findOne {id: req.params.id}, (err, exam) ->
       if err? or !exam? then return res.send (err? && 500) || 401
-      verified = Upload.verifyUrl(req.query.url)
-      verified.catch (err) -> res.json err
-      verified.then ->
-        upload = new Upload req.query
-        upload.upvotes = upload.downvotes = []
-        upload.author = req.user.user
-        upload.exam = exam
+
+      upload = new Upload req.query
+      upload.upvotes = upload.downvotes = []
+      upload.author = req.user.user
+      upload.exam = exam
+
+      file = req.files.upload
+      ws = gfs.createWriteStream
+        _id: upload._id
+      fs.createReadStream(file.path).pipe ws
+      ws.on 'error', (err) ->
+        console.error err.toString()
+      ws.on 'close', ->
         upload.save (err) ->
           if err? and err.code is 11000
+            console.error err
             return res.json error: 'duplicateUrl'
           else if err
             return res.json error: err
           res.json upload.mask req
+
+  # GET /api/uploads/:id/download
+  downloadFile: (req, res) ->
+    Upload
+      .findOne _id: req.params.id
+      .exec (err, upload) ->
+        if err? then return res.send 500
+        rs = gfs.createReadStream
+          _id: upload._id
+        rs.pipe res
+        rs.on 'error', (err) ->
+          console.error err
+          res.send 500
+
 
   # DELETE /api/uploads/:id
   # If you do not own the upload you are attempting to delete,
@@ -58,8 +86,10 @@ routes =
 
 module.exports = (app) ->
   app.delete '/api/uploads/:id', routes.removeUpload
-  app.post '/api/exams/:id/upload', routes.submitUpload
+  app.post '/api/exams/:id/upload', express.bodyParser(), routes.submitUpload
+
   app.post '/api/uploads/:id/:vote(up|down)', routes.vote
+  app.get '/api/uploads/:id/download', routes.downloadFile
 
         
         

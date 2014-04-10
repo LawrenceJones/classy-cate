@@ -1,39 +1,5 @@
 classy = angular.module 'classy'
 
-classy.controller 'UploadModalCtrl',
-  ($scope, $q, $modalInstance, Upload, exam, $http) ->
-    $scope.exam = exam
-    $scope.upload =
-      name: null
-      url: null
-      anonymous: false
-
-    $scope.valid = url: true, name: true, mssg: ''
-
-    $scope.close = ->
-      $modalInstance.dismiss 'cancel'
-
-    # Submits the new upload
-    $scope.submit = ->
-
-      handleError = (err) ->
-        switch err?.error
-          when 'duplicateUrl' then $scope.valid.mssg = """
-          You have submitted a link that has already been submitted."""
-          when 'invalidUrl' then $scope.valid.url = false
-
-      upload = new Upload $scope.upload
-      $scope.upload.url = upload.url
-      return if !($scope.valid.name = upload.hasValidName())
-      saved = upload.save exam.id
-      $scope.waiting = true
-      saved.then (data) ->
-        if data.error? then return handleError data
-        $scope.exam.studentUploads.push new Upload(data)
-        $modalInstance.dismiss 'close'
-      saved.catch handleError
-      saved.finally -> $scope.waiting = false
-
 classy.directive 'uploadRemoveBtn', (Upload) ->
   restrict: 'AC'
   controller: (Upload, $scope) ->
@@ -47,6 +13,42 @@ classy.directive 'uploadRemoveBtn', (Upload) ->
     <a ng-click="remove(upload, exam)"><i class="fa fa-trash-o"></i></a>
   """
   scope: upload: '=', exam: '='
+
+classy.directive 'fileUploader', ($http) ->
+  restrict: 'E'
+  template: """
+    <div class="form-group">
+      <form>
+        <input class="hide" type="file" name="file"/>
+      </form>
+      <button class="btn btn-lg clicker btn-primary form-control input-lg"
+              ng-class="{disabled: !valid}">
+        Upload File
+      </button>
+    </div>"""
+  scope: params: '=', url: '@', valid: '=', reqHandler: '='
+  link: ($scope, $elem, attr) ->
+    $form = $elem.find 'form:eq(0)'
+    $input = $elem.find 'input[type=file]'
+    $btn = $elem.find 'button.clicker'
+    $btn.click -> $input.trigger 'click'
+    handleSelect = (evt) ->
+      file = evt.target.files[0]
+      formData = new FormData()
+      formData.append 'upload', file
+      urlEncoded = $.param ($scope.params || {})
+      req = $http.post "#{$scope.url}?#{urlEncoded}", formData, {
+        withCredentials: true
+        headers: 'Content-Type': undefined
+        transformRequest: angular.identity
+      }
+      $btn.text 'Loading...'
+      req.error (err) ->
+        console.error err
+        $btn.text 'Upload Failed'
+      $scope.reqHandler? req
+    $input.on 'change', handleSelect
+    
   
 
 classy.directive 'uploadBtn', ($compile, $state) ->

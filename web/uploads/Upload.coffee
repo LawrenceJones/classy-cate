@@ -23,8 +23,6 @@ classy.factory 'Upload', ($http, $q) ->
       @mailto = """
       mailto:#{@author}@ic.ac.uk?
       Subject=\"Cate Upload '#{@name}'\""""
-      if !/^http(s)?:\/\//.test @url
-        @url = "http://#{@url}"
 
     score: ->
       @upvotes - @downvotes
@@ -32,14 +30,6 @@ classy.factory 'Upload', ($http, $q) ->
     # Shallow check of name presence.
     hasValidName: ->
       @name? && !/^[\s\t\r\b]*$/.test @name
-
-    # Will save the Uploaded document to an exam.
-    save: (examId) ->
-      handleRequest $http({
-        method: 'POST'
-        url: "/api/exams/#{examId}/upload"
-        params: name: @name, url: @url
-      })
 
     # Attemps to remove this instance from the server.
     remove: ->

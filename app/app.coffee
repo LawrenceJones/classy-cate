@@ -35,6 +35,10 @@ app = (configure = (app, config) ->
       res.redirect "https://#{req.headers.host}#{req.url}"
 
   # Decode the user credentials
+  app.use '/api', (req, res, next) ->
+    if !req.headers.authorization? && req.query.token?
+      req.headers.authorization = "Bearer #{req.query.token}"
+    next()
   app.use '/api', jwt
     secret: config.express.SECRET
 

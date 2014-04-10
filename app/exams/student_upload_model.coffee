@@ -9,13 +9,6 @@ uploadSchema = mongoose.Schema
     type: String
     trim: true
     required: true
-  url:
-    type: String
-    trim: true
-    required: true
-    index:
-      unique: true
-      dropDups: true
   uploaded:
     type: Date
     required: true
@@ -38,14 +31,6 @@ uploadSchema = mongoose.Schema
     type: ObjectId
     ref: 'Exam'
 
-# Verifies that the given url is not dead.
-uploadSchema.statics.verifyUrl = (url = '') ->
-  deferred = $q.defer()
-  request url, (err) ->
-    if err? then deferred.reject error: 'invalidUrl'
-    else deferred.resolve true
-  deferred.promise
-
 # Masks the identities of the voters, as a simple vote number,
 # also marks whether the current user has voted.
 uploadSchema.methods.mask = (req) ->
@@ -55,6 +40,8 @@ uploadSchema.methods.mask = (req) ->
     upload.hasVoted |= (vote == req.user.user)
   upload.upvotes = @upvotes.length
   upload.downvotes = @downvotes.length
+  token = req.headers.authorization?.split?(' ')[1]
+  upload.url = "/api/uploads/#{@_id}/download?token=#{token}"
   upload
 
 Upload = mongoose.model 'Upload', uploadSchema
