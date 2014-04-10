@@ -16,7 +16,7 @@ mixin all-exams
     tr
       th.title Title
       th.papers Papers
-    tr(ng-repeat!='exam in exams | filter:input.search | filter:mine')
+    tr(ng-repeat!="exam in exams | filter:input.search | filter:mine | orderBy:'id' ")
       td.title
         a(exam-link='exam')
       td.papers

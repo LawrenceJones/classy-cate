@@ -25,14 +25,21 @@ routes =
           res.json upload.mask req
 
   # DELETE /api/uploads/:id
+  # If you do not own the upload you are attempting to delete,
+  # then this must be banned.
   removeUpload: (req, res) ->
+    handleError = (err) ->
+      console.error err
+      res.send 500
     Upload
       .findOne {_id: req.params.id}
-      .remove (err) ->
-        if err?
-          console.error err
-          return res.send 500
-        res.send 204
+      .exec (err, upload) ->
+        if err? then return handleError err
+        if upload.author != req.user.user
+          return res.send 403
+        upload.remove (err) ->
+          if err? then return handleError err
+          res.send 204
 
   # POST /api/uploads/:id/:vote(up|down)
   vote: (req, res) ->
