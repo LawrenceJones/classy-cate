@@ -23,9 +23,12 @@ classy.config [
     # Include http authorization middleware
     $httpProvider.interceptors.push 'authInterceptor'
 
+    # Default route to dashboard
+    $urlRouterProvider.otherwise '/dashboard'
+
     # Splash entry page with user info.
     $stateProvider.state 'dashboard', {
-      url: '/'
+      url: '/dashboard'
       resolve:
         dash: (Dashboard) -> Dashboard.get()
       controller: 'DashboardCtrl'
@@ -63,6 +66,7 @@ classy.config [
       resolve:
         exams: (Exam) -> Exam.get()
         myexams: (Exam) -> Exam.getMyExams()
+        modules: (Module) -> Module.getAll()
       controller: 'ExamsCtrl'
       templateUrl: '/partials/exams'
     }

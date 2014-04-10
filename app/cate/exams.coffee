@@ -114,27 +114,16 @@ updateDb = (exams) ->
     deferred = $q.defer()
     findOne = Exam.findOne {id: exams[k].id}
     findOne.exec (err, exam) ->
-      if exam? then for p in exams[k].papers
-        exam.papers.addUnique p, (a,b) -> a.url == b.url
+      if exam?
+        exam.papers.mergeUnique exams[k].papers, (a,b) -> a.url == b.url
       else exam = new Exam exams[k]
-      exam.save (err) ->
-        if err? then deferred.reject err
-        else deferred.resolve exam
+      related = Exam.getRelatedModules exam
+      related.then (exam) ->
+        exam.save (err) ->
+          if err? then deferred.reject err
+          else deferred.resolve exam
     return deferred.promise
   $q.all promises
-
-# Retrives cate modules that may be associated with the given
-# exam id. Looks for id matches against the numerical part of
-# the exam id. Exam ID C210, will match against 210 for example.
-getAssociatedModules = (id = '') ->
-  ids = id.match /(\d+)/g
-  return [] if ids.length is 0
-  rex = "^#{ids.join('|')}$"
-  deferred = $q.defer()
-  CateModule.find { id: $regex:rex }, (err, modules) ->
-    if err? then deferred.reject err
-    else deferred.resolve modules
-  deferred.promise
 
 # Module for parsing exam data from exams.doc.ic.ac.uk.
 # Caches all data into the mongodb Exams model.
@@ -187,19 +176,13 @@ module.exports = class CateExams extends CateResource
   # Pushed data into the associated modules and uploads fields.
   @populate: (req, exam) ->
     deferred = $q.defer()
-    modules = getAssociatedModules exam.id
-    modules.then (assoc) =>
-      exam.related = assoc
-      query = Upload.find {exam: exam._id}
-      query.exec (err, uploads) =>
-        if err? then return deferred.reject err
-        else
-          exam.studentUploads =
-            uploads.map (u) -> u.mask req
-          deferred.resolve exam
-    modules.catch (err) ->
-      console.error err
-      res.send 500
+    query = Upload.find {exam: exam._id}
+    query.exec (err, uploads) =>
+      if err? then return deferred.reject err
+      else
+        exam.studentUploads =
+          uploads.map (u) -> u.mask req
+        deferred.resolve exam
     deferred.promise
 
   # GET /exams/:id
@@ -207,17 +190,36 @@ module.exports = class CateExams extends CateResource
   # the database table. If cache has expired will update table
   # first.
   @get: (req, res) ->
-    query = Exam
-      .findOne {id: req.params.id}
-    query.exec (err, exam) =>
+    Exam.findOne {id: req.params.id}, (err, exam) =>
       if err? then res.send 500
-      else
+      else if !exam? then res.send 404
+      else exam.populate 'related', (err, exam) =>
         fetched = @populate req, exam
         fetched.then (exam) ->
           res.json exam
         fetched.catch (err) ->
           console.error err
           res.send 500
+
+  # POST /exams/:id/relate{id: id}
+  # Adds a module to the list of related modules for this exam.
+  @relate: (req, res) ->
+    handleError = (err) ->
+      console.error err
+      res.send 500
+    Exam
+      .findOne {_id: req.params.id}
+      .populate 'related'
+      .exec (err, exam) ->
+        if err? then return handleError err
+        if !exam? then return res.send 404
+        CateModule.findOne {id: req.query.id}, (err, module) ->
+          if err? then return handleError err
+          if !module? then return res.send 404
+          exam.related.addUnique module, (a,b) -> a.id == b.id
+          exam.save (err) ->
+            if err? then return handleError err
+            res.json exam
 
   # Fetches the exams that the student is timetabled for.
   @getMyExams: ->

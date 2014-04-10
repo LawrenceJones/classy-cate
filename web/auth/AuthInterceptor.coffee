@@ -11,8 +11,8 @@ auth.factory 'authInterceptor', ($rootScope, $q, $window) ->
   responseError: (response) ->
     if response.status is 401
       console.log 'User is not authed'
-      $window.blockedHash ?= $window.location.hash
       if not /login/.test $window.location
+        $window.blockedHash ?= $window.location.hash
         $window.location = '#/login'
     return $q.reject response
 

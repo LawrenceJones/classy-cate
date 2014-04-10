@@ -24,10 +24,17 @@
             td.id {{ $index + 1 }}
             td
               a(ng-href='{{note.link}}') {{ note.title }}
-      .panel.panel-default
-        .panel-heading
-          h4.panel-title.link-module-btn
-            a Link Module?
+      accordion-group
+        accordion-heading
+          a Link Module?
+          i.pull-right.fa(ng-class="{'fa-angle-down': isopen, 'fa-angle-right': !isopen, bordered: isopen}")
+        table.table.table-striped.notes-table
+          tr
+          tr(ng-repeat="module in notRelated(modules)")
+            td
+              a(ng-click='linkModule(module)')
+                | {{ module.id }}: {{ module.name }}
+          
       
 .row
   .student-materials.col-md-12

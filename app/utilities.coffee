@@ -11,3 +11,9 @@ Array::addUnique = (elem, eq = ((a,b) -> a == b)) ->
   found = false
   found |= eq _elem, elem for _elem in @
   @push elem if not found
+
+Array::mergeUnique = (array, eq) ->
+  for elem in array
+    @addUnique elem, eq
+  return @
+

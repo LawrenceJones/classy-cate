@@ -15,7 +15,8 @@ mixin user-input(placeholder, model, hasError)
       .row
         .col-md-12.form-group
           +user-input('Document Name', 'upload.name', "!valid.name")
-          //+user-input('Document Link', 'upload.url', '!valid.url')
+          p
+            | Click the button below to upload your resource.
           file-uploader(params='upload', url="{{ '/api/exams/' + exam.id + '/upload' }}"
                         valid='upload.name.length > 6', req-handler='submitHandler')
       .row.unselectable.hide // TODO - Evaluate if people want this
@@ -24,7 +25,5 @@ mixin user-input(placeholder, model, hasError)
             input(type='checkbox', ng-model!='upload.anonymous')
             span &nbsp;Anonymous
       .buffer
-      hr
-      .row
 
 

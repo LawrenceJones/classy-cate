@@ -1,6 +1,6 @@
 classy = angular.module 'classy'
 
-classy.factory 'Exam', (CateResource, Module, Upload, $q) ->
+classy.factory 'Exam', (CateResource, Module, Upload, $q, $http) ->
   myExams = []
   class Exam extends CateResource('/api/exams')
 
@@ -34,5 +34,20 @@ classy.factory 'Exam', (CateResource, Module, Upload, $q) ->
     # Lists other titles
     otherTitles: ->
       @titles[1..].join ', '
+
+    # Relate a module with this exam
+    relateModule: (module) ->
+      req = $http({
+        method: 'POST'
+        url: "/api/exams/#{@_id}/relate"
+        params: id: module.id
+      })
+      deferred = $q.defer()
+      req.success (data) ->
+        deferred.resolve data
+      req.error (err) ->
+        deferred.reject err
+      deferred.promise
+
 
 

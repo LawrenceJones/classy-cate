@@ -7,14 +7,6 @@ classy.factory 'Exercise', ->
       @start = new Date @start
       @end = new Date @end
 
-classy.factory 'Module', (Exercise, Note) ->
-  class Module
-    constructor: (data) ->
-      angular.extend @, data
-      @exercises = (new Exercise e for e in @exercises || [])
-      @notes = (new Note n for n in @notes || [])
-
-
 classy.factory 'Exercises', (CateResource, Module, $rootScope, $q) ->
   class Exercises extends CateResource('/api/exercises')
     constructor: (data) ->

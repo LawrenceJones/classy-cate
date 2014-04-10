@@ -12,10 +12,6 @@ cateModuleSchema = mongoose.Schema
     index:
       unique: true
       dropDups: true
-  linkedExams: [
-    type: String
-    trim: true
-  ]
   name:
     type: String
     trim: true

@@ -13,8 +13,6 @@ module.exports = (app) ->
 
   app.get '/api/dashboard', (req, res) ->
     Dashboard.get req, res
-  app.get '/api/exercises', (req, res) ->
-    Exercises.get req, res
   app.get '/api/givens', (req, res) ->
     Givens.get req, res
   app.get '/api/notes', (req, res) ->
@@ -24,10 +22,17 @@ module.exports = (app) ->
   app.get '/api/givens', (req, res) ->
     Givens.get req, res
 
+  app.get '/api/exercises', (req, res) ->
+    Exercises.get req, res
+  app.get '/api/modules', (req, res) ->
+    Exercises.indexModules req, res
+
   app.get '/api/myexams', (req, res) ->
     CateExams.getMyExams req, res
   app.get '/api/exams', (req, res) ->
     CateExams.index req, res
+  app.post '/api/exams/:id/relate', (req, res) ->
+    CateExams.relate req, res
   app.get '/api/exams/:id', (req, res) ->
     CateExams.get req, res
 

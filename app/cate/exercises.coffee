@@ -226,6 +226,15 @@ module.exports = class Exercises extends CateResource
       modules: @getModules dates
       term_title: @getTermTitle()
 
+  # Provides all the cate modules stored in the database.
+  @indexModules: (req, res) ->
+    CateModule.find {}, (err, modules) ->
+      if err?
+        console.error err
+        res.send 500
+      res.json modules.map (m) ->
+        id: m.id, name: m.name, _id: m._id
+
   @url: (req) ->
     [period, klass, year, user] = [
       req.query.period || config.cate.cached_period
