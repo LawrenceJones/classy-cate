@@ -1,51 +1,5 @@
 classy = angular.module 'classy'
 
-classy.factory 'Upload', ($http, $q) ->
-  class Upload
-
-    constructor: (data) ->
-      angular.extend @, data
-      @uploaded = new Date data.uploaded
-      @timestamp = @uploaded.format()
-      @mailto = """
-      mailto:#{@author}@ic.ac.uk?
-      Subject=\"Cate Upload '#{@name}'\""""
-      if !/^http(s)?:\/\//.test @url
-        @url = "http://#{@url}"
-
-    # Shallow check of name presence.
-    hasValidName: ->
-      @name? && !/^[\s\t\r\b]*$/.test @name
-
-    # Will save the Uploaded document to an exam.
-    save: (examId) ->
-      req = $http({
-        method: 'POST'
-        url: "/api/exams/#{examId}/upload"
-        params: name: @name, url: @url
-      })
-      (deferred = $q.defer()).promise
-      req.success (data) ->
-        deferred.resolve data
-      req.error (err) ->
-        console.error err.toString()
-        deferred.reject err
-      deferred.promise
-
-    # Attemps to remove this instance from the server.
-    remove: ->
-      req = $http({
-        method: 'DELETE'
-        url: "/api/uploads/#{@_id}"
-      })
-      deferred = $q.defer()
-      req.success (data) ->
-        if data.error? then return deferred.reject data
-        deferred.resolve data
-      req.error (err) ->
-        deferred.reject err
-      deferred.promise
-
 classy.controller 'UploadModalCtrl',
   ($scope, $q, $modalInstance, Upload, exam, $http) ->
     $scope.exam = exam
@@ -55,6 +9,9 @@ classy.controller 'UploadModalCtrl',
       anonymous: false
 
     $scope.valid = url: true, name: true, mssg: ''
+
+    $scope.close = ->
+      $modalInstance.dismiss 'cancel'
 
     # Submits the new upload
     $scope.submit = ->
@@ -82,10 +39,8 @@ classy.directive 'uploadRemoveBtn', (Upload) ->
   controller: (Upload, $scope) ->
     $scope.remove = (upload, exam) ->
       console.log 'Removing!'
-      upload = new Upload upload
       removed = upload.remove exam
       removed.then ->
-        console.log 'Removed!'
         exam.studentUploads = exam.studentUploads.filter (u) ->
           u.url != upload.url
   template: """
@@ -111,5 +66,23 @@ classy.directive 'uploadBtn', ($compile, $state) ->
     <button class="btn btn-primary" ng-click="open(exam)">
       Upload Document
     </button>
+  """
+
+classy.directive 'uploadUpvoteBtns', ($compile, $state) ->
+  restrict: 'AC'
+  controller: ($scope, Upload) ->
+    $scope.vote = (updown) ->
+      $scope.upload = new Upload $scope.upload
+      voted = $scope.upload.vote updown
+      voted.then (data) ->
+        $scope.upload = new Upload data
+  scope: upload: '=', exam: '='
+  template: """
+    <a class="upvote-arrow" ng-click="vote('up')">
+      <i class="fa fa-arrow-up"></i>
+    </a>
+    <a class="downvote-arrow" ng-click="vote('down')">
+      <i class="fa fa-arrow-down"></i>
+    </a>
   """
 

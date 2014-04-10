@@ -34,14 +34,14 @@
     hr
     h2
       | Student Uploaded Materials
-      .pull-right.upload-btn(exam='{{ exam }}') Upload Document
+      .pull-right.upload-btn(exam='exam') Upload Document
     table.table.table-bordered.table-striped.uploads-table
       tr
         th.name Name
         th.uploaded Uploaded When
         th.author Uploaded By
         th.score Score
-      tr(ng-repeat='upload in exam.studentUploads')
+      tr(ng-repeat='upload in exam.studentUploads | orderBy:negScore')
         td
           a(ng-href='{{upload.url}}') {{ upload.name }}
           span.upload-remove-btn(upload='upload', exam='exam', ng-show='me == upload.author')
@@ -50,7 +50,7 @@
         td
           a(ng-href='{{ upload.mailto }}') {{ upload.author }}
         td
-          .upload-upvotes(upload='{{upload}}')
-            span Upvotes here
+          strong +{{ upload.upvotes }} / -{{upload.downvotes}}
+          .upload-upvote-btns(upload='upload', exam='exam', ng-show="!upload.hasVoted")
         
     

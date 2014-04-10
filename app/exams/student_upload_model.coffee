@@ -27,6 +27,12 @@ uploadSchema = mongoose.Schema
   upvotes: [
     type: String
     trim: true
+    unique: true
+  ]
+  downvotes: [
+    type: String
+    trim: true
+    unique: true
   ]
   exam:
     type: ObjectId
@@ -39,6 +45,17 @@ uploadSchema.statics.verifyUrl = (url = '') ->
     if err? then deferred.reject error: 'invalidUrl'
     else deferred.resolve true
   deferred.promise
+
+# Masks the identities of the voters, as a simple vote number,
+# also marks whether the current user has voted.
+uploadSchema.methods.mask = (req) ->
+  upload = @toJSON()
+  upload.hasVoted = false
+  for vote in @upvotes.concat @downvotes
+    upload.hasVoted |= (vote == req.user.user)
+  upload.upvotes = @upvotes.length
+  upload.downvotes = @downvotes.length
+  upload
 
 Upload = mongoose.model 'Upload', uploadSchema
 module.exports = Upload

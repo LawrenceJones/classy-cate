@@ -7,9 +7,6 @@ module.exports = (app) ->
   # Routes CATe api
   (require './api')(app)
 
-  # Routes for publishing documents, etc.
-  (require './exams')(app)
-
   # Uploading facilities.
   (require './uploads')(app)
 

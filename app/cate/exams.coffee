@@ -185,7 +185,7 @@ module.exports = class CateExams extends CateResource
       res.send 500
 
   # Pushed data into the associated modules and uploads fields.
-  @populate: (exam) ->
+  @populate: (req, exam) ->
     deferred = $q.defer()
     modules = getAssociatedModules exam.id
     modules.then (assoc) =>
@@ -194,7 +194,8 @@ module.exports = class CateExams extends CateResource
       query.exec (err, uploads) =>
         if err? then return deferred.reject err
         else
-          exam.studentUploads = uploads
+          exam.studentUploads =
+            uploads.map (u) -> u.mask req
           deferred.resolve exam
     modules.catch (err) ->
       console.error err
@@ -211,7 +212,7 @@ module.exports = class CateExams extends CateResource
     query.exec (err, exam) =>
       if err? then res.send 500
       else
-        fetched = @populate(exam)
+        fetched = @populate req, exam
         fetched.then (exam) ->
           res.json exam
         fetched.catch (err) ->
