@@ -14,6 +14,7 @@ routes =
       verified.catch (err) -> res.json err
       verified.then ->
         upload = new Upload req.query
+        upload.upvotes = upload.downvotes = []
         upload.author = req.user.user
         upload.exam = exam
         upload.save (err) ->
