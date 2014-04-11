@@ -33,6 +33,8 @@ module.exports = (app) ->
     CateExams.index req, res
   app.post '/api/exams/:id/relate', (req, res) ->
     CateExams.relate req, res
+  app.delete '/api/exams/:id/relate', (req, res) ->
+    CateExams.removeRelated req, res
   app.get '/api/exams/:id', (req, res) ->
     CateExams.get req, res
 

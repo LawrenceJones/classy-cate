@@ -12,10 +12,15 @@ classy.controller 'ExamViewCtrl', ($scope, $modal, Exam, exam, me) ->
       
   $scope.linkModule = (module) ->
     related = exam.relateModule module
-    related.then (data) ->
-      console.log data
-      $scope.exam.related = data.related
+    related.then (exam) ->
+      $scope.exam = data
     related.catch (err) ->
       console.error err
+
+  $scope.removeModule = (module) ->
+    removed = exam.removeModule module
+    removed.then (exam) ->
+      $scope.exam = exam
+
       
 

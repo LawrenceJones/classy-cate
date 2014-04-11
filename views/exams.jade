@@ -16,7 +16,7 @@ mixin all-exams
     tr
       th.title Title
       th.papers Papers
-    tr(ng-repeat!="exam in exams | filter:input.search | filter:mine | orderBy:'id' ")
+    tr(ng-repeat!="exam in filterExams(exams, noToDisplay)")
       td.title
         a(exam-link='exam')
       td.papers
@@ -31,7 +31,8 @@ mixin all-exams
       h2 Your Exams
       +exams-collection
   .row
-    .col-md-12(ng-controller!='PaperCtrl')
+    .col-md-12(ng-controller!='PaperCtrl'
+      infinite-scroll='loadMore()', infinite-scroll-disabled='loading')
       h2
         | All Exams
         .input-group.exam-search.floated

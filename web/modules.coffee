@@ -4,6 +4,7 @@ classy = angular.module 'classy', [
   'ui.router'
   'ui.bootstrap.modal'
   'ui.bootstrap.accordion'
+  'infinite-scroll'
   'auth'
 ]
 
@@ -92,5 +93,7 @@ classy.config [
 
 classy.run ($state, $rootScope, Dashboard) ->
   Dashboard.get()
+  $rootScope.$on '$stateChangeSuccess', ($event, state) ->
+    $rootScope.currentState = state.name
   
 

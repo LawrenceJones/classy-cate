@@ -125,6 +125,11 @@ updateDb = (exams) ->
     return deferred.promise
   $q.all promises
 
+# Simply returns server error.
+handleError = (err) ->
+  console.error err
+  res.send 500
+
 # Module for parsing exam data from exams.doc.ic.ac.uk.
 # Caches all data into the mongodb Exams model.
 module.exports = class CateExams extends CateResource
@@ -204,9 +209,6 @@ module.exports = class CateExams extends CateResource
   # POST /exams/:id/relate{id: id}
   # Adds a module to the list of related modules for this exam.
   @relate: (req, res) ->
-    handleError = (err) ->
-      console.error err
-      res.send 500
     Exam
       .findOne {_id: req.params.id}
       .populate 'related'
@@ -220,6 +222,21 @@ module.exports = class CateExams extends CateResource
           exam.save (err) ->
             if err? then return handleError err
             res.json exam
+
+  # DELETE /exams/:id/relate{id: id}
+  # Removes the specified related module from the exam, returns
+  # an exam record.
+  @removeRelated: (req, res) ->
+    Exam
+      .findOne {_id: req.params.id}
+      .populate 'related'
+      .exec (err, exam) ->
+        if err? then return handleError err
+        if !exam? then return res.send 404
+        exam.related = exam.related.filter (e) -> e.id != req.query.id
+        exam.save (err) ->
+          if err? then return handleError err
+          res.json exam
 
   # Fetches the exams that the student is timetabled for.
   @getMyExams: ->

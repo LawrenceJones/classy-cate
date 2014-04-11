@@ -1,7 +1,17 @@
 classy = angular.module 'classy'
 
 classy.factory 'Exam', (CateResource, Module, Upload, $q, $http) ->
-  myExams = []
+
+  myExams = new Object()
+
+  handleRequest = (req) ->
+    deferred = $q.defer()
+    req.success (data) ->
+      deferred.resolve new Exam data
+    req.error (err) ->
+      deferred.reject err
+    deferred.promise
+
   class Exam extends CateResource('/api/exams')
 
     # Wrap the related modules in a module class
@@ -15,16 +25,17 @@ classy.factory 'Exam', (CateResource, Module, Upload, $q, $http) ->
     @getMyExams: ->
       deferred = $q.defer()
       @makeReq('/api/myexams').success (data) =>
-        deferred.resolve (new Exam e for e in data.exams)
-        myExams = (e.id for e in data.exams)
+        myExams = new Object()
+        exams = data.exams
+          .map (e) -> myExams[e.id] = true; new Exam e
+          .sort (a,b) -> a.id - b.id # important to guarantee sorting
+        deferred.resolve exams
       deferred.promise
 
     # Evalutates whether the given exam id is one the user
     # is timetables to take.
-    @isMyExam: (id) ->
-      for _id in myExams
-        return true if _id == id
-      false
+    @isMine: (id) ->
+      myExams[id]?
 
     # Pick latest title as default
     title: (full) ->
@@ -37,17 +48,18 @@ classy.factory 'Exam', (CateResource, Module, Upload, $q, $http) ->
 
     # Relate a module with this exam
     relateModule: (module) ->
-      req = $http({
+      handleRequest $http({
         method: 'POST'
         url: "/api/exams/#{@_id}/relate"
         params: id: module.id
       })
-      deferred = $q.defer()
-      req.success (data) ->
-        deferred.resolve data
-      req.error (err) ->
-        deferred.reject err
-      deferred.promise
+
+    removeModule: (module) ->
+      handleRequest $http({
+        method: 'DELETE'
+        url: "/api/exams/#{@_id}/relate"
+        params: id: module.id
+      })
 
 
 
