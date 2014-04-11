@@ -71,7 +71,7 @@ cateModuleSchema.statics.updateModuleNotes = (url, notes) ->
 cateModuleSchema.methods.addNotes = (notes) ->
   for note in notes
     @notes.addUnique note, (a,b) ->
-      a.link == b.link
+      a.title == b.title # links are user specific
   @save (err) ->
     console.error err.toString() if err?
 

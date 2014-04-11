@@ -20,13 +20,22 @@ module.exports = (config) ->
   db.once 'open', ->
     console.log 'Database successfully opened!'
 
-  [Exam, CateModule] = [ # Load database models
+  Models = [Exam, Upload, CateModule] = [ # Load database models
     './exams/exam_model'
     './exams/student_upload_model'
     './cate_modules/cate_module_model'
   ]
     .map (modelPath) -> (require modelPath)
-    .map (Model) ->
-      if process.env.RESET_DB then Model.remove {}, (err) ->
-        if err? then console.error err
+
+  Models.map (Model) ->
+    if process.env.RESET_DB then Model.remove {}, (err) ->
+      if err? then console.error err
+
+  # Cleanup some of the database for duplicates
+  CateModule.find {}, (err, modules) ->
+    modules.map (m) ->
+      m.notes = [].mergeUnique m.notes, (a,b) ->
+        a.title == b.title
+      m.save()
+
 
