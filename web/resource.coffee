@@ -41,3 +41,4 @@ classy.factory 'CateResource', ($q, $http) -> (url, key, cache = true) ->
       deferred.promise
 
 
+

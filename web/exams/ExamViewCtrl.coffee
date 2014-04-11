@@ -6,19 +6,20 @@ classy.controller 'ExamViewCtrl', ($scope, $modal, Exam, exam, me) ->
   $scope.exam = exam
   $scope.me = me
   $scope.notRelated = (modules) ->
+    return $scope.exam.rCache if $scope.exam.rCache
     modules = modules.sort (a,b) -> a.id - b.id
-    relatedIds = exam.related.map (r) -> r.id
-    modules.filter (m) -> relatedIds.indexOf(m.id) == -1
+    relatedIds = $scope.exam.related.map (r) -> r.id
+    $scope.exam.rCache = modules.filter (m) -> relatedIds.indexOf(m.id) == -1
       
   $scope.linkModule = (module) ->
-    related = exam.relateModule module
+    related = $scope.exam.relateModule module
     related.then (exam) ->
-      $scope.exam = data
+      $scope.exam = exam
     related.catch (err) ->
       console.error err
 
   $scope.removeModule = (module) ->
-    removed = exam.removeModule module
+    removed = $scope.exam.removeModule module
     removed.then (exam) ->
       $scope.exam = exam
 

@@ -54,6 +54,7 @@ classy.factory 'Exam', (CateResource, Module, Upload, $q, $http) ->
         params: id: module.id
       })
 
+    # Removes a module linked to the Exam
     removeModule: (module) ->
       handleRequest $http({
         method: 'DELETE'

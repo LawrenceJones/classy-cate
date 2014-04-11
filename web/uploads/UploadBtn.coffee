@@ -4,7 +4,6 @@ classy.directive 'uploadRemoveBtn', (Upload) ->
   restrict: 'AC'
   controller: (Upload, $scope) ->
     $scope.remove = (upload, exam) ->
-      console.log 'Removing!'
       removed = upload.remove exam
       removed.then ->
         exam.studentUploads = exam.studentUploads.filter (u) ->
@@ -48,8 +47,6 @@ classy.directive 'fileUploader', ($http) ->
         $btn.text 'Upload Failed'
       $scope.reqHandler? req
     $input.on 'change', handleSelect
-    
-  
 
 classy.directive 'uploadBtn', ($compile, $state) ->
   restrict: 'AC'
@@ -76,8 +73,8 @@ classy.directive 'uploadUpvoteBtns', ($compile, $state) ->
     $scope.vote = (updown) ->
       $scope.upload = new Upload $scope.upload
       voted = $scope.upload.vote updown
-      voted.then (data) ->
-        $scope.upload = new Upload data
+      voted.then (upload) ->
+        $scope.upload = upload
   scope: upload: '=', exam: '='
   template: """
     <a class="upvote-arrow" ng-click="vote('up')">

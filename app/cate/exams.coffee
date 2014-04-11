@@ -233,7 +233,8 @@ module.exports = class CateExams extends CateResource
       .exec (err, exam) ->
         if err? then return handleError err
         if !exam? then return res.send 404
-        exam.related = exam.related.filter (e) -> e.id != req.query.id
+        exam.related = exam.related.filter (m) ->
+          m.id != req.query.id
         exam.save (err) ->
           if err? then return handleError err
           res.json exam

@@ -11,6 +11,7 @@ mixin module-accordion
     accordion-heading
       span(ng-dblclick='removeModule(module)')
         | {{ module.id }}: {{ module.name }}
+      span.delete.module-unlink-btn(module='module', exam='exam')
       i.pull-right.fa(ng-class="{'fa-angle-down': isopen, 'fa-angle-right': !isopen, bordered: isopen}")
     table.table.table-striped.table-bordered.notes-table
       tr
@@ -40,6 +41,25 @@ mixin related-notes
       +module-accordion()
       +link-module-accordion()
 
+mixin uploads-table
+  table.table.table-bordered.table-striped.uploads-table
+    tr
+      th.name Name
+      th.uploaded Uploaded When
+      th.author Uploaded By
+      th.score Score
+    tr(ng-repeat='upload in exam.studentUploads | orderBy:negScore')
+      td
+        a(ng-href='{{upload.url}}', target='_blank') {{ upload.name }}
+        span.upload-remove-btn(upload='upload', exam='exam', ng-show='me == upload.author')
+      td
+        span {{ upload.timestamp }}
+      td
+        a(ng-href='{{ upload.mailto }}') {{ upload.author }}
+      td
+        strong +{{ upload.upvotes }} / -{{upload.downvotes}}
+        .upload-upvote-btns(upload='upload', exam='exam', ng-show="!upload.hasVoted")
+
 // The exam is in scope as EXAM.
 .row
   .col-md-12
@@ -49,29 +69,12 @@ mixin related-notes
     hr
     +related-notes
           
-      
 .row
   .student-materials.col-md-12
     hr
     h2
       | Student Uploaded Materials
       .pull-right.upload-btn(exam='exam') Upload Document
-    table.table.table-bordered.table-striped.uploads-table
-      tr
-        th.name Name
-        th.uploaded Uploaded When
-        th.author Uploaded By
-        th.score Score
-      tr(ng-repeat='upload in exam.studentUploads | orderBy:negScore')
-        td
-          a(ng-href='{{upload.url}}', target='_blank') {{ upload.name }}
-          span.upload-remove-btn(upload='upload', exam='exam', ng-show='me == upload.author')
-        td
-          span {{ upload.timestamp }}
-        td
-          a(ng-href='{{ upload.mailto }}') {{ upload.author }}
-        td
-          strong +{{ upload.upvotes }} / -{{upload.downvotes}}
-          .upload-upvote-btns(upload='upload', exam='exam', ng-show="!upload.hasVoted")
+    +uploads-table()
         
     

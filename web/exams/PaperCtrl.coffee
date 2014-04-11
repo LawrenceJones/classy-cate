@@ -3,30 +3,36 @@ classy = angular.module 'classy'
 classy.controller 'PaperCtrl', ($scope, Exam) ->
 
   $scope.input =
-    mineonly: false
-  $scope.input.mineonly = true
-  $scope.$watchCollection 'input', (_input) ->
-    $scope.input.rex = new RegExp _input.search, 'i'
+    mineonly: true
+    search: ''
+
+  searchRex = new RegExp()
+  $scope.$watchCollection 'input', ->
+    fCache = null
+    searchRex = new RegExp $scope.input.search, 'i'
     $scope.loading = false
+    $scope.loadMore 1
 
   $scope.noToDisplay = 10
   $scope.loading = false
+
+  fCache = null
+
   $scope.filterExams = (exams, max) ->
+    return fCache if fCache?
     filter = (exam) ->
-      match = $scope.input.rex.test "#{exam.titles[0]}#{exam.name}"
+      match = searchRex.test "#{exam.titles[0]}#{exam.name}"
       mineonly = $scope.input.mineonly
       match && (if mineonly then Exam.isMine exam.id else true)
-    filtered = exams.reduce ((a,c) ->
+    fCache = exams.reduce ((a,c) ->
       a.push c if a.length < max && filter c; a), []
-    $scope.loading = filtered.length < max
-    filtered
+    $scope.loading = fCache.length < max
+    fCache
 
-  $scope.loadMore = ->
+  $scope.loadMore = (inc = 8) ->
+    fCache = null
     $scope.loading = true
-    $scope.noToDisplay += 8
+    $scope.noToDisplay += inc
     $scope.$apply() if !$scope.$$phase
-
-
-
 
 

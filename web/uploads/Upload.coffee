@@ -5,10 +5,13 @@ classy.factory 'Upload', ($http, $q) ->
   # Directs program flow appropriately to promise results
   handleRequest = (req, deferred = $q.defer()) ->
     req.success (data) ->
+      console.log data
       if data.error?
-        console.error data
         return deferred.reject data
-      deferred.resolve data
+      if data instanceof Array
+        model = new Upload d for d in data
+      model ?= new Upload data
+      deferred.resolve model
     req.error (err) ->
       console.error err
       deferred.reject err

@@ -74,10 +74,23 @@ table.all-exams-table {
   }
 }
 
+.delete {
+  color: #d9534f;
+}
+
+.module-accordion .panel-heading:hover .module-unlink-btn {
+  visibility: visible;
+  transition: visibility;
+  transition-delay: 0.5s;
+}
+
+.module-unlink-btn {
+  margin-left: 10px;
+  visibility: hidden;
+}
 
 .upload-remove-btn a {
   float: right;
   margin-right: 6px;
-  color: #d9534f;
   i { font-size: 16px; }
 }
