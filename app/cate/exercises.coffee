@@ -242,12 +242,5 @@ module.exports = class Exercises extends CateResource
       req.query.year   || currentYear()
       req.user.user
     ]
-    [
-      "#{DOMAIN}/timetable.cgi"
-      "?period=#{period}"
-      "&class=#{klass}"
-      "&keyt=#{year}"
-      "%3Anone%3Anone%3A"
-      "#{user}"
-    ].join ''
+    "#{DOMAIN}/timetable.cgi?keyt=#{year}:#{period}:#{klass}:#{user}"
 

@@ -17,10 +17,11 @@ classy.factory 'Exercises', (CateResource, Module, $rootScope, $q) ->
     @initParams: (state) ->
       params =
         year: $rootScope.current_year
-        klass: $rootScope.default_klass
+        klass: $rootScope.current_klass
         period: $rootScope.default_period
       for own k,v of state
         params[k] = v if v?
+      $rootScope.current_year = params.year
       params
 
 classy.controller 'ExercisesCtrl', ($scope, $state, $stateParams, exercises) ->

@@ -12,13 +12,17 @@ classy.factory 'Dashboard', (CateResource, $rootScope, $q) ->
     @get: ->
       promise = super
       promise.then (res) =>
-        $rootScope.available_years = res.available_years
-        $rootScope.current_year ?= res.year
+        years = res.available_years
+        if years.indexOf res.year is -1
+          years.push res.year
+        $rootScope.available_years = years.map (y) -> parseInt y, 10
+        $rootScope.current_year ?= parseInt res.year, 10
         $rootScope.default_period ?= @adjustPeriod(res.default_period)
         $rootScope.default_klass ?= res.default_class
+        $rootScope.current_klass ?= $rootScope.default_klass
       return promise
 
-classy.controller 'DashboardCtrl', ($scope, $state, Dashboard, dash) ->
+classy.controller 'DashboardCtrl', ($scope, $state, $rootScope, Dashboard, dash) ->
 
   $scope.input =
     period: 0, klass: null
@@ -63,7 +67,7 @@ classy.controller 'DashboardCtrl', ($scope, $state, Dashboard, dash) ->
 
   $scope.gotoExercises = ->
     $state.transitionTo 'exercises', {
-      klass: $scope.input.klass.value
+      klass: $scope.input.current_klass
       period: $scope.input.period.value
       year: $scope.current_year
     }
@@ -75,5 +79,7 @@ classy.controller 'DashboardCtrl', ($scope, $state, Dashboard, dash) ->
   $scope.dashboard = dash
   $scope.input.klass =
     find dash.default_class, $scope.klassOptions
+  $scope.$watch 'input.klass', (_new) ->
+    $rootScope.current_klass = _new.value
   $scope.input.period = periodLabelLookup dash.default_period
 

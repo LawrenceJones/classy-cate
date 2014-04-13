@@ -91,9 +91,12 @@ classy.config [
 
 ]
 
-classy.run ($state, $rootScope, Dashboard) ->
+classy.run ($state, $location, $rootScope, Dashboard) ->
   Dashboard.get()
   $rootScope.$on '$stateChangeSuccess', ($event, state) ->
     $rootScope.currentState = state.name
+  $rootScope.changeYear = (year) ->
+    $rootScope.current_year = parseInt year, 10
+    $state.go $state.current.name, {year: $rootScope.current_year}
   
 
