@@ -35,19 +35,19 @@ auth.factory 'Auth', ($q, $http, $window, $state) ->
         .post '/authenticate', {user: user, pass: pass}
         .success (data, status) ->
           console.log 'Success: Authenticated'
-          $window.sessionStorage.token = data.token
+          $window.localStorage.token = data.token
           Auth.user = data.user
           deferred.resolve data
         .error (data, status) ->
           console.log 'Error: Invalid user/pass'
-          delete $window.sessionStorage.token
+          delete $window.localStorage.token
           Auth.user = null
           deferred.reject null
       return deferred.promise
 
     @logout: ->
       deferred = $q.defer()
-      delete $window.sessionStorage.token
+      delete $window.localStorage.token
       Auth.user = null
       tapped = Auth.whoami true
       tapped.then (id) -> deferred.resolve id

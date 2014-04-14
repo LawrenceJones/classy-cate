@@ -32,10 +32,5 @@ module.exports = config =
     styles_dir: path.join root_dir, 'stylesheets'
     web_dir:    path.join root_dir, 'web'
   exams_timestamp: null
-  https_conf:
-    key:  (process.env.SERVER_KEY ||
-           fs.readFileSync path.join(key_dir, 'server-key.pem'), 'utf8')
-    cert: (process.env.SERVER_CERT ||
-           fs.readFileSync path.join(key_dir, 'server-cert.pem'), 'utf8')
 
   

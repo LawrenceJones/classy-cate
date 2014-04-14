@@ -3,9 +3,9 @@ auth = angular.module('auth')
 auth.factory 'authInterceptor', ($rootScope, $q, $window) ->
   request: (config) ->
     config.headers = config.headers || {}
-    if $window.sessionStorage.token
+    if $window.localStorage.token
       config.headers.Authorization =
-        "Bearer #{$window.sessionStorage.token}"
+        "Bearer #{$window.localStorage.token}"
     return config || $q.when config
 
   responseError: (response) ->
