@@ -221,7 +221,8 @@ module.exports = class CateExams extends CateResource
           exam.related.addUnique module, (a,b) -> a.id == b.id
           exam.save (err) ->
             if err? then return handleError err
-            res.json exam
+            CateExams.populate(req, exam).then (exam) ->
+              res.json exam
 
   # DELETE /exams/:id/relate{id: id}
   # Removes the specified related module from the exam, returns

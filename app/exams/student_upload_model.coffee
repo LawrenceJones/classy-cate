@@ -30,6 +30,7 @@ uploadSchema = mongoose.Schema
   exam:
     type: ObjectId
     ref: 'Exam'
+  url: String
 
 # Masks the identities of the voters, as a simple vote number,
 # also marks whether the current user has voted.
@@ -41,7 +42,7 @@ uploadSchema.methods.mask = (req) ->
   upload.upvotes = @upvotes.length
   upload.downvotes = @downvotes.length
   token = req.headers.authorization?.split?(' ')[1]
-  upload.url = "/api/uploads/#{@_id}/download?token=#{token}"
+  upload.url ?= "/api/uploads/#{@_id}/download?token=#{token}"
   upload
 
 Upload = mongoose.model 'Upload', uploadSchema

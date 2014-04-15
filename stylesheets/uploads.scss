@@ -7,3 +7,24 @@
 
   }
 }
+
+.upload-modal .modal-dialog {
+  width: 420px;
+  .wide {
+    width: 100%;
+    button {
+      width: 50%;
+    }
+  }
+}
+
+.upload-upvote-btns {
+  width: auto;
+  float: right;
+  .upvote-arrow {
+    // color: #3c763d;
+  }
+  .downvote-arrow {
+    color: #d9534f;
+  }
+}

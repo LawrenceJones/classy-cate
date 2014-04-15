@@ -4,10 +4,10 @@ classy.factory 'Exam', (CateResource, Module, Upload, $q, $http) ->
 
   myExams = new Object()
 
-  handleRequest = (req) ->
+  handleRequest = (req, cast) ->
     deferred = $q.defer()
     req.success (data) ->
-      deferred.resolve new Exam data
+      deferred.resolve (if cast then new Exam data else data)
     req.error (err) ->
       deferred.reject err
     deferred.promise
@@ -61,6 +61,14 @@ classy.factory 'Exam', (CateResource, Module, Upload, $q, $http) ->
         url: "/api/exams/#{@_id}/relate"
         params: id: module.id
       })
+
+    # Submits a new url upload
+    submitUrl: (name, url) ->
+      handleRequest $http({
+        method: 'POST'
+        url: "/api/exams/#{@id}/upload"
+        params: name: name, url: url
+      }), false
 
 
 

@@ -14,29 +14,35 @@ Upload = mongoose.model 'Upload'
 routes =
 
   # POST /api/exams/:id/upload
+  # May receive either a data blob, or url.
   submitUpload: (req, res) ->
     Exam.findOne {id: req.params.id}, (err, exam) ->
-      if err? or !exam? then return res.send (err? && 500) || 401
+      if err? or !exam? then return res.send (err? && 500) || 404
+
+      handleSave = (err) ->
+        if err? and err.code is 11000
+          console.error err
+          return res.json error: 'duplicateUrl'
+        else if err
+          return res.json error: err
+        res.json upload.mask req
 
       upload = new Upload req.query
       upload.upvotes = upload.downvotes = []
       upload.author = req.user.user
       upload.exam = exam
+      upload.url = req.query.url
 
-      file = req.files.upload
-      ws = gfs.createWriteStream
-        _id: upload._id
-      fs.createReadStream(file.path).pipe ws
-      ws.on 'error', (err) ->
-        console.error err.toString()
-      ws.on 'close', ->
-        upload.save (err) ->
-          if err? and err.code is 11000
-            console.error err
-            return res.json error: 'duplicateUrl'
-          else if err
-            return res.json error: err
-          res.json upload.mask req
+      if (file = req.files.upload)?
+        ws = gfs.createWriteStream
+          _id: upload._id
+        fs.createReadStream(file.path).pipe ws
+        ws.on 'error', (err) ->
+          console.error err.toString()
+        ws.on 'close', ->
+          upload.save handleSave
+      else
+        upload.save handleSave
 
   # GET /api/uploads/:id/download
   downloadFile: (req, res) ->
@@ -67,9 +73,9 @@ routes =
           return res.send 403
         upload.remove (err) ->
           if err? then return handleError err
+          res.send 204
           gfs.remove {_id: upload._id}, (err) ->
-            if err? then return handleError err
-            res.send 204
+            console.error err.toString() if err?
 
   # POST /api/uploads/:id/:vote(up|down)
   vote: (req, res) ->

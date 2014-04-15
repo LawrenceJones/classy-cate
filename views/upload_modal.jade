@@ -1,24 +1,26 @@
 mixin user-input(placeholder, model, hasError)
-  .form-group(ng-class="{'has-error': "+hasError+"}")
+  .wide.form-group(ng-class="{'has-error': "+hasError+"}")
     input.form-control.input-lg(
       type='text'
       ng-model!=model
       placeholder!=placeholder)
 
 .upload-modal
-  .upload-modal-header.modal-header
-    h3
-      | Upload document to Exam {{ exam.id }}
-      button.close(aria-hidden='true', ng-click='close()', type='button') &times;
   .notes-modal-body.modal-body.user-input
     form.form-login
       .row
-        .col-md-12.form-group
+        .col-md-12.form-group(ng-switch='', on='submitType')
           +user-input('Document Name', 'upload.name', "!valid.name")
-          p
-            | Click the button below to upload your resource.
-          file-uploader(params='upload', url="{{ '/api/exams/' + exam.id + '/upload' }}"
-                        valid='upload.name.length > 6', req-handler='submitHandler')
+          .btn-group.btn-group-lg.wide(ng-switch-when='selection')
+            button.btn.btn-default(ng-click="setType('link')") Link
+            button.btn.btn-default(ng-click="setType('upload')") Upload
+          .link(ng-switch-when='link')
+            +user-input('Enter file URL', 'upload.url', "false")
+            button.wide.btn.btn-lg.btn-default(ng-click='submitUrl(upload.name, upload.url)')
+              | Submit URL
+          .url(ng-switch-when='upload')
+            file-uploader(params='upload', url="{{ '/api/exams/' + exam.id + '/upload' }}"
+                          valid='upload.name.length > 3', req-handler='submitHandler')
       .row.unselectable.hide // TODO - Evaluate if people want this
         .col-md-8.col-md-offset-4
           label.pull-right

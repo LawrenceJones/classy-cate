@@ -5,7 +5,6 @@ classy.factory 'Upload', ($http, $q) ->
   # Directs program flow appropriately to promise results
   handleRequest = (req, deferred = $q.defer()) ->
     req.success (data) ->
-      console.log data
       if data.error?
         return deferred.reject data
       if data instanceof Array
@@ -47,5 +46,6 @@ classy.factory 'Upload', ($http, $q) ->
         method: 'POST'
         url: "/api/uploads/#{@_id}/#{updown}"
       })
+
 
 

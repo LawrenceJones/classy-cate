@@ -9,7 +9,7 @@ classy.directive 'uploadRemoveBtn', (Upload) ->
         exam.studentUploads = exam.studentUploads.filter (u) ->
           u.url != upload.url
   template: """
-    <a ng-click="remove(upload, exam)"><i class="fa fa-trash-o"></i></a>
+    <a ng-click="remove(upload, exam)"><i class="delete fa fa-trash-o"></i></a>
   """
   scope: upload: '=', exam: '='
 
