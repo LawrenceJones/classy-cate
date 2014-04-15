@@ -4,7 +4,7 @@ classy.directive 'examLink', ($compile, $state) ->
   restrict: 'A'
   link: ($scope, $elem, attr) ->
     exam = $scope.$eval attr.examLink
-    $elem.text exam.title(true)
+    $elem.text exam.title?(true) || "#{exam.id}: #{exam.title}"
     $elem.click ->
       $state.transitionTo 'exams.view', {id: exam.id}
 

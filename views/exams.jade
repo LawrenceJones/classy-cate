@@ -7,7 +7,8 @@ mixin exams-collection
       th.time Time
       th.duration Duration
     tr(ng-repeat!='exam in myexams')
-      td.title {{ exam.id }}: {{ exam.title }}
+      td.title
+        a(exam-link='exam')
       td.t-minus {{ exam.tminus }} days
       td.date {{ exam.date }}
       td.time {{ exam.time }}
