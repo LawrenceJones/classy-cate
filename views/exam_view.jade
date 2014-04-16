@@ -11,7 +11,7 @@ mixin module-accordion
     accordion-heading
       span(ng-dblclick='removeModule(module)')
         | {{ module.id }}: {{ module.name }}
-      span.delete.module-unlink-btn(module='module', exam='exam')
+      // span.delete.module-unlink-btn(module='module', exam='exam')
       i.pull-right.fa(ng-class="{'fa-angle-down': isopen, 'fa-angle-right': !isopen, bordered: isopen}")
     table.table.table-striped.table-bordered.notes-table
       tr
