@@ -1,4 +1,9 @@
 .uploads-table {
+  th {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
   th.name {
     width: 45%;
   }
