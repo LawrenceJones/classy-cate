@@ -21,7 +21,7 @@ mixin module-accordion
           a(ng-href='{{note.link}}') {{ note.title }}
 
 mixin link-module-accordion
-  accordion-group(ng-scope='')
+  accordion-group(ng-scope='', is-open='isopen')
     accordion-heading
       a Link Module?
       i.pull-right.fa(ng-class="{'fa-angle-down': isopen, 'fa-angle-right': !isopen, bordered: isopen}")
