@@ -36,4 +36,21 @@ module.exports = class CateParser
     --y if d.getMonth() < 8
     y
 
+  # Extracts the module ID and name from a standard CATe resource
+  # page. These include notes and givens.
+  @extractModule: ($) ->
+
+    # Find the module ID, ie. 202
+    [moduleID, moduleName] = [null, null]
+    $('center h3').each ->
+      matched = $(@).text().match?(/Module (\d+): (.*)/)
+      [moduleID, moduleName] = matched?[1..2] || []
+      !(moduleID and moduleName)
+
+    # If we can't identify a module ID then throw
+    if !moduleID?
+      throw error: code: 404, mssg: 'Module not found'
+    [moduleID, moduleName]
+
+
 

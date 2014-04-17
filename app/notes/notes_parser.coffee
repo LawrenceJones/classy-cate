@@ -35,16 +35,10 @@ module.exports = class NotesParser extends CateParser
   # Extracts the notes data from a summary page.
   extract: ($) ->
 
-    # Find the module ID of the notes, ie. 202
-    [moduleID, moduleName] = [null, null]
-    $('center h3').each ->
-      matched = $(@).text().match?(/Module (\d+): (.*)/)
-      [moduleID, moduleName] = matched?[1..2] || []
-      !(moduleID and moduleName)
-
-    # If we can't identify a module ID then return a failure
-    if !moduleID?
-      return error: code: 404, mssg: 'Notes not found'
+    # Fetch ID and name of module
+    try
+      [moduleID, moduleName] = CateParser.extractModule $
+    catch err then return err
 
     # Extract rows that represent notes
     notes = new Array()
