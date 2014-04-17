@@ -22,7 +22,7 @@ examSchema = mongoose.Schema
     trim: true
     default: []
   ]
-  papers: require './paper_model'
+  papers: require './past_paper_model'
   related: [
     type: ObjectId, ref: 'CateModule', unique: true
     default: [], required: true

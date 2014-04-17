@@ -33,7 +33,7 @@ module.exports = class CateParser
   # Generates the current cate academic year.
   @defaultYear: ->
     y = (d = new Date()).getFullYear()
-    --y if d.getMonth() < 8
+    --y if d.getMonth() < 8 # September
     y
 
   # Extracts the module ID and name from a standard CATe resource

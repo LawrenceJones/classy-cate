@@ -60,6 +60,7 @@ module.exports = class GradesParser extends CateParser
     requiredModules: extractModules $, $ 'table:eq(9)'
     optionalModules: extractModules $, $ 'table:eq(-2)'
 
+  # Requires year, user login and class.
   @url: (query) ->
     klass = query.klass
     user  = query.user
