@@ -4,7 +4,7 @@ path = require 'path'
 root_dir = path.join (__dirname || process.cwd()), '..'
 key_dir = path.join root_dir, 'keys'
 
-if fs.existsSync (creds = path.join root_dir, 'creds')
+if fs.existsSync (creds = '~/.imp')
   [user, pass] = (fs.readFileSync creds, 'utf8').split '\n'
 
 module.exports = config =
@@ -15,8 +15,8 @@ module.exports = config =
     SECRET: (process.env.APP_SECRET ||
              fs.readFileSync path.join(key_dir, 'secret.key'))
   cate:
-    USER: user
-    PASS: pass
+    USER: user || process.env.CATE_USER
+    PASS: pass || process.env.CATE_PASS
   users: new Object()
   mongodb:
     NAME: 'classy-cate'

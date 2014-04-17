@@ -43,25 +43,25 @@ cateModuleSchema.pre 'init', (next) ->
   @notesLink = @notesLink?.match?(notesRex)[0]
   do next
 
-# Attempts to load the information given in data into the
-# current database. Ensures that when loaded, stale data
-# is updated but no data is destroyed.
-cateModuleSchema.statics.register = register = (data, req) ->
+# Given a data object structured like so...
+#
+#     { id, name, notesLink, exercises: [] }
+#
+# Will load this information into the database. If the module
+# doesn't already exist then it is created, otherwise the
+# instance is updated with new content and saved.
+#
+# Returns a promise that is resolved on successful db save.
+cateModuleSchema.statics.loadModule = loadModule = (data) ->
   if data instanceof Array
-    return $q.all (register elem, req for elem in data)
-  # Can now guarantee data is a single entity
+    return $q.all(data.map (d) -> loadModule d)
   update = CateModule.findOneAndUpdate\
   ( id: data.id
   , data
   , upsert: true)
   update.exec (err, module) ->
-    console.log data
-    console.log err
-    if err? then return deferred.reject err
+    throw err if err?
     deferred.resolve module
-    if module.notesLink?
-      Notes.scrape(req, module.notesLink).then (notes) ->
-        module.addNotes notes
   (deferred = $q.defer()).promise
 
 # Given the url as an index into the module database, will

@@ -148,8 +148,8 @@ getStartEndDates = ($) ->
     extractDays $, $timetable.find('tr:eq(2)')
 
   # Remember Day in yyyy-mm-dd format
-  start: new Date "#{year}-#{firstMonth}-#{firstDay}"
-  end:   new Date "#{year}-#{lastMonth}-#{lastDay}"
+  start: "#{year}-#{firstMonth}-#{firstDay}"
+  end:   "#{year}-#{lastMonth}-#{lastDay}"
   colBufferToFirst: colBuf - 1
 
 # Parses all the modules present in the timetable
@@ -201,8 +201,8 @@ module.exports = class ExercisesParser extends CateParser
     # Return parsed data
     year: @query.year
     period: @query.period
-    start: dates.start
-    end: dates.end
+    start: new Date dates.start
+    end:   new Date dates.end
     modules: modules
     termTitle: getTermTitle $
 

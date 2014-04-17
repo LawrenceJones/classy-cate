@@ -38,5 +38,18 @@ module.exports = class CateProxy
 
     return (deferred = $q.defer()).promise
 
+  # Takes user login and password, resolves promise on whether
+  # CATE has accepted the credentials.
+  @auth: (user, pass) ->
+    options =
+      url: 'https://cate.doc.ic.ac.uk'
+      auth:
+        user: user, pass: pass
+        sendImmediately: true
+    request options, (err, data, body) ->
+      throw 401 if data.statusCode is 401
+      deferred.resolve data.statusCode
+    (deferred = $q.defer()).promise
+
 
 

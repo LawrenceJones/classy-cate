@@ -22,12 +22,47 @@ examSchema = mongoose.Schema
     trim: true
     default: []
   ]
-  papers: require './past_paper_model'
+  papers: [ require './past_paper_model' ]
   related: [
     type: ObjectId, ref: 'CateModule', unique: true
     default: [], required: true
   ]
   studentUploads: []
+
+# Creates a new Exam record from a single parsed paper object.
+# Returns a promise that will be resolved on a successful save.
+examSchema.statics.createFromPaper = (paper, def = $q.defer()) ->
+  exam = new Exam
+    id: paper.id
+    titles: [ paper.title ]
+    classes: paper.classes
+    papers: [
+      year: paper.year, url: paper.url
+    ]
+  exam.save (err) ->
+    throw err if err?
+    def.resolve exam
+  return def.promise
+
+# Takes a single paper object, structured like so...
+#
+#     { id, title, year, url, classes }
+#
+# And loads it into the database. If the exam it references
+# does not yet exist, then it is created.
+#
+# Returns a promise that is resolved on successful db save.
+examSchema.statics.loadPaper = (paper) ->
+  Exam.find id: paper.id, (err, exam) ->
+    if !exam? then Exam.createFromPaper paper, deferred
+    else
+      exam.titles.addUnique exam.title
+      p = year: paper.year, url: paper.url
+      exam.papers.addUnique p, (a,b) -> a.year == b.year
+      exam.save (err) ->
+        throw err if err?
+        deferred.resolve exam
+  return (deferred = $q.defer()).promise
 
 # Retrives cate modules that may be associated with the given
 # exam id. Looks for id matches against the numerical part of
