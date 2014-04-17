@@ -71,6 +71,7 @@ app = (configure = (app, config) ->
 [
   './auth/auth_router'
   './dashboard/dashboard_router'
+  './grades/grades_router'
 ]
   .map (routePath) ->
     (require routePath)(app)

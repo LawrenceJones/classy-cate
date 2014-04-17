@@ -11,8 +11,6 @@ routes =
     dashPromise.then (data) ->
       res.json data
     dashPromise.catch (err) ->
-      console.error err
-      res.send 500
-
+      res.send err.code, err.mssg
 
 

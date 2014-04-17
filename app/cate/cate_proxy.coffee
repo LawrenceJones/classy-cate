@@ -24,19 +24,25 @@ module.exports = class CateProxy
     if query instanceof Array
       return $q.all(query.map (q) => @makeRequest q, user)
 
+    # Initialise deferred
+    deferred = $q.defer()
+    
+    try url = @Parser.url query
+    catch err
+      deferred.reject code: 400, mssg: 'Malformed query'
+      return deferred.promise
+
     # Retrieve the user credentials from the jwt store
     auth = user('USER_CREDENTIALS')
     auth.sendImmediately = true
-    options =
-      url:  (url = @Parser.url query)
-      auth: auth
+    options = url: url, auth: auth
 
     # Make request, feed result through parser and resolve promise.
     request options, (err, data, body) =>
       throw err if err?
       deferred.resolve @Parser.parse url, query, body
 
-    return (deferred = $q.defer()).promise
+    return deferred.promise
 
   # Takes user login and password, resolves promise on whether
   # CATE has accepted the credentials.

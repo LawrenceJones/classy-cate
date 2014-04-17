@@ -1,4 +1,4 @@
-CateParser = require '../cate/parser'
+CateParser = require '../cate/cate_parser'
 textExtract = CateParser.textExtract
 
 # Extracts header info.
@@ -62,7 +62,7 @@ module.exports = class GradesParser extends CateParser
 
   # Requires year, user login and class.
   @url: (query) ->
-    klass = query.klass
+    klass = query.class
     user  = query.user
     year  = query.year  ||  @defaultYear()
     if not (klass && user && year)
