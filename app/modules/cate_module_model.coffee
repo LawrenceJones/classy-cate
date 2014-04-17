@@ -1,4 +1,4 @@
-config = require '../config'
+config = require '../etc/config'
 $q = require 'q'
 # CateModule model
 Schema = (mongoose = require 'mongoose').Schema
@@ -82,6 +82,5 @@ cateModuleSchema.methods.addNotes = (notes) ->
 
 CateModule = mongoose.model 'CateModule', cateModuleSchema
 # Cate Resource access for Note parsing
-Notes = require '../cate/notes'
 module.exports = CateModule
 

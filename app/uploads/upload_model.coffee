@@ -1,7 +1,7 @@
 request = require 'request'
 $q = require 'q'
 jwt = require 'jsonwebtoken'
-config = require '../config'
+config = require '../etc/config'
 
 Schema = (mongoose = require 'mongoose').Schema
 ObjectId = Schema.Types.ObjectId

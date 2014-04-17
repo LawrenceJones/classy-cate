@@ -1,7 +1,7 @@
 fs   = require 'fs'
 path = require 'path'
 
-root_dir = path.join (__dirname || process.cwd()), '..'
+root_dir = path.join (__dirname || process.cwd()), '..', '..'
 key_dir = path.join root_dir, 'keys'
 
 if fs.existsSync (creds = '~/.imp')
@@ -14,6 +14,8 @@ module.exports = config =
     # Assign secret
     SECRET: (process.env.APP_SECRET ||
              fs.readFileSync path.join(key_dir, 'secret.key'))
+  jwt:
+    TOKEN_EXPIRY: 12 * 60
   cate:
     USER: user || process.env.CATE_USER
     PASS: pass || process.env.CATE_PASS

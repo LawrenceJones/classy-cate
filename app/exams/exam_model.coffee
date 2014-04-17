@@ -1,4 +1,4 @@
-config = require '../config'
+config = require '../etc/config'
 $q = require 'q'
 # Exam model
 Schema = (mongoose = require 'mongoose').Schema

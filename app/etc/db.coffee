@@ -21,9 +21,9 @@ module.exports = (config) ->
     console.log 'Database successfully opened!'
 
   Models = [Exam, Upload, CateModule] = [ # Load database models
-    './exams/exam_model'
-    './exams/student_upload_model'
-    './cate_modules/cate_module_model'
+    '../exams/exam_model'
+    '../uploads/upload_model'
+    '../modules/cate_module_model'
   ]
     .map (modelPath) -> (require modelPath)
 

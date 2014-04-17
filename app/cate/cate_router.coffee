@@ -1,16 +1,11 @@
 jwt = require 'jsonwebtoken'
-config = require '../config'
-Cate = require '../cate'
+config = require '../etc/config'
+CateProxy = require './cate_proxy'
 
 # In minutes
 TOKEN_EXPIRY = 12 * 60
 
 module.exports = (app) ->
-
-  # Trigger 401 to reject user on no token
-  app.use '/api', (req, res, next) ->
-    if req.user? then next()
-    else res.send 401, 'Token expired'
 
   # Displays logins that have been used this session
   app.get '/users', (req, res) ->

@@ -18,7 +18,7 @@ require './etc/utilities'
 app = (configure = (app, config) ->
 
   # Init app settings
-  app.set 'title', 'classy-cate'
+  app.set 'title', 'Doc Exams'
   app.set 'view engine', 'jade'
   app.set 'views', config.paths.views_dir
 
@@ -41,8 +41,10 @@ app = (configure = (app, config) ->
     next()
   app.use '/api', jwt
     secret: config.express.SECRET
-    # Tokens will be decoded into the req.creds function.
     lock: 'USER_CREDENTIALS'
+  app.use '/api', (req, res, next) ->
+    if req.user? then next()
+    else res.send 401, 'Token expired!'
 
   # Live compilation, shouldn't be used in production
   if app.settings.env == 'development'
@@ -67,7 +69,6 @@ app = (configure = (app, config) ->
 
 # Load routes in given order
 [
-  './routes'
 ]
   .map (routePath) ->
     (require routePath)(app)
