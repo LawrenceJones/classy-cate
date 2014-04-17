@@ -42,7 +42,7 @@ module.exports = class GivensParser extends CateParser
   # the unique id that links against the exercise.
   # Givens vary by class, hence required.
   @url: (query) ->
-    klass = query.klass
+    klass = query.class
     code  = query.code
     year  = query.year  ||  @defaultYear()
     if not (klass && code && year)
