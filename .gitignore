@@ -11,3 +11,4 @@ public/lib
 tags
 node_modules
 *.log
+tmp*

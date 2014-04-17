@@ -18,7 +18,7 @@ processGradeRow = ($row) ->
   id:  parseInt textExtract  $row.find 'td:eq(0)'
   type:         textExtract  $row.find 'td:eq(1)'
   title:        textExtract  $row.find 'td:eq(2)'
-  set_by:       textExtract  $row.find 'td:eq(3)'
+  setBb:        textExtract  $row.find 'td:eq(3)'
   declaration:  textExtract  $row.find 'td:eq(4)'
   extension:    textExtract  $row.find 'td:eq(5)'
   submission:   textExtract  $row.find 'td:eq(6)'
@@ -53,12 +53,12 @@ module.exports = class GradesParser extends CateParser
     $subsTbl = $ 'table:eq(7) table'
 
     stats:
-      subscription_last_updated:  textExtract  $subsTbl.find 'td:eq(1)'
-      submissions_completed:      textExtract  $subsTbl.find 'td:eq(4)'
-      submissions_extended:       textExtract  $subsTbl.find 'td:eq(6)'
-      submissions_late:           textExtract  $subsTbl.find 'td:eq(8)'
-    required_modules: extractModules $, $ 'table:eq(9)'
-    optional_modules: extractModules $, $ 'table:eq(-2)'
+      subscriptionLastUpdated:  textExtract  $subsTbl.find 'td:eq(1)'
+      submissionsCompleted:     textExtract  $subsTbl.find 'td:eq(4)'
+      submissionsExtended:      textExtract  $subsTbl.find 'td:eq(6)'
+      submissionsLate:          textExtract  $subsTbl.find 'td:eq(8)'
+    requiredModules: extractModules $, $ 'table:eq(9)'
+    optionalModules: extractModules $, $ 'table:eq(-2)'
 
   @url: (query) ->
     klass = query.klass
