@@ -7,12 +7,12 @@ cheerio    = require 'cheerio'
 jwt        = require 'express-jwt'
 
 # Local modules
-config   = require './config'
+config   = require './etc/config'
 ngget    = require './midware/angular'
 partials = require './midware/partials'
 
 # Load extra js utilities
-require './utilities'
+require './etc/utilities'
 
 # Init app
 app = (configure = (app, config) ->
@@ -41,6 +41,8 @@ app = (configure = (app, config) ->
     next()
   app.use '/api', jwt
     secret: config.express.SECRET
+    # Tokens will be decoded into the req.creds function.
+    lock: 'USER_CREDENTIALS'
 
   # Live compilation, shouldn't be used in production
   if app.settings.env == 'development'
@@ -61,7 +63,7 @@ app = (configure = (app, config) ->
 )(express(), config)
 
 # Start database
-(require './db')(config)
+(require './etc/db')(config)
 
 # Load routes in given order
 [

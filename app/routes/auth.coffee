@@ -30,9 +30,8 @@ module.exports = (app) ->
 
     creds = [user, pass] = [req.body.user, req.body.pass].map (c = '') ->
       c.replace /(^[\r\n\s]*)|([\r\n\s]*$)/g, ''
-    valid = creds.reduce((a,c) ->
+    valid = creds.reduce (a = true, c) ->
       a && c? && typeof c == 'string' && c != ''
-    , true)
     if not valid then reject res, 'Either login or pass not supplied'
     else
       authed = Cate.auth user, pass
@@ -41,7 +40,7 @@ module.exports = (app) ->
         token = jwt.sign {
           user: req.body.user
           pass: req.body.pass
-        }, config.express.SECRET, {expiresInMinutes: TOKEN_EXPIRY}
+        }, config.express.SECRET, expiresInMinutes: TOKEN_EXPIRY
         res.json
           token: token
       authed.catch (err) ->
