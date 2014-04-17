@@ -94,9 +94,8 @@ module.exports = class GivensParser extends CateParser
 
   # Generates url from a user login and required year.
   @url: (query) ->
-    user = query.user
     year = query.year  ||  @defaultYear()
-    if not (user && year)
+    if not year?
       throw Error 'Missing query parameters'
-    "#{@CATE_DOMAIN}/personal.cgi?keyp=#{year}:#{user}"
+    "#{@CATE_DOMAIN}/personal.cgi?keyp=#{year}:"
 

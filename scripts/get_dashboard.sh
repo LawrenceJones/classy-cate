@@ -5,5 +5,5 @@ source ./get_token.sh
 # Scrape dashboard
 curl -X GET -H "Content-Type: application/json" \
      -H "Authorization: Bearer $token" \
-     -k 'https://doc-exams.herokuapp.com/api/dashboard'
+     -k "$domain/api/dashboard"
 
