@@ -25,9 +25,7 @@ module.exports = class CateResource
 
   # Loads html into a jquery wrapper.
   @jquerify: (body) ->
-    $.load body, {
-      lowerCaseTags: true
-    }
+    $.load body, lowerCaseTags: true
 
   # Makes request without authentication using node
   # http library rather than request. Some websites
@@ -52,7 +50,7 @@ module.exports = class CateResource
   # If url is already known, then this can be used, given
   # a request handle with credentials, to pull data directly
   # from that url and run parser.
-  @scrape: (req, url) ->
+  @scrape: (req = params: {}, url) ->
     req.params.url = url
     options = url: url, auth: @createAuth req
     request options, (err, data, body) =>

@@ -28,14 +28,13 @@ get_note_title = ($row) ->
   $row.elemAt('td', 1).text()
 
 # Given a jQuery $row, returns the link for that note.
-get_note_link = ($row) ->
+get_note_link = ($row, year, code) ->
   link = $($row.elemAt('td', 1).find('a'))
   if link_is_local(link)
     return link.attr('href')
   else if link_is_remote(link)
     identifier = link.attr('onclick').match(/clickpage\((.*)\)/)[1]
-    return "showfile.cgi?key=2012:3:#{identifier}:c3:NOTES:peh10"
-  return null
+    "showfile.cgi?key=#{year}:#{code}:#{identifier}::NOTES"
 
 module.exports = class Notes extends CateResource
 
@@ -44,16 +43,28 @@ module.exports = class Notes extends CateResource
     ($(r) for r in rows[3..])
 
   parse: ->
+
+    mid = null
     notes = []
+
+    # Find the module id code
+    @$page.find('center h3').each ->
+      !(mid = $(@).text().match?(/Module (\d+):/)?[1])?
+
+    link = @req.params.url || @req.query.link
+    [_, year, code] = link.match /key=(\d+):(\d+)/
+    if not (year? and code?)
+      throw new Error 'Requires url to parse notes'
+
     for $row in @getNoteRows()
       notes.push {
         type:  get_note_type $row
         title: get_note_title $row
-        link:  get_note_link $row
+        link:  get_note_link $row, year, code
       }
+
     # Load the current payload into the database
-    url = @req.params.link || @req.query.link
-    CateModule.updateModuleNotes url, notes if url?
+    CateModule.updateModuleNotes mid, notes if mid?
     @data = notes
 
   # Note links will typically be sourced from hyperlinks,

@@ -19,10 +19,6 @@ cateModuleSchema = mongoose.Schema
   notesLink:
     type: String
     trim: true
-    index:
-      unique: true
-      dropDups: true
-      sparse: true
   notes: [
     type:
       type: String
@@ -35,7 +31,17 @@ cateModuleSchema = mongoose.Schema
       type: String
       trim: true
       required: true
+      unique: true
+      sparse: true
   ]
+  exercises: []
+
+
+# Format the notesLink field into an appropriate value.
+notesRex = /notes\.cgi\?key=(\d+):(\d+)/
+cateModuleSchema.pre 'init', (next) ->
+  @notesLink = @notesLink?.match?(notesRex)[0]
+  do next
 
 # Attempts to load the information given in data into the
 # current database. Ensures that when loaded, stale data
@@ -44,25 +50,24 @@ cateModuleSchema.statics.register = register = (data, req) ->
   if data instanceof Array
     return $q.all (register elem, req for elem in data)
   # Can now guarantee data is a single entity
-  CateModule.findOne {id: data.id}, (err, module) ->
+  update = CateModule.findOneAndUpdate\
+  ( id: data.id
+  , data
+  , upsert: true)
+  update.exec (err, module) ->
+    console.log data
+    console.log err
     if err? then return deferred.reject err
-    isFresh = !module?
-    module = new CateModule data if isFresh
-    module.save (err) ->
-      if err? then return deferred.reject err
-      if !req then deferred.resolve module
-      else
-        if module.notesLink?
-          Notes.scrape(req, module.notesLink).then (notes) ->
-            module.addNotes notes
-        deferred.resolve module
-  deferred = $q.defer()
-  deferred.promise
+    deferred.resolve module
+    if module.notesLink?
+      Notes.scrape(req, module.notesLink).then (notes) ->
+        module.addNotes notes
+  (deferred = $q.defer()).promise
 
 # Given the url as an index into the module database, will
 # add the given notes.
-cateModuleSchema.statics.updateModuleNotes = (url, notes) ->
-  CateModule.findOne {notesLink: url}, (err, module) ->
+cateModuleSchema.statics.updateModuleNotes = (id, notes) ->
+  CateModule.findOne id: id, (err, module) ->
     module?.addNotes notes
   
 # Adds any given notes to the current module, discards if

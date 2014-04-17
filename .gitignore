@@ -4,7 +4,6 @@ npm_modules
 .DS_Store
 compile.sh
 copyTl.sh
-*.sh
 *.sym
 .bundle
 creds

@@ -27,9 +27,19 @@ module.exports = (config) ->
   ]
     .map (modelPath) -> (require modelPath)
 
-  Models.map (Model) ->
-    if process.env.RESET_DB then Model.remove {}, (err) ->
-      if err? then console.error err
+  # Resets database if RESET_DB env is on
+  if process.env.RESET_DB
+    rms = Models.map (Model) ->
+      Model.remove {}, (err) ->
+        if err? then d.reject err else d.resolve()
+      (d = $q.defer()).promise
+    $q.all rms
+      .then ->
+        console.log 'Reset Database!'
+      .catch (err) ->
+        console.error err.toString()
+        console.error 'Failed to Reset Database!'
+
 
   # Cleanup some of the database for duplicates
   CateModule.find {}, (err, modules) ->

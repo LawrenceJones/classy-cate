@@ -218,12 +218,17 @@ module.exports = class Exercises extends CateResource
   parse: ->
     dates = @getStartEndDates()   # WRONG
     modules = @getModules dates
-    CateModule.register modules, @req # IMPORTANT
+    # Use the register helper to appropriately load information
+    # into the database.
+    CateModule.register modules, @req
+      .catch (err) =>
+        console.error err
+        throw err
     @data =
       year: @req.params.year
       period: @req.params.period
       start: dates.start, end: dates.end
-      modules: @getModules dates
+      modules: modules
       term_title: @getTermTitle()
 
   # Provides all the cate modules stored in the database.
