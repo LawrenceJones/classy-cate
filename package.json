@@ -25,7 +25,8 @@
     "node-curl": "^0.3.1",
     "express-force-ssl": "^0.2.0",
     "gridfs-stream": "^0.4.1",
-    "mongoose-format": "^2.0.1"
+    "mongoose-format": "^2.0.1",
+    "jsdom": "^0.10.5"
   },
   "devDependencies": {},
   "engines": {
