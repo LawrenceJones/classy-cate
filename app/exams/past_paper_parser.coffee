@@ -40,6 +40,7 @@ module.exports = class PastPaperParser extends CateParser
   # Simply requires a year for parsing.
   # If the year is not formed as a four digit string or number, then
   # will throw an error.
+  # Example query: { year: 2013 }
   @url: (query) ->
     year  = query.year
     if not year? or !/^\d\d\d\d$/.test year.toString()

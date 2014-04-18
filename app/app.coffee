@@ -75,6 +75,7 @@ app = (configure = (app, config) ->
   './notes/notes_router'
   './givens/givens_router'
   './exercises/exercises_router'
+  './exams/exam_router'
 ]
   .map (routePath) ->
     (require routePath)(app)
