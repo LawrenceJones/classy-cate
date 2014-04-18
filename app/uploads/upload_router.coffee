@@ -11,6 +11,17 @@ gfs = Grid mongoose.connection.db, mongoose.mongo
 Exam = mongoose.model 'Exam'
 Upload = mongoose.model 'Upload'
 
+module.exports = (app) ->
+
+  # Create upload
+  app.post '/api/exams/:id/upload', express.bodyParser(), routes.submitUpload
+  # Vote on upload
+  app.post '/api/uploads/:id/:vote(up|down)', routes.vote
+  # Download an uploaded file
+  app.get '/api/uploads/:id/download', routes.downloadFile
+  # Delete an uploaded file
+  app.delete '/api/uploads/:id', routes.removeUpload
+
 routes =
 
   # POST /api/exams/:id/upload
@@ -90,15 +101,5 @@ routes =
         upload.save (err) ->
           console.error err if err?
           res.json upload.mask req
-
-
-module.exports = (app) ->
-  app.delete '/api/uploads/:id', routes.removeUpload
-  app.post '/api/exams/:id/upload', express.bodyParser(), routes.submitUpload
-
-  app.post '/api/uploads/:id/:vote(up|down)', routes.vote
-  app.get '/api/uploads/:id/download', routes.downloadFile
-
-        
         
 

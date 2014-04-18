@@ -12,8 +12,14 @@ Exam = mongoose.model 'Exam'
 Upload = mongoose.model 'Upload'
 
 module.exports = (app) ->
+  # Indexes all the exams in the database
   app.get '/api/exams', routes.index
+  # Gets a singular exam from the db
   app.get '/api/exams/:id', routes.getOne
+  # Causes a given module to be related to an exam
+  app.post '/api/exams/:id/relate', routes.relate
+  # Removes an modules relation to an exam
+  app.delete '/api/exams/:id/relate', routes.removeRelated
 
 # Wrapper round exam method to prevent leakage of request details.
 populateUploads = (exam, req) ->
@@ -67,33 +73,40 @@ routes =
   # POST /api/exams/:id/relate{id: id}
   # Adds a module to the list of related modules for this exam.
   relate: (req, res) ->
-    Exam
-      .findOne {_id: req.params.id}
-      .populate 'related'
-      .exec (err, exam) ->
-        if err? then return handleError err
-        if !exam? then return res.send 404
-        CateModule.findOne {id: req.query.id}, (err, module) ->
-          if err? then return handleError err
-          if !module? then return res.send 404
-          exam.related.addUnique module, (a,b) -> a.id == b.id
-          exam.save (err) ->
-            if err? then return handleError err
-            CateExams.populate(req, exam).then (exam) ->
-              res.json exam
+    CateModule.findOne {id: req.query.id}, (err, module) ->
+      return res.send 500 if err?
+      return res.send 404 if !module?
+      update = Exam.findOneAndUpdate\
+      ( id: req.params.id
+      , $addToSet: related: module
+      , strict: true )
+        .populate 'related'
+      update.exec (err, exam) ->
+        return res.send 500 if err?
+        return res.send 404 if !exam?
+        populated = populateUploads exam, req
+        populated.then (exam) ->
+          res.json exam
+        populated.catch (err) ->
+          console.error err
+          res.send 500
 
   # DELETE /api/exams/:id/relate{id: id}
   # Removes the specified related module from the exam, returns
   # an exam record.
   removeRelated: (req, res) ->
-    Exam
-      .findOne {_id: req.params.id}
+    update = Exam.findOneAndUpdate\
+    ( id: req.params.id
+    , $removeFromSet: related: req.query.id
+    , strict: true )
       .populate 'related'
-      .exec (err, exam) ->
-        if err? then return handleError err
-        if !exam? then return res.send 404
-        exam.related = exam.related.filter (m) ->
-          m.id != req.query.id
-        exam.save (err) ->
-          if err? then return handleError err
-          res.json exam
+    update.exec (err, exam) ->
+      return res.send 500 if err?
+      return res.send 404 if !exam?
+      populated = populateUploads exam, req
+      populated.then (exam) ->
+        res.json exam
+      populated.catch (err) ->
+        console.error err
+        res.send 500
+
