@@ -1,6 +1,6 @@
 classy = angular.module 'classy'
 
-classy.factory 'Upload', ($http, $q) ->
+classy.factory 'Upload', ($http, $q, Resource) ->
 
   # Directs program flow appropriately to promise results
   handleRequest = (req, deferred = $q.defer()) ->
@@ -16,15 +16,15 @@ classy.factory 'Upload', ($http, $q) ->
       deferred.reject err
     deferred.promise
 
-  return class Upload
-
-    constructor: (data) ->
-      angular.extend @, data
-      @uploaded = new Date data.uploaded
+  class Upload extends Resource {
+    baseurl: '/api/uploads'
+    parser: ->
+      @uploaded = new Date @uploaded
       @timestamp = @uploaded.format()
       @mailto = """
       mailto:#{@author}@ic.ac.uk?
       Subject=\"Cate Upload '#{@name}'\""""
+  }
 
     score: ->
       @upvotes - @downvotes

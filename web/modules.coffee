@@ -61,7 +61,7 @@ classy.config [
       AppState = $rootScope.AppState
       for own k,_ of AppState
         AppState[k] = $stateParams[k] if $stateParams[k]?
-      $state.transitionTo 'exercises', {
+      $state.transitionTo 'app.exercises', {
         year: AppState.currentYear
         period: AppState.currentPeriod
         class: AppState.currentClass

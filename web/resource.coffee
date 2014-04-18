@@ -140,7 +140,7 @@ module.factory 'Resource', [
         allResolved.then (resolved) ->
           keys.map (key,i) ->
             self[key] = resolved[i]
-          parser? self
+          parser.call? self
           self.deferred.resolve self
         return self.promise# }}}
       
