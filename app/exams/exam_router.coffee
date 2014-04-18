@@ -53,11 +53,18 @@ routes =
           res.json exams
 
     Exam.count (err, count) ->
-      if count == 0 or PastPaperProxy.cacheExpired()
-        if not process.env.EXTEND_CACHE
-          scraped = PastPaperProxy.scrapeArchives req.user
-      if count > 0 then indexDb()
-      else scraped.then indexDb
+      if count > 0
+        # Index the database and return that currently
+        do indexDb
+        # If the cache has expired, then schedule a scrape for 10s time.
+        # As scraping opens ~10 connections to CATe, this prevents severe
+        # congestion for the current request.
+        #
+        # EXTEND_CACHE is an env arg that will prevent cache from expiring.
+        if PastPaperProxy.cacheExpired() and not process.env.EXTEND_CACHE
+          setTimeout (-> PastPaperProxy.scrapeArchives(req.user)), 10*1000
+      else
+        PastPaperProxy.scrapeArchives(req.user).then indexDb
 
   # GET /api/exam_timetable
   # Returns a collection of exams that the specified user is
