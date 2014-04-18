@@ -2,12 +2,14 @@ classy = angular.module 'classy'
 
 classy.factory 'Grades', (Resource, $rootScope) ->
   class Grades extends Resource(baseurl: '/api/grades')
-    @query: (query = {}) ->
-      query.year ?=  $rootScope.AppState.currentYear
-      query.class ?= $rootScope.AppState.currentClass
-      query.user ?=  $rootScope.AppState.currentUser
-      super query
+    # Maps the $stateParams keys to AppState
+    @initParams: ($stateParams) ->
+      super $stateParams,
+        class:  'currentClass'
+        year:   'currentYear'
+        user:   'currentUser'
 
 classy.controller 'GradesCtrl', ($scope, grades) ->
+  console.log 'GradesCtrl'
   $scope.grades = grades
 

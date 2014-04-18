@@ -102,6 +102,8 @@ module.factory 'Resource', [
           @makeResource(data)
             .then (res) ->
               deferred.resolve res
+            .catch (err) ->
+              console.error err
         (deferred = $q.defer()).promise# }}}
        
 
@@ -116,6 +118,17 @@ module.factory 'Resource', [
           @makeResource(data).then (res) ->
             deferred.resolve res
         return deferred.promise# }}}
+
+      # Modifies the given parameters, returning true if one of the
+      # values had to be changed.
+      @initParams: ($stateParams, keyMap) ->
+        AppState = $rootScope.AppState
+        !Object.keys(keyMap).reduce\
+        ( (a, k) ->
+            a &&= $stateParams[k]?
+            AppState[keyMap[k]] = ($stateParams[k] ?= AppState[keyMap[k]])
+            return a
+        , true )
 
           
     return class Resource extends ResourceInterface

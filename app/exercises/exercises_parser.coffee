@@ -74,14 +74,14 @@ processExerciseCell = ($, $exCell, currentDate, colSpan) ->
     hrefs.map (href) ->
       if rex.mailto.test href
         links.mailto = href
-      else if rex.mailto.test href
+      else if rex.spec.test href
         links.spec = href
+      else if rex.handin.test href
+        links.handin = href
       else if rex.givens.test href
         [_, year, period, code, klass] = href.match rex.givens
         links.givens =
           year: year, period: period, code: code, class: klass
-      else if rex.handin.test href
-        links.handin = href
     return links
 
   [id, type] = extractIdType $exCell

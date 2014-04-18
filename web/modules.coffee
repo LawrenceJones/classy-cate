@@ -46,12 +46,12 @@ classy.config [
 
     # Personal student record.
     $stateProvider.state 'app.grades', {
-      url: '/grades'
+      url: '/grades?year&user&class'
       resolve:
-        grades: (Grades, $rootScope, dash) ->
-          Grades.query
-            year: $rootScope.AppState.currentYear
-            user: $rootScope.AppState.currentUser
+        grades: (Grades, $state, $location, $stateParams, dash) ->
+          if Grades.initParams $stateParams
+            $state.transitionTo 'app.grades', $stateParams
+          Grades.query $stateParams
       controller: 'GradesCtrl'
       templateUrl: '/partials/grades'
     }
@@ -61,11 +61,10 @@ classy.config [
       url: '/exercises?year&period&class&user'
       templateUrl: '/partials/exercises'
       resolve:
-        exercises: ($stateParams, $state, dash, Exercises) ->
+        exercises: ($stateParams, $location, $state, dash, Exercises) ->
           if Exercises.initParams $stateParams
             $state.transitionTo 'app.exercises', $stateParams
-          else
-            Exercises.query $stateParams
+          Exercises.query $stateParams
       controller: 'ExercisesCtrl'
     }
 
