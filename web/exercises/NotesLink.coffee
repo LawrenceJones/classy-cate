@@ -1,7 +1,7 @@
 classy = angular.module 'classy'
 
 classy.factory 'Note', (Resource, $q) ->
-  class Note extends Resource('/api/notes')
+  class Note extends Resource(baseurl: '/api/notes')
 
 classy.controller 'NotesModalCtrl', ($scope, $modalInstance, notes, module) ->
   $scope.notes = notes

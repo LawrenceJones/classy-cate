@@ -9,12 +9,12 @@ mixin next-prev-terms
 .row
   .col-md-12
     h2
-      | {{ exercises.term_title }}
+      | {{ exercises.termTitle }}
       +next-prev-terms()
 .row
   .col-md-12
     .lead
-      | Runnning from {{ exercises.start }} to {{ exercises.end }}.
+      | Runnning from {{ exercises.start.format() }} to {{ exercises.end.format() }}.
       span(ng-show!='exercises.modules.length == 0')
         br
         | There are no handins for this period.

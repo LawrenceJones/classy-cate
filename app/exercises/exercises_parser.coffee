@@ -213,7 +213,7 @@ module.exports = class ExercisesParser extends CateParser
     user   = query.user
     klass  = query.class
     period = query.period
-    if not (year && user && klass)
+    if not (year && period && klass)
       throw Error 'Missing query parameters'
     "#{@CATE_DOMAIN}/timetable.cgi?keyt=#{year}:#{period}:#{klass}:#{user}"
 

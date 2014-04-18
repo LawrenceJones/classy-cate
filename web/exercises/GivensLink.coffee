@@ -1,12 +1,7 @@
 classy = angular.module 'classy'
 
-classy.factory 'Givens', (CateResource, $q) ->
-  class Givens extends CateResource('/api/givens')
-    constructor: (data) ->
-      super data
-      for given in @givens
-        if !/http:/.test given.link
-          given.link = "https://cate.doc.ic.ac.uk/#{given.link}"
+classy.factory 'Givens', (Resource, $q) ->
+  class Givens extends Resource(baseurl: '/api/givens')
         
 
 classy.controller 'GivensModalCtrl', ($scope, $modalInstance, ex, givens) ->

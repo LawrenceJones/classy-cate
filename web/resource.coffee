@@ -12,7 +12,7 @@ module = angular.module('resource')
 module.factory 'Resource', [
   '$http'
   '$q'
-  '$rootScope', ($http, $q, $rootScope) -> (opt) ->
+  '$rootScope', ($http, $q, $rootScope) -> (opt = {}) ->
 
     # Configure options
     baseurl    =  opt.baseurl
@@ -20,6 +20,7 @@ module.factory 'Resource', [
     relations  =  opt.relations ?= {}
     parser     =  opt.parser
     formatter  =  opt.formatter
+    uniqueKey  =  opt.uniqueKey
     
     # Set up a resource cache
     resCache = {}
@@ -46,23 +47,30 @@ module.factory 'Resource', [
       # Data...
       #     Res || [ Res, Res... ]
       @makeResource: (_refs) ->
+
+        # Determine type of input, array or object
         isArray = _refs instanceof Array# {{{
         refs = (if isArray then _refs else [_refs]).filter (r) ->
           r?
         isData = typeof refs[0] == 'object'
-        self = this
+
+        # If an empty array then just return
+        if refs.length is 0
+          def = $q.defer()
+          def.resolve []
+          return def.promise
 
         fini = (data) ->
           deferred.resolve (if isArray then data else data[0])
         
         if isData
-          allResolved = $q.all refs.map (data) ->
-            console.log data
-            if res = resCache[data._id] or !baseurl?
+          allResolved = $q.all refs.map (data) =>
+            if uniqueKey? and (id = data[uniqueKey])? and (res = resCache[id])
               return res.refresh data
-            new self(data).promise
+            new @(data).promise
         else # not data, looking at ids
-          allResolved = @query _id: refs, true
+          # TODO - Not currently supported
+          allResolved = @query id: refs, true
 
         allResolved.then fini
         (deferred = $q.defer()).promise# }}}
@@ -82,8 +90,8 @@ module.factory 'Resource', [
 
       # Fetch queries resources
       @query: (query = {}, cache = true) ->
-        if query._id instanceof Array# {{{
-          query._id = query._id.sort (a,b) -> a - b
+        if query.id instanceof Array# {{{
+          query.id = query.id.sort (a,b) -> a - b
         req = $http({
           method: 'GET'
           url: urls.all
@@ -93,7 +101,6 @@ module.factory 'Resource', [
         req.success (data) =>
           @makeResource(data)
             .then (res) ->
-              console.log res
               deferred.resolve res
         (deferred = $q.defer()).promise# }}}
        
@@ -119,18 +126,19 @@ module.factory 'Resource', [
         if data instanceof Array
           throw new Error "#{pragma}Resource constructor called on Array"
         if typeof data != 'object'
-          throw new Error "#{pragma}Resource constructor called on Array"
+          throw new Error "#{pragma}Resource constructor called on Scalar"
 
         self = this
         self.promise = (self.deferred = $q.defer()).promise
-        if @_id or data._id?
-          if resCache[data._id]?
+        if uniqueKey? and (identifier = @[uniqueKey])?
+          if resCache[identifier]?
             throw new Error "#{pragma}Attempted to 'new' an existing resource"
 
-          resCache[data._id] = self
+          resCache[identifier] = self
           self.refresh data
-        else # if not yet a valid _id'd resource
-          self.deferred.resolve angular.extend self, data# }}}
+        else # if not yet a valid id'd resource
+          angular.extend self, data
+          self.populate self.deferred# }}}
 
       # Populates the active child resources
       populate: (deferred) ->
@@ -140,7 +148,7 @@ module.factory 'Resource', [
         allResolved.then (resolved) ->
           keys.map (key,i) ->
             self[key] = resolved[i]
-          parser.call? self
+          parser?.call? self
           self.deferred.resolve self
         return self.promise# }}}
       
@@ -155,7 +163,7 @@ module.factory 'Resource', [
         else
           req = $http({
             method: 'GET'
-            url: urls.get.replace ':id', @_id
+            url: urls.get.replace ':id', @[uniqueKey]
             cache: false
           })
             .success recurse
@@ -168,17 +176,17 @@ module.factory 'Resource', [
       save: ->
         deferred = $q.defer()# {{{
         self = this
-        if @_id?
+        if uniqueKey? and (identifier = @[uniqueKey])?
           req = $http({
             method: 'PUT'
-            url: urls.save.replace ':id', @_id
+            url: urls.save.replace ':id', identifer
             data: if formatter? then formatter? @ else @
           })
         else
           req = $http({
             method: 'POST'
             url: urls.all
-            data: {data: self}
+            data: data: self
           })
         req.success (data) ->
           self.refresh data
@@ -187,21 +195,21 @@ module.factory 'Resource', [
               deferred.reject err
         return deferred.promise# }}}
 
-      # Deletes the resource. @_id is required.
+      # Deletes the resource. @id is required.
       delete: ->
         deferred = $q.defer()# {{{
         self = this
-        if not @_id?
+        if not uniqueKey? or (identifier = @[uniqueKey])?
           mssg = 'Attempting to delete an unsaved resource'
           throw Error mssg
           deferred.reject mssg
         else
           req = $http({
             method: 'DELETE'
-            url: urls.get.replace ':id', @_id
+            url: urls.get.replace ':id', identifier
           })
           req.success (data) ->
-            resCache[self._id] = null
+            resCache[identifier] = null
             deferred.resolve 'Deleted resource'
           req.error (err) ->
             deferred.reject err
