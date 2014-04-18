@@ -52,20 +52,29 @@ processExerciseCell = ($, $exCell, currentDate, colSpan) ->
 
   # Extracts the links
   extractHrefs = ->
-    links = {}
-    rexs =
+
+    # Each link has it's own regular express test
+    rex =
       mailto:  /mailto/i
       spec:    /SPECS/i
-      givens:  /given/i
+      givens:  /given\.cgi\?key=(\d+):(\d+):(\d+):(\w*)/i
       handin:  /handins/i
-    $exCell
-      .find('a')
-      .toArray()
-      .reduce ((a,c) ->
-        $c = $ c; if $c.attr('href')? then a.push $c.attr 'href'; a), []
-      .map (href) ->
-        for own k,rex of rexs
-          links[k] ?= if rex.test href then href else null
+
+    links = new Object()
+    hrefs = $exCell.find('a').toArray().reduce ((a,c) ->
+      $c = $ c; if $c.attr('href')? then a.push $c.attr 'href'; a), []
+    hrefs.map (href) ->
+      if rex.mailto.test href
+        links.mailto = href
+      else if rex.mailto.test href
+        links.spec = href
+      else if rex.givens.test href
+        console.log 'given'
+        [_, year, period, code, klass] = href.match rex.givens
+        links.givens =
+          year: year, period: period, code: code, class: klass
+      else if rex.handin.test href
+        links.handin = href
     return links
 
   [id, type] = extractIdType $exCell

@@ -15,6 +15,17 @@ module.exports = class GivensParser extends CateParser
 
     # Store categories inside this array
     categories = new Array()
+    
+    [exerciseID, exerciseTitle] = [null, null]
+    # Extract exercise ID and title
+    $('table:eq(2) tr').each ->
+      [label, value] = $(this).find('td').map -> $(@).text()
+      if /Title/.test label
+        exerciseTitle = value
+      else if /Number/.test label
+        exerciseID = value
+      else if /Type/.test label
+        exerciseID += ":#{value}"
 
     # Iterate over the givens tables
     $('table [cellpadding="3"]')[2..].each (i, e) ->
@@ -31,12 +42,14 @@ module.exports = class GivensParser extends CateParser
 
     # Return an array of categories, each element containing a type and rows
     # categories = [ { type = 'TYPE', givens = [{title, link}] } ]
-    moduleID:    moduleID
-    moduleName:  moduleName
-    categories:  categories
-    year:        @query.year
-    code:        @query.code
-    klass:       @query.klass
+    moduleID:      moduleID
+    moduleName:    moduleName
+    exerciseID:    exerciseID
+    exerciseTitle: exerciseTitle
+    categories:    categories
+    year:          @query.year
+    code:          @query.code
+    klass:         @query.klass
 
   # Generate notes url on the academic year and givens code,
   # the unique id that links against the exercise.

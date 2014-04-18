@@ -5,6 +5,7 @@ classy.factory 'Givens', (Resource, $q) ->
         
 
 classy.controller 'GivensModalCtrl', ($scope, $modalInstance, ex, givens) ->
+  console.log $scope.givens
   $scope.givens = givens
   $scope.exercise = ex
   $scope.close = ->
@@ -20,7 +21,7 @@ classy.directive 'givensLink', ->
         backdrop: true
         resolve:
           ex: -> exercise
-          givens: -> Givens.get { link: exercise.givens }
+          givens: -> Givens.query exercise.givens
   template: """
     <a ng-click="open(exercise)">Givens</a>
   """
