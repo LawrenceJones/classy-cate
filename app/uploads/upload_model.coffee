@@ -38,16 +38,19 @@ DL_TOKEN_EXPIRY = 24 * 60
 
 # Masks the identities of the voters, as a simple vote number,
 # also marks whether the current user has voted.
-uploadSchema.methods.mask = (req) ->
+uploadSchema.methods.mask = (login) ->
   upload = @toJSON()
   upload.hasVoted = false
   for vote in @upvotes.concat @downvotes
-    upload.hasVoted |= (vote == req.user.user)
-  upload.upvotes = @upvotes.length
+    upload.hasVoted |= (vote == login)
+  upload.upvotes   = @upvotes.length
   upload.downvotes = @downvotes.length
-  token = jwt.sign {
-    user: req.user.user
-  }, config.express.SECRET, expiresInMinutes: DL_TOKEN_EXPIRY
+  # Sign new token for the download
+  # TODO - Move into vitual method
+  token = jwt.sign\
+  ( user: login
+  , config.express.SECRET
+  , expiresInMinutes: DL_TOKEN_EXPIRY )
   if !upload.url? || upload.url.trim() == ''
     upload.url = "/api/uploads/#{@_id}/download?token=#{token}"
   upload

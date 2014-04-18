@@ -1,6 +1,7 @@
 mongoose = require 'mongoose'
 ObjectId = mongoose.Schema.ObjectId
 $q = require 'q'
+require './model.coffee'
 
 # Initial db setup
 module.exports = (config) ->

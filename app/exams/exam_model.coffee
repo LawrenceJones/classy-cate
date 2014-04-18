@@ -58,6 +58,14 @@ examSchema.statics.loadPaper = loadPaper = (paper) ->
     def.resolve exam
   (def = $q.defer()).promise
 
+# Fills the studentUploads field
+examSchema.methods.populateUploads = (login) ->
+  mongoose.model('Upload').find {exam: @_id}, (err, uploads) =>
+    @studentUploads = uploads.map (u) -> u.mask login
+    def.resolve @
+  (def = $q.defer()).promise
+
+
 # Retrives cate modules that may be associated with the given
 # exam id. Looks for id matches against the numerical part of
 # the exam id. Exam ID C210, will match against 210 for example.

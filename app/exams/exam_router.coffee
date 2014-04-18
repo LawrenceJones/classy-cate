@@ -9,10 +9,22 @@ PastPaperProxy = require './past_paper_proxy'
 # Mongoose
 mongoose = require 'mongoose'
 Exam = mongoose.model 'Exam'
+Upload = mongoose.model 'Upload'
 
 module.exports = (app) ->
   app.get '/api/exams', routes.index
   app.get '/api/exams/:id', routes.getOne
+
+# Wrapper round exam method to prevent leakage of request details.
+populateUploads = (exam, req) ->
+
+  # Required for the upload mask. Password is not made available.
+  login = req.user('USER_CREDENTIALS').user
+
+  if exam instanceof Array
+    return $q.all(exam.map (e) -> populateUploads e, req)
+  exam.populateUploads login
+
 
 routes =
 
@@ -21,8 +33,17 @@ routes =
   # triggers a new scrape of exams.doc. If cache has expired,
   # will force a scrape prior to returning the database contents.
   index: (req, res) ->
-    PastPaperProxy.scrapeArchives req.user
-    res.send 200
+
+    indexDb = ->
+      Exam.find({}).populate('related').exec (err, exams) ->
+        populated = populateUploads exams, req
+        populated.then (exams) ->
+          res.json exams
+
+    scraped = PastPaperProxy.scrapeArchives req.user
+    if PastPaperProxy.cacheExpired()
+      scraped.then indexDb
+    else do indexDb
     
 
   # GET /api/exams/:id
@@ -30,16 +51,18 @@ routes =
   # the database table. If cache has expired will update table
   # first.
   getOne: (req, res) ->
-    Exam.findOne {id: req.params.id}, (err, exam) =>
-      if err? then res.send 500
-      else if !exam? then res.send 404
-      else exam.populate 'related', (err, exam) =>
-        fetched = @populate req, exam
-        fetched.then (exam) ->
-          res.json exam
-        fetched.catch (err) ->
-          console.error err
-          res.send 500
+    query = Exam
+      .findOne id: req.params.id
+      .populate 'related'
+    query.exec (err, exam) ->
+      return res.send 500 if err?
+      return res.send 404 if !exam?
+      populated = populateUploads exam, req
+      populated.then (exam) ->
+        res.json exam
+      populated.catch (err) ->
+        console.error err
+        res.send 500
 
   # POST /api/exams/:id/relate{id: id}
   # Adds a module to the list of related modules for this exam.
