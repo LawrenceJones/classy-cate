@@ -2,12 +2,14 @@ classy = angular.module 'classy'
 
 classy.factory 'Givens', (Resource, $q) ->
   class Givens extends Resource(baseurl: '/api/givens')
+    constructor: (args...) ->
+      super args...
+      console.log @
         
 
-classy.controller 'GivensModalCtrl', ($scope, $modalInstance, ex, givens) ->
-  console.log $scope.givens
+classy.controller 'GivensModalCtrl', ($scope, $modalInstance, givens) ->
   $scope.givens = givens
-  $scope.exercise = ex
+  console.log $scope.givens
   $scope.close = ->
     $modalInstance.dismiss 'cancel'
 

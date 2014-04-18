@@ -1,10 +1,10 @@
 .givens-modal
   .givens-modal-header.modal-header
     h3
-      | Givens for {{ exercise.name }}
+      | Givens for {{ givens.exerciseTitle }}
       button.close(aria-hidden='true', ng-click='close()', type='button') &times;
   .givens-modal-body.modal-body
-    table.table.table-striped.table-bordered(ng-repeat='type in givens')
+    table.table.table-striped.table-bordered(ng-repeat='type in givens.categories')
       thead
         tr
           th.type {{ type.type }}
