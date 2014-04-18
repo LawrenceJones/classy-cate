@@ -3,9 +3,9 @@ classy = angular.module 'classy'
 classy.factory 'Note', (Resource, $q) ->
   class Note extends Resource(baseurl: '/api/notes')
 
-classy.controller 'NotesModalCtrl', ($scope, $modalInstance, notes, module) ->
-  $scope.notes = notes
-  $scope.module = module
+classy.controller 'NotesModalCtrl', ($scope, $modalInstance, notesCollection) ->
+  $scope.notes = notesCollection.notes
+  $scope.moduleName = notesCollection.moduleName
   $scope.close = ->
     $modalInstance.dismiss 'cancel'
 
@@ -18,8 +18,7 @@ classy.directive 'notesLink', ->
         controller: 'NotesModalCtrl'
         backdrop: true
         resolve:
-          module: -> module
-          notes: -> Note.get { link: module.notesLink }
+          notesCollection: -> Note.query module.notesLink
   template: """
     <span> - </span><a ng-click="open(module)">Notes</a>
   """

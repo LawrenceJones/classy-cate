@@ -1,4 +1,5 @@
 CateParser = require '../cate/cate_parser'
+CATE_DOMAIN = CateParser.CATE_DOMAIN
 
 # Determines locality of links.
 linkIsRemote = ($link) ->
@@ -21,12 +22,14 @@ getNoteTitle = ($row) ->
 
 # Given a jQuery $row, returns the link for that note.
 getNoteLink = ($row, q) ->
+  extract = ($link) ->
+    if linkIsLocal($link)
+      $link.attr('href')
+    else if linkIsRemote($link)
+      identifier = $link.attr('onclick').match(/clickpage\((.*)\)/)[1]
+      "showfile.cgi?key=#{q.year}:#{q.code}:#{identifier}::NOTES"
   $link = $row.find('td:eq(1) a')
-  if linkIsLocal($link)
-    return $link.attr('href')
-  else if linkIsRemote($link)
-    identifier = $link.attr('onclick').match(/clickpage\((.*)\)/)[1]
-    "showfile.cgi?key=#{q.year}:#{q.code}:#{identifier}::NOTES"
+  return "#{CATE_DOMAIN}/#{extract $link}"
 
 # Parses the Notes page of CATe.
 # Accepts data from ~/notes.cgi?key=<YEAR>:<CODE>

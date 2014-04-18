@@ -34,12 +34,20 @@ extractDays = ($, $tr) ->
   (parseFloat d, 10 for d in daysText\
                     when d.replace(/\s+/g, '') != '')
 
+# Given a notes url, will regex out the appropriate query
+# parameters.
+processNotesLink = (href) ->
+  rex = /notes\.cgi\?key=(\d+):(\d+):/
+  return null if !rex.test href
+  [_, year, code] = href?.match? rex
+  year: year, code: code
+
 # Extracts module details from a cell jQuery object
 processModuleCell = ($cell) ->
   [id, name] = $cell.text().split(' - ')
   id: id
   name: name.replace(/^\s+|\s+$/g, '')
-  notesLink: $cell.find('a').eq(0).attr('href')
+  notesLink: processNotesLink $cell.find('a:eq(0)').attr('href')
 
 # Parses an exercise from the given cell
 processExerciseCell = ($, $exCell, currentDate, colSpan) ->
@@ -69,7 +77,6 @@ processExerciseCell = ($, $exCell, currentDate, colSpan) ->
       else if rex.mailto.test href
         links.spec = href
       else if rex.givens.test href
-        console.log 'given'
         [_, year, period, code, klass] = href.match rex.givens
         links.givens =
           year: year, period: period, code: code, class: klass

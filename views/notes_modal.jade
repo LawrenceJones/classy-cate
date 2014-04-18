@@ -1,7 +1,7 @@
 .notes-modal
   .notes-modal-header.modal-header
     h3
-      | Notes for {{ module.name }}
+      | Notes for {{ moduleName }}
       button.close(aria-hidden='true', ng-click='close()', type='button') &times;
   .notes-modal-body.modal-body
     span.lead(ng-show='notes.length == 0')
