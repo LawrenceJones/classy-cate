@@ -27,7 +27,8 @@
     "gridfs-stream": "^0.4.1",
     "mongoose-format": "^2.0.1",
     "jsdom": "^0.10.5",
-    "jQuery": "^1.7.4"
+    "jQuery": "^1.7.4",
+    "xmlhttprequest": "^1.6.0"
   },
   "devDependencies": {},
   "engines": {
