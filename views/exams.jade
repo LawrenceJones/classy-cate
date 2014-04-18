@@ -10,8 +10,8 @@ mixin exams-collection
       td.title
         a(exam-link='exam')
       td.t-minus {{ exam.tminus }} days
-      td.date {{ exam.date }}
-      td.time {{ exam.time }}
+      td.date {{ exam.datetime.format() }}
+      td.time {{ exam.datetime.printTime() }}
       td.duration {{ exam.duration }}
 
 mixin all-exams

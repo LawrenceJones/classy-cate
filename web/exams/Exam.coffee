@@ -1,11 +1,17 @@
 classy = angular.module 'classy'
 
-classy.factory 'MyExams', (Resource) ->
-  class MyExams extends Resource(baseurl: '/api/myexams')
+classy.factory 'ExamTimetable', (Resource, Exam, $rootScope) ->
+  class ExamTimetable extends Resource {
+    baseurl: '/api/exam_timetable'
+    parser: ->
+      Exam.myExams ?= {}
+      for exam in @exams
+        (Exam.myExams[$rootScope.AppState.currentUser] ?= {})[exam.id] = @
+        exam.datetime = new Date exam.datetime
+        exam.tminus = Math.round (exam.datetime - Date.now())/(1000*60*60*24)
+  }
 
-classy.factory 'Exam', (Resource, Module, Upload, $q, $http) ->
-
-  myExams = new Object()
+classy.factory 'Exam', (Resource, Module, Upload, $rootScope, $q, $http) ->
 
   handleRequest = (req, cast) ->
     deferred = $q.defer()
@@ -18,12 +24,17 @@ classy.factory 'Exam', (Resource, Module, Upload, $q, $http) ->
   class Exam extends Resource {
     baseurl: '/api/exams'
     relations: 'related': Module, 'studentUploads': Upload
+    parser: ->
+      @papers = @papers.sort (a,b) -> b.year - a.year
   }
 
-    # Evalutates whether the given exam id is one the user
-    # is timetables to take.
+    # Contains all the exams the current student is timetabled for.
+    @myExams: new Object()
+
+    # Returns true if an exam id is one the current student is
+    # timetabled for.
     @isMine: (id) ->
-      myExams[id]?
+      Exam.myExams[$rootScope.AppState.currentUser][id]?
 
     # Pick latest title as default
     title: (full) ->

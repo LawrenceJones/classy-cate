@@ -6,7 +6,7 @@ classy.directive 'examLink', ($compile, $state) ->
     exam = $scope.$eval attr.examLink
     $elem.text exam.title?(true) || "#{exam.id}: #{exam.title}"
     $elem.click ->
-      $state.transitionTo 'exams.view', {id: exam.id}
+      $state.transitionTo 'app.exams.view', id: exam.id
 
 classy.directive 'moduleUnlinkBtn', (Exam) ->
   restrict: 'AC'

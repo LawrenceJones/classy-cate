@@ -20,6 +20,8 @@ module.exports = (app) ->
   app.post '/api/exams/:id/relate', routes.relate
   # Removes an modules relation to an exam
   app.delete '/api/exams/:id/relate', routes.removeRelated
+  # Retrives the students exam timetable
+  app.get '/api/exam_timetable', routes.getExamTimetable
 
 # Wrapper round exam method to prevent leakage of request details.
 populateUploads = (exam, req) ->
@@ -50,7 +52,17 @@ routes =
     if PastPaperProxy.cacheExpired()
       scraped.then indexDb
     else do indexDb
-    
+
+  # GET /api/exam_timetable
+  # Returns a collection of exams that the specified user is
+  # registered for.
+  getExamTimetable: (req, res) ->
+    ttPromise = ExamTimetableProxy.makeRequest req.query, req.user
+    ttPromise.then (timetable) ->
+      res.json timetable
+    ttPromise.catch (err) ->
+      console.error err
+      res.send 500, err.toString()
 
   # GET /api/exams/:id
   # Receives an id parameter and returns the exam info from

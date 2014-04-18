@@ -18,6 +18,9 @@ Date::format = ->
     ('000' + n).slice -2
   "#{d}/#{m}/#{@getFullYear()}"
 
+Date::printTime = ->
+  @toTimeString().match(/^(\d+):(\d+)/)[0]
+
 # Configure the routes for the module
 classy.config [
   '$httpProvider', '$stateProvider', '$urlRouterProvider',
@@ -72,9 +75,10 @@ classy.config [
     $stateProvider.state 'app.exams', {
       url: '/exams'
       resolve:
-        exams: (Exam) -> Exam.get()
-        myexams: (Exam) -> Exam.getMyExams()
-        modules: (Module) -> Module.getAll()
+        examTimetable: (ExamTimetable) ->
+          ExamTimetable.query()
+        exams: (Exam) ->
+          Exam.query {}
       controller: 'ExamsCtrl'
       templateUrl: '/partials/exams'
     }
@@ -84,10 +88,9 @@ classy.config [
       url: '/:id'
       resolve:
         exam: (Exam, $stateParams) ->
-          Exam.getOneById $stateParams.id
-        me: (Auth) -> Auth.whoami()
+          Exam.get $stateParams.id
       controller: 'ExamViewCtrl'
-      templateUrl: '/partials/examView'
+      templateUrl: '/partials/exam_view'
     }
 
     # Login page for college credentials.
