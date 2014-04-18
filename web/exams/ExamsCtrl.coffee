@@ -10,11 +10,11 @@ classy.controller 'ExamsCtrl', ($scope, exams, ExamTimetable, Exam) ->
   ExamTimetable.query().then (tt) ->
     $scope.examTimetable = tt
     $scope.myexams = tt.exams
-    $scope.input.mineonly = true
     $scope.loadMore 1
+    $scope.input.mineonly = true
 
   searchRex = new RegExp()
-  $scope.$watchCollection $scope.input, ->
+  $scope.$watchCollection 'input', ->
     fCache = null
     searchRex = new RegExp $scope.input.search, 'i'
     $scope.loading = false
@@ -41,3 +41,4 @@ classy.controller 'ExamsCtrl', ($scope, exams, ExamTimetable, Exam) ->
     $scope.loading = true
     $scope.noToDisplay += inc
     $scope.$apply() if !$scope.$$phase
+

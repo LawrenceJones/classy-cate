@@ -41,12 +41,14 @@ module.exports = (config) ->
         console.error err.toString()
         console.error 'Failed to Reset Database!'
 
+  # If argument is set, intelligently match modules against related
+  # exams.
+  if process.env.GENERATE_RELATED
+    CateModule.generateRelated()
 
-  # Cleanup some of the database for duplicates
-  CateModule.find {}, (err, modules) ->
-    modules.map (m) ->
-      m.notes = [].mergeUnique m.notes, (a,b) ->
-        a.title == b.title
-      m.save()
+
+        
+
+      
 
 

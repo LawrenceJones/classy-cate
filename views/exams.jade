@@ -19,7 +19,7 @@ mixin all-exams
     tr
       th.title Title
       th.papers Papers
-    tr(ng-repeat!="exam in filterExams(exams, noToDisplay)")
+    tr(ng-repeat!="exam in filterExams(exams, noToDisplay, input)")
       td.title
         a(exam-link='exam')
       td.papers

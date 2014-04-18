@@ -12,17 +12,11 @@ class NotesProxy extends CateProxy
   # Override the standard makeRequest function in order to load
   # notes data into the CateModules database.
   makeRequest: (query, user) ->
-    console.log 'Querying'
-    console.log query
     req = super query, user
     req.then (data) ->
       # Resolve the deferred, move along to database loading
       def.resolve data
-      loaded = mongoose.model('CateModule').addNotes data
-      loaded.then (modules) ->
-        console.log 'Loaded notes into CateModules!'
-      loaded.catch (err) ->
-        console.error err
+      mongoose.model('CateModule').addNotes data
     (def = $q.defer()).promise
 
     

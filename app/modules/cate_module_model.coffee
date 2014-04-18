@@ -77,6 +77,25 @@ cateModuleSchema.statics.addNotes = addNotes = (data) ->
     deferred.resolve module
   (deferred = $q.defer()).promise
 
+# The following static method will move through the database
+# and attempt to generate intelligent matches of cate modules
+# against exams. It does this by analysing the titles and
+# regexing any matched words.
+cateModuleSchema.statics.generateRelated = ->
+  allModules = CateModule.find {}
+  allModules.exec (err, modules) ->
+    Exam = mongoose.model 'Exam'
+    Exam.find({}).exec (err, exams) -> exams.map (exam) ->
+      matched = modules.filter (m) ->
+        return false if !m.name?
+        rstr = m.name.replace /[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&"
+        rex = new RegExp rstr, 'i'
+        rex.test exam.titles?.reduce? (a,c) -> a || c
+      matched.map (m) ->
+        exam.related.addToSet m
+      if matched.length > 0 then exam.save (err) ->
+        console.error err if err?
+
 CateModule = mongoose.model 'CateModule', cateModuleSchema
 # Cate Resource access for Note parsing
 module.exports = CateModule
