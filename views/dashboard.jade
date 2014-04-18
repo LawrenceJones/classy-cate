@@ -11,13 +11,13 @@ mixin details-table
   h1.section-header Identity
   table.user-details.table.table-bordered.table-striped
     tbody
-      +detail-row('First Name', 'dashboard.first_name')
-      +detail-row('Last Name', 'dashboard.last_name')
+      +detail-row('First Name', 'dashboard.firstName')
+      +detail-row('Last Name', 'dashboard.lastName')
       +detail-row('Login', 'dashboard.login')
       +detail-row('Category', 'dashboard.category')
-      +detail-row('Candidate No.', 'dashboard.candidate_number')
+      +detail-row('Candidate No.', 'dashboard.candidateNumber')
       +detail-row('CID', 'dashboard.cid')
-      +detail-row('Personal Tutor', 'dashboard.personal_tutor')
+      +detail-row('Personal Tutor', 'dashboard.personalTutor')
 
 mixin profile-pic
   td.profile-picture-container(rowspan='7', width='120px')
@@ -67,7 +67,7 @@ mixin exercises-nav
         | Exercises
         +exercises-nav()
       h3 Due in next week...
-      table.exercises-table.table.table-hover.wide_table.module_table.table-striped.table-bordered.hidden
+      table.exercises-table.table.table-hover.wideTable.moduleTable.table-striped.table-bordered.hidden
         tr
           th.module Module
           th.id-name ID - Name

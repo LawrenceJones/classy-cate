@@ -15,7 +15,7 @@ mixin module-collection(cname)
         td.id {{ ex.id }}
         td.visible-lg.type {{ ex.type }}
         td.title {{ ex.title }}
-        td.hidden-xs.hidden-sm.set {{ ex.set_by }}
+        td.hidden-xs.hidden-sm.set {{ ex.setBy }}
         td.visible-lg.dec {{ ex.declaration }}
         //td.ext {{ ex.extension }}
         td.hidden-xs.sub {{ ex.submission }}
@@ -30,14 +30,14 @@ mixin stat-row(label, binding)
       span= '{{ ' + binding + ' }}'
           
 .grades
-  .row(ng-show!='grades.required_modules.length > 0')
+  .row(ng-show!='grades.requiredModules.length > 0')
     .col-md-12
       h2 Grades for Required Modules
-      +module-collection('grades.required_modules')
-  .row(ng-show!='grades.optional_modules.length > 0')
+      +module-collection('grades.requiredModules')
+  .row(ng-show!='grades.optionalModules.length > 0')
     .col-md-12
       h2 Grades for Optional Modules
-      +module-collection('grades.optional_modules')
+      +module-collection('grades.optionalModules')
   .row
     .col-md-6
       h2 Key&quest;
@@ -47,7 +47,7 @@ mixin stat-row(label, binding)
     .col-md-6
       h2 Stats
       table.table.table-bordered
-        +stat-row('Subscription Last Updated', 'grades.stats.subscription_last_updated')
-        +stat-row('Submissions Completed', 'grades.stats.submissions_completed')
-        +stat-row('Submissions Extended', 'grades.stats.submissions_extended')
-        +stat-row('Submissions Late', 'grades.stats.submissions_late')
+        +stat-row('Subscription Last Updated', 'grades.stats.subscriptionLastUpdated')
+        +stat-row('Submissions Completed', 'grades.stats.submissionsCompleted')
+        +stat-row('Submissions Extended', 'grades.stats.submissionsExtended')
+        +stat-row('Submissions Late', 'grades.stats.submissionsLate')

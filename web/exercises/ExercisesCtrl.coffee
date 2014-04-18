@@ -1,28 +1,13 @@
 classy = angular.module 'classy'
 
-classy.factory 'Exercise', ->
-  class Exercise
-    constructor: (data) ->
-      angular.extend @, data
-      @start = new Date @start
-      @end = new Date @end
+classy.factory 'Exercise', (Resource) ->
+  class Exercise extends Resource()
 
-classy.factory 'Exercises', (CateResource, Module, $rootScope, $q) ->
-  class Exercises extends CateResource('/api/exercises')
-    constructor: (data) ->
-      super data
-      @modules = (new Module m for m in @modules)
-    @get: (params) ->
-      super @initParams params
-    @initParams: (state) ->
-      params =
-        year: $rootScope.current_year
-        klass: $rootScope.current_klass
-        period: $rootScope.default_period
-      for own k,v of state
-        params[k] = v if v?
-      $rootScope.current_year = params.year
-      params
+classy.factory 'Exercises', (Resource, Module, $rootScope, $q) ->
+  class Exercises extends Resource {
+    baseurl: '/api/exercises'
+    relations: 'modules': Module
+  }
 
 classy.controller 'ExercisesCtrl', ($scope, $state, $stateParams, exercises) ->
 

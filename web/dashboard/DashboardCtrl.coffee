@@ -1,25 +1,40 @@
 classy = angular.module 'classy'
 
-classy.factory 'Dashboard', (CateResource, $rootScope, $q) ->
-  return class Dashboard extends CateResource('/api/dashboard')
-
+classy.factory 'Dashboard', (Resource, $rootScope, $q) ->
+  class Dashboard extends Resource(baseurl: '/api/dashboard')
     # Adjusts for the holiday periods
     @adjustPeriod: (p) ->
       if (p % 2 == 0) or p is 7
         p - 1
       else p
 
-    @get: ->
-      promise = super
+    # Calculates cates current year
+    @currentYear: ->
+      y = (d = new Date()).getFullYear()
+      --y if d.getMonth() < 8
+      y
+
+
+    # Sets rootScope properties when refreshed
+    @query: (query = {}) ->
+
+      # Set default year if not already set.
+      query.year ?= @currentYear()
+      promise = super query
+
+      # Hook AppState into this parser
       promise.then (res) =>
-        years = res.available_years
+        AppState = $rootScope.AppState
+        years = res.availableYears
         if years.indexOf res.year is -1
           years.push res.year
-        $rootScope.available_years = years.map (y) -> parseInt y, 10
-        $rootScope.current_year ?= parseInt res.year, 10
-        $rootScope.default_period ?= @adjustPeriod(res.default_period)
-        $rootScope.default_klass ?= res.default_class
-        $rootScope.current_klass ?= $rootScope.default_klass
+        AppState.currentUser = res.login
+        AppState.availableYears = years.map (y) -> parseInt y, 10
+        AppState.currentYear = parseInt res.year, 10
+        AppState.currentPeriod ?=
+          AppState.defaultPeriod ?= @adjustPeriod(res.defaultPeriod)
+        AppState.currentClass ?=
+          AppState.defaultClass ?= res.defaultClass
       return promise
 
 classy.controller 'DashboardCtrl', ($scope, $state, $rootScope, Dashboard, dash) ->
@@ -66,11 +81,10 @@ classy.controller 'DashboardCtrl', ($scope, $state, $rootScope, Dashboard, dash)
   ]
 
   $scope.gotoExercises = ->
-    $state.transitionTo 'exercises', {
-      klass: $scope.input.current_klass
-      period: $scope.input.period.value
-      year: $scope.current_year
-    }
+    $state.transitionTo 'exercises',
+      class:  $rootScope.AppState.currentClass
+      period: $rootScope.AppState.currentPeriod
+      year:   $rootScope.AppState.currentYear
 
   find = (value, collection) ->
     for o in collection
@@ -78,8 +92,12 @@ classy.controller 'DashboardCtrl', ($scope, $state, $rootScope, Dashboard, dash)
 
   $scope.dashboard = dash
   $scope.input.klass =
-    find dash.default_class, $scope.klassOptions
+    find dash.defaultClass, $scope.klassOptions
   $scope.$watch 'input.klass', (_new) ->
-    $rootScope.current_klass = _new.value
-  $scope.input.period = periodLabelLookup dash.default_period
+    if _new?.value?
+      $rootScope.AppState.currentClass = _new.value
+  $scope.input.period = periodLabelLookup dash.defaultPeriod
+  $scope.$watch 'input.period', (_new) ->
+    if _new?.value?
+      $rootScope.AppState.currentPeriod = _new.value
 

@@ -20,19 +20,19 @@ mixin extra-links
       span#cc-version
     .collapse.navbar-collapse#nav-links
       ul.nav.navbar-nav
-        +li-anchor('Dashboard', 'dashboard')
-        +li-anchor('Exercises', 'exercises')
-        +li-anchor('Grades', 'grades')
-        +li-anchor('Exams', 'exams')
+        +li-anchor('Dashboard', 'app.dashboard')
+        +li-anchor('Exercises', 'app.exercises')
+        +li-anchor('Grades', 'app.grades')
+        +li-anchor('Exams', 'app.exams')
         +extra-links()
       ul.nav.navbar-right.navbar-nav.change-year
         li.dropdown
           a.dropdown-toggle(data-toggle='dropdown')
-            span.year {{ current_year }}
+            span.year {{ AppState.currentYear }}
             span Change Year
             b.caret
           ul.dropdown-menu.available-years(role='menu')
-            li(ng-repeat!='year in available_years', ng-click='changeYear(year)')
+            li(ng-repeat!='year in AppState.availableYears', ng-click='AppState.currentYear = year')
               a {{ year }}
 
 

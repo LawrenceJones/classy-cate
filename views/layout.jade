@@ -24,6 +24,7 @@ html(lang='en-US', ng-app='classy')
     .wrapper
       .container
         include navbar
-        #page-content(ui-view)
+        #app-ctrl(ui-view)
+          #page-content(ui-view)
       include footer
   +scripts()

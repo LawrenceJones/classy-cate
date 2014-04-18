@@ -1,10 +1,12 @@
 # Create modules
 auth = angular.module 'auth', []
+resource = angular.module 'resource', []
 classy = angular.module 'classy', [
   'ui.router'
   'ui.bootstrap.modal'
   'ui.bootstrap.accordion'
   'infinite-scroll'
+  'resource'
   'auth'
 ]
 
@@ -27,42 +29,56 @@ classy.config [
     # Default route to dashboard
     $urlRouterProvider.otherwise '/dashboard'
 
-    # Splash entry page with user info.
-    $stateProvider.state 'dashboard', {
-      url: '/dashboard'
+    # Abstract parent to force dash loading first
+    $stateProvider.state 'app', {
+      abstract: true
       resolve:
-        dash: (Dashboard) -> Dashboard.get()
+        dash: (Dashboard) ->
+          Dashboard.query()
+    }
+
+    # Splash entry page with user info.
+    $stateProvider.state 'app.dashboard', {
+      url: '/dashboard'
       controller: 'DashboardCtrl'
       templateUrl: '/partials/dashboard'
     }
 
     # Personal student record.
-    $stateProvider.state 'grades', {
+    $stateProvider.state 'app.grades', {
       url: '/grades'
       resolve:
-        grades: (Grades) -> Grades.get()
+        grades: (Grades, $rootScope, dash) ->
+          Grades.query
+            year: $rootScope.AppState.currentYear
+            user: $rootScope.AppState.currentUser
       controller: 'GradesCtrl'
       templateUrl: '/partials/grades'
     }
 
     # Redirect any blank attempts to access exercises.
-    $urlRouterProvider.when '/exercises', ($state, $stateParams, Exercises) ->
-      params = Exercises.initParams $stateParams
-      $state.transitionTo 'exercises', params
+    $urlRouterProvider.when '/exercises', ($state, $stateParams, $rootScope) ->
+      AppState = $rootScope.AppState
+      for own k,_ of AppState
+        AppState[k] = $stateParams[k] if $stateParams[k]?
+      $state.transitionTo 'exercises', {
+        year: AppState.currentYear
+        period: AppState.currentPeriod
+        class: AppState.currentClass
+      }
 
     # Exercises state, defined by the year klass period params.
-    $stateProvider.state 'exercises', {
-      url: '/exercises?year&period&klass'
+    $stateProvider.state 'app.exercises', {
+      url: '/exercises?year&period&class'
       templateUrl: '/partials/exercises'
       resolve:
-        exercises: ($stateParams, Exercises, Dashboard) ->
-          Dashboard.get().then ->
-            Exercises.get $stateParams
+        exercises: ($stateParams, Exercises) ->
+          Exercises.query $stateParams
       controller: 'ExercisesCtrl'
     }
 
     # Index page for past papers.
-    $stateProvider.state 'exams', {
+    $stateProvider.state 'app.exams', {
       url: '/exams'
       resolve:
         exams: (Exam) -> Exam.get()
@@ -73,14 +89,14 @@ classy.config [
     }
 
     # Per exam view of that subject.
-    $stateProvider.state 'exams.view', {
+    $stateProvider.state 'app.exams.view', {
       url: '/:id'
       resolve:
         exam: (Exam, $stateParams) ->
           Exam.getOneById $stateParams.id
         me: (Auth) -> Auth.whoami()
       controller: 'ExamViewCtrl'
-      templateUrl: '/partials/exam_view'
+      templateUrl: '/partials/examView'
     }
 
     # Login page for college credentials.
@@ -91,12 +107,20 @@ classy.config [
 
 ]
 
+classy.service 'init', (Dashboard) ->
+  @loaded = Dashboard.query().then (data) =>
+    angular.extend this, data
+
 classy.run ($state, $location, $rootScope, Dashboard) ->
-  Dashboard.get()
+  Dashboard.query()
   $rootScope.$on '$stateChangeSuccess', ($event, state) ->
     $rootScope.currentState = state.name
-  $rootScope.changeYear = (year) ->
-    $rootScope.current_year = parseInt year, 10
-    $state.go $state.current.name, {year: $rootScope.current_year}
-  
+
+  # Globally available application state
+  $rootScope.AppState =
+    currentYear:    Dashboard.currentYear()
+    currentClass:   null
+    currentPeriod:  3 # just a guess
+    currentUser:    null
+
 
