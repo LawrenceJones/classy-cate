@@ -10,6 +10,7 @@ PastPaperProxy = require './past_paper_proxy'
 mongoose = require 'mongoose'
 Exam = mongoose.model 'Exam'
 Upload = mongoose.model 'Upload'
+CateModule = mongoose.model 'CateModule'
 
 module.exports = (app) ->
   # Indexes all the exams in the database
@@ -40,6 +41,9 @@ routes =
   # Returns all the exams currently held in the database. Also
   # triggers a new scrape of exams.doc. If cache has expired,
   # will force a scrape prior to returning the database contents.
+  #
+  # The exams database will only be reloaded if the cache has
+  # expired or the database cache is empty.
   index: (req, res) ->
 
     indexDb = ->
@@ -48,10 +52,12 @@ routes =
         populated.then (exams) ->
           res.json exams
 
-    scraped = PastPaperProxy.scrapeArchives req.user
-    if PastPaperProxy.cacheExpired()
-      scraped.then indexDb
-    else do indexDb
+    Exam.count (err, count) ->
+      if count == 0 or PastPaperProxy.cacheExpired()
+        if not process.env.EXTEND_CACHE
+          scraped = PastPaperProxy.scrapeArchives req.user
+      if count > 0 then indexDb()
+      else scraped.then indexDb
 
   # GET /api/exam_timetable
   # Returns a collection of exams that the specified user is
@@ -82,43 +88,36 @@ routes =
         console.error err
         res.send 500
 
-  # POST /api/exams/:id/relate{id: id}
+  # POST /api/exams/:id/relate?id
   # Adds a module to the list of related modules for this exam.
   relate: (req, res) ->
-    CateModule.findOne {id: req.query.id}, (err, module) ->
+    CateModule.findOne id: req.query.id, (err, module) ->
       return res.send 500 if err?
       return res.send 404 if !module?
-      update = Exam.findOneAndUpdate\
-      ( id: req.params.id
-      , $addToSet: related: module
-      , strict: true )
+      exam = Exam
+        .findOne id: req.params.id
         .populate 'related'
-      update.exec (err, exam) ->
-        return res.send 500 if err?
-        return res.send 404 if !exam?
-        populated = populateUploads exam, req
-        populated.then (exam) ->
-          res.json exam
-        populated.catch (err) ->
-          console.error err
-          res.send 500
+      exam.exec (err, exam) ->
+        exam.related.push module
+        exam.save (err, exam) ->
+          return res.send 500 if err?
+          return res.send 404 if !exam?
+          res.json module
 
-  # DELETE /api/exams/:id/relate{id: id}
+  # DELETE /api/exams/:id/relate?id
   # Removes the specified related module from the exam, returns
   # an exam record.
   removeRelated: (req, res) ->
-    update = Exam.findOneAndUpdate\
-    ( id: req.params.id
-    , $removeFromSet: related: req.query.id
-    , strict: true )
-      .populate 'related'
-    update.exec (err, exam) ->
+    CateModule.findOne id: req.query.id, (err, module) ->
       return res.send 500 if err?
-      return res.send 404 if !exam?
-      populated = populateUploads exam, req
-      populated.then (exam) ->
-        res.json exam
-      populated.catch (err) ->
-        console.error err
-        res.send 500
+      return res.send 404 if !module?
+      exam = Exam
+        .findOne id: req.params.id
+        .populate 'related'
+      exam.exec (err, exam) ->
+        exam.related = exam.related.filter (r) -> r.id != module.id
+        exam.save (err, exam) ->
+          return res.send 500 if err?
+          return res.send 404 if !exam?
+          res.send 200
 

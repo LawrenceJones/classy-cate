@@ -3,15 +3,15 @@ mixin heading
     | {{ exam.id }}: {{ exam.titles[0] }}
     .pp-shortcut-dd.float-right-button(paper-btns='exam', cut='-1', placeholder='Past Papers')
   span.lead
-    a.lead(ui-sref='exams') Exams
+    a.lead(ui-sref='app.exams') Exams
     | &nbsp;/ {{ exam.titles.join(', ') }}
 
 mixin module-accordion
   accordion-group.module-accordion(ng-repeat='module in exam.related', is-open='isopen')
     accordion-heading
-      span(ng-dblclick='removeModule(module)')
+      span
         | {{ module.id }}: {{ module.name }}
-      // span.delete.module-unlink-btn(module='module', exam='exam')
+      span.delete.module-unlink-btn(ng-click='removeModule(module)', ng-show="AppState.currentUser == 'lmj112'")
       i.pull-right.fa(ng-class="{'fa-angle-down': isopen, 'fa-angle-right': !isopen, bordered: isopen}")
     table.table.table-striped.table-bordered.notes-table
       tr
@@ -27,7 +27,7 @@ mixin link-module-accordion
       i.pull-right.fa(ng-class="{'fa-angle-down': isopen, 'fa-angle-right': !isopen, bordered: isopen}")
     table.table.table-striped.notes-table
       tr
-      tr(ng-repeat="module in notRelated(modules)")
+      tr(ng-repeat="module in modules")
         td
           a(ng-click='linkModule(module)')
             | {{ module.id }}: {{ module.name }}
@@ -51,7 +51,7 @@ mixin uploads-table
     tr(ng-repeat='upload in exam.studentUploads | orderBy:negScore')
       td
         a(ng-href='{{upload.url}}', target='_blank') {{ upload.name }}
-        span.upload-remove-btn(upload='upload', exam='exam', ng-show='me == upload.author')
+        span.upload-remove-btn(upload='upload', exam='exam', ng-show='AppState.currentUser == upload.author')
       td
         span {{ upload.timestamp }}
       td

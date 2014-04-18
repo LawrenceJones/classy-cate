@@ -17,31 +17,22 @@ cateModuleSchema = mongoose.Schema
     trim: true
     required: true
   notesLink:
-    type: String
-    trim: true
+    year: String
+    code: String
   notes: [
-    type:
-      type: String
-      trim: true
     title:
       type: String
-      default: 'UNNAMED'
+      index: true
+      sparse: true
+      unique: true
       trim: true
     link:
       type: String
       trim: true
       required: true
-      unique: true
-      sparse: true
   ]
   exercises: []
 
-
-# Format the notesLink field into an appropriate value.
-notesRex = /notes\.cgi\?key=(\d+):(\d+)/
-cateModuleSchema.pre 'init', (next) ->
-  @notesLink = @notesLink?.match?(notesRex)[0]
-  do next
 
 # Given a data object structured like so...
 #
@@ -52,33 +43,39 @@ cateModuleSchema.pre 'init', (next) ->
 # instance is updated with new content and saved.
 #
 # Returns a promise that is resolved on successful db save.
-cateModuleSchema.statics.loadModule = loadModule = (data) ->
+NotesProxy = require '../notes/notes_proxy'
+cateModuleSchema.statics.loadModule = loadModule = (data, user) ->
   if data instanceof Array
-    return $q.all(data.map (d) -> loadModule d)
+    return $q.all(data.map (d) -> loadModule d, user)
   update = CateModule.findOneAndUpdate\
   ( id: data.id
   , data
   , upsert: true)
   update.exec (err, module) ->
+    console.error err if err?
     throw err if err?
+    if module.notesLink?.year && module.notesLink?.code
+      NotesProxy.makeRequest module.notesLink, user
     deferred.resolve module
   (deferred = $q.defer()).promise
-
-# Given the url as an index into the module database, will
-# add the given notes.
-cateModuleSchema.statics.updateModuleNotes = (id, notes) ->
-  CateModule.findOne id: id, (err, module) ->
-    module?.addNotes notes
   
 # Adds any given notes to the current module, discards if
 # module not found.
+#
+#     { moduleID, moduleName, year, code, notes: [] }
+#
 # Not vital running procedure, no error checking required.
-cateModuleSchema.methods.addNotes = (notes) ->
-  for note in notes
-    @notes.addUnique note, (a,b) ->
-      a.title == b.title # links are user specific
-  @save (err) ->
-    console.error err.toString() if err?
+cateModuleSchema.statics.addNotes = addNotes = (data) ->
+  if data instanceof Array
+    return $q.all(data.map addNotes)
+  update = CateModule.findOneAndUpdate\
+  ( id: data.moduleID
+  , data
+  , upsert: true )
+  update.exec (err, module) ->
+    return deferred.reject err if err?
+    deferred.resolve module
+  (deferred = $q.defer()).promise
 
 CateModule = mongoose.model 'CateModule', cateModuleSchema
 # Cate Resource access for Note parsing

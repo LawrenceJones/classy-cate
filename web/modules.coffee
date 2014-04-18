@@ -75,10 +75,10 @@ classy.config [
     $stateProvider.state 'app.exams', {
       url: '/exams'
       resolve:
-        examTimetable: (ExamTimetable) ->
-          ExamTimetable.query()
         exams: (Exam) ->
           Exam.query {}
+        modules: (Module) ->
+          Module.query()
       controller: 'ExamsCtrl'
       templateUrl: '/partials/exams'
     }

@@ -77,6 +77,7 @@ app = (configure = (app, config) ->
   './exercises/exercises_router'
   './exams/exam_router'
   './uploads/upload_router'
+  './modules/cate_module_router'
 ]
   .map (routePath) ->
     (require routePath)(app)

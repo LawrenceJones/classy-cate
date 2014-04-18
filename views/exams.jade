@@ -34,8 +34,7 @@ mixin all-exams
       h2 Your Exams
       +exams-collection
   .row
-    .col-md-12(ng-controller!='PaperCtrl'
-      infinite-scroll='loadMore()', infinite-scroll-disabled='loading')
+    .col-md-12(infinite-scroll='loadMore()', infinite-scroll-disabled='loading')
       h2
         | All Exams
         .input-group.exam-search.floated

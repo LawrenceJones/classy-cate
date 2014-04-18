@@ -1,5 +1,4 @@
-NotesParser = require './notes_parser'
-NotesProxy = new (require '../cate/cate_proxy')(NotesParser)
+NotesProxy = require './notes_proxy'
 
 module.exports = (app) ->
   app.get '/api/notes', routes.getNotes

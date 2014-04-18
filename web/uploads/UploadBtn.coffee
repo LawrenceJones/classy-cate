@@ -5,7 +5,7 @@ classy.directive 'uploadRemoveBtn', (Upload) ->
   controller: (Upload, $scope) ->
     $scope.remove = (upload, exam) ->
       removed = upload.remove exam
-      removed.then ->
+      removed.success ->
         exam.studentUploads = exam.studentUploads.filter (u) ->
           u.url != upload.url
   template: """
@@ -69,18 +69,12 @@ classy.directive 'uploadBtn', ($compile, $state) ->
 
 classy.directive 'uploadUpvoteBtns', ($compile, $state) ->
   restrict: 'AC'
-  controller: ($scope, Upload) ->
-    $scope.vote = (updown) ->
-      $scope.upload = new Upload $scope.upload
-      voted = $scope.upload.vote updown
-      voted.then (upload) ->
-        $scope.upload = upload
-  scope: upload: '=', exam: '='
+  scope: upload: '='
   template: """
-    <a class="upvote-arrow" ng-click="vote('up')">
+    <a class="upvote-arrow" ng-click="upload.vote('up')">
       <i class="fa fa-arrow-up"></i>
     </a>
-    <a class="downvote-arrow" ng-click="vote('down')">
+    <a class="downvote-arrow" ng-click="upload.vote('down')">
       <i class="fa fa-arrow-down"></i>
     </a>
   """

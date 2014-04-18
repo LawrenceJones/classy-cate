@@ -18,13 +18,13 @@ classy.controller 'UploadModalCtrl',
 
     $scope.submitUrl = (name, url) ->
       req = $scope.exam.submitUrl name, url
-      req.then (data) ->
-        exam.studentUploads.push new Upload data
+      req.finally (data) ->
         $modalInstance.dismiss 'cancel'
       req.catch (err) ->
         console.error err
 
     $scope.submitHandler = (req) ->
-      req.success (data) ->
-        exam.studentUploads.push new Upload data
+      req.success (upload) ->
+        exam.studentUploads.push upload
+        exam.populate()
         $modalInstance.dismiss 'cancel'

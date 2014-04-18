@@ -104,6 +104,7 @@ module.factory 'Resource', [
               deferred.resolve res
             .catch (err) ->
               console.error err
+              deferred.reject res
         (deferred = $q.defer()).promise# }}}
        
 

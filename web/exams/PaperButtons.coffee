@@ -12,10 +12,11 @@ classy.directive 'paperBtns', ($compile, $state) ->
     cut = parseInt (attr.cut || '3'), 10
     papers = $scope.exam().papers
     $btns = $elem.find '.paper-btns'
-    papers[0..cut].map (p) ->
-      $btns.append $ """
-        <a class="btn btn-default" target="_blank"
-           href="#{p.url}">#{p.year}-#{p.year + 1}</a>"""
+    if cut != -1
+      papers[0..cut].map (p) ->
+        $btns.append $ """
+          <a class="btn btn-default" target="_blank"
+             href="#{p.url}">#{p.year}-#{p.year + 1}</a>"""
     if papers.length > cut + 1
       $btnGroup = $ """
         <div class="btn-group">

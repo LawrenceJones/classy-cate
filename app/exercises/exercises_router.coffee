@@ -1,5 +1,4 @@
-ExercisesParser = require './exercises_parser'
-ExercisesProxy = new (require '../cate/cate_proxy')(ExercisesParser)
+ExercisesProxy = require './exercises_proxy'
 
 module.exports = (app) ->
   app.get '/api/exercises', routes.getExercises

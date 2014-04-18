@@ -2,20 +2,6 @@ classy = angular.module 'classy'
 
 classy.factory 'Upload', ($http, $q, Resource) ->
 
-  # Directs program flow appropriately to promise results
-  handleRequest = (req, deferred = $q.defer()) ->
-    req.success (data) ->
-      if data.error?
-        return deferred.reject data
-      if data instanceof Array
-        model = new Upload d for d in data
-      model ?= new Upload data
-      deferred.resolve model
-    req.error (err) ->
-      console.error err
-      deferred.reject err
-    deferred.promise
-
   class Upload extends Resource {
     baseurl: '/api/uploads'
     parser: ->
@@ -35,17 +21,19 @@ classy.factory 'Upload', ($http, $q, Resource) ->
 
     # Attemps to remove this instance from the server.
     remove: ->
-      handleRequest $http({
+      $http({
         method: 'DELETE'
         url: "/api/uploads/#{@_id}"
       })
 
     # Votes on the instance of Upload.
     vote: (updown) ->
-      handleRequest $http({
+      $http({
         method: 'POST'
         url: "/api/uploads/#{@_id}/#{updown}"
       })
+        .success (upload) =>
+          @refresh upload
 
 
 

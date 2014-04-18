@@ -22,6 +22,11 @@ module.exports = (app) ->
   # Delete an uploaded file
   app.delete '/api/uploads/:id', routes.removeUpload
 
+# Handle for retrieving the login from the request handle. This
+# only accesses and returns a login, no passwords are ever exposed.
+getLogin = (user) ->
+  user('USER_CREDENTIALS').user
+
 routes =
 
   # POST /api/exams/:id/upload
@@ -30,17 +35,22 @@ routes =
     Exam.findOne {id: req.params.id}, (err, exam) ->
       if err? or !exam? then return res.send (err? && 500) || 404
 
-      handleSave = (err) ->
+      handleSave = (err, upload) ->
         if err? and err.code is 11000
           console.error err
           return res.json error: 'duplicateUrl'
         else if err
+          console.error err
           return res.json error: err
-        res.json upload.mask req
+        # Once again, requires login for a mask.
+        res.json upload.mask getLogin req.user
 
       upload = new Upload req.query
       upload.upvotes = upload.downvotes = []
-      upload.author = req.user.user
+
+      # Signing the upload with the current users login
+      # User password is not used, nor made accessible.
+      upload.author = getLogin req.user
       upload.exam = exam
       upload.url = req.query.url
 
@@ -80,7 +90,9 @@ routes =
       .findOne {_id: req.params.id}
       .exec (err, upload) ->
         if err? then return handleError err
-        if upload.author != req.user.user
+        # Accessed to ensure that the user has permission to delete this
+        # upload. Passwords are not accessed, or made available.
+        if upload.author != getLogin req.user
           return res.send 403
         upload.remove (err) ->
           if err? then return handleError err
@@ -91,15 +103,18 @@ routes =
   # POST /api/uploads/:id/:vote(up|down)
   vote: (req, res) ->
     Upload
-      .findOne {_id: req.params.id}
+      .findOne _id: req.params.id
       .exec (err, upload) ->
         if err?
           console.error err
           return res.send 500
         pool = upload["#{req.params.vote}votes"]
-        pool.addUnique req.user.user
+        # Requires user login to sign their upvote. Passwords are
+        # not made accessible.
+        login = getLogin req.user
+        pool.addUnique login
         upload.save (err) ->
           console.error err if err?
-          res.json upload.mask req
+          res.json upload.mask login
         
 

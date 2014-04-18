@@ -34,7 +34,7 @@ classy.factory 'Exam', (Resource, Module, Upload, $rootScope, $q, $http) ->
     # Returns true if an exam id is one the current student is
     # timetabled for.
     @isMine: (id) ->
-      Exam.myExams[$rootScope.AppState.currentUser][id]?
+      Exam.myExams[$rootScope.AppState.currentUser]?[id]?
 
     # Pick latest title as default
     title: (full) ->
@@ -47,27 +47,36 @@ classy.factory 'Exam', (Resource, Module, Upload, $rootScope, $q, $http) ->
 
     # Relate a module with this exam
     relateModule: (module) ->
-      handleRequest $http({
+      $http({
         method: 'POST'
-        url: "/api/exams/#{@_id}/relate"
+        url: "/api/exams/#{@id}/relate"
         params: id: module.id
       })
+        .success (module) =>
+          @related.push module
+          @populate()
 
     # Removes a module linked to the Exam
     removeModule: (module) ->
-      handleRequest $http({
+      $http({
         method: 'DELETE'
-        url: "/api/exams/#{@_id}/relate"
+        url: "/api/exams/#{@id}/relate"
         params: id: module.id
       })
+        .success =>
+          @related = @related.filter (r) -> r.id != module.id
+          @populate()
 
     # Submits a new url upload
     submitUrl: (name, url) ->
-      handleRequest $http({
+      $http({
         method: 'POST'
         url: "/api/exams/#{@id}/upload"
         params: name: name, url: url
-      }), false
+      })
+        .success (upload) =>
+          @studentUploads.push upload
+          @populate()
 
 
 
