@@ -27,7 +27,7 @@ getNoteLink = ($row, q) ->
       $link.attr('href')
     else if linkIsRemote($link)
       identifier = $link.attr('onclick').match(/clickpage\((.*)\)/)[1]
-      "showfile.cgi?key=#{q.year}:#{q.code}:#{identifier}::NOTES"
+      "showfile.cgi?key=#{q.year}:#{q.code}:#{identifier}:3:NOTES"
   $link = $row.find('td:eq(1) a')
   return "#{CATE_DOMAIN}/#{extract $link}"
 
