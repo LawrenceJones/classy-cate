@@ -50,7 +50,11 @@ app = (configure = (app, config) ->
     secret: config.express.SECRET
     lock: 'USER_CREDENTIALS'
   app.use '/api', (req, res, next) ->
-    if req.user? then next()
+    if req.user?
+      # Access login to mark a user into the config hash. This is only
+      # to enable no of user tracking, only a login is recorded.
+      config.users[req.user('USER_CREDENTIALS').user] = true
+      next()
     else res.send 401, 'Token expired!'
 
   # Live compilation, shouldnt be used in production

@@ -36,7 +36,6 @@ routes =
     else
       authed = CateProxy.auth user, pass
       authed.then ->
-        config.users[req.body.user] = true
         creds  = user: req.body.user, pass: req.body.pass
         secret = config.express.SECRET
         expiry = config.jwt.TOKEN_EXPIRY
