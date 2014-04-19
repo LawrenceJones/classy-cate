@@ -20,14 +20,19 @@ getNoteType = ($row) ->
 getNoteTitle = ($row) ->
   $row.find('td:eq(1)').text()
 
+# Extracts correct link parameters
+jsLinkRex = /Temp = "(showfile\.cgi\?key=)(\d+):(\d+):"[^"]+":([^:]*):([^:]*)/
+
 # Given a jQuery $row, returns the link for that note.
-getNoteLink = ($row, q) ->
+getNoteLink = ($, $row, q) ->
   extract = ($link) ->
     if linkIsLocal($link)
       $link.attr('href')
     else if linkIsRemote($link)
       identifier = $link.attr('onclick').match(/clickpage\((.*)\)/)[1]
-      "showfile.cgi?key=#{q.year}:#{q.code}:#{identifier}:3:NOTES"
+      [showfile, year, access, klass, keyword] =
+        $('head').html().match(jsLinkRex)[1..]
+      "#{showfile}#{year}:#{access}:#{identifier}:#{klass}:#{keyword}"
   $link = $row.find('td:eq(1) a')
   return "#{CATE_DOMAIN}/#{extract $link}"
 
@@ -50,7 +55,7 @@ module.exports = class NotesParser extends CateParser
       notes.push
         restype:  getNoteType  $(row)
         title:    getNoteTitle $(row)
-        link:     getNoteLink  $(row), @query
+        link:     getNoteLink  $, $(row), @query
 
     # Return extracted data
     moduleID:    moduleID
@@ -66,5 +71,5 @@ module.exports = class NotesParser extends CateParser
     year = query.year  ||  @defaultYear()
     if not (code && year)
       throw Error 'Missing query parameters'
-    "#{@CATE_DOMAIN}/notes.cgi?key=#{year}:#{code}"
+    "#{@CATE_DOMAIN}/notes.cgi?key=#{year}:#{code}:3" # Access lvl 3
 
