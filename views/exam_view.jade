@@ -15,7 +15,7 @@ mixin module-accordion
       i.pull-right.fa(ng-class="{'fa-angle-down': isopen, 'fa-angle-right': !isopen, bordered: isopen}")
     table.table.table-striped.table-bordered.notes-table
       tr
-      tr(ng-repeat='note in module.notes')
+      tr(ng-repeat='note in module.getNotesLink().links')
         td.id {{ $index + 1 }}
         td
           a(ng-href='{{note.link}}') {{ note.title }}

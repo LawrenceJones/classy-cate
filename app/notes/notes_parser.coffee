@@ -48,14 +48,14 @@ module.exports = class NotesParser extends CateParser
     $rows = $('table [cellpadding="3"] tr')[3..]
     $rows.each (i, row) =>
       notes.push
-        type:   getNoteType  $(row)
-        title:  getNoteTitle $(row)
-        link:   getNoteLink  $(row), @query
+        restype:  getNoteType  $(row)
+        title:    getNoteTitle $(row)
+        link:     getNoteLink  $(row), @query
 
     # Return extracted data
     moduleID:    moduleID
     moduleName:  moduleName
-    notes:       notes
+    links:       notes
     year:        @query.year
     code:        @query.code
 
