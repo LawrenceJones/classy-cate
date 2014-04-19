@@ -35,6 +35,7 @@ classy.factory 'Dashboard', (Resource, $rootScope, $q) ->
           AppState.defaultPeriod ?= @adjustPeriod(res.defaultPeriod)
         AppState.currentClass ?=
           AppState.defaultClass ?= res.defaultClass
+        $rootScope.authDefer.resolve AppState
       return promise
 
 classy.controller 'DashboardCtrl', ($scope, $state, $rootScope, Dashboard, dash) ->

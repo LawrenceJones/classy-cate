@@ -17,8 +17,11 @@ cateModuleSchema = mongoose.Schema
     trim: true
     required: true
   notes: [
-    year: type: String, unique: true
-    code: String
+    year:
+      type: Number
+      unique: true
+    code: Number
+    period: Number
     links: [
       restype: String
       title: String
@@ -43,7 +46,8 @@ find = (array, elem, f) ->
 # into the already existing array. Otherwise, note is just
 # pushed to the module.notes collection.
 upsertNote = (module, note, user) ->
-  found = find module?.notes, note, (a,b) -> a.year == b.year
+  found = find module?.notes, note, (a,b) ->
+    "#{a.year}" == "#{b.year}"
   if !found?
     module.notes.push note
     NotesProxy.makeRequest note, user if user?

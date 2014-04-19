@@ -117,10 +117,14 @@ classy.service 'init', (Dashboard) ->
   @loaded = Dashboard.query().then (data) =>
     angular.extend this, data
 
-classy.run ($state, $location, $rootScope, Dashboard) ->
-  Dashboard.query()
+classy.run ($q, $state, $location, $rootScope, Dashboard) ->
+
+  # Keep track of state in $rootScope
   $rootScope.$on '$stateChangeSuccess', ($event, state) ->
     $rootScope.currentState = state.name
+
+  # Keep promise for when dashboard has been resolved
+  $rootScope.authed = ($rootScope.authDefer = $q.defer()).promise
 
   # Globally available application state
   $rootScope.AppState =

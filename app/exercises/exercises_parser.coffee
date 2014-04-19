@@ -37,10 +37,10 @@ extractDays = ($, $tr) ->
 # Given a notes url, will regex out the appropriate query
 # parameters.
 processNotesLink = (href) ->
-  rex = /notes\.cgi\?key=(\d+):(\d+):/
+  rex = /notes\.cgi\?key=(\d+):(\d+):(\d+)/
   return [] if !rex.test href
-  [_, year, code] = href?.match? rex
-  [ year: year, code: code, links: [] ]
+  [_, year, code, period] = href?.match?(rex).map? (n) -> parseInt n, 10
+  [ year: year, code: code, period: period, links: [] ]
 
 # Extracts module details from a cell jQuery object
 processModuleCell = ($cell) ->

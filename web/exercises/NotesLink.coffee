@@ -1,7 +1,16 @@
 classy = angular.module 'classy'
 
-classy.factory 'Note', (Resource, $q) ->
-  class Note extends Resource(baseurl: '/api/notes')
+classy.factory 'Note', (Resource, $rootScope) ->
+  class Note extends Resource {
+    baseurl: '/api/notes'
+    parser: ->
+      $rootScope.authed.then (AppState) =>
+        for note in @links when note.restype == 'url'
+          note.link =
+            note.link.replace /USER/,  AppState.currentUser
+          note.link =
+            note.link.replace /CLASS/, AppState.currentClass
+  }
 
 classy.controller 'NotesModalCtrl', ($scope, $modalInstance, notesCollection) ->
   $scope.links = notesCollection.links
@@ -20,7 +29,10 @@ classy.directive 'notesLink', ->
         resolve:
           notesCollection: ->
             notes = module.getNotesLink()
-            Note.query year: notes.year, code: notes.code
+            Note.query
+              year: notes.year
+              code: notes.code
+              period: notes.period
   template: """
     <span> - </span><a ng-click="open(module)">Notes</a>
   """

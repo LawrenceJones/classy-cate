@@ -30,9 +30,9 @@ getNoteLink = ($, $row, q) ->
       $link.attr('href')
     else if linkIsRemote($link)
       identifier = $link.attr('onclick').match(/clickpage\((.*)\)/)[1]
-      [showfile, year, access, klass, keyword] =
+      [showfile, year, period, _, keyword] =
         $('head').html().match(jsLinkRex)[1..]
-      "#{showfile}#{year}:#{access}:#{identifier}:#{klass}:#{keyword}"
+      "#{showfile}#{year}:#{period}:#{identifier}:CLASS:#{keyword}:USER"
   $link = $row.find('td:eq(1) a')
   return "#{CATE_DOMAIN}/#{extract $link}"
 
@@ -63,13 +63,15 @@ module.exports = class NotesParser extends CateParser
     links:       notes
     year:        @query.year
     code:        @query.code
+    period:      @query.period
 
   # Generate notes url on the academic year and notes code,
   # the unique id that links against the notes collection.
   @url: (query) ->
     code = query.code
+    period = query.period
     year = query.year  ||  @defaultYear()
-    if not (code && year)
+    if not (code && year && period)
       throw Error 'Missing query parameters'
-    "#{@CATE_DOMAIN}/notes.cgi?key=#{year}:#{code}:3" # Access lvl 3
+    "#{@CATE_DOMAIN}/notes.cgi?key=#{year}:#{code}:#{period}" # Access lvl 3
 
