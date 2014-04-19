@@ -18,7 +18,7 @@ mixin module-accordion
       tr(ng-repeat='note in module.getNotesLink().links')
         td.id {{ $index + 1 }}
         td
-          a(ng-href='{{note.link}}') {{ note.title }}
+          a(target='_blank', ng-href='{{note.link}}') {{ note.title }}
 
 mixin link-module-accordion
   accordion-group(ng-scope='', is-open='isopen')
