@@ -39,6 +39,13 @@ app = (configure = (app, config) ->
     if !req.headers.authorization? && req.query.token?
       req.headers.authorization = "Bearer #{req.query.token}"
     next()
+
+  # This is the setup of the jsonwebtoken access. The jwt middleware
+  # will decode any authorization headers on incoming requests into
+  # a function, located on req.user.
+  # To enable easy tracking of credential use, the function will only
+  # return the credentials if it is passed 'USER_CREDENTIALS' as a
+  # parameter. This enables easy prevention of credential abuse.
   app.use '/api', jwt
     secret: config.express.SECRET
     lock: 'USER_CREDENTIALS'
