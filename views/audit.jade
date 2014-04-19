@@ -1,0 +1,61 @@
+.audit-view
+  .row
+    .col-md-12
+      h1 Security Audit
+  .row
+    .col-md-12.summary
+      p
+        | Trusting a site with your username and password to
+        | anything is a risky business. Asking you to hand over
+        | your Imperial credentials to some dodgy internet corner
+        | is not something you're likely to do without reason.
+      p
+        | To help you decide if trusting this site is worth the
+        | risk, I've ran an audit on the code that makes up this
+        | application. To make it easy to track the usage of your
+        | credentials, I've locked them away inside a function that
+        | will only return them when it receives&nbsp;
+        code USER_CREDENTIALS
+        | &nbsp;as a string. This makes it really easy to track exactly
+        | how they're being used, and should make it fairly obvious
+        | if you're being screwed over.
+      p
+        | Feel free to look at any of the points where the credentials
+        | may be accessed below, and for any closer inspections please
+        | go to the projects&nbsp;
+        a(href='https://github.com/LawrenceJones/classy-cate') Github
+        | , or ask me in person.
+      hr
+  .row
+    .col-md-4
+      pre.hit-summary
+        | There are {{ hits.length }} files that access user credentials.
+        br
+        br
+        strong auth_router.coffee
+        | &nbsp;is included despite no USER_CREDENTIALS, as
+        | this is where initial authentication takes place.
+        br
+        br
+        | Click on the filename to view the code.
+        br
+        br
+        .hit(ng-repeat='hit in hits')
+          a.hit-link(ng-click!='select(hit)')
+            span.select-star(ng-show="selected == hit") &nbsp;*&nbsp;
+            | {{ hit.file }}
+          span(ng-show='selected == hit')
+            | &nbsp;&nbsp;&nbsp;&nbsp; lines: {{ hit.lines }}
+        br
+        br
+        br
+        | Currently Selected
+        
+    .col-md-8
+      pre
+        code(hljs="selected.src")
+
+      
+
+
+

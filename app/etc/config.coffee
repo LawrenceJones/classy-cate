@@ -29,6 +29,7 @@ module.exports = config =
     ACCOUNT_KEY: process.env.NODETIME_ACCOUNT_KEY
   paths:
     root_dir:   root_dir
+    app_dir:    path.join root_dir, 'app'
     public_dir: path.join root_dir, 'public'
     views_dir:  path.join root_dir, 'views'
     styles_dir: path.join root_dir, 'stylesheets'

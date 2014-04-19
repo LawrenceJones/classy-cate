@@ -4,7 +4,7 @@ classy.controller 'ExamsCtrl', ($scope, exams, ExamTimetable, Exam) ->
 
   $scope.exams = exams
   $scope.input =
-    mineonly: false
+    mineonly: true # default for now
     search: ''
 
   ExamTimetable.query().then (tt) ->

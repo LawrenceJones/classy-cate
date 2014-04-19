@@ -1,0 +1,21 @@
+.hit-summary {
+  word-break: normal;
+  white-space: pre-line;
+}
+
+span.black {
+  color: black;
+}
+
+span.select-star {
+  margin-left: 10px;
+  margin-right: 6px;
+  color: black;
+  &:hover {
+    text-decoration: none !important;
+  }
+}
+
+a.hit-link {
+  display: block;
+}

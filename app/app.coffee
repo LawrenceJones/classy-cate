@@ -12,7 +12,7 @@ ngget    = require './midware/angular'
 partials = require './midware/partials'
 
 # Load extra js utilities
-require './etc/utilities'
+utils = require './etc/utilities'
 
 # Init app
 app = (configure = (app, config) ->
@@ -46,7 +46,7 @@ app = (configure = (app, config) ->
     if req.user? then next()
     else res.send 401, 'Token expired!'
 
-  # Live compilation, shouldn't be used in production
+  # Live compilation, shouldnt be used in production
   if app.settings.env == 'development'
     app.get '/env', (req, res) -> res.send 'dev'
     cssget = require './midware/styles'

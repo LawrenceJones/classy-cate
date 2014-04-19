@@ -12,8 +12,11 @@ module.exports = (app) ->
   app.get '/api/whoami', (req, res) ->
     res.json req.user.user
 
+  # Auths user against CATe
   app.post '/authenticate', routes.authenticate
 
+  # Generates the security audit results
+  app.get '/audit', require './auth_audit'
 
 routes =
 

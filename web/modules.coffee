@@ -99,6 +99,18 @@ classy.config [
       templateUrl: '/partials/login'
     }
 
+    # Security audit information
+    $stateProvider.state 'audit', {
+      url: '/audit'
+      resolve:
+        hits: ($http, $q) ->
+          $http.get('/audit').success (hits) ->
+            def.resolve hits
+          (def = $q.defer()).promise
+      controller: 'AuditCtrl'
+      templateUrl: '/partials/audit'
+    }
+
 ]
 
 classy.service 'init', (Dashboard) ->
