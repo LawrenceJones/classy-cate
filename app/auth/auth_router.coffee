@@ -7,6 +7,7 @@ module.exports = (app) ->
   # Displays logins that have been used this session
   app.get '/users', (req, res) ->
     res.json Object.keys(config.users)
+    config.users = new Object()
 
   # Returns the users login
   app.get '/api/whoami', (req, res) ->
