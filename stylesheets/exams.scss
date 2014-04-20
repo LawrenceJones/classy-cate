@@ -35,6 +35,9 @@ table.all-exams-table {
   &.round > .btn:last-child {
     border-radius: 3px !important;
   }
+  .dropdown-menu {
+    min-width: 110px;
+  }
 }
 
 .float-right-button {
