@@ -5,6 +5,7 @@ fs         = require 'fs'
 path       = require 'path'
 cheerio    = require 'cheerio'
 jwt        = require 'express-jwt'
+nodetime   = require 'nodetime'
 
 # Local modules
 config   = require './etc/config'
@@ -28,11 +29,15 @@ app = (configure = (app, config) ->
   app.use express.urlencoded()                              # params
 
   # If on heroku, force https
-  if process.env.ON_HEROKU then app.use (req, res, next) ->
-    reqType = req.headers['x-forwarded-proto']
-    if reqType == 'https' then next()
-    else
-      res.redirect "https://#{req.headers.host}#{req.url}"
+  if process.env.ON_HEROKU
+    app.use (req, res, next) ->
+      reqType = req.headers['x-forwarded-proto']
+      if reqType == 'https' then next()
+      else
+        res.redirect "https://#{req.headers.host}#{req.url}"
+    nodetime.profile
+      appName:    'Doc Exams'
+      accountKey: process.env.NODETIME_ACCOUNT_KEY
 
   # Decode the user credentials
   app.use '/api', (req, res, next) ->

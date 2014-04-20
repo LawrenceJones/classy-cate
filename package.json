@@ -28,7 +28,8 @@
     "mongoose-format": "^2.0.1",
     "jsdom": "^0.10.5",
     "xmlhttprequest": "^1.6.0",
-    "highlight.js": "^8.0.0"
+    "highlight.js": "^8.0.0",
+    "nodetime": "^0.8.15"
   },
   "devDependencies": {},
   "engines": {
