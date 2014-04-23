@@ -51,7 +51,7 @@ mixin related-notes
     h2
       | Related Notes &amp; Exercises
       span.light(ng-show='exam.related.length == 0') &nbsp;- None
-    accordion(close-others='oneAtATime')
+    accordion(close-others='true')
       +module-accordion()
       +link-module-accordion()
 
