@@ -21,3 +21,8 @@ Array::mergeUnique = (array, eq) ->
     @addUnique elem, eq
   return @
 
+Array::any = (f = (e) -> e) ->
+  for e in @
+    return true if f e
+  false
+

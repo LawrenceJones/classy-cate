@@ -60,8 +60,19 @@ examSchema.statics.loadPaper = loadPaper = (paper) ->
 
 # Fills the studentUploads field
 examSchema.methods.populateUploads = (login) ->
-  mongoose.model('Upload').find {exam: @_id}, (err, uploads) =>
-    @studentUploads = uploads.map (u) -> u.mask login
+  title = @titles[0]
+  query = mongoose
+    .model('Upload')
+    .find {}
+    .populate 'exam'
+  query.exec (err, uploads) =>
+    @studentUploads = uploads
+      .filter (u) ->
+        u.exam.titles.any (t) ->
+          keys = t.match(/([A-Z]\w+)/g)
+          return false if !keys?
+          new RegExp(keys.join('|')).test title
+      .map (u) -> u.mask login
     def.resolve @
   (def = $q.defer()).promise
 
