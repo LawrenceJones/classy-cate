@@ -47,10 +47,9 @@ routes =
   index: (req, res) ->
 
     indexDb = ->
-      Exam.find({}).populate('related').exec (err, exams) ->
-        populated = populateUploads exams, req
-        populated.then (exams) ->
-          res.json exams
+      Exam.find({}).exec (err, exams) ->
+        res.json exams.map (e) ->
+          id: e.id, papers: e.papers, titles: e.titles
 
     Exam.count (err, count) ->
       if count > 0
