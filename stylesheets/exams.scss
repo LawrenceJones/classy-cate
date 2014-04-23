@@ -82,10 +82,18 @@ table.all-exams-table {
   color: #d9534f;
 }
 
-.module-accordion .panel-heading:hover .module-unlink-btn {
-  visibility: visible;
-  transition: visibility;
-  transition-delay: 0.5s;
+.module-accordion {
+  .panel-heading {
+    border-bottom: 1px solid #ddd !important;
+  }
+  .panel-heading:hover .module-unlink-btn {
+    visibility: visible;
+    transition: visibility;
+    transition-delay: 0.5s;
+  }
+  .panel-body {
+    border-top: none !important;
+  }
 }
 
 .module-unlink-btn {

@@ -22,7 +22,7 @@ mixin module-accordion
         td.id {{ $index + 1 }}
         td(colspan='2')
           a(target='_blank', ng-href='{{note.link}}') {{ note.title }}
-      tr
+      tr(ng-show='module.exercises.length > 0')
         td.id
         th(colspan='2') Exercises
       tr(ng-repeat='ex in module.exercises | hasSpec | orderBy:"start"', ng-show='ex.spec').thick
