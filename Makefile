@@ -14,7 +14,7 @@ LIB := $(SRC:$(SRC_DIR)/%.coffee=$(OUT_DIR)/%.js)
 WEB  := web/modules.coffee $(shell find web -name "*.coffee")
 SASS := $(shell find stylesheets -name "*.scss")
 
-ASSETS := public/js/app.js public/stylesheets/style.css
+ASSETS := public/js/app.js public/css/app.css
 
 .PHONY: all clean rebuild start deploy
 
@@ -55,7 +55,7 @@ public/js/app.js: $(WEB)
 	@$(COFFEE) -cj $@ $^
 
 # Compile css assets
-public/stylesheets/style.css: $(SASS)
+public/css/app.css: $(SASS)
 	@-echo "Compiling stylesheet asset $@"
 	@$(COFFEE) ./app/midware/styles.coffee stylesheets $@
 

@@ -22,9 +22,11 @@ app = (configure = (app, config) ->
   app.set 'title', 'Doc Exams'
   app.set 'view engine', 'jade'
   app.set 'views', config.paths.views_dir
+  app.set 'json spaces', 0
 
   # Configure middleware
   app.use express.logger('dev')                             # logger
+  app.use express.compress()                                # gzip
   app.use express.json()                                    # json
   app.use express.urlencoded()                              # params
 

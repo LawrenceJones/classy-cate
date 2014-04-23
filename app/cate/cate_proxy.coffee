@@ -48,7 +48,7 @@ module.exports = class CateProxy
     # Make request, feed result through parser and resolve promise.
     setTimeout (=>
       request options, (err, data, body) =>
-        throw err if err?
+        return deferred.reject err if err?
         deferred.resolve @Parser.parse url, query, body
     ), delay
 
