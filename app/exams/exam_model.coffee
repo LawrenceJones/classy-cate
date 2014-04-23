@@ -60,7 +60,10 @@ examSchema.statics.loadPaper = loadPaper = (paper) ->
 
 # Fills the studentUploads field
 examSchema.methods.populateUploads = (login) ->
+  exam = this
   title = @titles[0]
+  # Find the general year match
+  year  = @id.match(/[1-9]/)?[0] || 'NON'
   query = mongoose
     .model('Upload')
     .find {}
@@ -68,6 +71,8 @@ examSchema.methods.populateUploads = (login) ->
   query.exec (err, uploads) =>
     @studentUploads = uploads
       .filter (u) ->
+        return true if u.exam._id == exam._id
+        return false if u.exam.id.match(/[1-9]/)?[0] != year
         u.exam.titles.any (t) ->
           keys = t.match(/([A-Z]\w+)/g)
           return false if !keys?
