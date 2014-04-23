@@ -22,7 +22,7 @@ app = (configure = (app, config) ->
   app.set 'title', 'Doc Exams'
   app.set 'view engine', 'jade'
   app.set 'views', config.paths.views_dir
-  app.set 'json spaces', 0
+  app.set 'json spaces', 0 if app.settings.env == 'production'
 
   # Configure middleware
   app.use express.logger('dev')                             # logger
