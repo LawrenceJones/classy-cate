@@ -18,11 +18,19 @@ module.exports = class CateProxy
   #
   # Returns a promise that is resolved with the parsed data.
   # If query if an ARRAY, will process each query individually.
-  makeRequest: (query, user) ->
+  #
+  # DELAY is the amount of time to delay the request by. Used to
+  # prevent contention for CATe on large numbers of queries.
+  #
+  # SALT is used for multiple requests when they are better spread
+  # randomly over a time period. Again, is optional. Used for past
+  # paper scraping where +12 requests can cause congestion.
+  makeRequest: (query, user, delay = 0, salt = 0) ->
 
     # If query is an array then map over and generate a collective promise
     if query instanceof Array
-      return $q.all(query.map (q) => @makeRequest q, user)
+      return $q.all query.map (q) =>
+        @makeRequest q, user, (delay + Math.random()*salt)
 
     # Initialise deferred
     deferred = $q.defer()
@@ -38,9 +46,11 @@ module.exports = class CateProxy
     options = url: url, auth: auth
 
     # Make request, feed result through parser and resolve promise.
-    request options, (err, data, body) =>
-      throw err if err?
-      deferred.resolve @Parser.parse url, query, body
+    setTimeout (=>
+      request options, (err, data, body) =>
+        throw err if err?
+        deferred.resolve @Parser.parse url, query, body
+    ), delay
 
     return deferred.promise
 

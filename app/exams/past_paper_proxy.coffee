@@ -26,7 +26,10 @@ class PastPaperProxy extends CateProxy
   # past paper archives. It will then load the scraped data into
   # the CateExams database.
   scrapeArchives: (user, def = $q.defer()) ->
-    req = @makeRequest allArchives(), user
+    # Make a request that will be delayed by 5 seconds, then all
+    # requests will be randomly requested over a period of 10
+    # seconds.
+    req = @makeRequest allArchives(), user, 5, 10
     req.then (data) =>
       loaded = $q.all data.map (year) ->
         papers = Object.keys(year.papers).map (k) -> year.papers[k]
