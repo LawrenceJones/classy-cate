@@ -20,4 +20,6 @@ classy.controller 'ExamViewCtrl', ($scope, $modal, Exam, modules, exam) ->
     $scope.exam.removeModule module
 
       
-
+classy.filter 'hasSpec', ->
+  (exs) ->
+    exs.filter (ex) -> ex.spec?

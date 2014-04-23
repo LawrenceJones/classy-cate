@@ -69,8 +69,9 @@ table.all-exams-table {
   .table-bordered.notes-table {
     border: none;
     margin-bottom: 0px;
-    td { border-top: none; }
-    td.id {
+    td, th { border-top: none; }
+    td.id, th.id {
+      text-align: center;
       border-left: none;
       width: 80px;
     }

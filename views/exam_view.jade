@@ -15,10 +15,24 @@ mixin module-accordion
       i.pull-right.fa(ng-class="{'fa-angle-down': isopen, 'fa-angle-right': !isopen, bordered: isopen}")
     table.table.table-striped.table-bordered.notes-table
       tr
+      tr
+        th.id
+        th(colspan='2') Notes
       tr(ng-repeat='note in module.getNotesLink().links')
         td.id {{ $index + 1 }}
-        td
+        td(colspan='2')
           a(target='_blank', ng-href='{{note.link}}') {{ note.title }}
+      tr
+        td.id
+        th(colspan='2') Exercises
+      tr(ng-repeat='ex in module.exercises | hasSpec | orderBy:"start"', ng-show='ex.spec').thick
+        td.id {{ ex.id }}:{{ ex.type }}
+        td.spec
+          a(target='_blank', ng-href!="{{ 'https://cate.doc.ic.ac.uk/' + ex.spec }}") {{ ex.name }}
+        td.given
+          .givens-link(exercise='ex', ng-show='ex.givens') Givens
+          span(ng-show='!ex.givens') NA
+        
 
 mixin link-module-accordion
   accordion-group(ng-scope='', is-open='isopen')
@@ -35,7 +49,7 @@ mixin link-module-accordion
 mixin related-notes
   .related-notes
     h2
-      | Related Notes
+      | Related Notes &amp; Exercises
       span.light(ng-show='exam.related.length == 0') &nbsp;- None
     accordion(close-others='oneAtATime')
       +module-accordion()
