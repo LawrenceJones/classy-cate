@@ -6,6 +6,9 @@ path       = require 'path'
 cheerio    = require 'cheerio'
 jwt        = require 'express-jwt'
 nodetime   = require 'nodetime'
+morgan     = require 'morgan'
+compress   = require 'compression'
+bodyParser = require 'body-parser'
 
 # Local modules
 config   = require './etc/config'
@@ -25,10 +28,10 @@ app = (configure = (app, config) ->
   app.set 'json spaces', 0 if app.settings.env == 'production'
 
   # Configure middleware
-  app.use express.logger('dev')                             # logger
-  app.use express.compress()                                # gzip
-  app.use express.json()                                    # json
-  app.use express.urlencoded()                              # params
+  app.use morgan('dev')                                     # logger
+  app.use compress()                                        # gzip
+  app.use bodyParser.json()                                 # json
+  app.use bodyParser.urlencoded()                           # params
 
   # If on heroku, force https
   if process.env.ON_HEROKU
@@ -102,5 +105,6 @@ app = (configure = (app, config) ->
 
 # Load app
 app.listen (PORT = process.env.PORT || 80), ->
+  console.log "Started server running in #{app.settings.env}"
   console.log "Listening at https://localhost:#{PORT}"
 

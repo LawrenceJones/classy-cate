@@ -15,7 +15,7 @@ module.exports = (config) ->
 
   # Reference connection
   db = mongoose.connection
-  db.on 'error', ->
+  db.once 'error', ->
     console.error 'Error connecting to database'
     process.exit 1
   db.once 'open', ->

@@ -12,3 +12,4 @@ tags
 node_modules
 *.log
 tmp*
+nohup.out

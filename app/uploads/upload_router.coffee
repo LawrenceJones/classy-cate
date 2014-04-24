@@ -1,6 +1,7 @@
 request = require 'request'
 mongoose = require 'mongoose'
 express = require 'express'
+bodyParser = require 'body-parser'
 
 # Gridfs libraries
 fs = require 'fs'
@@ -14,7 +15,7 @@ Upload = mongoose.model 'Upload'
 module.exports = (app) ->
 
   # Create upload
-  app.post '/api/exams/:id/upload', express.bodyParser(), routes.submitUpload
+  app.post '/api/exams/:id/upload', bodyParser(), routes.submitUpload
   # Vote on upload
   app.post '/api/uploads/:id/:vote(up|down)', routes.vote
   # Download an uploaded file
@@ -58,9 +59,9 @@ routes =
         ws = gfs.createWriteStream
           _id: upload._id
         fs.createReadStream(file.path).pipe ws
-        ws.on 'error', (err) ->
+        ws.once 'error', (err) ->
           console.error err.toString()
-        ws.on 'close', ->
+        ws.once 'close', ->
           upload.save handleSave
       else
         upload.save handleSave

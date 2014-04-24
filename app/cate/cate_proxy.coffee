@@ -1,5 +1,6 @@
 $q = require 'q'
 request = require 'request'
+process.setMaxListeners 0
 
 # Class for the basic CATe proxy. All instances will own a parser,
 # which will facilitate parsing the html source that this class

@@ -7,6 +7,7 @@ classy.controller 'ExamsCtrl', ($scope, exams, ExamTimetable, Exam) ->
     mineonly: true # default for now
     search: ''
 
+  # Hopefully cached.
   ExamTimetable.query().then (tt) ->
     $scope.examTimetable = tt
     $scope.myexams = tt.exams
