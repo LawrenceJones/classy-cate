@@ -10,6 +10,9 @@ Exam = mongoose.model 'Exam'
 # This is the earliest parsable year of archives.
 EARLIEST_ARCHIVE = 1999
 
+# The time to split the cate requests over.
+REQUEST_SALT = 120 # 2 mins
+
 # Returns an array of all the available archive years.
 allArchives = ->
   now = new Date().getFullYear() - 1
@@ -29,7 +32,7 @@ class PastPaperProxy extends CateProxy
     # Make a request that will be delayed by 5 seconds, then all
     # requests will be randomly requested over a period of 10
     # seconds.
-    req = @makeRequest allArchives(), user, 5, 10
+    req = @makeRequest allArchives(), user, 15, REQUEST_SALT
     req.then (data) =>
       loaded = $q.all data.map (year) ->
         papers = Object.keys(year.papers).map (k) -> year.papers[k]

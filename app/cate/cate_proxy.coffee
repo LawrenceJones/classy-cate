@@ -51,7 +51,7 @@ module.exports = class CateProxy
       request options, (err, data, body) =>
         return deferred.reject err if err?
         deferred.resolve @Parser.parse url, query, body
-    ), delay
+    ), 1000*delay
 
     return deferred.promise
 

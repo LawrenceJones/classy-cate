@@ -31,7 +31,8 @@
     "npm": "*",
     "q": "^1.0.1",
     "request": "*",
-    "xmlhttprequest": "^1.6.0"
+    "xmlhttprequest": "^1.6.0",
+    "connect-multiparty": "^1.0.3"
   },
   "devDependencies": {},
   "engines": {

@@ -1,7 +1,7 @@
 request = require 'request'
 mongoose = require 'mongoose'
 express = require 'express'
-bodyParser = require 'body-parser'
+multiParty = require 'connect-multiparty'
 
 # Gridfs libraries
 fs = require 'fs'
@@ -15,7 +15,7 @@ Upload = mongoose.model 'Upload'
 module.exports = (app) ->
 
   # Create upload
-  app.post '/api/exams/:id/upload', bodyParser(), routes.submitUpload
+  app.post '/api/exams/:id/upload', multiParty(), routes.submitUpload
   # Vote on upload
   app.post '/api/uploads/:id/:vote(up|down)', routes.vote
   # Download an uploaded file
