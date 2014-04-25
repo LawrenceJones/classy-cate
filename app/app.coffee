@@ -1,9 +1,7 @@
 # NPM modules
 express    = require 'express'
-https      = require 'https'
 fs         = require 'fs'
 path       = require 'path'
-cheerio    = require 'cheerio'
 jwt        = require 'express-jwt'
 nodetime   = require 'nodetime'
 morgan     = require 'morgan'
@@ -42,9 +40,10 @@ app = (configure = (app, config) ->
       if reqType == 'https' then next()
       else
         res.redirect "https://#{req.headers.host}#{req.url}"
-    nodetime.profile
-      appName:    'Doc Exams'
-      accountKey: process.env.NODETIME_ACCOUNT_KEY
+
+  # Configure nodetime if env has config
+  if process.env.NODETIME_APP_NAME?
+    nodetime.profile config.nodetime
 
   # Decode the user credentials
   app.use '/api', (req, res, next) ->

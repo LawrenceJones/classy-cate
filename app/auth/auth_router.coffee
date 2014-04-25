@@ -41,6 +41,7 @@ routes =
         secret = config.express.SECRET
         expiry = config.jwt.TOKEN_EXPIRY
         token  = jwt.sign creds, secret, expiresInMinutes: expiry
+        creds  = null # Destroy credentials
         res.json token: token
       authed.catch (err) ->
         reject res, 'Authentication failed'

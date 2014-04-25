@@ -56,6 +56,7 @@ examSchema.statics.loadPaper = loadPaper = (paper) ->
       console.error err
       return def.reject err
     def.resolve exam
+    exam = null
   (def = $q.defer()).promise
 
 # Fills the studentUploads field
@@ -80,6 +81,7 @@ examSchema.methods.populateUploads = (login) ->
           new RegExp(keys.join('|')).test title
       .map (u) -> u.mask login
     def.resolve @
+    def = exam = uploads = null # nullify
   (def = $q.defer()).promise
 
 
@@ -89,17 +91,17 @@ examSchema.methods.populateUploads = (login) ->
 examSchema.statics.getRelatedModules = (exam) ->
   exam.populate 'related', (err) ->
     ids = exam.id.match /(\d+)/g
-    deferred.resolve exam if ids.length is 0
+    def.resolve exam if ids.length is 0
 
     rex = "^(#{ids.join('|')})$"
     mongoose.model('CateModule')
       .find { id: $regex:rex }, (err, modules) ->
         exam.related.mergeUnique modules, (a,b) -> a.id == b.id
-        if err? then deferred.reject err
-        else deferred.resolve exam
+        if err? then def.reject err
+        else def.resolve exam
+        def = modules = exam = null # nullify
 
-  deferred = $q.defer()
-  deferred.promise
+  (def = $q.defer()).promise
 
 Exam = mongoose.model 'Exam', examSchema
 module.exports = Exam

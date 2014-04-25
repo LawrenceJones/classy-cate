@@ -49,6 +49,7 @@ module.exports = class CateProxy
     # Make request, feed result through parser and resolve promise.
     setTimeout (=>
       request options, (err, data, body) =>
+        options = null # destroy exposed auth
         return deferred.reject err if err?
         deferred.resolve @Parser.parse url, query, body
     ), 1000*delay
@@ -64,9 +65,10 @@ module.exports = class CateProxy
         user: user, pass: pass
         sendImmediately: true
     request options, (err, data, body) ->
-      throw 401 if data.statusCode is 401
-      deferred.resolve data.statusCode
-    (deferred = $q.defer()).promise
+      options = null # destroy auth
+      def.reject 401 if data.statusCode is 401
+      def.resolve data.statusCode
+    (def = $q.defer()).promise
 
 
 

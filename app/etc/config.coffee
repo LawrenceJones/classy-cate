@@ -26,7 +26,8 @@ module.exports = config =
     HOST: process.env.MONGODB_HOST || 'localhost'
     MLAB: process.env.MONGOLAB_URI
   nodetime:
-    ACCOUNT_KEY: process.env.NODETIME_ACCOUNT_KEY
+    appName:    process.env.NODETIME_APP_NAME || 'Doc Exams'
+    accountKey: process.env.NODETIME_ACCOUNT_KEY
   paths:
     root_dir:   root_dir
     app_dir:    path.join root_dir, 'app'

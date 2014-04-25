@@ -8,8 +8,9 @@ routes =
 
   getDashboard: (req, res) ->
     dashPromise = DashboardProxy.makeRequest req.query, req.user
-    dashPromise.then (data) ->
-      res.json data
+    dashPromise.then (dashData) ->
+      res.json dashData
+      dashData = null
     dashPromise.catch (err) ->
       res.send err.code, err.mssg
 
