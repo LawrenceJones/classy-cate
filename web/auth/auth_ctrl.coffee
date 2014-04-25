@@ -19,7 +19,7 @@ auth.controller\
           if $window.blockedHash?
             $window.location = $window.blockedHash
             $window.blockedHash = null
-          else $state.transitionTo 'dashboard'
+          else $state.transitionTo 'app.dashboard'
         authed.catch ->
           $scope.denied = true
           $scope.waiting = false
