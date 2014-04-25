@@ -5,6 +5,8 @@ cheerio = require 'cheerio'
 cheerio::elemAt = (sel, i) ->
   (@find sel).eq i
 
+Date::toJSON = Date::getTime
+
 # Adds extend to Object
 Object.extend = (dst, src) ->
   dst[k] = v for own k,v of src
