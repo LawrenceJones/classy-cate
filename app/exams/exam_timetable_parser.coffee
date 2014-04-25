@@ -1,5 +1,8 @@
 CateParser = require '../cate/cate_parser'
 
+Date::printTime = ->
+  @toTimeString().match(/^(\d+):(\d+)/)[0]
+
 # Extracts each exam the user is subscribed to.
 parseExam = ($, $row) ->
 
@@ -25,6 +28,7 @@ parseExam = ($, $row) ->
   title: title
   room: room
   datetime: datetime
+  time: datetime.printTime()
   duration: duration
 
 # Parses data about a students exam timetable.

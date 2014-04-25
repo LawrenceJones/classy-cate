@@ -15,7 +15,7 @@ mixin exams-collection
           tooltip='Tube strike')
       td.t-minus {{ exam.tminus }} days
       td.date {{ exam.datetime.format() }}
-      td.time {{ exam.datetime.printTime() }}
+      td.time {{ exam.time }}
       td.duration {{ exam.duration }}
 
 mixin all-exams
