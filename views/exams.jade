@@ -9,6 +9,10 @@ mixin exams-collection
     tr(ng-repeat!='exam in myexams')
       td.title
         a(exam-link='exam')
+        i.icon-london-underground.text-danger.tube-warning(
+          ng-show='exam.strike'
+          tooltip-placement='left'
+          tooltip='Tube strike')
       td.t-minus {{ exam.tminus }} days
       td.date {{ exam.datetime.format() }}
       td.time {{ exam.datetime.printTime() }}

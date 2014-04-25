@@ -1,0 +1,12 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg">
+<metadata>Copyright (C) 2014 by original authors @ fontello.com</metadata>
+<defs>
+<font id="fontello" horiz-adv-x="1000" >
+<font-face font-family="fontello" font-weight="400" font-stretch="normal" units-per-em="1000" ascent="850" descent="-150" />
+<missing-glyph horiz-adv-x="1000" />
+<glyph glyph-name="london-underground" unicode="&#xe800;" d="m475 725c-181 0-332-129-367-300l-58 0c-25 0-50-25-50-50l0-50c0-25 25-50 50-50l58 0c35-171 186-300 367-300 181 0 332 129 367 300l58 0c25 0 50 25 50 50l0 50c0 25-25 50-50 50l-58 0c-35 171-186 300-367 300z m0-125c103 0 193-83 225-175l-450 0c32 92 122 175 225 175z m-225-325l450 0c-32-92-122-175-225-175s-193 83-225 175z" horiz-adv-x="950" />
+</font>
+</defs>
+</svg>

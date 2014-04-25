@@ -1,16 +1,5 @@
 classy = angular.module 'classy'
 
-classy.factory 'ExamTimetable', (Resource, Exam, $rootScope) ->
-  class ExamTimetable extends Resource {
-    baseurl: '/api/exam_timetable'
-    parser: ->
-      Exam.myExams ?= {}
-      for exam in @exams
-        (Exam.myExams[$rootScope.AppState.currentUser] ?= {})[exam.id] = @
-        exam.datetime = new Date exam.datetime
-        exam.tminus = Math.round (exam.datetime - Date.now())/(1000*60*60*24)
-  }
-
 classy.factory 'Exam', (Resource, Module, Upload, $rootScope, $q, $http) ->
 
   handleRequest = (req, cast) ->

@@ -5,6 +5,7 @@ classy = angular.module 'classy', [
   'ui.router'
   'ui.bootstrap.modal'
   'ui.bootstrap.accordion'
+  'ui.bootstrap.tooltip'
   'infinite-scroll'
   'resource'
   'auth'

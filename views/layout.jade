@@ -1,12 +1,18 @@
+mixin uiBootstrap(module)
+  script(src='/lib/ui.bootstrap/src/'+module+'/'+module+'.js')
+
 mixin scripts
   script(src='/lib/jquery/dist/jquery.js')
   script(src='/lib/angular/angular.js')
   script(src='/lib/angular-ui-router/release/angular-ui-router.js')
   script(src='/lib/ngInfiniteScroll/build/ng-infinite-scroll.min.js')
-  script(src='/lib/ui.bootstrap/src/transition/transition.js')
-  script(src='/lib/ui.bootstrap/src/accordion/accordion.js')
-  script(src='/lib/ui.bootstrap/src/collapse/collapse.js')
-  script(src='/lib/ui.bootstrap/src/modal/modal.js')
+  +uiBootstrap('transition')
+  +uiBootstrap('accordion')
+  +uiBootstrap('collapse')
+  +uiBootstrap('modal')
+  +uiBootstrap('bindHtml')
+  +uiBootstrap('position')
+  +uiBootstrap('tooltip')
   script(src='/lib/bootstrap/dist/js/bootstrap.js')
   script(src='//yandex.st/highlightjs/8.0/highlight.min.js')
   script(src='/js/app.js')
@@ -15,6 +21,7 @@ mixin stylesheets
   link(rel='stylesheet', type='text/css', href='/lib/bootstrap/dist/css/bootstrap.css')
   link(rel='stylesheet', type='text/css', href='/lib/font-awesome/css/font-awesome.css')
   link(rel='stylesheet', type='text/css', href='//yandex.st/highlightjs/8.0/styles/monokai.min.css')
+  link(rel='stylesheet', type='text/css', href='/css/fontello.css')
   link(rel='stylesheet', type='text/css', href='/css/app.css')
 
 doctype html
