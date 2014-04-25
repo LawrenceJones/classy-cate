@@ -62,6 +62,7 @@ examSchema.statics.loadPaper = loadPaper = (paper) ->
 # Fills the studentUploads field
 examSchema.methods.populateUploads = (login) ->
   exam = this
+  def = $q.defer()
   title = @titles[0]
   # Find the general year match
   year  = @id.match(/[1-9]/)?[0] || 'NON'
@@ -82,7 +83,7 @@ examSchema.methods.populateUploads = (login) ->
       .map (u) -> u.mask login
     def.resolve @
     def = exam = uploads = null # nullify
-  (def = $q.defer()).promise
+  def.promise
 
 
 # Retrives cate modules that may be associated with the given
