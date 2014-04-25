@@ -21,11 +21,13 @@ utils = require './etc/utilities'
 # Init app
 app = (configure = (app, config) ->
 
+  ENV = app.settings.env
+
   # Init app settings
   app.set 'title', 'Doc Exams'
   app.set 'view engine', 'jade'
   app.set 'views', config.paths.views_dir
-  app.set 'json spaces', 0 if app.settings.env == 'production'
+  app.set 'json spaces', (if ENV == 'production' then 0 else 2)
 
   # Configure middleware
   app.use morgan('dev')                                     # logger
@@ -68,7 +70,7 @@ app = (configure = (app, config) ->
     else res.send 401, 'Token expired!'
 
   # Live compilation, shouldnt be used in production
-  if app.settings.env == 'development'
+  if ENV == 'development'
     app.get '/env', (req, res) -> res.send 'dev'
     cssget = require './midware/styles'
     app.get '/css/app.css', cssget config.paths.styles_dir     # sass
