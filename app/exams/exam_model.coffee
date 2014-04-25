@@ -70,6 +70,7 @@ examSchema.methods.populateUploads = (login) ->
     .populate 'exam'
   query.exec (err, uploads) =>
     @studentUploads = uploads
+      .filter (u) -> u
       .filter (u) ->
         return true if u.exam._id == exam._id
         return false if u.exam.id.match(/[1-9]/)?[0] != year
