@@ -37,7 +37,7 @@ module.exports = class GivensParser extends CateParser
           if ($cell = $(this).find('td:eq(0) a')).attr('href')?
             category.givens.push
               title: $cell.html()
-              link:  $cell.attr('href')
+              link:  "#{CateParser.CATE_DOMAIN}/#{$cell.attr('href')}"
         categories.push category
 
     # Return an array of categories, each element containing a type and rows
