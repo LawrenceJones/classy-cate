@@ -27,7 +27,8 @@ classy.factory 'ExamTimetable', (Resource, Exam, $rootScope) ->
       for exam in @exams
         (Exam.myExams[$rootScope.AppState.currentUser] ?= {})[exam.id] = @
         exam.datetime = new Date exam.datetime
-        exam.tminus = Math.round (exam.datetime - Date.now())/(1000*60*60*24)
+        exam.tminus =
+          Math.max 0, Math.round (exam.datetime - Date.now())/(1000*60*60*24)
         exam.strike = duringStrikes exam.datetime
   }
 
