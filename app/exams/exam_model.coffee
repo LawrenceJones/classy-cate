@@ -39,7 +39,7 @@ examSchema = mongoose.Schema
 # Returns a promise that is resolved on successful db save.
 examSchema.statics.loadPaper = loadPaper = (paper) ->
   if paper instanceof Array
-    return $q.all(paper.map loadPaper)
+    return $q.all(paper.modify loadPaper)
   exam =
     id: paper.id
     $addToSet:
@@ -47,17 +47,19 @@ examSchema.statics.loadPaper = loadPaper = (paper) ->
       papers: year: paper.year, url: paper.url
       classes:
         $each: paper.classes
+  def = $q.defer()
   update = Exam.findOneAndUpdate\
   ( id: exam.id
   , exam
   , upsert: true, strict: true)
+  exam = null
   update.exec (err, exam) ->
     if err?
       console.error err
       return def.reject err
     def.resolve exam
-    exam = null
-  (def = $q.defer()).promise
+    update = def = exam = null # gc
+  def.promise
 
 # Fills the studentUploads field
 examSchema.methods.populateUploads = (login) ->
@@ -72,15 +74,16 @@ examSchema.methods.populateUploads = (login) ->
     .populate 'exam'
   query.exec (err, uploads) =>
     @studentUploads = uploads
-      .filter (u) -> u
-      .filter (u) ->
-        return true if u.exam._id == exam._id
-        return false if u.exam.id.match(/[1-9]/)?[0] != year
+      .select (u) ->
+        if u?.exam?._id == exam._id
+          return true
+        else if !u? or u.exam.id?.match(/[1-9]/)?[0] != year
+          return false
         u.exam.titles.any (t) ->
           keys = t.match(/([A-Z]\w+)/g)
           return false if !keys?
           new RegExp(keys.join('|')).test title
-      .map (u) -> u.mask login
+      .modify (u) -> u.mask login
     def.resolve @
     def = exam = uploads = null # nullify
   def.promise

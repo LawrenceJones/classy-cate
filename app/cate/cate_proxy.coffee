@@ -30,16 +30,16 @@ module.exports = class CateProxy
 
     # If query is an array then map over and generate a collective promise
     if query instanceof Array
-      return $q.all query.map (q) =>
+      return $q.all query.modify (q) =>
         @makeRequest q, user, (delay + Math.random()*salt)
 
     # Initialise deferred
-    deferred = $q.defer()
+    def = $q.defer()
     
     try url = @Parser.url query
     catch err
-      deferred.reject code: 400, mssg: 'Malformed query'
-      return deferred.promise
+      def.reject code: 400, mssg: 'Malformed query'
+      return def.promise
 
     # Retrieve the user credentials from the jwt store
     auth = user('USER_CREDENTIALS')
@@ -49,12 +49,12 @@ module.exports = class CateProxy
     # Make request, feed result through parser and resolve promise.
     setTimeout (=>
       request options, (err, data, body) =>
-        options = null # destroy exposed auth
-        return deferred.reject err if err?
-        deferred.resolve @Parser.parse url, query, body
+        return def.reject err if err?
+        def.resolve @Parser.parse url, query, body
+        def = err = data = body = auth = options = null # gc
     ), 1000*delay
 
-    return deferred.promise
+    return def.promise
 
   # Takes user login and password, resolves promise on whether
   # CATE has accepted the credentials.
@@ -64,11 +64,12 @@ module.exports = class CateProxy
       auth:
         user: user, pass: pass
         sendImmediately: true
+    def = $q.defer()
     request options, (err, data, body) ->
-      options = null # destroy auth
       def.reject 401 if data.statusCode is 401
       def.resolve data.statusCode
-    (def = $q.defer()).promise
+      options = def = err = data = body = null # gc
+    def.promise
 
 
 

@@ -1,5 +1,6 @@
 $q = require 'q'
 config = require '../etc/config'
+memwatch = require 'memwatch'
 
 # Cate proxy/parsing
 CateProxy = require '../cate/cate_proxy'
@@ -31,7 +32,7 @@ populateUploads = (exam, req) ->
   login = req.user('USER_CREDENTIALS').user
 
   if exam instanceof Array
-    return $q.all(exam.map (e) -> populateUploads e, req)
+    return $q.all(exam.modify (e) -> populateUploads e, req)
   exam.populateUploads login
 
 
@@ -48,8 +49,10 @@ routes =
 
     indexDb = ->
       Exam.find({}).exec (err, exams) ->
-        res.json exams.map (e) ->
+        json = exams.modify (e) ->
           id: e.id, papers: e.papers, titles: e.titles
+        res.json json
+        json = []
 
     Exam.count (err, count) ->
       if count > 0
@@ -61,7 +64,7 @@ routes =
         #
         # EXTEND_CACHE is an env arg that will prevent cache from expiring.
         if PastPaperProxy.cacheExpired() and not process.env.EXTEND_CACHE
-          setTimeout (-> PastPaperProxy.scrapeArchives(req.user)), 10*1000
+          setTimeout (-> PastPaperProxy.scrapeArchives(req.user)), 0 #10*1000
       else
         PastPaperProxy.scrapeArchives(req.user).then indexDb
 
@@ -109,6 +112,7 @@ routes =
           return res.send 500 if err?
           return res.send 404 if !exam?
           res.json module
+          res = exam = module = err = null # gc
 
   # DELETE /api/exams/:id/relate?id
   # Removes the specified related module from the exam, returns
@@ -121,9 +125,10 @@ routes =
         .findOne id: req.params.id
         .populate 'related'
       exam.exec (err, exam) ->
-        exam.related = exam.related.filter (r) -> r.id != module.id
+        exam.related.select (r) -> r.id != module.id
         exam.save (err, exam) ->
           return res.send 500 if err?
           return res.send 404 if !exam?
           res.send 200
+          res = exam = err = module = null # gc
 

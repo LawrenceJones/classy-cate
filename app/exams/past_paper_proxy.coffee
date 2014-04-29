@@ -34,9 +34,10 @@ class PastPaperProxy extends CateProxy
     # seconds.
     req = @makeRequest allArchives(), user, 15, REQUEST_SALT
     req.then (data) =>
-      loaded = $q.all data.map (year) ->
-        papers = Object.keys(year.papers).map (k) -> year.papers[k]
+      loaded = $q.all data.modify (year) ->
+        papers = Object.keys(year.papers).modify (k) -> year.papers[k]
         Exam.loadPaper papers
+        papers = []
       loaded.then ->
         console.log 'Exams database has been updated!'
         lastUpdated = Date.now()
@@ -44,6 +45,9 @@ class PastPaperProxy extends CateProxy
       loaded.catch (err) ->
         console.error err
         def.reject err
+      loaded.finally (args...) -> # gc
+        args[i] = null for a,i in args
+        data = req = def = loaded = null
     return def.promise
 
   # Calculates whether our cache has expired

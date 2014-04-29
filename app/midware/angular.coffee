@@ -19,7 +19,8 @@ module.exports = (options) ->
     res.setHeader 'Content-Type', 'text/javascript'
     res.setHeader 'Cache-Control', 'no-cache, no-store, must-revalidate'
     src = globCoffee(options.angularPath)
-      .map (f) -> coffee.compile fs.readFileSync(f, 'utf8')
+      .modify (f) -> coffee.compile fs.readFileSync(f, 'utf8')
       .reduce (a,c) -> a + c
     res.send src
+    src = res = null # gc
 

@@ -7,6 +7,7 @@ nodetime   = require 'nodetime'
 morgan     = require 'morgan'
 compress   = require 'compression'
 bodyParser = require 'body-parser'
+memwatch   = require 'memwatch'
 
 # Local modules
 config   = require './etc/config'
@@ -15,6 +16,10 @@ partials = require './midware/partials'
 
 # Load extra js utilities
 utils = require './etc/utilities'
+
+# Listen for leaks
+memwatch.on 'leak', (stats) ->
+  console.error stats
 
 # Init app
 app = (configure = (app, config) ->

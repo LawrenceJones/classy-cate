@@ -28,3 +28,14 @@ Array::any = (f = (e) -> e) ->
     return true if f e
   false
 
+Array::modify = (f) ->
+  if typeof f == 'function'
+    @[i] = f e for e,i in @
+  return @
+
+Array::select = (f) ->
+  if typeof f == 'function'
+    j = 0
+    for e,i in @
+      if !f(e) then @splice (i - j++), 1
+  return @

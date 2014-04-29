@@ -23,6 +23,8 @@ class ExercisesProxy extends CateProxy
         console.log 'Updated CateModules database!'
       loaded.catch (err) ->
         console.error err
+      loaded.finally ->
+        req = data = null # gc
     (def = $q.defer()).promise
 
     

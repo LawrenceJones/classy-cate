@@ -45,6 +45,7 @@ routes =
           return res.json error: err
         # Once again, requires login for a mask.
         res.json upload.mask getLogin req.user
+        res = exam = upload = err = null # gc
 
       upload = new Upload req.query
       upload.upvotes = upload.downvotes = []
@@ -78,7 +79,6 @@ routes =
         rs.on 'error', (err) ->
           console.error err
           res.send 500
-
 
   # DELETE /api/uploads/:id
   # If you do not own the upload you are attempting to delete,
