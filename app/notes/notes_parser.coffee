@@ -52,10 +52,18 @@ module.exports = class NotesParser extends CateParser
     notes = new Array()
     $rows = $('table [cellpadding="3"] tr')[3..]
     $rows.each (i, row) =>
+      $row = $(row)
+      
+      # Strip out any
+      # "Maintaining access to URL addresses is the responsibility of the owner."
+      # lines which CATe has added.
+      if $row.children('td').length === 1
+        continue
+      
       notes.push
-        restype:  getNoteType  $(row)
-        title:    getNoteTitle $(row)
-        link:     getNoteLink  $, $(row), @query
+        restype:  getNoteType  $row
+        title:    getNoteTitle $row
+        link:     getNoteLink  $, $row, @query
 
     # Return extracted data
     moduleID:    moduleID
