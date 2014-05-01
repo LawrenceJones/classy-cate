@@ -54,11 +54,10 @@ module.exports = class NotesParser extends CateParser
     $rows.each (i, row) =>
       $row = $(row)
       
-      # Strip out any
-      # "Maintaining access to URL addresses is the responsibility of the owner."
+      # Strip out any "Maintaining access to URL addresses is the
+      # responsibility of the owner."
       # lines which CATe has added.
-      if $row.children('td').length === 1
-        continue
+      return if $row.children('td').length <= 1
       
       notes.push
         restype:  getNoteType  $row
