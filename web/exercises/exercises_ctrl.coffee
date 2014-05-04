@@ -5,6 +5,8 @@ classy.factory 'Exercise', (Resource) ->
     parser: ->
       @start = new Date(@start)
       @end = new Date(@end)
+      if !@name? or /^[\s\t\r\b\n]*$/.test @name
+        @name = 'UNNAMED'
   }
 
 classy.factory 'Exercises', (Resource, Module, $rootScope, $q) ->
