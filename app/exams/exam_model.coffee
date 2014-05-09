@@ -100,7 +100,9 @@ examSchema.statics.getRelatedModules = (exam) ->
     rex = "^(#{ids.join('|')})$"
     mongoose.model('CateModule')
       .find { id: $regex:rex }, (err, modules) ->
-        exam.related.mergeUnique modules, (a,b) -> a.id == b.id
+        # This line is cut for now, as Compilers/CT appear to share the
+        # same code, 233.
+        # exam.related.mergeUnique modules, (a,b) -> a.id == b.id
         if err? then def.reject err
         else def.resolve exam
         def = modules = exam = null # nullify
