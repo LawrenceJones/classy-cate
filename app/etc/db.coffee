@@ -4,7 +4,7 @@ $q = require 'q'
 require './model'
 
 # Initial db setup
-module.exports = (config) ->
+module.exports = (config, verbose = true) ->
 
   [name, host, port] = [
     config.mongodb.NAME
@@ -19,7 +19,7 @@ module.exports = (config) ->
     console.error 'Error connecting to database'
     process.exit 1
   db.once 'open', ->
-    console.log 'Database successfully opened!'
+    console.log 'Database successfully opened!' if verbose
 
   Models = [Exam, Upload, CateModule] = [ # Load database models
     '../exams/exam_model'
@@ -45,10 +45,5 @@ module.exports = (config) ->
   # exams.
   if process.env.GENERATE_RELATED
     CateModule.generateRelated()
-
-
-        
-
-      
 
 

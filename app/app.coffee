@@ -110,7 +110,7 @@ app = (configure = (app, config) ->
     (require routePath)(app)
 
 # Load app
-app.listen (PORT = process.env.PORT || 80), ->
+app.listen (PORT = process.env.PORT || 4567), ->
   console.log "Started server running in #{app.settings.env}"
   console.log "Listening at https://localhost:#{PORT}"
 

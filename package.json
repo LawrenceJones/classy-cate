@@ -35,7 +35,9 @@
     "connect-multiparty": "^1.0.3",
     "memwatch": "^0.2.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "read": "*"
+  },
   "engines": {
     "node": "0.10.x"
   }

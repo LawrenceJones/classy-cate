@@ -5,6 +5,9 @@ PastPaperParser = require './past_paper_parser'
 
 # Mongoose access
 mongoose = require 'mongoose'
+try mongoose.model 'Exam'
+catch err
+  (require '../etc/db')(require('../etc/config'), false)
 Exam = mongoose.model 'Exam'
 
 # This is the earliest parsable year of archives.
@@ -28,11 +31,12 @@ class PastPaperProxy extends CateProxy
   # Given a decoded user function, will scrape all the available
   # past paper archives. It will then load the scraped data into
   # the CateExams database.
-  scrapeArchives: (user, def = $q.defer()) ->
+  scrapeArchives: (user, def = $q.defer(), instant = false) ->
     # Make a request that will be delayed by 5 seconds, then all
     # requests will be randomly requested over a period of 10
     # seconds.
-    req = @makeRequest allArchives(), user, 15, REQUEST_SALT
+    delay = if not instant then [15, REQUEST_SALT] else []
+    req = @makeRequest allArchives(), user, delay...
     req.then (data) =>
       loaded = $q.all data.modify (year) ->
         papers = Object.keys(year.papers).modify (k) -> year.papers[k]
