@@ -2,14 +2,6 @@ COFFEE := coffee
 COFFEE_FLAGS := --compile
 SASS   := node-sass
 
-# Setup file locations
-SRC_DIR  := app
-OUT_DIR  := target
-
-# Glob all the coffee source
-SRC := $(shell find app -name "*.coffee")
-LIB := $(SRC:$(SRC_DIR)/%.coffee=$(OUT_DIR)/%.js)
-
 # Web assets
 WEB  := web/modules.coffee $(shell find web -name "*.coffee")
 SASS := $(shell find stylesheets -name "*.scss")
@@ -30,21 +22,13 @@ bower: bower.json
 	bower install
 
 # Phony all target
-all: target $(LIB) $(ASSETS)
+all: $(ASSETS)
 	@-echo "Finished building classy-cate"
-
-# Make target folder if doesn't exist
-target:
-	@echo Making target dir
-	@mkdir target
-	@echo "*\n!.gitignore" > target/.gitignore
 
 # Phony clean target
 clean:
-	@-echo "Cleaning *.js files"
-	@-rm -f $(LIB)
+	@-echo "Cleaning all assets"
 	@-rm -f $(ASSETS)
-	@-rm -rf target/*
 
 # Phony rebuild target
 rebuild: clean all

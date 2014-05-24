@@ -30,7 +30,7 @@ mixin extra-links
       ul.nav.navbar-right.navbar-nav.change-year
         li.dropdown
           a.dropdown-toggle(data-toggle='dropdown')
-            span.year {{ AppState.currentYear }}
+            span.year(ng-bind!='{{ AppState.currentYear }}')
             span Change Year
             b.caret
           ul.dropdown-menu.available-years(role='menu')
