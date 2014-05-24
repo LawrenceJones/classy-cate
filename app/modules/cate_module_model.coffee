@@ -19,7 +19,6 @@ cateModuleSchema = mongoose.Schema
   notes: [
     year:
       type: Number
-      unique: true
     code: Number
     period: Number
     links: [

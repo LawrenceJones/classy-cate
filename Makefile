@@ -21,6 +21,10 @@ deploy: bower all
 bower: bower.json
 	bower install
 
+# Scrapes the past papers into the database
+scrape_papers:
+	coffee ./scripts/scrape_past_papers.coffee
+
 # Phony all target
 all: $(ASSETS)
 	@-echo "Finished building classy-cate"

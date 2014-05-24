@@ -7,6 +7,16 @@ key_dir = path.join root_dir, 'keys'
 if fs.existsSync (creds = '~/.imp')
   [user, pass] = (fs.readFileSync creds, 'utf8').split '\n'
 
+secret_path = path.join(key_dir, 'secret.key')
+if not fs.existsSync secret_path
+  secret = (String.fromCharCode Math.floor(Math.random()*255)\
+            for i in [1..2048])
+              .filter (c) -> !/[\s\t\r\b\n]/.test c
+              .join ''
+  fs.writeFileSync secret_path, secret
+  console.log 'Generated new secret key!'
+
+
 module.exports = config =
   express:
     IP:   '127.0.0.1'
