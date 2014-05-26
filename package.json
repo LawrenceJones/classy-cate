@@ -4,8 +4,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node target/app.js",
-    "prepublish": "make deploy"
+    "start": "jake"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
