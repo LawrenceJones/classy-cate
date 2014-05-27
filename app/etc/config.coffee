@@ -20,7 +20,7 @@ if not fs.existsSync secret_path
 module.exports = config =
   express:
     IP:   '127.0.0.1'
-    PORT: process.env.PORT || 4567
+    PORT: process.env.PORT || 50000
     # Assign secret
     SECRET: (process.env.APP_SECRET ||
              fs.readFileSync path.join(key_dir, 'secret.key'))

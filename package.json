@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "jake"
+    "prepublish": "jake deploy"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
@@ -32,7 +32,9 @@
     "request": "*",
     "xmlhttprequest": "^1.6.0",
     "connect-multiparty": "^1.0.3",
-    "memwatch": "^0.2.2"
+    "memwatch": "^0.2.2",
+    "stream-splitter": "^0.3.0",
+    "forever": "^0.11.1"
   },
   "devDependencies": {
     "read": "*"

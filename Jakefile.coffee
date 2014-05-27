@@ -1,10 +1,11 @@
 #!/usr/bin/env coffee
 fs        = require 'fs'
 path      = require 'path'
-spawn     = (require 'child_process').spawn
 sSplitter = require 'stream-splitter'
 $q        = require 'q'
 coffee    = require 'coffee-script'
+spawn     = (require 'child_process').spawn
+exec      = (require 'child_process').exec
 
 # Log Styles ###########################################
  
@@ -58,7 +59,7 @@ title = (msg) ->
 
 # Standard logged output
 log = (msg) ->
-  console.log " > #{msg}"
+  console.log msg.split(/\r\n/).map((l) -> "   #{l}").join ''
 
 # Print green success message, partner to initial log
 succeed = (msg) ->
@@ -98,11 +99,18 @@ task 'start-dev', [], async: true, ->
 namespace 'assets', ->
 
   task 'compile', ['assets:js:compile', 'assets:css:compile'], async: true
+  task 'clean', [], async: true, ->
+    title 'Attempting to remove compiled assets'
+    rm = spawn 'rm', ['-f', './public/js/app.js', './public/css/app.css']
+    handleExit\
+    ( rm
+    , 'Successfully removed js/css compiled assets'
+    , 'Failed to remove js/css compiled assets with code CODE' )
 
   namespace 'js', ->
 
     desc 'Compile all web js into static /public/js/app.js file'
-    task 'compile', ['./public/js/app.js'], async: true, ->
+    task 'compile', ['./public/js/app.js'], ->
 
     # Globs coffee-script from ./web
     coffeeFiles =
@@ -114,8 +122,8 @@ namespace 'assets', ->
     file './public/js/app.js', coffeeFiles, async: true, ->
       title 'Compiling web coffee-script to /public/js/app.js'# {{{
       log 'Reading/Compiling files'
-      jsSource = coffeeFiles.reduce (a,c) ->
-        a = (a||'') + (coffee.compile (fs.readFileSync c, 'utf8'))
+      jsSource = coffeeFiles.reduce ((a,c) ->
+        a = (a||'') + (coffee.compile (fs.readFileSync c, 'utf8'))), ''
       log 'Writing to /public/js/app.js'
       fs.writeFile './public/js/app.js', jsSource, 'utf8', (err) ->
         if err? then fail 'Failed to write to /public/js/app.js'
@@ -125,7 +133,7 @@ namespace 'assets', ->
   namespace 'css', ->
 
     desc 'Compile all scss into static /public/css/app.css file'
-    task 'compile', ['./public/css/app.css'], async: true, ->
+    task 'compile', ['./public/css/app.css'], ->
 
     # Glob scss files in ./stylesheets
     scssFiles = (scss for scss in lsRecursive './stylesheets' when /\.scss$/.test scss)
@@ -146,60 +154,129 @@ namespace 'assets', ->
 
 # Package management ###################################
 
-desc 'Install required npm modules'
-task 'install-npm-depends', [], async: true, ->
-  title 'Attepting to install dependencies via npm'# {{{
-  npm = spawn 'npm', ['install']
-  logChild npm
-  handleExit\
-  ( npm
-  , 'Successfully installed npm dependencies'
-  , 'npm exited with error code CODE' )# }}}
-
 desc 'Install bower components'
 task 'install-bower', [], async: true, ->
   title 'Attempting to install bower components'# {{{
-  bower = spawn 'bower', ['install']
+  bower = spawn 'bower', ['install'], cwd: __dirname
   logChild bower
   handleExit\
   ( bower
   , 'Successfully installed bower components'
   , 'bower exited with error code CODE' )# }}}
 
-# Deploy Tasks #########################################
+# Versioning ###########################################
 
-task 'deploy', ['deploy:symlink-live'], async: true, ->
-namespace 'deploy', ->
+proc = versionedPath = livePath = null # declare
 
-  desc 'Loads properties file'
-  props = versionedPath = livePath = null # declare
-  task 'load-props', ['install-npm-depends'], async: true, ->
-    title 'Attempting to read in build properties'# {{{
-    props = JSON.parse (fs.readFileSync 'props.json')
-    for own prop,val of props
-      console.log "    #{p}:\t#{val}".grey
+namespace 'version', ->
+
+  PROCFILE = './proc.json'
+
+  writeProcfile = ->
+    fs.writeFileSync PROCFILE, (JSON.stringify proc, undefined, 2), 'utf8'
+
+  desc 'Loads procfile with deployment status'
+  task 'load-proc', [], async: true, ->
+    title 'Attempting to read in deploy procfile'# {{{
+
+    try proc = JSON.parse (fs.readFileSync PROCFILE)
+    catch err
+      fail "Could not parse contents of #{PROCFILE}"
+
+    console.log()
+    for own p,val of proc
+      log "  #{p}:\t#{val}"
+    console.log()
 
     # Eg. SL/.versions/siteName@version-908123908
     versionedPath = path.join\
-    ( props.siteLocation
+    ( proc.siteLocation
     , '.versions'
-    , "#{props.siteName}@#{props.version}-#{new Date().getTime()}" )
+    , "#{proc.siteName}@#{proc.version}-#{new Date().getTime()}" )
 
-    # Eg. SL/siteName
+    # Eg. SL/live
     livePath = path.join\
-    ( props.siteLocation
-    , props.siteName )
+    ( proc.siteLocation
+    , 'live' )
 
-    succeed 'Successfully read properties'
+    succeed "Successfully read #{PROCFILE}"
     do complete# }}}
 
-  desc 'Create versioned site directory'
-  task 'create-versioned-dir', ['deploy:load-props'], async: true, ->
-    title 'Attempting to create versioned directory'# {{{
-    fs.mkdir versionedPath, (err) ->
-      if err? then fail 'Failed to create versioned directory'
-      succeed 'Successfully created versioned directory'
+  desc 'Bump the version number'
+  task 'bump', ['version:load-proc'], (level) ->
+    title 'Bumping deploy version\n'# {{{
+    i = ['release', 'feature', 'fix'].indexOf level
+    if i is -1
+      fail "Invalid bump (#{level}), must be release|feature|fix"
+    version = proc.version.split('.').map((v) -> parseInt v, 10)
+    ++version[i]
+    log "Bumping [#{level}] version number..."
+    log "  #{proc.version} -> #{(proc.version = version.join '.')}\n"
+    do writeProcfile
+    succeed 'Successfully wrote new version'# }}}
+
+  desc 'Sets the version number'
+  task 'set', ['version:load-proc'], (value) ->
+    title "Setting version to #{value}"# {{{
+    if not /^[0-9]+\.[0-9]+\.[0-9]+$/.test value
+      fail "The version [#{value}] is not a value version number X.X.X"
+    proc.version = value
+    do writeProcfile
+    succeed "Successfully set version number to #{value}"# }}}
+    
+
+# Daemon Tasks #########################################
+
+namespace 'daemon', ->
+
+  desc 'Starts the live site daemon'
+  task 'start', ['version:load-proc', 'daemon:stop'], async: true, ->
+    title 'Attempting to start site daemon'# {{{
+    process.chdir livePath
+    forever = spawn 'forever', [
+      'start'
+      '-o', (path.join livePath, 'stdout.log')
+      '-e', (path.join livePath, 'stderr.log')
+      '-c', 'coffee'
+      '--append'
+      '--sourceDir', livePath
+      '--uid', proc.siteName
+      '--minUptime', 24*60*60*1000
+      '--spinSleepTime', 60*60*1000
+      proc.startScript
+    ], cwd: livePath
+    logChild forever
+    handleExit\
+    ( forever
+    , 'Successfully launched site daemon!'
+    , 'Failed to launch site daemon')# }}}
+
+  desc 'Stops the live site daemon'
+  task 'stop', ['version:load-proc'], async: true, ->
+    title 'Attempting to stop site daemon'# {{{
+    forever = spawn 'forever', ['stop', proc.siteName]
+    logChild forever
+    forever.on 'exit', ->
+      succeed 'Successfully shutdown Site Daemon'
       do complete# }}}
+
+
+# Deploy Tasks #########################################
+
+desc 'Kickstarts site into production'
+task 'deploy', ['install-bower', 'assets:compile', 'deploy:symlink-live'], async: true, ->
+  jake.Task['daemon:start'].invoke()
+
+namespace 'deploy', ->
+
+  desc 'Create versioned site directory'
+  task 'create-versioned-dir', ['version:load-proc'], async: true, ->
+    title 'Attempting to create versioned directory'# {{{
+    fs.mkdir (path.join versionedPath, '..'), (err) ->
+      fs.mkdir versionedPath, (err) ->
+        if err? then fail 'Failed to create versioned directory'
+        succeed 'Successfully created versioned directory'
+        do complete# }}}
 
   desc 'Move files to location'
   task 'move-files', ['deploy:create-versioned-dir'], async: true, ->
@@ -214,16 +291,14 @@ namespace 'deploy', ->
     title 'Attempting to make symbolic links'# {{{
     log 'Removing old symlink...'
     fs.unlink livePath, (err) ->
-      if err? then fail 'Failed to remove old live path symlink'
+      if fs.existsSync livePath
+        fail 'Failed to remove old live path symlink'
       log 'Creating new symlink...'
       fs.symlink versionedPath, livePath, (err) ->
         if err? then fail 'Failed to create new symlink'
         succeed 'Successfully symlinked livepath'
         do complete# }}}
+    
 
-  desc 'Kickstarts site into production'
-  task 'deploy', ['deploy:symlink-live'], async: true, ->
-    title 'Attempting to push to launch site into production'# {{{
-    do complete # TODO - Complete# }}}
 
 
