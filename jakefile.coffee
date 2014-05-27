@@ -1,12 +1,14 @@
 #!/usr/bin/env coffee
 fs        = require 'fs'
+path      = require 'path'
 spawn     = (require 'child_process').spawn
 sSplitter = require 'stream-splitter'
-$q         = require 'q'
+$q        = require 'q'
+coffee    = require 'coffee-script'
 
 # Log Styles ###########################################
  
-(styles = {
+(styles = {# {{{
   # Styles
   bold: [1, 22],        italic: [3, 23]
   underline: [4, 24],   inverse: [7, 27]
@@ -32,19 +34,35 @@ stylize = (str, style) ->
   String::__defineGetter__(style, -> stylize @, style)
 
 # Log a child processes stdout/err streams
-log = (child) ->
+logChild = (child) ->
+  output = false
   startLog = (stream) ->
     sstream = stream.pipe sSplitter '\n'
     sstream.encoding = 'utf8'
     def = $q.defer()
     sstream.on 'token', (token) ->
-      process.stdout.write "    #{token}\n"
+      if !output
+        console.log '\n'
+        output = true
+      process.stdout.write "   #{token}\n"
     sstream.on 'done', -> def.resolve()
     def.promise
   ($q.all [child.stdout, child.stderr].map startLog)
-    .then -> do console.log
+    .then -> do console.log if output# }}}
 
 # Build Helpers ########################################
+
+# Prints message as a white title# {{{
+title = (msg) ->
+  console.log "\n > #{msg}".white
+
+# Standard logged output
+log = (msg) ->
+  console.log " > #{msg}"
+
+# Print green success message, partner to initial log
+succeed = (msg) ->
+  console.log " + #{msg}\n".green
 
 # Halts build chain
 fail = (msg) ->
@@ -55,76 +73,157 @@ fail = (msg) ->
 handleExit = (child, msgSucc, msgFail) ->
   child.on 'exit', (code) ->
     if code is EXIT_SUCCESS = 0
-      console.log msgSucc
+      succeed msgSucc
       do complete
     else fail msgFail.replace /CODE/g, code
-  
-# Build Tasks ##########################################
 
-# Spawns an npm process with the install flag
+# Recursively list files/folders
+lsRecursive = (dir) ->
+  [files, folders] = fs.readdirSync(dir).reduce ((a,c) ->
+    target = "#{dir}/#{c}"
+    isDir = fs.statSync(target).isDirectory()
+    a[+(isDir)].push target; a), [[],[]]
+  files.concat [].concat (folders.map (dir) -> lsRecursive dir)...# }}}
+
+# Dev Tasks ############################################
+
+desc 'Start dev node server'
+task 'start-dev', [], async: true, ->
+  title 'Starting nodemon dev server'# {{{
+  server = spawn 'nodemon', ['app/app.coffee']
+  logChild server# }}}
+
+# Asset Tasks ##########################################
+
+namespace 'assets', ->
+
+  task 'compile', ['assets:js:compile', 'assets:css:compile'], async: true
+
+  namespace 'js', ->
+
+    desc 'Compile all web js into static /public/js/app.js file'
+    task 'compile', ['./public/js/app.js'], async: true, ->
+
+    # Globs coffee-script from ./web
+    coffeeFiles =
+      ['./web/modules.coffee'].concat (src for src in lsRecursive './web'\
+        when /\.coffee$/.test(src) and\
+             not /\/modules\.coffee$/.test src)
+
+    desc 'Concatenated client-side code, compiled from ./web'
+    file './public/js/app.js', coffeeFiles, async: true, ->
+      title 'Compiling web coffee-script to /public/js/app.js'# {{{
+      log 'Reading/Compiling files'
+      jsSource = coffeeFiles.reduce (a,c) ->
+        a = (a||'') + (coffee.compile (fs.readFileSync c, 'utf8'))
+      log 'Writing to /public/js/app.js'
+      fs.writeFile './public/js/app.js', jsSource, 'utf8', (err) ->
+        if err? then fail 'Failed to write to /public/js/app.js'
+        succeed 'Successfully written js to /public/js/app.js'
+        do complete# }}}
+
+  namespace 'css', ->
+
+    desc 'Compile all scss into static /public/css/app.css file'
+    task 'compile', ['./public/css/app.css'], async: true, ->
+
+    # Glob scss files in ./stylesheets
+    scssFiles = (scss for scss in lsRecursive './stylesheets' when /\.scss$/.test scss)
+
+    desc 'Concatenated css generated from compiled scss files in ./stylesheets'
+    file './public/css/app.css', scssFiles, async: true, ->
+      title 'Compiling web scss to /public/css/app.css'# {{{
+      compileChild = spawn 'coffee', [
+        './app/midware/styles.coffee'
+        'stylesheets'
+        './public/css/app.css'
+      ]
+      logChild compileChild
+      handleExit\
+      ( compileChild
+      , 'Successfully compiled scss to /public/css/app.css'
+      , 'Compilation of scss failed with code CODE' )# }}}
+
+# Package management ###################################
+
 desc 'Install required npm modules'
-task 'install-npm-depends', [], ->
-  console.log '\n\n > Attepting to install dependencies via npm\n'.white
+task 'install-npm-depends', [], async: true, ->
+  title 'Attepting to install dependencies via npm'# {{{
   npm = spawn 'npm', ['install']
-  log npm
+  logChild npm
   handleExit\
   ( npm
-  , '\n + Successfully installed npm dependencies'.green
-  , 'npm exited with error code CODE' )
+  , 'Successfully installed npm dependencies'
+  , 'npm exited with error code CODE' )# }}}
 
-desc 'Loads properties file'
-props = versionedPath = livePath = null # declare
-task 'load-props', ['install-npm-depends'], ->
-  console.log '\n\n > Attempting to read in build properties\n'.white
-  props = JSON.parse (fs.readFileSync 'props.json')
-  for own prop,val of props
-    console.log "    #{p}:\t#{val}".grey
+desc 'Install bower components'
+task 'install-bower', [], async: true, ->
+  title 'Attempting to install bower components'# {{{
+  bower = spawn 'bower', ['install']
+  logChild bower
+  handleExit\
+  ( bower
+  , 'Successfully installed bower components'
+  , 'bower exited with error code CODE' )# }}}
 
-  # Eg. SL/.versions/siteName@version-908123908
-  versionedPath = path.join\
-  ( props.siteLocation
-  , '.versions'
-  , "#{props.siteName}@#{props.version}-#{new Date().getTime()}" )
+# Deploy Tasks #########################################
 
-  # Eg. SL/siteName
-  livePath = path.join\
-  ( props.siteLocation
-  , props.siteName )
+task 'deploy', ['deploy:symlink-live'], async: true, ->
+namespace 'deploy', ->
 
-  console.log '\n + Successfully read properties'.green
-  do complete
+  desc 'Loads properties file'
+  props = versionedPath = livePath = null # declare
+  task 'load-props', ['install-npm-depends'], async: true, ->
+    title 'Attempting to read in build properties'# {{{
+    props = JSON.parse (fs.readFileSync 'props.json')
+    for own prop,val of props
+      console.log "    #{p}:\t#{val}".grey
 
-desc 'Create versioned site directory'
-task 'create-versioned-dir', ['load-props'], ->
-  console.log '\n\n > Attempting to create versioned directory\n'.white
-  fs.mkdir versionedPath, (err) ->
-    if err? then fail 'Failed to create versioned directory'
-    console.log '\n + Successfully created versioned directory'.green
-    do complete
+    # Eg. SL/.versions/siteName@version-908123908
+    versionedPath = path.join\
+    ( props.siteLocation
+    , '.versions'
+    , "#{props.siteName}@#{props.version}-#{new Date().getTime()}" )
 
-desc 'Move files to location'
-task 'move-files', ['load-props', 'create-versioned'], ->
-  console.log '\n\n > Attempting to move files'.white
-  exec "rsync -a . #{versionedPath}", (err, stdout, stderr) ->
-    if err? then fail 'Failed to move files'
-    console.log '\n + Successfully moved files'.green
-    do complete
+    # Eg. SL/siteName
+    livePath = path.join\
+    ( props.siteLocation
+    , props.siteName )
 
-desc 'Symlink new version'
-task 'symlink-live', ['load-props', 'create-versioned-dir', 'move-files'], ->
-  console.log '\n\n > Attempting to make symbolic links'.white
-  console.log '    Removing old symlink...'
-  fs.unlink livePath, (err) ->
-    if err? then fail 'Failed to remove old live path symlink'
-    console.log '    Creating new symlink...'
-    fs.symlink versionedPath, livePath, (err) ->
-      if err? then fail 'Failed to create new symlink'
-      console.log '\n + Successfully symlinked livepath'.green
-      do complete
+    succeed 'Successfully read properties'
+    do complete# }}}
 
-desc 'Kickstarts site into production'
-task 'default', ['load-props', 'create-versioned-dir', 'move-files', 'symlink-live'], ->
-  console.log '\n\n > Attempting to push to launch site into production'
-  do complete # TODO - Complete
+  desc 'Create versioned site directory'
+  task 'create-versioned-dir', ['deploy:load-props'], async: true, ->
+    title 'Attempting to create versioned directory'# {{{
+    fs.mkdir versionedPath, (err) ->
+      if err? then fail 'Failed to create versioned directory'
+      succeed 'Successfully created versioned directory'
+      do complete# }}}
+
+  desc 'Move files to location'
+  task 'move-files', ['deploy:create-versioned-dir'], async: true, ->
+    title 'Attempting to move files'# {{{
+    exec "rsync -a . #{versionedPath}", (err, stdout, stderr) ->
+      if err? then fail 'Failed to move files'
+      succeed 'Successfully moved files'
+      do complete# }}}
+
+  desc 'Symlink new version'
+  task 'symlink-live', ['deploy:move-files'], async: true, ->
+    title 'Attempting to make symbolic links'# {{{
+    log 'Removing old symlink...'
+    fs.unlink livePath, (err) ->
+      if err? then fail 'Failed to remove old live path symlink'
+      log 'Creating new symlink...'
+      fs.symlink versionedPath, livePath, (err) ->
+        if err? then fail 'Failed to create new symlink'
+        succeed 'Successfully symlinked livepath'
+        do complete# }}}
+
+  desc 'Kickstarts site into production'
+  task 'deploy', ['deploy:symlink-live'], async: true, ->
+    title 'Attempting to push to launch site into production'# {{{
+    do complete # TODO - Complete# }}}
 
 
