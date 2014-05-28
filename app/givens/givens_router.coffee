@@ -11,7 +11,7 @@ routes =
     givensPromise.then (data) ->
       res.json data
     givensPromise.catch (err) ->
-      res.send err.code, err.mssg
+      res.send err.code, err.msg
 
 
 

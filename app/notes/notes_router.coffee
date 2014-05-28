@@ -10,7 +10,7 @@ routes =
     notesPromise.then (data) ->
       res.json data
     notesPromise.catch (err) ->
-      res.send err.code, err.mssg
+      res.send err.code, err.msg
 
 
 

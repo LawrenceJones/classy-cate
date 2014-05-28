@@ -12,6 +12,6 @@ routes =
       res.json dashData
       dashData = null
     dashPromise.catch (err) ->
-      res.send err.code, err.mssg
+      res.send err.code, err.msg
 
 

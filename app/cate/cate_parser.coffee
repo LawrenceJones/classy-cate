@@ -15,6 +15,7 @@ module.exports = class CateParser
   @CATE_PARSER: true
   @CATE_DOMAIN: 'https://cate.doc.ic.ac.uk'
   @EXAM_DOMAIN: 'https://exams.doc.ic.ac.uk'
+  @DBC_DOMAIN:  'https://dbc.doc.ic.ac.uk'
 
   # Sets parsing values.
   constructor: (@url, @query, @$) ->
@@ -52,7 +53,7 @@ module.exports = class CateParser
 
     # If we can't identify a module ID then throw
     if !moduleID?
-      throw error: code: 404, mssg: 'Module not found'
+      throw error: code: 404, msg: 'Module not found'
     [moduleID, moduleName]
 
 

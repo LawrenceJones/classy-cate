@@ -38,7 +38,7 @@ module.exports = class CateProxy
     
     try url = @Parser.url query
     catch err
-      def.reject code: 400, mssg: 'Malformed query'
+      def.reject code: 400, msg: 'Malformed query'
       return def.promise
 
     # Retrieve the user credentials from the jwt store

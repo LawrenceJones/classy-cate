@@ -26,8 +26,8 @@ routes =
   # then server json web token.
   authenticate: (req, res) ->
 
-    reject = (res, mssg) ->
-      res.send 401, mssg || 'Invalid email/pass'
+    reject = (res, msg) ->
+      res.send 401, msg || 'Invalid email/pass'
 
     creds = [user, pass] = [req.body.user, req.body.pass].map (c = '') ->
       c.replace /(^[\r\n\s]*)|([\r\n\s]*$)/g, ''

@@ -10,7 +10,7 @@ routes =
     exercisesPromise.then (data) ->
       res.json data
     exercisesPromise.catch (err) ->
-      res.send err.code, err.mssg
+      res.send err.code, err.msg
 
 
 

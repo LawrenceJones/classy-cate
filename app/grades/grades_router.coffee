@@ -11,7 +11,7 @@ routes =
     gradesPromise.then (data) ->
       res.json data
     gradesPromise.catch (err) ->
-      res.send err.code, err.mssg
+      res.send err.code, err.msg
 
 
 

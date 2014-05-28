@@ -22,19 +22,26 @@ mixin extra-links
       span#cc-version
     .collapse.navbar-collapse#nav-links
       ul.nav.navbar-nav
+        ul.dropdown-menu
+          li
+            a Courses
         +li-anchor('Dashboard', 'app.dashboard')
         +li-anchor('Exercises', "app.exercises")
         +li-anchor('Grades', 'app.grades')
         +li-anchor('Exams', 'app.exams')
         +extra-links()
-      ul.nav.navbar-right.navbar-nav.change-year
+      ul.nav.navbar-right.navbar-nav
         li.dropdown
           a.dropdown-toggle(data-toggle='dropdown')
-            span.year(ng-bind!='{{ AppState.currentYear }}')
-            span Change Year
-            b.caret
-          ul.dropdown-menu.available-years(role='menu')
-            li(ng-repeat!='year in AppState.availableYears', ng-click='AppState.currentYear = year')
-              a {{ year }}
-
+            i.fa.fa-cog.fa-lg
+          ul.dropdown-menu
+            li
+              a Settings
+            li
+              a Logout
+            li.divider
+            li
+              a Report Issue
+            li
+              a Project GitHub
 
