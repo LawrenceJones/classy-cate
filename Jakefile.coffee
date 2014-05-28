@@ -46,7 +46,7 @@ logChild = (child) ->
       if !output
         console.log '\n'
         output = true
-      process.stdout.write "   #{token}\n"
+      process.stdout.write "  #{token}\n"
     sstream.on 'done', -> def.resolve()
     def.promise
   ($q.all [child.stdout, child.stderr].map startLog)
@@ -56,15 +56,15 @@ logChild = (child) ->
 
 # Prints message as a white title# {{{
 title = (msg) ->
-  console.log "\n > #{msg}".white
+  console.log "\n> #{msg}".white
 
 # Standard logged output
 log = (msg) ->
-  console.log msg.split(/\r\n/).map((l) -> "   #{l}").join ''
+  console.log msg.split(/\r\n/).map((l) -> "  #{l}").join ''
 
 # Print green success message, partner to initial log
 succeed = (msg) ->
-  console.log " + #{msg}\n".green
+  console.log "+ #{msg}\n".green
 
 # Halts build chain
 fail = (msg) ->
@@ -96,12 +96,12 @@ desc 'Setup git hooks by symlinking .git/hooks dir'
 task 'setup-hooks', [], async: true, ->
   title 'Symlinking git hooks'# {{{
   log 'Removing old ./.git/hooks folder'
-  fs.unlink './.git/hooks', (err) ->
-    fs.symlink '../hooks', './.git/hooks', (err) ->
-      if err? then fail 'Failed to symlink git hooks'
+  exec 'rm -rf ./.git/hooks', (err) ->
+    if err? then fail 'Failed to remove old git folder'
+    exec 'ln -s ../hooks ./.git/hooks', (err) ->
+      if err? then fail 'Failed to symlink ./.git/hooks to ./hooks'
       succeed 'Successfully symlinked ./.git/hooks -> ./hooks'
       do complete# }}}
-
 
 desc 'Start dev node server'
 task 'start-dev', [], async: true, ->
