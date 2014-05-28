@@ -88,6 +88,9 @@ lsRecursive = (dir) ->
 
 # Dev Tasks ############################################
 
+desc 'By default, start the dev server'
+task 'default', ['start-dev']
+
 desc 'Start dev node server'
 task 'start-dev', [], async: true, ->
   title 'Starting nodemon dev server'# {{{
