@@ -1,4 +1,5 @@
 #!/usr/bin/env coffee
+# vi: set foldmethod=marker
 fs        = require 'fs'
 path      = require 'path'
 sSplitter = require 'stream-splitter'
@@ -91,6 +92,15 @@ lsRecursive = (dir) ->
 desc 'By default, start the dev server'
 task 'default', ['start-dev']
 
+desc 'Setup git hooks by symlinking .git/hooks dir'
+task 'setup-hooks', [], async: true, ->
+  title 'Symlinking git hooks'# {{{
+  fs.symlink '../hooks', './.git/hooks', (err) ->
+    if err? then fail 'Failed to symlink git hooks'
+    succeed 'Successfully symlinked ./.git/hooks -> ./hooks'
+    do complete# }}}
+
+
 desc 'Start dev node server'
 task 'start-dev', [], async: true, ->
   title 'Starting nodemon dev server'# {{{
@@ -103,12 +113,12 @@ namespace 'assets', ->
 
   task 'compile', ['assets:js:compile', 'assets:css:compile'], async: true
   task 'clean', [], async: true, ->
-    title 'Attempting to remove compiled assets'
+    title 'Attempting to remove compiled assets'# {{{
     rm = spawn 'rm', ['-f', './public/js/app.js', './public/css/app.css']
     handleExit\
     ( rm
     , 'Successfully removed js/css compiled assets'
-    , 'Failed to remove js/css compiled assets with code CODE' )
+    , 'Failed to remove js/css compiled assets with code CODE' )# }}}
 
   namespace 'js', ->
 

@@ -1,0 +1,10 @@
+#!/usr/bin/env coffee
+# vi: set filetype=coffee
+
+fs = require 'fs'
+path = require 'path'
+
+fs.readFile process.argv[2], 'utf8', (err, src) ->
+  if err? or not /#\d+/.test src.replace(/^#.*/, '')
+    console.log 'Must reference git issue!'
+    process.exit -1

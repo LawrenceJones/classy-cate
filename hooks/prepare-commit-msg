@@ -1,0 +1,23 @@
+#!/usr/bin/env coffee
+# vi: set filetype=coffee
+
+fs = require 'fs'
+path = require 'path'
+spawn = (require 'child_process').spawn
+
+# Contains output of ghi command
+ghiOut = ''
+
+ghi = spawn 'ghi', []
+ghi.stdout.setEncoding 'utf8'
+ghi.stdout.on 'data', (data) ->
+  ghiOut += data
+
+ghi.on 'exit', (err) ->
+  if err is 0
+    [msg, issues...] = ghiOut.split '\n'
+    issues = (issue.replace /^\s+(\d+)/, 'issue: #$1:\t' for issue in issues)
+    summary = ["#{msg}:"].concat(issues.map (i) -> "#\t#{i}")
+      .join '\n'
+    fs.appendFileSync process.argv[2], summary, 'utf8'
+
