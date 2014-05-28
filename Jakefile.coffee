@@ -95,10 +95,12 @@ task 'default', ['start-dev']
 desc 'Setup git hooks by symlinking .git/hooks dir'
 task 'setup-hooks', [], async: true, ->
   title 'Symlinking git hooks'# {{{
-  fs.symlink '../hooks', './.git/hooks', (err) ->
-    if err? then fail 'Failed to symlink git hooks'
-    succeed 'Successfully symlinked ./.git/hooks -> ./hooks'
-    do complete# }}}
+  log 'Removing old ./.git/hooks folder'
+  fs.unlink './.git/hooks', (err) ->
+    fs.symlink '../hooks', './.git/hooks', (err) ->
+      if err? then fail 'Failed to symlink git hooks'
+      succeed 'Successfully symlinked ./.git/hooks -> ./hooks'
+      do complete# }}}
 
 
 desc 'Start dev node server'
