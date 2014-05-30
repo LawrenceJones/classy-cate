@@ -1,6 +1,6 @@
-auth = angular.module 'auth'
+classy = angular.module 'classy'
 
-auth.directive\
+classy.directive\
 ( 'hljs'
 , [ ->
       restrict: 'A'
@@ -13,9 +13,9 @@ auth.directive\
 ])
 
 
-auth.controller\
+classy.controller\
 ( 'AuditCtrl'
-, ['$scope', 'hits', ($scope, hits) ->
+, [ '$scope', 'hits', ($scope, hits) ->
 
     $scope.hits = hits
     $scope.stage = 0
