@@ -18,14 +18,16 @@ mixin extra-links
         span.icon-bar
         span.icon-bar
         span.icon-bar
-      a.navbar-brand(ui-sref='app.dashboard') CATE
+      a.navbar-brand(ui-sref='app.dashboard') catie
       span#cc-version
     .collapse.navbar-collapse#nav-links
       ul.nav.navbar-nav
-        ul.dropdown-menu
-          li
-            a Courses
-        +li-anchor('Dashboard', 'app.dashboard')
+        li.dropdown
+          a.dropdown-toggle(data-toggle='dropdown', dropdown-hover='')
+            | Courses
+          ul.dropdown-menu
+            li
+              a Software Engineering
         +li-anchor('Exercises', "app.exercises")
         +li-anchor('Grades', 'app.grades')
         +li-anchor('Exams', 'app.exams')

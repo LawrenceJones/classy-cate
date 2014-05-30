@@ -11,7 +11,8 @@ module.exports = (app) ->
 
   # Returns the users login
   app.get '/api/whoami', (req, res) ->
-    res.json req.user.user
+    # Only referencing user, not password
+    res.json req.user('USER_CREDENTIALS').user
 
   # Auths user against CATe
   app.post '/authenticate', routes.authenticate

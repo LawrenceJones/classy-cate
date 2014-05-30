@@ -106,7 +106,7 @@ task 'setup-hooks', [], async: true, ->
 desc 'Start dev node server'
 task 'start-dev', [], async: true, ->
   title 'Starting nodemon dev server'# {{{
-  server = spawn 'nodemon', ['app/app.coffee']
+  server = spawn 'nodemon', ['app/app.coffee', '-w', 'app']
   logChild server# }}}
 
 # Asset Tasks ##########################################
