@@ -137,8 +137,9 @@ namespace 'assets', ->
     file './public/js/app.js', coffeeFiles, async: true, ->
       title 'Compiling web coffee-script to /public/js/app.js'# {{{
       log 'Reading/Compiling files'
-      jsSource = coffeeFiles.reduce ((a,c) ->
-        a = (a||'') + (coffee.compile (fs.readFileSync c, 'utf8'))), ''
+      coffeeSource = coffeeFiles.map (f) ->
+        fs.readFileSync f, 'utf8'
+      jsSource = coffee.compile coffeeSource.join('\n')
       log 'Writing to /public/js/app.js'
       fs.writeFile './public/js/app.js', jsSource, 'utf8', (err) ->
         if err? then fail 'Failed to write to /public/js/app.js'
