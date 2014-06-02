@@ -1,7 +1,3 @@
-[01;38;5;271m
-> Attempting to run parser [./app/teachdb/course_parser.coffee][0m
-  Loading Imperial credentials from ~/.imp
-
 {
   "validFrom": "2013-09-27T23:00:00.000Z",
   "validTo": "2014-10-02T23:00:00.000Z",
@@ -24,6 +20,3 @@
   "noOfHelpers": 4,
   "syllabus": "The syllabus and reading list for this course can be found in the Departmental Student Services (DSS) site https://www.imperial.ac.uk/dss.  Set your preference to the academic year 13/14 and select the Courses tab."
 }
-
-[01;38;5;118m+ Successfully parsed page
-[0m
