@@ -2,23 +2,23 @@
 # vi: set filetype=coffee
 
 fs = require 'fs'
-read = require 'read'
+tty = require 'tty'
+
+ttyFd   = fs.openSync '/dev/tty', 'r'
 msgFile = process.argv[2]
+failed  = false
+error   = 'Error! Please reference git issue!'
 
 spawnVim = (file, cb) ->
-  vim = (require 'child_process').spawn('vim', [file], customFds: [0,1,2])
-  vim.on 'exit', cb
+  vim = (require 'child_process').spawn('vim', [file], customFds: [ttyFd,1,2])
+  vim.on 'exit', readAndTest
 
 (readAndTest = ->
   msg = fs.readFileSync msgFile, 'utf8'
+  process.exit 0 if /^[\s\r\n]*$/.test msg.replace(/^#.*/gm, '')
   if not /#\d+/.test msg.replace(/^#.*$/gm, '')
-    console.error 'Error! Must reference git issue!'
-    read prompt: 'Try again? [y/n]: ', (err, str) ->
-      if /y/i.test str
-        spawnVim msgFile, readAndTest
-      else process.exit -1)()
+    fs.appendFile msgFile, '# '+error, 'utf8' if not failed
+    console.log error
+    failed = true
+    setTimeout (-> spawnVim msgFile, readAndTest), 2500)()
 
-
-
-  
-    
