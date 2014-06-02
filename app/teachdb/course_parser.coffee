@@ -46,7 +46,7 @@ module.exports = class CourseParser extends CateParser
     $('table[cellpadding=4] td[bgcolor=#cfdfdf]').map ->
       $key = $(this)
       $val = $key.next()
-      if (kv = keyParser strip($key), strip($val))?
+      if (kv = keyParser strip($key), $val.text().trim())?
         [key, val] = kv
         data[key] = val unless val is ''
     data
