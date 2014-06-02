@@ -1,5 +1,5 @@
 [
-  "GET", "/api/courses?level&class",
+  "GET", "/api/courses/:year?level&class",
   "GET", "/api/courses/:year/:id",
   "GET", "/api/courses/:year/:id/notes",
   "GET", "/api/courses/:year/:id/notes/:nid",
