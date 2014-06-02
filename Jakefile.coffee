@@ -109,6 +109,31 @@ task 'start-dev', [], async: true, ->
   server = spawn 'nodemon', ['app/app.coffee', '-w', 'app']
   logChild server# }}}
 
+desc 'Runs a parser class given the supplied parameters'
+task 'run-parser', [], async: true, (pfile, params...) ->
+  title "Attempting to run parser [#{pfile}]"# {{{
+  if !pfile? or not fs.existsSync pfile
+    fail 'Please supply valid parser script path as argument'
+  Proxy = new (require './app/cate/cate_proxy')(require pfile)
+
+  log 'Loading Imperial credentials from ~/.imp'
+  [user, pass] = fs.readFileSync(process.env.HOME+'/.imp', 'utf8').split /\n/
+  creds = -> user: user, pass: pass
+
+  # Generate query from args key:val
+  query = new Object()
+  for param in params
+    [key, val] = param.split ':'
+    query[key] = val
+
+  # Make request with proxy
+  req = Proxy.makeRequest query, creds
+  req.then (data) ->
+    console.log '\n'+(JSON.stringify data, undefined, 2)+'\n'
+    succeed 'Successfully parsed page'
+  req.catch (err) ->
+    fail err.msg# }}}
+
 # Asset Tasks ##########################################
 
 namespace 'assets', ->
@@ -129,9 +154,9 @@ namespace 'assets', ->
 
     # Globs coffee-script from ./web
     coffeeFiles =
-      ['./web/modules.coffee'].concat (src for src in lsRecursive './web'\
+      ['./web/modules.coffee'].concat (src for src in lsRecursive './web'\# {{{
         when /\.coffee$/.test(src) and\
-             not /\/modules\.coffee$/.test src)
+             not /\/modules\.coffee$/.test src)# }}}
 
     desc 'Concatenated client-side code, compiled from ./web'
     file './public/js/app.js', coffeeFiles, async: true, ->
@@ -152,7 +177,8 @@ namespace 'assets', ->
     task 'compile', ['./public/css/app.css'], ->
 
     # Glob scss files in ./stylesheets
-    scssFiles = (scss for scss in lsRecursive './stylesheets' when /\.scss$/.test scss)
+    scssFiles = (scss for scss in lsRecursive './stylesheets'\
+    when /\.scss$/.test scss)
 
     desc 'Concatenated css generated from compiled scss files in ./stylesheets'
     file './public/css/app.css', scssFiles, async: true, ->

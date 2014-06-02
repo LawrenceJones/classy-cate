@@ -12,10 +12,11 @@ jquery = require 'jquery'
 # User credentials are NOT handled here.
 module.exports = class CateParser
 
-  @CATE_PARSER: true
-  @CATE_DOMAIN: 'https://cate.doc.ic.ac.uk'
-  @EXAM_DOMAIN: 'https://exams.doc.ic.ac.uk'
-  @DBC_DOMAIN:  'https://dbc.doc.ic.ac.uk'
+  @CATE_PARSER:  true
+  @CATE_DOMAIN:  'https://cate.doc.ic.ac.uk'
+  @EXAM_DOMAIN:  'https://exams.doc.ic.ac.uk'
+  @DBC_DOMAIN:   'https://dbc.doc.ic.ac.uk'
+  @TEACH_DOMAIN: 'https://teachdb.doc.ic.ac.uk'
 
   # Sets parsing values.
   constructor: (@url, @query, @$) ->

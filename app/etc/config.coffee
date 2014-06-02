@@ -2,9 +2,9 @@ fs   = require 'fs'
 path = require 'path'
 
 root_dir = path.join (__dirname || process.cwd()), '..', '..'
-key_dir = path.join root_dir, 'keys'
+key_dir = path.join root_dir, 'app', 'etc', 'keys'
 
-if fs.existsSync (creds = '~/.imp')
+if fs.existsSync (creds = process.env.HOME+'/.imp')
   [user, pass] = (fs.readFileSync creds, 'utf8').split '\n'
 
 secret_path = path.join(key_dir, 'secret.key')

@@ -45,7 +45,8 @@ find = (array, elem, f) ->
 # into the already existing array. Otherwise, note is just
 # pushed to the module.notes collection.
 upsertNote = (module, note, user) ->
-  found = find module?.notes, note, (a,b) ->
+  return if !module?.id?
+  found = find module.notes, note, (a,b) ->
     "#{a.year}" == "#{b.year}"
   if !found?
     module.notes.push note

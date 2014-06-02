@@ -11,9 +11,9 @@ module.exports = class ModulesParser extends CateParser
     $lvlCells.map ->
       $row = $(this).parent().parent()
       $moduleCell = $row.find 'td:eq(1)'
-      [_, code, title] = $moduleCell.text().match /(\d+)\s(.*)/
+      [_, code, name] = $moduleCell.text().match /(\d+)\s(.*)/
       subscribedModules.push
-        code: code, title: title
+        code: code, name: name
         lvl: $(this).attr 'value'
     subscribedModules
 
