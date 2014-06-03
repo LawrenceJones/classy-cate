@@ -21,9 +21,11 @@
   "syllabus": "The syllabus and reading list for this course can be found in the Departmental Student Services (DSS) site https://www.imperial.ac.uk/dss.  Set your preference to the academic year 13/14 and select the Courses tab."
   "notes": [
     {
+      "number": "1",
       "restype": "url",
       "title": "Introduction - Lecture 1 (Panopto Link)",
-      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:486:CLASS:NOTES:USER",
+      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:486:CLASS:NOTES:USER",i
+      "time": 1294409600000,
       "discussions": [
         12345,
         23456
@@ -32,13 +34,20 @@
   ],
   "exercises": [
     {
-      "id": "11",
+      "number": "11",
       "type": "LAB",
       "name": "Pintos Task 3 - Virtual Memory",
       "start": 1294409600000,
       "end": 1395964800000,
       "mailto": "mailto:mjw03@doc.ic.ac.uk?subject=Module 261 'Laboratory 2' - Exercise 11",
-      "spec": "showfile.cgi?key=2013:3:743:c2:SPECS:thb12"
+      "spec": "showfile.cgi?key=2013:3:743:c2:SPECS:thb12",
+      "givens": [
+        {
+          "title": "spec-261-11.txt",
+          "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013::743:c2:SPECS:thb12",
+          "time": 1294409600000
+        }
+      ]
     }
   ]
 }
