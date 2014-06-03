@@ -150,9 +150,7 @@ desc 'Inits and updates all git submodules'
 task 'init-subs', [], async: true, ->
   title 'Initialising git submodules'# {{{
   chain\
-  ( [ 'git', ['pull', '--recurse-submodules']
-    , 'Failed to pull submodule data' ]
-    [ 'git', ['submodule', 'update', '--init', '--recursive']
+  ( [ 'git', ['submodule', 'update', '--init', '--recursive']
     , 'Failed to update and init each submodule' ]
     [ 'git', ['submodule', 'foreach', 'git', 'checkout', 'classy']
     , 'Failed to checkout project branch of submodules' ]
@@ -205,8 +203,8 @@ namespace 'assets', ->
 
   namespace 'js', ->
 
-    desc 'Compile all web js into static /public/js/app.js file'
-    task 'compile', ['./public/js/app.js'], ->
+    desc 'Compile all web js into static public/js/app.js file'
+    task 'compile', ['init-subs', 'public/js/app.js'], ->
 
     # Globs coffee-script from ./web
     coffeeFiles =
@@ -215,13 +213,13 @@ namespace 'assets', ->
              not /\/modules\.coffee$/.test src)# }}}
 
     desc 'Concatenated client-side code, compiled from ./web'
-    file './public/js/app.js', coffeeFiles, async: true, ->
-      title 'Compiling web coffee-script to /public/js/app.js'# {{{
+    file 'public/js/app.js', coffeeFiles, async: true, ->
+      title 'Compiling web coffee-script to public/js/app.js'# {{{
       log 'Reading/Compiling files'
       coffeeSource = coffeeFiles.map (f) ->
         fs.readFileSync f, 'utf8'
       jsSource = coffee.compile coffeeSource.join('\n')
-      log 'Writing to /public/js/app.js'
+      log 'Writing to public/js/app.js'
       fs.writeFile './public/js/app.js', jsSource, 'utf8', (err) ->
         if err? then fail 'Failed to write to /public/js/app.js'
         succeed 'Successfully written js to /public/js/app.js'
@@ -229,15 +227,15 @@ namespace 'assets', ->
 
   namespace 'css', ->
 
-    desc 'Compile all scss into static /public/css/app.css file'
-    task 'compile', ['./public/css/app.css'], ->
+    desc 'Compile all scss into static public/css/app.css file'
+    task 'compile', ['init-subs', 'public/css/app.css'], ->
 
     # Glob scss files in ./stylesheets
     scssFiles = (scss for scss in lsRecursive './stylesheets'\
     when /\.scss$/.test scss)
 
     desc 'Concatenated css generated from compiled scss files in ./stylesheets'
-    file './public/css/app.css', scssFiles, async: true, ->
+    file 'public/css/app.css', scssFiles, async: true, ->
       title 'Compiling web scss to public/css/app.css'# {{{
       chain\
       ( [ 'coffee'
@@ -257,17 +255,6 @@ task 'install-bower', [], async: true, ->
   ( [ 'bower', ['install']
     , 'Failed to run bower' ]
     'Successfully installed bower dependencies'
-  )
-    .catch (err, fmsg) ->
-      fail "[#{err}] #{fmsg}"# }}}
-
-desc 'Install npm dependencies'
-task 'install-npm', [], async: true, ->
-  title 'Installing npm dependencies to node_modules'# {{{
-  chain\
-  ( [ 'npm', ['install']
-    , 'Failed to install npm dependencies' ]
-    'Successfully installed npm dependencies'
   )
     .catch (err, fmsg) ->
       fail "[#{err}] #{fmsg}"# }}}
@@ -375,7 +362,11 @@ namespace 'daemon', ->
 # Deploy Tasks #########################################
 
 desc 'Kickstarts site into production'
-task 'deploy', ['install-bower', 'assets:compile', 'deploy:symlink-live'], async: true, ->
+task 'deploy', [
+  'install-bower'
+  'assets:compile'
+  'deploy:symlink-live'
+], async: true, ->
   jake.Task['daemon:start'].invoke()
 
 namespace 'deploy', ->
