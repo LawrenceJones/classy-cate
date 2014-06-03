@@ -261,6 +261,17 @@ task 'install-bower', [], async: true, ->
     .catch (err, fmsg) ->
       fail "[#{err}] #{fmsg}"# }}}
 
+desc 'Install npm dependencies'
+task 'install-npm', [], async: true, ->
+  title 'Installing npm dependencies to node_modules'# {{{
+  chain\
+  ( [ 'npm', ['install']
+    , 'Failed to install npm dependencies' ]
+    'Successfully installed npm dependencies'
+  )
+    .catch (err, fmsg) ->
+      fail "[#{err}] #{fmsg}"# }}}
+
 # Versioning ###########################################
 
 proc = versionedPath = livePath = null # declare
