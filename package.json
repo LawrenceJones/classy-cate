@@ -3,6 +3,9 @@
   "description": "",
   "version": "0.0.0",
   "private": true,
+  "scripts": {
+    "publish": "jake deploy"
+  },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.0.2",
