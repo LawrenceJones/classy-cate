@@ -1,204 +1,94 @@
-[
-  {
-    "code": "220",
-    "name": "Software Engineering Design",
-    "lvl": "3",
-    "years": [
-      2010,
-      2011,
-      2012,
-      2013
-    ]
-  },
-  {
-    "code": "221",
-    "name": "Compilers",
-    "lvl": "3",
-    "years": [
-      2012,
-      2013
-    ]
-  },
-  {
-    "code": "223",
-    "name": "Concurrency",
-    "lvl": "3",
-    "years": [
-      2011,
-      2012,
-      2013
-    ]
-  },
-  {
-    "code": "240",
-    "name": "Models of Computation",
-    "lvl": "3",
-    "years": [
-      2012,
-      2013
-    ]
-  },
-  {
-    "code": "245",
-    "name": "Statistics",
-    "lvl": "3",
-    "years": [
-      2010,
-      2011,
-      2012,
-      2013
-    ]
-  },
-  {
-    "code": "275",
-    "name": "C++ Introduction",
-    "lvl": "3",
-    "years": [
-      2008,
-      2009,
-      2010,
-      2011,
-      2012,
-      2013
-    ]
-  },
-  {
-    "code": "261",
-    "name": "Laboratory 2",
-    "lvl": "3",
-    "years": [
-      2007,
-      2008,
-      2009,
-      2010,
-      2011,
-      2012,
-      2013
-    ]
-  },
-  {
-    "code": "276",
-    "name": "Introduction to Prolog",
-    "lvl": "3",
-    "years": [
-      2010,
-      2011,
-      2012,
-      2013
-    ]
-  },
-  {
-    "code": "202",
-    "name": "Software Engineering - Algorithms",
-    "lvl": "3",
-    "years": [
-      2011,
-      2012,
-      2013
-    ]
-  },
-  {
-    "code": "210",
-    "name": "Computer Architecture",
-    "lvl": "3",
-    "years": [
-      2012,
-      2013
-    ]
-  },
-  {
-    "code": "211",
-    "name": "Operating Systems",
-    "lvl": "3",
-    "years": [
-      2009,
-      2010,
-      2011,
-      2012,
-      2013
-    ]
-  },
-  {
-    "code": "212",
-    "name": "Networks and Communications",
-    "lvl": "3",
-    "years": [
-      2011,
-      2012,
-      2013
-    ]
-  },
-  {
-    "code": "231",
-    "name": "Introduction to Artificial Intelligence",
-    "lvl": "3",
-    "years": [
-      2007,
-      2008,
-      2009,
-      2010,
-      2011,
-      2012,
-      2013
-    ]
-  },
-  {
-    "code": "272",
-    "name": "Team Skills Development",
-    "lvl": "3",
-    "years": [
-      2011,
-      2012,
-      2013
-    ]
-  },
-  {
-    "code": "277",
-    "name": "Introduction to Perl",
-    "lvl": "3",
-    "years": [
-      2008,
-      2009,
-      2010,
-      2011,
-      2012,
-      2013
-    ]
-  },
-  {
-    "code": "203",
-    "name": "Human-Centred Design",
-    "lvl": "3",
-    "years": [
-      2008,
-      2009,
-      2010,
-      2011,
-      2012,
-      2013
-    ]
-  },
-  {
-    "code": "271",
-    "name": "2nd Year Group Projects",
-    "lvl": "3",
-    "years": [
-      2011,
-      2012,
-      2013
-    ]
-  },
-  {
-    "code": "701",
-    "name": "Programming Competition Training",
-    "lvl": "0",
-    "years": [
-      2008,
-      2009,
-      2010,
-      2011,
-      2012,
-      2013
-    ]
-  }
-]
+{ 
+  courses = [
+    {
+      "cid": "220",
+      "name": "Software Engineering Design",
+      "lvl": "3",
+    },
+    {
+      "code": "221",
+      "name": "Compilers",
+      "lvl": "3",
+    },
+    {
+      "code": "223",
+      "name": "Concurrency",
+      "lvl": "3",
+    },
+    {
+      "code": "240",
+      "name": "Models of Computation",
+      "lvl": "3",
+    },
+    {
+      "code": "245",
+      "name": "Statistics",
+      "lvl": "3",
+    },
+    {
+      "code": "275",
+      "name": "C++ Introduction",
+      "lvl": "3",
+    },
+    {
+      "code": "261",
+      "name": "Laboratory 2",
+      "lvl": "3",
+    },
+    {
+      "code": "276",
+      "name": "Introduction to Prolog",
+      "lvl": "3",
+    },
+    {
+      "code": "202",
+      "name": "Software Engineering - Algorithms",
+      "lvl": "3",
+    },
+    {
+      "code": "210",
+      "name": "Computer Architecture",
+      "lvl": "3",
+    },
+    {
+      "code": "211",
+      "name": "Operating Systems",
+      "lvl": "3",
+    },
+    {
+      "code": "212",
+      "name": "Networks and Communications",
+      "lvl": "3",
+    },
+    {
+      "code": "231",
+      "name": "Introduction to Artificial Intelligence",
+      "lvl": "3",
+    },
+    {
+      "code": "272",
+      "name": "Team Skills Development",
+      "lvl": "3",
+    },
+    {
+      "code": "277",
+      "name": "Introduction to Perl",
+      "lvl": "3",
+    },
+    {
+      "code": "203",
+      "name": "Human-Centred Design",
+      "lvl": "3",
+    },
+    {
+      "code": "271",
+      "name": "2nd Year Group Projects",
+      "lvl": "3",
+    },
+    {
+      "code": "701",
+      "name": "Programming Competition Training",
+      "lvl": "0",
+    }
+  ]
+}
