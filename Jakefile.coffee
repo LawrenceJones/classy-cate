@@ -33,43 +33,18 @@ stylize = (str, style) ->
 
 # Hack String to hook into our styles
 (Object.keys styles).map (style) ->
-  String::__defineGetter__(style, -> stylize @, style)
-
-# Log a child processes stdout/err streams
-logChild = (child) ->
-  output = false
-  startLog = (stream) ->
-    sstream = stream.pipe sSplitter '\n'
-    sstream.encoding = 'utf8'
-    def = $q.defer()
-    sstream.on 'token', (token) ->
-      if !output
-        console.log '\n'
-        output = true
-      process.stdout.write "  #{token}\n"
-    sstream.on 'done', -> def.resolve()
-    def.promise
-  ($q.all [child.stdout, child.stderr].map startLog)
-    .then -> do console.log if output# }}}
+  String::__defineGetter__(style, -> stylize @, style)# }}}
 
 # Build Helpers ########################################
 
-# Prints message as a white title# {{{
-title = (msg) ->
-  console.log "\n> #{msg}".white
-
-# Standard logged output
-log = (msg) ->
-  console.log msg.split(/\r\n/).map((l) -> "  #{l}").join ''
-
-# Print green success message, partner to initial log
-succeed = (msg) ->
-  console.log "+ #{msg}\n".green
-
-# Halts build chain
-fail = (msg) ->
-  console.error " ! #{msg}\n".red
-  throw new Error msg
+# Takes a prefix and a writeable stream _w. Returns a stream that when# {{{
+# written too, will pipe input to _w, prefixed with pre on every newline.
+pipePrefix = (pre, _w) ->
+  sstream = sSplitter('\n')
+  sstream.encoding = 'utf8'
+  sstream.on 'token', (token) ->
+    _w.write pre+token+'\n'
+  return sstream
 
 # Logs child process exit
 handleExit = (child, msgSucc, msgFail) ->
@@ -79,6 +54,31 @@ handleExit = (child, msgSucc, msgFail) ->
       do complete
     else fail msgFail.replace /CODE/g, code
 
+# Run the given commands sequentially, returning a promise for
+# command resolution.
+chain = (cmds..., smsg) ->
+  run = (cmd, cmds...) ->
+    [exe, args, fmsg, check] = cmd
+    check ?= (err) -> err != 0
+    prompt "#{exe} #{args.join ' '}"
+    prog = spawn exe, args, cwd: __dirname
+    prog.stdout.pipe pOut
+    prog.stderr.pipe pErr
+    prog.on 'exit', (err) ->
+      do newline
+      if err != 0 then def.reject err, fmsg
+      if cmds.length != 0 then run cmds...
+      else do def.resolve
+  do newline
+  def = $q.defer()
+  # Adjust args for optionally success message
+  if smsg? and typeof smsg is 'string' then def.promise.then ->
+    succeed smsg
+  cmds.push smsg if smsg instanceof Array
+  # Run commands
+  run cmds... if cmds.length > 0
+  def.promise
+
 # Recursively list files/folders
 lsRecursive = (dir) ->
   [files, folders] = fs.readdirSync(dir).reduce ((a,c) ->
@@ -86,6 +86,35 @@ lsRecursive = (dir) ->
     isDir = fs.statSync(target).isDirectory()
     a[+(isDir)].push target; a), [[],[]]
   files.concat [].concat (folders.map (dir) -> lsRecursive dir)...# }}}
+
+# Logging Aliases ######################################
+
+# Prints message as a white title# {{{
+title = (msg) ->
+  console.log "\n> #{msg}".white
+
+# Standard logged output
+log = (msg) ->
+  console.log msg.split(/\r\n/).map((l) -> "  #{l}").join ''
+
+# Alias for empty console.log
+newline = console.log
+
+# Print green success message, partner to initial log
+succeed = (msg) ->
+  console.log "+ #{msg}\n".green
+  complete?()
+
+# Halts build chain
+fail = (msg) ->
+  console.error " ! #{msg}\n".red
+  throw new Error msg
+
+# Prints command as if from prompt
+prompt = (cmd) ->
+  console.log "$ #{cmd}"
+pOut = pipePrefix '  ', process.stdout
+pErr = pipePrefix '! ', process.stderr# }}}
 
 # Dev Tasks ############################################
 
@@ -95,32 +124,42 @@ task 'default', ['start-dev']
 desc 'Setup git hooks by symlinking .git/hooks dir'
 task 'setup-hooks', [], async: true, ->
   title 'Symlinking git hooks'# {{{
-  log 'Removing old ./.git/hooks folder'
-  exec 'rm -rf ./.git/hooks', (err) ->
-    if err? then fail 'Failed to remove old git folder'
-    exec 'ln -s ../hooks ./.git/hooks', (err) ->
-      if err? then fail 'Failed to symlink ./.git/hooks to ./hooks'
-      succeed 'Successfully symlinked ./.git/hooks -> ./hooks'
-      do complete# }}}
+  chain\
+  ( [ 'rm', ['-rf', './.git/hooks']
+    , 'Failed to remove old git folder'
+    , -> !fs.existsSync './.git/hooks' ]
+    [ 'ln', ['-s', '../hooks', './.git/hooks']
+    , 'Failed to symlink ./.git/hooks -> ./hooks' ]
+    'Successfully symlinked ./.git/hooks -> ./hooks'
+  )
+    .catch (err, fmsg) ->
+      fail "[#{err}] #{fmsg}"# }}}
 
 desc 'Start dev node server'
 task 'start-dev', [], async: true, ->
   title 'Starting nodemon dev server'# {{{
-  server = spawn 'nodemon', ['app/app.coffee', '-w', 'app']
-  logChild server# }}}
+  server = spawn\
+  ( 'nodemon'
+  , ['app/app.coffee', '-w', 'app']
+  , stdio: ['ignore', 'pipe', 'pipe'] )
+  do newline
+  stdout = pipePrefix '  ', process.stdout
+  server.stdout.pipe stdout# }}}
 
 desc 'Inits and updates all git submodules'
 task 'init-subs', [], async: true, ->
   title 'Initialising git submodules'# {{{
-  exec 'git pull --recurse-submodules', (err) ->
-    if err? then fail 'Failed to pull submodules'
-    exec 'git submodule init', (err) ->
-      if err? then fail 'Failed to init submodules'
-      exec 'git submodule update', (err) ->
-        if err? then fail 'Failed to update submodules'
-        exec 'git submodule foreach git checkout classy', (err) ->
-          if err? then fail 'Failed to checkout branch classy'
-          succeed 'Successfully init/update git submodules'# }}}
+  chain\
+  ( [ 'git', ['pull', '--recurse-submodules']
+    , 'Failed to pull submodule data' ]
+    [ 'git', ['submodule', 'init']
+    , 'Failed to initialise submodules' ]
+    [ 'git', ['submodule', 'foreach', 'git', 'checkout', 'classy']
+    , 'Failed to checkout project branch of submodules' ]
+    'Successfully init/update git submodules'
+  )
+    .catch (err, fmsg) ->
+      fail "[#{err}] #{fmsg}"# }}}
 
 # Classy Tasks #########################################
 
@@ -156,11 +195,13 @@ namespace 'assets', ->
   task 'compile', ['assets:js:compile', 'assets:css:compile'], async: true
   task 'clean', [], async: true, ->
     title 'Attempting to remove compiled assets'# {{{
-    rm = spawn 'rm', ['-f', './public/js/app.js', './public/css/app.css']
-    handleExit\
-    ( rm
-    , 'Successfully removed js/css compiled assets'
-    , 'Failed to remove js/css compiled assets with code CODE' )# }}}
+    chain\
+    ( [ 'rm', ['-f', './public/js/app.js', './public/css/app.css']
+      , 'Failed to remove js/css compiled assets' ]
+      'Successfully compiled js/css assets'
+    )
+      .catch (err, fmsg) ->
+        fail "[#{err}] #{fmsg}"# }}}
 
   namespace 'js', ->
 
@@ -197,29 +238,28 @@ namespace 'assets', ->
 
     desc 'Concatenated css generated from compiled scss files in ./stylesheets'
     file './public/css/app.css', scssFiles, async: true, ->
-      title 'Compiling web scss to /public/css/app.css'# {{{
-      compileChild = spawn 'coffee', [
-        './app/midware/styles.coffee'
-        'stylesheets'
-        './public/css/app.css'
-      ]
-      logChild compileChild
-      handleExit\
-      ( compileChild
-      , 'Successfully compiled scss to /public/css/app.css'
-      , 'Compilation of scss failed with code CODE' )# }}}
+      title 'Compiling web scss to public/css/app.css'# {{{
+      chain\
+      ( [ 'coffee'
+        , ['./app/midware/styles.coffee', 'stylesheets', './public/css/app.css']
+        , 'Failed to run midware compilation scripts' ]
+        'Successfully compiled scss to public/css/app.css'
+      )
+        .catch (err, fmsg) ->
+          fail "[#{err}] #{fmsg}"# }}}
 
 # Package management ###################################
 
 desc 'Install bower components'
 task 'install-bower', [], async: true, ->
   title 'Attempting to install bower components'# {{{
-  bower = spawn 'bower', ['install'], cwd: __dirname
-  logChild bower
-  handleExit\
-  ( bower
-  , 'Successfully installed bower components'
-  , 'bower exited with error code CODE' )# }}}
+  chain\
+  ( [ 'bower', ['install']
+    , 'Failed to run bower' ]
+    'Successfully installed bower dependencies'
+  )
+    .catch (err, fmsg) ->
+      fail "[#{err}] #{fmsg}"# }}}
 
 # Versioning ###########################################
 
@@ -240,10 +280,10 @@ namespace 'version', ->
     catch err
       fail "Could not parse contents of #{PROCFILE}"
 
-    console.log()
+    do newline
     for own p,val of proc
       log "  #{p}:\t#{val}"
-    console.log()
+    do newline
 
     # Eg. SL/.versions/siteName@version-908123908
     versionedPath = path.join\
@@ -290,33 +330,36 @@ namespace 'daemon', ->
   task 'start', ['version:load-proc', 'daemon:stop'], async: true, ->
     title 'Attempting to start site daemon'# {{{
     process.chdir livePath
-    forever = spawn 'forever', [
-      'start'
-      '-o', (path.join livePath, 'stdout.log')
-      '-e', (path.join livePath, 'stderr.log')
-      '-c', 'coffee'
-      '--append'
-      '--sourceDir', livePath
-      '--uid', proc.siteName
-      '--minUptime', 24*60*60*1000
-      '--spinSleepTime', 60*60*1000
-      proc.startScript
-    ], cwd: livePath
-    logChild forever
-    handleExit\
-    ( forever
-    , 'Successfully launched site daemon!'
-    , 'Failed to launch site daemon')# }}}
+    chain\
+    ( [ 'forever'
+      , [
+          'start'
+          '-o', (path.join livePath, 'stdout.log')
+          '-e', (path.join livePath, 'stderr.log')
+          '-c', 'coffee'
+          '--append'
+          '--sourceDir', livePath
+          '--uid', proc.siteName
+          '--minUptime', 24*60*60*1000
+          '--spinSleepTime', 60*60*1000
+          proc.startScript
+        ]
+      , 'Failed to start forever' ]
+      'Successfully launched site daemon!'
+    )
+      .catch (err, fmsg) ->
+        fail "[#{err}] #{fmsg}"# }}}
 
   desc 'Stops the live site daemon'
   task 'stop', ['version:load-proc'], async: true, ->
     title 'Attempting to stop site daemon'# {{{
-    forever = spawn 'forever', ['stop', proc.siteName]
-    logChild forever
-    forever.on 'exit', ->
-      succeed 'Successfully shutdown Site Daemon'
-      do complete# }}}
-
+    chain\
+    ( [ 'forever', ['stop', proc.siteName]
+      , 'Failed to stop site daemon' ]
+      'Successfully shutdown Site Daemon'
+    )
+      .catch (err, fmsg) ->
+        fail "[#{err}] #{fms}"# }}}
 
 # Deploy Tasks #########################################
 
@@ -329,33 +372,35 @@ namespace 'deploy', ->
   desc 'Create versioned site directory'
   task 'create-versioned-dir', ['version:load-proc'], async: true, ->
     title 'Attempting to create versioned directory'# {{{
-    fs.mkdir (path.join versionedPath, '..'), (err) ->
-      fs.mkdir versionedPath, (err) ->
-        if err? then fail 'Failed to create versioned directory'
-        succeed 'Successfully created versioned directory'
-        do complete# }}}
+    chain\
+    ( [ 'mkdir', ['-p', path.join versionedPath, '..']
+      , 'Failed to make versioned directory' ]
+      'Successfully made versioned directory'
+    )
+      .catch (err, fmsg) ->
+        fail "[#{err}] #{fmsg}"# }}}
 
   desc 'Move files to location'
   task 'move-files', ['deploy:create-versioned-dir'], async: true, ->
     title 'Attempting to move files'# {{{
-    exec "rsync -a . #{versionedPath}", (err, stdout, stderr) ->
-      if err? then fail 'Failed to move files'
-      succeed 'Successfully moved files'
-      do complete# }}}
+    chain\
+    ( [ 'rsync', ['-a', '.', versionedPath]
+      , 'Failed to move files from temp to versioned directory' ]
+      'Successfully moved files from temp to versioned directory'
+    )
+      .catch (err, fmsg) ->
+        fail "[#{err}] #{fmsg}"# }}}
 
   desc 'Symlink new version'
   task 'symlink-live', ['deploy:move-files'], async: true, ->
     title 'Attempting to make symbolic links'# {{{
-    log 'Removing old symlink...'
-    fs.unlink livePath, (err) ->
-      if fs.existsSync livePath
-        fail 'Failed to remove old live path symlink'
-      log 'Creating new symlink...'
-      fs.symlink versionedPath, livePath, (err) ->
-        if err? then fail 'Failed to create new symlink'
-        succeed 'Successfully symlinked livepath'
-        do complete# }}}
-    
-
-
+    chain\
+    ( [ 'rm', [livePath]
+      , "Failed to remove old live path symlink at #{livePath}" ]
+      [ 'ln', ['-s', versionedPath, livePath]
+      , "Failed to make symlink #{livePath} -> #{versionedPath}" ]
+      'Successfully symlinked live path to new version'
+    )
+      .catch (err, fmsg) ->
+        fail "[#{err}] #{fmsg}"# }}}
 
