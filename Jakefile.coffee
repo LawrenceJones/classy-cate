@@ -46,36 +46,40 @@ pipePrefix = (pre, _w) ->
     _w.write pre+token+'\n'
   return sstream
 
-# Logs child process exit
-handleExit = (child, msgSucc, msgFail) ->
-  child.on 'exit', (code) ->
-    if code is EXIT_SUCCESS = 0
-      succeed msgSucc
-      do complete
-    else fail msgFail.replace /CODE/g, code
-
 # Run the given commands sequentially, returning a promise for
 # command resolution.
-chain = (cmds..., smsg) ->
+chain = (cmds..., opt) ->
   run = (cmd, cmds...) ->
     [exe, args, fmsg, check] = cmd
-    check ?= (err) -> err != 0
+    check ?= (err) -> err == 0
     prompt "#{exe} #{args.join ' '}"
     prog = spawn exe, args, cwd: __dirname
     prog.stdout.pipe pOut
     prog.stderr.pipe pErr
     prog.on 'exit', (err) ->
       do newline
-      if err != 0 then def.reject err, fmsg
-      if cmds.length != 0 then run cmds...
-      else do def.resolve
-  do newline
+      if !check err
+        def.reject err, fmsg
+      else if cmds.length != 0 then run cmds...
+      else
+        do def.resolve
+
   def = $q.defer()
-  # Adjust args for optionally success message
-  if smsg? and typeof smsg is 'string' then def.promise.then ->
-    succeed smsg
-  cmds.push smsg if smsg instanceof Array
+  promise = def.promise
+
+  # Process last argument
+  if opt instanceof Array
+    if opt.length == 1
+      [smsg] = opt
+      promise.then ->
+        succeed smsg
+      promise.catch (err, fmsg) ->
+        fail "[#{err}] #{fmsg}"
+      opt = null
+  cmds.push opt if opt?
+
   # Run commands
+  do newline
   run cmds... if cmds.length > 0
   def.promise
 
@@ -103,7 +107,6 @@ newline = console.log
 # Print green success message, partner to initial log
 succeed = (msg) ->
   console.log "+ #{msg}\n".green
-  complete?()
 
 # Halts build chain
 fail = (msg) ->
@@ -127,13 +130,12 @@ task 'setup-hooks', [], async: true, ->
   chain\
   ( [ 'rm', ['-rf', './.git/hooks']
     , 'Failed to remove old git folder'
-    , -> !fs.existsSync './.git/hooks' ]
+    , (-> !fs.existsSync './.git/hooks') ]
     [ 'ln', ['-s', '../hooks', './.git/hooks']
     , 'Failed to symlink ./.git/hooks -> ./hooks' ]
-    'Successfully symlinked ./.git/hooks -> ./hooks'
-  )
-    .catch (err, fmsg) ->
-      fail "[#{err}] #{fmsg}"# }}}
+    # Success output
+    [ 'Successfully symlinked ./.git/hooks -> ./hooks' ]
+  ).finally complete# }}}
 
 desc 'Start dev node server'
 task 'start-dev', [], async: true, ->
@@ -154,10 +156,9 @@ task 'init-subs', [], async: true, ->
     , 'Failed to update and init each submodule' ]
     [ 'git', ['submodule', 'foreach', 'git', 'checkout', 'classy']
     , 'Failed to checkout project branch of submodules' ]
-    'Successfully init/update git submodules'
-  )
-    .catch (err, fmsg) ->
-      fail "[#{err}] #{fmsg}"# }}}
+    # Success output
+    [ 'Successfully init/update git submodules' ]
+  )# }}}
 
 # Classy Tasks #########################################
 
@@ -190,16 +191,18 @@ task 'run-parser', [], async: true, (pfile, params...) ->
 
 namespace 'assets', ->
 
-  task 'compile', ['assets:js:compile', 'assets:css:compile'], async: true
+  task 'compile', ['assets:js:compile', 'assets:css:compile'], async: true, ->
+    complete()
   task 'clean', [], async: true, ->
     title 'Attempting to remove compiled assets'# {{{
     chain\
     ( [ 'rm', ['-f', './public/js/app.js', './public/css/app.css']
-      , 'Failed to remove js/css compiled assets' ]
-      'Successfully compiled js/css assets'
-    )
-      .catch (err, fmsg) ->
-        fail "[#{err}] #{fmsg}"# }}}
+      , 'Failed to remove js/css compiled assets'
+      , (-> !(fs.existsSync('./public/js/app.js')\
+        ||  fs.existsSync('./public/css/css.js'))) ]
+      # Success output
+      [ 'Successfully compiled js/css assets' ]
+    )# }}}
 
   namespace 'js', ->
 
@@ -222,8 +225,7 @@ namespace 'assets', ->
       log 'Writing to public/js/app.js'
       fs.writeFile './public/js/app.js', jsSource, 'utf8', (err) ->
         if err? then fail 'Failed to write to /public/js/app.js'
-        succeed 'Successfully written js to /public/js/app.js'
-        do complete# }}}
+        succeed 'Successfully written js to /public/js/app.js'# }}}
 
   namespace 'css', ->
 
@@ -241,10 +243,8 @@ namespace 'assets', ->
       ( [ 'coffee'
         , ['./app/midware/styles.coffee', 'stylesheets', './public/css/app.css']
         , 'Failed to run midware compilation scripts' ]
-        'Successfully compiled scss to public/css/app.css'
-      )
-        .catch (err, fmsg) ->
-          fail "[#{err}] #{fmsg}"# }}}
+        [ 'Successfully compiled scss to public/css/app.css' ]
+      )# }}}
 
 # Package management ###################################
 
@@ -254,10 +254,9 @@ task 'install-bower', [], async: true, ->
   chain\
   ( [ 'bower', ['install']
     , 'Failed to run bower' ]
-    'Successfully installed bower dependencies'
-  )
-    .catch (err, fmsg) ->
-      fail "[#{err}] #{fmsg}"# }}}
+    # Success output
+    [ 'Successfully installed bower dependencies' ]
+  ).finally complete# }}}
 
 # Versioning ###########################################
 
@@ -308,7 +307,7 @@ namespace 'version', ->
     log "Bumping [#{level}] version number..."
     log "  #{proc.version} -> #{(proc.version = version.join '.')}\n"
     do writeProcfile
-    succeed 'Successfully wrote new version'# }}}
+    succeed 'Successfully wrote new version', false# }}}
 
   desc 'Sets the version number'
   task 'set', ['version:load-proc'], (value) ->
@@ -317,7 +316,7 @@ namespace 'version', ->
       fail "The version [#{value}] is not a value version number X.X.X"
     proc.version = value
     do writeProcfile
-    succeed "Successfully set version number to #{value}"# }}}
+    succeed "Successfully set version number to #{value}", false# }}}
     
 
 # Daemon Tasks #########################################
@@ -325,49 +324,55 @@ namespace 'version', ->
 namespace 'daemon', ->
 
   desc 'Starts the live site daemon'
-  task 'start', ['version:load-proc', 'daemon:stop'], async: true, ->
-    title 'Attempting to start site daemon'# {{{
-    process.chdir livePath
-    chain\
-    ( [ 'forever'
-      , [
-          'start'
-          '-o', (path.join livePath, 'stdout.log')
-          '-e', (path.join livePath, 'stderr.log')
-          '-c', 'coffee'
-          '--append'
-          '--sourceDir', livePath
-          '--uid', proc.siteName
-          '--minUptime', 24*60*60*1000
-          '--spinSleepTime', 60*60*1000
-          proc.startScript
-        ]
-      , 'Failed to start forever' ]
-      'Successfully launched site daemon!'
-    )
-      .catch (err, fmsg) ->
-        fail "[#{err}] #{fmsg}"# }}}
+  task 'start', async: true, ->
+    stop = jake.Task['daemon:stop']# {{{
+    stop.addListener 'complete', ->
+      title 'Attempting to start site daemon'
+      process.chdir livePath
+      chain\
+      ( [ 'forever'
+        , [
+            'start'
+            '-o', (path.join livePath, 'stdout.log')
+            '-e', (path.join livePath, 'stderr.log')
+            '-c', 'coffee'
+            '--append'
+            '--sourceDir', livePath
+            '--uid', proc.siteName
+            '--minUptime', 24*60*60*1000
+            '--spinSleepTime', 60*60*1000
+            proc.startScript
+          ]
+        , 'Failed to start forever' ]
+        # Success output
+        [ 'Successfully launched site daemon!' ]
+      )
+    stop.invoke()# }}}
 
   desc 'Stops the live site daemon'
   task 'stop', ['version:load-proc'], async: true, ->
     title 'Attempting to stop site daemon'# {{{
     chain\
     ( [ 'forever', ['stop', proc.siteName]
-      , 'Failed to stop site daemon' ]
-      'Successfully shutdown Site Daemon'
-    )
-      .catch (err, fmsg) ->
-        fail "[#{err}] #{fms}"# }}}
+      , 'Failed to stop site daemon'
+      , (-> true) ]
+      # Success output
+      [ 'Successfully shutdown Site Daemon' ]
+    )# }}}
 
 # Deploy Tasks #########################################
 
 desc 'Kickstarts site into production'
 task 'deploy', [
+  'init-subs'
   'install-bower'
-  'assets:compile'
+  'version:load-proc'
+  'deploy:create-versioned-dir'
+  'deploy:move-files'
   'deploy:symlink-live'
-], async: true, ->
-  jake.Task['daemon:start'].invoke()
+  'daemon:stop'
+  'daemon:start'
+], ->
 
 namespace 'deploy', ->
 
@@ -377,32 +382,37 @@ namespace 'deploy', ->
     chain\
     ( [ 'mkdir', ['-p', path.join versionedPath, '..']
       , 'Failed to make versioned directory' ]
-      'Successfully made versioned directory'
-    )
-      .catch (err, fmsg) ->
-        fail "[#{err}] #{fmsg}"# }}}
+      # Success output
+      [ 'Successfully made versioned directory' ]
+    )# }}}
 
   desc 'Move files to location'
-  task 'move-files', ['deploy:create-versioned-dir'], async: true, ->
+  task 'move-files', [
+    'version:load-proc'
+    'deploy:create-versioned-dir'
+  ], async: true, ->
     title 'Attempting to move files'# {{{
     chain\
     ( [ 'rsync', ['-a', '.', versionedPath]
       , 'Failed to move files from temp to versioned directory' ]
-      'Successfully moved files from temp to versioned directory'
-    )
-      .catch (err, fmsg) ->
-        fail "[#{err}] #{fmsg}"# }}}
+      # Success output
+      [ 'Successfully moved files from temp to versioned directory' ]
+    )# }}}
 
   desc 'Symlink new version'
-  task 'symlink-live', ['deploy:move-files'], async: true, ->
+  task 'symlink-live', [
+    'version:load-proc'
+    'deploy:create-versioned-dir'
+    'deploy:move-files'
+  ], async: true, ->
     title 'Attempting to make symbolic links'# {{{
     chain\
     ( [ 'rm', [livePath]
-      , "Failed to remove old live path symlink at #{livePath}" ]
+      , "Failed to remove old live path symlink at #{livePath}"
+      , (-> !fs.existsSync livePath) ]
       [ 'ln', ['-s', versionedPath, livePath]
       , "Failed to make symlink #{livePath} -> #{versionedPath}" ]
-      'Successfully symlinked live path to new version'
-    )
-      .catch (err, fmsg) ->
-        fail "[#{err}] #{fmsg}"# }}}
+      # Success output
+      [ 'Successfully symlinked live path to new version' ]
+    )# }}}
 
