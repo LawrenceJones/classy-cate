@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "publish": "jake deploy",
-    "prepublish": "jake init-subs && jake setup-hooks"
+    "prepublish": "jake init-subs && jake setup-hooks && jake install-bower"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
