@@ -4,9 +4,6 @@ path = require 'path'
 root_dir = path.join (__dirname || process.cwd()), '..', '..'
 key_dir = path.join root_dir, 'app', 'etc', 'keys'
 
-if fs.existsSync (creds = process.env.HOME+'/.imp')
-  [user, pass] = (fs.readFileSync creds, 'utf8').split '\n'
-
 secret_path = path.join(key_dir, 'secret.key')
 if not fs.existsSync secret_path
   secret = (String.fromCharCode Math.floor(Math.random()*255)\
@@ -22,13 +19,9 @@ module.exports = config =
     IP:   '127.0.0.1'
     PORT: process.env.PORT || 50000
     # Assign secret
-    SECRET: (process.env.APP_SECRET ||
-             fs.readFileSync path.join(key_dir, 'secret.key'))
+    SECRET: fs.readFileSync secret_path, 'utf8'
   jwt:
     TOKEN_EXPIRY: 12 * 60
-  cate:
-    USER: user || process.env.CATE_USER
-    PASS: pass || process.env.CATE_PASS
   users: new Object()
   mongodb:
     NAME: 'classy-cate'
