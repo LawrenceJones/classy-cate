@@ -1,3 +1,6 @@
 [submodule "web/auth"]
 	path = web/auth
 	url = https://gist.github.com/9265cdaaa9fcf987a135.git
+[submodule "deploy"]
+	path = deploy
+	url = https://gist.github.com/abd4f566c53d28ef6558.git

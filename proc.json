@@ -1,6 +1,1 @@
-{
-  "version": "0.0.1",
-  "siteLocation": "/home/web/classy",
-  "siteName": "classy",
-  "startScript": "app/app.coffee"
-}
+./deploy/proc.json
