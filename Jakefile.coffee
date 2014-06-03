@@ -152,8 +152,8 @@ task 'init-subs', [], async: true, ->
   chain\
   ( [ 'git', ['pull', '--recurse-submodules']
     , 'Failed to pull submodule data' ]
-    [ 'git', ['submodule', 'init']
-    , 'Failed to initialise submodules' ]
+    [ 'git', ['submodule', 'update', '--init', '--recursive']
+    , 'Failed to update and init each submodule' ]
     [ 'git', ['submodule', 'foreach', 'git', 'checkout', 'classy']
     , 'Failed to checkout project branch of submodules' ]
     'Successfully init/update git submodules'
