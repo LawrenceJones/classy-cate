@@ -4,7 +4,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "publish": "jake deploy"
+    "publish": "jake deploy",
+    "prepublish": "jake init-subs && jake setup-hooks"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
