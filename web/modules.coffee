@@ -40,7 +40,7 @@ classy.config [
     # Splash entry page with user info.
     $stateProvider.state 'app.dashboard', {
       url: '/dashboard'
-      controller: (->) # 'DashboardCtrl'
+      controller:  'DashboardCtrl'
       templateUrl: '/partials/dashboard'
     }
 
@@ -48,6 +48,12 @@ classy.config [
     $stateProvider.state 'login', {
       url: '/login'
       templateUrl: '/partials/login'
+    }
+
+    $stateProvider.state 'app.course', {
+      url: '/course/:cid'
+      controller: 'CourseCtrl'
+      templateUrl: '/partials/course'
     }
 
     # Security audit information
@@ -70,3 +76,7 @@ classy.run ($q, $rootScope) ->
   $rootScope.$on '$stateChangeSuccess', ($event, state) ->
     $rootScope.currentState = state.name
 
+  $rootScope.registeredCourses = [
+    {name: 'Software Engineering', cid: '220'},
+    {name: 'Compilers', cid: '230'}
+  ]
