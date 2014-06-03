@@ -107,14 +107,14 @@ succeed = (msg) ->
 
 # Halts build chain
 fail = (msg) ->
-  console.error " ! #{msg}\n".red
+  console.error "! #{msg}\n".red
   throw new Error msg
 
 # Prints command as if from prompt
 prompt = (cmd) ->
   console.log "$ #{cmd}"
 pOut = pipePrefix '  ', process.stdout
-pErr = pipePrefix '! ', process.stderr# }}}
+pErr = pipePrefix '  ', process.stderr# }}}
 
 # Dev Tasks ############################################
 
@@ -265,7 +265,7 @@ proc = versionedPath = livePath = null # declare
 
 namespace 'version', ->
 
-  PROCFILE = './proc.json'
+  PROCFILE = './deploy/proc.json'
 
   writeProcfile = ->
     fs.writeFileSync PROCFILE, (JSON.stringify proc, undefined, 2), 'utf8'
