@@ -13,6 +13,9 @@ build = (require 'domain').create()
 REMOTE = process.cwd()
 delete process.env['GIT_DIR']
 
+# Cached project node modules
+NODE_CACHE = path.join REMOTE, 'node_modules'
+
 # Create tmp directory name
 # Ex. /tmp/project-1401134733128
 tmpDir = path.join '/', 'tmp', "#{process.cwd().split('/').pop()}-#{Date.now()}"
@@ -79,6 +82,13 @@ cloneCommit = (cb) ->
     ], cwd: tmpDir, (err) ->
       cb?()
 
+# Symlinks to node cache
+linkNodeCache = (cb) ->
+  log 'Symlinking node_modules to cache'
+  spawnv 'ln', ['-s', NODE_CACHE, path.join(tmpDir, 'node_modules')], (err) ->
+    fail err if err != 0
+    cb?()
+
 # NPM Install
 npmInstall = (cb) ->
   log 'Installing npm dependencies'
@@ -99,10 +109,11 @@ build.run ->
   do console.log
   makeTmpDir ->
     cloneCommit ->
-      npmInstall ->
-        npmStart ->
-          removeTmpDir ->
-            log 'Completed deploy!'
+      linkNodeCache ->
+        npmInstall ->
+          npmStart ->
+            removeTmpDir ->
+              log 'Completed deploy!'
 
 # Catches error in receive
 build.on 'error', (err) ->
