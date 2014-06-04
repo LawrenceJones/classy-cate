@@ -50,10 +50,11 @@ pipePrefix = (pre, _w) ->
 # command resolution.
 chain = (cmds..., opt) ->
   run = (cmd, cmds...) ->
-    [exe, args, fmsg, check] = cmd
+    [exe, args, fmsg, check, wd] = cmd
     check ?= (err) -> err == 0
+    wd ?= __dirname
     prompt "#{exe} #{args.join ' '}"
-    prog = spawn exe, args, cwd: __dirname
+    prog = spawn exe, args, cwd: wd || __dirname
     prog.stdout.pipe pOut
     prog.stderr.pipe pErr
     prog.on 'exit', (err) ->
@@ -328,7 +329,6 @@ namespace 'daemon', ->
     stop = jake.Task['daemon:stop']# {{{
     stop.addListener 'complete', ->
       title 'Attempting to start site daemon'
-      process.chdir livePath
       chain\
       ( [ 'forever'
         , [
@@ -343,7 +343,7 @@ namespace 'daemon', ->
             '--spinSleepTime', 60*60*1000
             proc.startScript
           ]
-        , 'Failed to start forever' ]
+        , 'Failed to start forever', null, livePath ]
         # Success output
         [ 'Successfully launched site daemon!' ]
       )
