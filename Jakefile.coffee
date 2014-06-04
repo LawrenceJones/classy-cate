@@ -305,6 +305,7 @@ namespace 'version', ->
       fail "Invalid bump (#{level}), must be release|feature|fix"
     version = proc.version.split('.').map((v) -> parseInt v, 10)
     ++version[i]
+    version[j] = 0 for j in [i+1..version.length-1]
     log "Bumping [#{level}] version number..."
     log "  #{proc.version} -> #{(proc.version = version.join '.')}\n"
     do writeProcfile
