@@ -146,6 +146,7 @@ task 'start-dev', [], async: true, ->
   , ['app/app.coffee', '-w', 'app']
   , stdio: ['ignore', 'pipe', 'pipe'] )
   do newline
+  server.stderr.pipe process.stderr
   stdout = pipePrefix '  ', process.stdout
   server.stdout.pipe stdout# }}}
 
@@ -160,6 +161,27 @@ task 'init-subs', [], async: true, ->
     # Success output
     [ 'Successfully init/update git submodules' ]
   )# }}}
+
+# API Tasks ############################################
+
+methods = require 'express/node_modules/methods'
+padMethod = (str) -> "[#{str.toUpperCase()}]           "[0..9]
+
+desc 'Print all registered Express routes'
+task 'routes', [], ->
+  app = require './app/app.coffee'# {{{
+  routes = []
+  methods.forEach (method) ->
+    orig = app[method]
+    app[method] = (path, handler) ->
+      routes.push
+        method: method
+        path: path
+      orig.apply this, arguments
+  do app.route
+  for route in routes
+    console.log padMethod(route.method), route.path
+  process.exit 0# }}}
 
 # Classy Tasks #########################################
 

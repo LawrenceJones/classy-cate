@@ -4,7 +4,16 @@ $q = require 'q'
 require './model'
 
 # Initial db setup
-module.exports = (config, verbose = true) ->
+module.exports = (config, verbose = true, onlyLoadModels = false) ->
+
+  Models = [Exam, Upload, CateModule] = [ # Load database models
+    '../exams/exam_model'
+    '../uploads/upload_model'
+    '../modules/cate_module_model'
+  ]
+    .map (modelPath) -> (require modelPath)
+
+  return if onlyLoadModels
 
   [name, host, port] = [
     config.mongodb.NAME
@@ -20,13 +29,6 @@ module.exports = (config, verbose = true) ->
     process.exit 1
   db.once 'open', ->
     console.log 'Database successfully opened!' if verbose
-
-  Models = [Exam, Upload, CateModule] = [ # Load database models
-    '../exams/exam_model'
-    '../uploads/upload_model'
-    '../modules/cate_module_model'
-  ]
-    .map (modelPath) -> (require modelPath)
 
   # Resets database if RESET_DB env is on
   if process.env.RESET_DB

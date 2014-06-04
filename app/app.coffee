@@ -17,12 +17,8 @@ partials = require './midware/partials'
 # Load extra js utilities
 utils = require './etc/utilities'
 
-# Listen for leaks
-memwatch.on 'leak', (stats) ->
-  console.error stats
-
 # Init app
-app = (configure = (app, config) ->
+module.exports = app = (configure = (app, config) ->
 
   ENV = app.settings.env
 
@@ -92,26 +88,30 @@ app = (configure = (app, config) ->
 )(express(), config)
 
 # Start database
-(require './etc/db')(config)
+(require './etc/db')(config, !module.parent, !module.parent)
 
 # Load routes in given order
-[
-  './auth/auth_router'
-  './dashboard/dashboard_router'
-  './grades/grades_router'
-  './notes/notes_router'
-  './givens/givens_router'
-  './exercises/exercises_router'
-  './exams/exam_router'
-  './uploads/upload_router'
-  './modules/cate_module_router'
-]
-  .map (routePath) ->
-    (require routePath)(app)
+app.route = ->
+  [
+    './auth/auth_router'
+    './dashboard/dashboard_router'
+    './grades/grades_router'
+    './notes/notes_router'
+    './givens/givens_router'
+    './exercises/exercises_router'
+    './exams/exam_router'
+    './uploads/upload_router'
+    './modules/cate_module_router'
+  ]
+    .map (routePath) ->
+      (require routePath)(app)
 
-# Load app
-proc = JSON.parse fs.readFileSync './proc.json', 'utf8'
-app.listen (PORT = proc.port || process.env.PORT), ->
-  console.log "Started server running in #{app.settings.env}"
-  console.log "Listening at https://localhost:#{PORT}"
+if server = !module.parent
+  do app.route
+
+  # Load app
+  proc = JSON.parse fs.readFileSync './proc.json', 'utf8'
+  app.listen (PORT = proc.port || process.env.PORT), ->
+    console.log "Started server running in #{app.settings.env}"
+    console.log "Listening at https://localhost:#{PORT}"
 

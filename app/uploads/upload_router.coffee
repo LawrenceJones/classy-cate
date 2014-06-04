@@ -6,7 +6,8 @@ multiParty = require 'connect-multiparty'
 # Gridfs libraries
 fs = require 'fs'
 Grid = require 'gridfs-stream'
-gfs = Grid mongoose.connection.db, mongoose.mongo
+if mongoose.connection.db?
+  gfs = Grid mongoose.connection.db, mongoose.mongo
 
 # Cate resources
 Exam = mongoose.model 'Exam'
