@@ -1,1 +1,113 @@
-../deploy/post-receive
+#!/usr/bin/env coffee
+# vi: set filetype=coffee
+
+child_process = require 'child_process'
+[exec, spawn] = [child_process.exec, child_process.spawn]
+fs = require 'fs'
+path = require 'path'
+
+# Create build domain
+build = (require 'domain').create()
+
+# Git remote
+REMOTE = process.cwd()
+delete process.env['GIT_DIR']
+
+# Create tmp directory name
+# Ex. /tmp/project-1401134733128
+tmpDir = path.join '/', 'tmp', "#{process.cwd().split('/').pop()}-#{Date.now()}"
+
+# Global declares
+gitOut = ''
+branch = null
+
+# Simple log with prefix of |----
+log = (msg...) ->
+  console.log "|---- #{msg.join '     '}"
+
+# Prompt output $ cmd arg arg
+prompt = (cmd) ->
+  console.log "        $ #{cmd}"
+
+# Trigger a build failure
+fail = (msg) ->
+  if msg instanceof String
+    msg = '\n'+msg.split('\n').join('       ')+'\n'
+  throw new Error msg
+
+# Verbose exec, echos command
+execv = (cmd, cb) ->
+  prompt cmd
+  exec cmd, cb
+
+# Verbose spawn command
+spawnv = (cmd, args, opt, cb) ->
+  prompt "#{cmd} #{args.join ' '}\n"
+  if !cb?
+    cb = opt; opt = {}
+  prog = spawn cmd, args, opt
+  live = (stream) -> prog[stream].pipe process[stream]
+  ['stdout', 'stderr'].map live
+  prog.on 'exit', (code) ->
+    console.log()
+    cb?(code)
+
+# Makes temporary directory for git tree
+makeTmpDir = (cb) ->
+  log "Making temporary directory in #{tmpDir}"
+  execv "mkdir #{tmpDir}", (err, stdout, stderr) ->
+    fail err.message if err?
+    cb?()
+
+# Deletes temporary directory
+removeTmpDir = (cb) ->
+  if !fs.existsSync tmpDir then return cb?()
+  log "Removing temporary directory at #{tmpDir}"
+  execv "rm -rf #{tmpDir}", (err, stdout, stderr) ->
+    fail 'Failed to remove temporary directory' if err?
+    cb?()
+
+# Clones git repo into tmpDir and checks out the master
+cloneCommit = (cb) ->
+  log 'Cloning current HEAD into temporary directory'
+  execv "git clone #{REMOTE} #{tmpDir}", (err, stdout, stderr) ->
+    fail err if err?
+    spawnv 'git', [
+      "--git-dir=#{tmpDir}/.git"
+      "--work-tree=#{tmpDir}"
+      'checkout', 'master'
+    ], cwd: tmpDir, (err) ->
+      cb?()
+
+# NPM Install
+npmInstall = (cb) ->
+  log 'Installing npm dependencies'
+  spawnv 'npm', ['install'], cwd: tmpDir, (err) ->
+    fail err if err != 0
+    cb?()
+
+# Runs NPM Start
+npmStart = (cb) ->
+  log 'Running projects publish script'
+  process.chdir tmpDir
+  spawnv 'npm', ['start'], cwd: tmpDir, (err) ->
+    fail err if err != 0
+    cb?()
+
+# Start post-receive
+build.run ->
+  do console.log
+  makeTmpDir ->
+    cloneCommit ->
+      npmInstall ->
+        npmStart ->
+          removeTmpDir ->
+            log 'Completed deploy!'
+
+# Catches error in receive
+build.on 'error', (err) ->
+  log 'Post-receive failed with error: ', err
+  process.exit 1
+
+
+

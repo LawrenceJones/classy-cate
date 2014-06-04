@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "publish": "jake deploy",
+    "start": "jake deploy",
     "prepublish": "jake init-subs && jake setup-hooks && jake install-bower"
   },
   "dependencies": {
