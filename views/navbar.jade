@@ -28,9 +28,9 @@ mixin extra-links
             span.caret
           ul.dropdown-menu
             li(ng-repeat='course in registeredCourses', 
-               ui-sref!='app.course({cid: course.cid})', 
+               ui-sref!='app.course({mid: course.mid})', 
                ui-sref-active='active')
-              a {{ course.cid + ': ' + course.name }}
+              a {{ course.mid + ': ' + course.name }}
         +li-anchor('Exercises', "app.exercises")
         +li-anchor('Grades', 'app.grades')
         +li-anchor('Discussions', 'app.discussions')

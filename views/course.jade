@@ -2,6 +2,7 @@
   .col-md-12
     h2 
       | {{ course.mid }}: {{ course.name }}
+      {{hello}}
       i(style='margin-left:3px').fa.fa-info-circle.small
 .row
   .col-md-12
@@ -17,7 +18,7 @@
           tr(ng-repeat='note in course.notes' ng-click='gotoResource(note.link)')
             td {{ note.number }}
             td
-              i.fa(class='{{ noteIcon(note.restype) }}')
+              i.fa(class='{{ getIcon(note.restype) }}')
             td {{ note.title }}
             td.small {{ dateString(note.time) }}
             td
@@ -30,7 +31,7 @@
           tr(ng-repeat='grade in course.grades')
             td {{ grade.number }}
             td
-              i.fa(class='{{ exerciseIcon(grade.type) }}')
+              i.fa(class='{{ getIcon(grade.type) }}')
             td {{ grade.title }}
             td.small {{ dateString(grade.submitted) }}
             td {{ grade.grade }}
@@ -44,7 +45,7 @@
           tr(ng-repeat='exercise in course.exercises' ng-click='showGivens($index)')
             td {{ exercise.number }}
             td
-              i.fa(class='{{ exerciseIcon(exercise.type) }}')
+              i.fa(class='{{ getIcon(exercise.type) }}')
             td {{ exercise.name }}
             td.small {{ dateString(exercise.start) + ' - ' + dateString(exercise.end) }}
             td

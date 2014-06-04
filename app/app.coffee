@@ -99,6 +99,7 @@ app.route = ->
     './notes/notes_router'
     './givens/givens_router'
     './exercises/exercises_router'
+    './courses/courses_router'
     './exams/exam_router'
     './uploads/upload_router'
     './modules/cate_module_router'

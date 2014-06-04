@@ -40,7 +40,7 @@ classy.config [
     # Splash entry page with user info.
     $stateProvider.state 'app.dashboard', {
       url: '/dashboard'
-      controller:  'DashboardCtrl'
+      controller: (->) 
       templateUrl: '/partials/dashboard'
     }
 
@@ -79,10 +79,10 @@ classy.run ($q, $rootScope) ->
   $rootScope.registeredCourses = [
     {
       name: 'Software Engineering'
-      cid: '220'
+      mid: '220'
     }
     {
       name: 'Compilers'
-      cid: '230'
+      mid: '230'
     }
   ]

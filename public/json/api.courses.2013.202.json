@@ -18,7 +18,7 @@
     "v5"
   ],
   "noOfHelpers": 4,
-  "syllabus": "The syllabus and reading list for this course can be found in the Departmental Student Services (DSS) site https://www.imperial.ac.uk/dss.  Set your preference to the academic year 13/14 and select the Courses tab."
+  "syllabus": "",
   "notes": [
     {
       "number": "1",
@@ -43,7 +43,7 @@
       "spec": "https://cate.doc.ic.ac.uk/howfile.cgi?key=2013:3:743:CLASS:SPECS:USER",
       "givens": [
         {
-          "type": "specification"
+          "type": "specification",
           "title": "spec-261-11.txt",
           "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013::743:CLASS:SPECS:USER",
           "time": 1294409600000
