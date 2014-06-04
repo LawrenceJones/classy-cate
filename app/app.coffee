@@ -27,14 +27,14 @@ app = (configure = (app, config) ->
   ENV = app.settings.env
 
   # Init app settings
-  app.set 'title', 'Doc Exams'
+  app.set 'title', 'Catie'
   app.set 'view engine', 'jade'
   app.set 'views', config.paths.views_dir
   app.set 'json spaces', (if ENV == 'production' then 0 else 2)
 
   # Configure middleware
   app.use morgan('dev')                                     # logger
-  app.use compress()                                        # gzip
+  # app.use compress()                                        # gzip
   app.use bodyParser.json()                                 # json
   app.use bodyParser.urlencoded()                           # params
 

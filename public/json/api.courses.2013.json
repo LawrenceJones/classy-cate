@@ -1,0 +1,94 @@
+{
+  courses = [
+    {
+      "mid": "220",
+      "name": "Software Engineering Design",
+      "lvl": "3",
+    },
+    {
+      "mid": "221",
+      "name": "Compilers",
+      "lvl": "3",
+    },
+    {
+      "mid": "223",
+      "name": "Concurrency",
+      "lvl": "3",
+    },
+    {
+      "mid": "240",
+      "name": "Models of Computation",
+      "lvl": "3",
+    },
+    {
+      "mid": "245",
+      "name": "Statistics",
+      "lvl": "3",
+    },
+    {
+      "mid": "275",
+      "name": "C++ Introduction",
+      "lvl": "3",
+    },
+    {
+      "mid": "261",
+      "name": "Laboratory 2",
+      "lvl": "3",
+    },
+    {
+      "mid": "276",
+      "name": "Introduction to Prolog",
+      "lvl": "3",
+    },
+    {
+      "mid": "202",
+      "name": "Software Engineering - Algorithms",
+      "lvl": "3",
+    },
+    {
+      "mid": "210",
+      "name": "Computer Architecture",
+      "lvl": "3",
+    },
+    {
+      "mid": "211",
+      "name": "Operating Systems",
+      "lvl": "3",
+    },
+    {
+      "mid": "212",
+      "name": "Networks and Communications",
+      "lvl": "3",
+    },
+    {
+      "mid": "231",
+      "name": "Introduction to Artificial Intelligence",
+      "lvl": "3",
+    },
+    {
+      "mid": "272",
+      "name": "Team Skills Development",
+      "lvl": "3",
+    },
+    {
+      "mid": "277",
+      "name": "Introduction to Perl",
+      "lvl": "3",
+    },
+    {
+      "mid": "203",
+      "name": "Human-Centred Design",
+      "lvl": "3",
+    },
+    {
+      "mid": "271",
+      "name": "2nd Year Group Projects",
+      "lvl": "3",
+    },
+    {
+      "mid": "701",
+      "name": "Programming Competition Training",
+      "lvl": "0",
+    }
+  ]
+}

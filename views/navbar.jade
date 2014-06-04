@@ -23,15 +23,21 @@ mixin extra-links
     .collapse.navbar-collapse#nav-links
       ul.nav.navbar-nav
         li.dropdown
-          a.dropdown-toggle(data-toggle='dropdown', dropdown-hover='')
-            | Courses
+          a.dropdown-toggle(data-toggle='dropdown')
+            | Courses 
+            span.caret
           ul.dropdown-menu
-            li
-              a Software Engineering
+            li(ng-repeat='course in registeredCourses', 
+               ui-sref!='app.course({cid: course.cid})', 
+               ui-sref-active='active')
+              a {{ course.cid + ': ' + course.name }}
         +li-anchor('Exercises', "app.exercises")
         +li-anchor('Grades', 'app.grades')
-        +li-anchor('Exams', 'app.exams')
-        +extra-links()
+        +li-anchor('Discussions', 'app.discussions')
+        // Hard coded link for the example course page
+          +li-anchor({{course.name}}, {{course.cid}})
+        // +li-anchor('Exams', 'app.exams')
+        // +extra-links()
       ul.nav.navbar-right.navbar-nav
         li.dropdown
           a.dropdown-toggle(data-toggle='dropdown')
