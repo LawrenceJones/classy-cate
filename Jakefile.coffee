@@ -191,8 +191,7 @@ task 'run-parser', [], async: true, (pfile, params...) ->
 
 namespace 'assets', ->
 
-  task 'compile', ['assets:js:compile', 'assets:css:compile'], async: true, ->
-    complete()
+  task 'compile', ['assets:js:compile', 'assets:css:compile'], ->
   task 'clean', [], async: true, ->
     title 'Attempting to remove compiled assets'# {{{
     chain\
@@ -225,7 +224,8 @@ namespace 'assets', ->
       log 'Writing to public/js/app.js'
       fs.writeFile './public/js/app.js', jsSource, 'utf8', (err) ->
         if err? then fail 'Failed to write to /public/js/app.js'
-        succeed 'Successfully written js to /public/js/app.js'# }}}
+        succeed 'Successfully written js to /public/js/app.js'
+        do complete# }}}
 
   namespace 'css', ->
 
