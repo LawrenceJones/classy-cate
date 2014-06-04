@@ -207,7 +207,7 @@ namespace 'assets', ->
   namespace 'js', ->
 
     desc 'Compile all web js into static public/js/app.js file'
-    task 'compile', ['init-subs', 'public/js/app.js'], ->
+    task 'compile', ['public/js/app.js'], ->
 
     # Globs coffee-script from ./web
     coffeeFiles =
@@ -230,7 +230,7 @@ namespace 'assets', ->
   namespace 'css', ->
 
     desc 'Compile all scss into static public/css/app.css file'
-    task 'compile', ['init-subs', 'public/css/app.css'], ->
+    task 'compile', ['public/css/app.css'], ->
 
     # Glob scss files in ./stylesheets
     scssFiles = (scss for scss in lsRecursive './stylesheets'\
@@ -364,8 +364,6 @@ namespace 'daemon', ->
 
 desc 'Kickstarts site into production'
 task 'deploy', [
-  'init-subs'
-  'install-bower'
   'version:load-proc'
   'deploy:create-versioned-dir'
   'deploy:move-files'
