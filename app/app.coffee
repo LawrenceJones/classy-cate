@@ -34,7 +34,7 @@ app = (configure = (app, config) ->
 
   # Configure middleware
   app.use morgan('dev')                                     # logger
-  app.use compress()                                        # gzip
+  # app.use compress()                                        # gzip
   app.use bodyParser.json()                                 # json
   app.use bodyParser.urlencoded()                           # params
 
