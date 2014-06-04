@@ -264,7 +264,7 @@ proc = versionedPath = livePath = null # declare
 
 namespace 'version', ->
 
-  PROCFILE = './deploy/proc.json'
+  PROCFILE = './proc.json'
 
   writeProcfile = ->
     fs.writeFileSync PROCFILE, (JSON.stringify proc, undefined, 2), 'utf8'
