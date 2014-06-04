@@ -364,6 +364,7 @@ namespace 'daemon', ->
 
 desc 'Kickstarts site into production'
 task 'deploy', [
+  'assets:compile'
   'version:load-proc'
   'deploy:create-versioned-dir'
   'deploy:move-files'
