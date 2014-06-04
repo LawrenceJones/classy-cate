@@ -40,7 +40,7 @@ classy.config [
     # Splash entry page with user info.
     $stateProvider.state 'app.dashboard', {
       url: '/dashboard'
-      controller:  ($scope) ->
+      controller:  'DashboardCtrl'
       templateUrl: '/partials/dashboard'
     }
 
@@ -51,7 +51,7 @@ classy.config [
     }
 
     $stateProvider.state 'app.course', {
-      url: '/course/:cid'
+      url: '/course/:mid'
       controller: 'CourseCtrl'
       templateUrl: '/partials/course'
     }
@@ -77,6 +77,12 @@ classy.run ($q, $rootScope) ->
     $rootScope.currentState = state.name
 
   $rootScope.registeredCourses = [
-    {name: 'Software Engineering', cid: '220'},
-    {name: 'Compilers', cid: '230'}
+    {
+      name: 'Software Engineering'
+      cid: '220'
+    }
+    {
+      name: 'Compilers'
+      cid: '230'
+    }
   ]

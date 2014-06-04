@@ -1,74 +1,66 @@
 .row
   .col-md-12
     h2 
-      | 202: Software Engineering - Algorithms   
+      | {{ course.mid }}: {{ course.name }}
       i(style='margin-left:3px').fa.fa-info-circle.small
 .row
   .col-md-12
     .lead
-      | Course was running term before last
+      | This course ran in the term before last
 .row
   .col-md-6
     .panel.panel-default
       .panel-heading
         h3.panel-title Notes
       table.table.table-hover.panel-body
-        tbody(ng-init="notes=[\
-          { number: 1, icon: 'fa-external-link', name: 'Administration', date: '19/01/2014' },\
-          { number: 2, icon: 'fa-external-link', name: 'Introduction', date: '19/01/2014' }\
-        ]")
-          tr(ng-repeat='note in notes')
+        tbody
+          tr(ng-repeat='note in course.notes' ng-click='gotoResource(note.link)')
             td {{ note.number }}
             td
-              i.fa.fa-file-pdf-o
-            td {{ note.name }}
-            td.small {{ note.date }}
+              i.fa(class='{{ noteIcon(note.restype) }}')
+            td {{ note.title }}
+            td.small {{ dateString(note.time) }}
             td
-              i.fa.fa-comment-o
-     .panel.panel-default
+              span.badge {{ note.discussions.length }}
+    .panel.panel-default
       .panel-heading
         h3.panel-title Grades
       table.table.table-hover.panel-body
-        tbody(ng-init="grades=[\
-          { number: 1, name: 'Group Formation for CWs', submission: '04/02/2014', grade: '' },\
-          { number: 2, name: 'Randomised Algorithms', submission: '19/02/2014', grade: 'A*' },\
-          { number: 3, name: 'Divide and Conquer', submission: '18/03/2014', grade: 'A' }\
-        ]")
-          tr(ng-repeat='grade in grades')
+        tbody
+          tr(ng-repeat='grade in course.grades')
             td {{ grade.number }}
             td
-              i.fa.fa-file-pdf-o
-            td {{ grade.name }}
-            td.small {{ grade.submission }}
+              i.fa(class='{{ exerciseIcon(grade.type) }}')
+            td {{ grade.title }}
+            td.small {{ dateString(grade.submitted) }}
             td {{ grade.grade }}
 
-
-   .col-md-6
+  .col-md-6
     .panel.panel-default
       .panel-heading 
         h3.panel-title Exercises
       table.table.table-hover.panel-body
-        tbody(ng-init="exercises=[\
-          { number: 1, name: 'Group Formation for CWs', date: '24/01/2014 - 31/01/2014' },\
-          { number: 4, name: 'Exercise Batch 1', date: '24/01/2014 - 31/01/2014' },\
-          { number: 2, name: 'Randomised Algorithms', date: '24/01/2014 - 31/01/2014' },\
-          { number: 5, name: 'Exercise Batch 2', date: '24/01/2014 - 31/01/2014' },\
-          { number: 6, name: 'Exercise Batch 3', date: '13/01/2014 - 12/01/2014' },\
-          { number: 7, name: 'Exercise 4 - Divide and Conquer', date: '11/01/2014 - 21/01/2014' },\
-          { number: 8, name: 'Exercise 5 Dynamic Programming', date: '25/01/2014 - 12/01/2014' },\
-          { number: 3, name: 'Divide and Conquer', date: '24/01/2014 - 21/01/2014' },\
-          { number: 9, name: 'Exercise 6 - Greedy Algorithms', date: '14/03/2014 - 1/01/2014' },\
-          { number: 10, name: 'Exercise 7 - Graph Algorithms', date: '24/51/2014 - 7/04/2014' }\
-        ]")
-          tr(ng-repeat='exercise in exercises')
+        tbody
+          tr(ng-repeat='exercise in course.exercises' ng-click='showGivens($index)')
             td {{ exercise.number }}
             td
-              i.fa.fa-pencil
+              i.fa(class='{{ exerciseIcon(exercise.type) }}')
             td {{ exercise.name }}
-            td.small {{ exercise.date }}
+            td.small {{ dateString(exercise.start) + ' - ' + dateString(exercise.end) }}
             td
-              i.fa.fa-folder-open-o 
+              i.fa.fa-folder-open-o
             td
-              i.fa.fa-comment-o
-
+              span.badge {{ exercise.discussions.length }}
+    
+    .panel.panel-default
+      .panel-heading
+        h3.panel-title Discussions
+      table.table.table-hover.panel-body
+        tbody
+          tr(ng-repeat='discussion in discussions')
+            td {{ discussion.title }}
+            td {{ discussion.author }}
+            td {{ dateString(discussion.time) }}
+            td
+              span.badge {{ discussion.posts }}
 
