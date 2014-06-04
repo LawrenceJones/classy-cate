@@ -110,7 +110,8 @@ app = (configure = (app, config) ->
     (require routePath)(app)
 
 # Load app
-app.listen (PORT = process.env.PORT || 4567), ->
+proc = JSON.parse fs.readFileSync './proc.json', 'utf8'
+app.listen (PORT = proc.port || process.env.PORT), ->
   console.log "Started server running in #{app.settings.env}"
   console.log "Listening at https://localhost:#{PORT}"
 
