@@ -6,7 +6,6 @@ classy = angular.module 'classy', [
   'ui.bootstrap.accordion'
   'ui.bootstrap.tooltip'
   'infinite-scroll'
-  'ngResource'
   'auth'
   'resource'
 ]
