@@ -42,11 +42,26 @@ The hooks are symlinked in from our cloned working directory, allowing use of ou
 A directory is also created to contain `node_modules` cache, and then a few tools are installed
 globally that are required for the build process.
 
+# Developing
+
 ## Asset compilation
 
 Jake is used to compile the assets, which will be located in `/public/js/app.js` and
 `/public/css/app.css` respectively.
 
     jake assets:compile
+
+## JSON API Seeds
+
+Sometimes it is useful to have the api respond with mock json, rather than actually execute the
+route handler. In these cases, starting the development server with the environment variable `SEED_API`
+set to true will have express search first for a seed file, then check route.
+
+Example...
+
+    SEED_API=true jake &
+    curl http://localhost:55000/api/courses/2013/202 --header "Authorization: ..."
+
+The above would curl not from the route handler, but from the file `public/json/api.courses.2013.202.get.json`.
 
 

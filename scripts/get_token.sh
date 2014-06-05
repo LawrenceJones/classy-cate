@@ -15,7 +15,7 @@ else
 fi
 
 # Select domain to use
-domain='http://localhost:4567'
+domain='http://localhost:55000'
 # domain='https://doc-exams.herokuapp.com'
 export domain
 

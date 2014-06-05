@@ -38,6 +38,7 @@ module.exports = config =
     views_dir:  path.join root_dir, 'views'
     styles_dir: path.join root_dir, 'stylesheets'
     web_dir:    path.join root_dir, 'web'
+    seed_dir:   path.join root_dir, 'public', 'json'
   exams_timestamp: null
 
   

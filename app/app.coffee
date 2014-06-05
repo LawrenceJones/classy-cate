@@ -13,6 +13,7 @@ memwatch   = require 'memwatch'
 config   = require './etc/config'
 ngget    = require './midware/angular'
 partials = require './midware/partials'
+seedApi  = require './midware/seed_api'
 
 # Load extra js utilities
 utils = require './etc/utilities'
@@ -45,6 +46,12 @@ module.exports = app = (configure = (app, config) ->
   # Configure nodetime if env has config
   if process.env.NODETIME_APP_NAME?
     nodetime.profile config.nodetime
+
+  # Supply json seed if present
+  if process.env.SEED_API
+    app.use '/api', seedApi
+      seedDir: config.paths.seed_dir
+      prefix: '/api'
 
   # Decode the user credentials
   app.use '/api', (req, res, next) ->
