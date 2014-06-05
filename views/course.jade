@@ -2,7 +2,6 @@
   .col-md-12
     h2 
       | {{ course.mid }}: {{ course.name }}
-      {{hello}}
       i(style='margin-left:3px').fa.fa-info-circle.small
 .row
   .col-md-12
@@ -18,9 +17,9 @@
           tr(ng-repeat='note in course.notes' ng-click='gotoResource(note.link)')
             td {{ note.number }}
             td
-              i.fa(class='{{ getIcon(note.restype) }}')
+              i(mime-type-icon='note.restype')
             td {{ note.title }}
-            td.small {{ dateString(note.time) }}
+            td.small dateString(note.time)
             td
               span.badge {{ note.discussions.length }}
     .panel.panel-default

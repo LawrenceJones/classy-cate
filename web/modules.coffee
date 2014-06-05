@@ -8,6 +8,7 @@ classy = angular.module 'classy', [
   'infinite-scroll'
   'ngResource'
   'auth'
+  'resource'
 ]
 
 # Save the initial window state
