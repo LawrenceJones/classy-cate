@@ -45,7 +45,7 @@ resource.factory 'Resource', [
     wrap = (type, req) ->
 
       # Configure result container, either array or object
-      container = if type is 'single' then [] else new @
+      container = if type is 'array' then [] else new @
       container.$promise = (def = $q.defer()).promise
 
       # Handle request success case
@@ -54,7 +54,7 @@ resource.factory 'Resource', [
           data = JSON.parse data
         switch type
           when 'array' then container.push @makeResource(data)...
-          when 'single' then angular.extend container, data
+          when 'object' then @.call container, data
         def.resolve container, status
 
       # Handle case of error in request
@@ -83,7 +83,7 @@ resource.factory 'Resource', [
 
       # Retrieve a single resource
       @get: (params) ->
-        wrap.call @, 'single', $http
+        wrap.call @, 'object', $http
           method: 'GET'
           url: fillParams actions.get, params
 
@@ -112,7 +112,7 @@ resource.factory 'Resource', [
       # Attempt to save changes. On response, if not error then merge response
       # back into the record.
       save: ->
-        wrap.call super, 'single', $http
+        wrap.call super, 'object', $http
           method: 'PATCH'
           url: @getResourceRoute()
         .then (data) =>
@@ -120,7 +120,7 @@ resource.factory 'Resource', [
 
       # Deletes the resource.
       delete: ->
-        wrap.call super, 'single', $http
+        wrap.call super, 'object', $http
           method: 'DELETE'
           url: @getResourceRoute()
         
