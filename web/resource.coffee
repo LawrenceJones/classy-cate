@@ -32,15 +32,36 @@ module.factory 'Resource', [
       return route
 
     # Wraps $http promises into a standard $q promise.
-    wrap = (req) ->
-      def = $q.defer()
+    #
+    # Takes type parameter, that specifies if the expected response should
+    # be an array or a single object.
+    #
+    # Returns the default container for the desired server response, with
+    # a $promise value attached. The $promise can then be listened on for
+    # completion of the request, though $http will trigger a $scope digest
+    # once the response is received.
+    #
+    # NB - Must call in context of resource Class!
+    wrap = (type, req) ->
+
+      # Configure result container, either array or object
+      container = if type is 'single' then [] else new @
+      container.$promise = (def = $q.defer()).promise
+
+      # Handle request success case
       req.success (data, status) =>
         if typeof data == 'string'
           data = JSON.parse data
-        def.resolve (@makeResource data), status
+        switch type
+          when 'array' then container.push @makeResource(data)...
+          when 'single' then angular.extend container, data
+        def.resolve container, status
+
+      # Handle case of error in request
       req.error (data, status) ->
         def.reject data, status
-      return def.promise
+
+      return container
 
     class ResourceInterface
 
@@ -55,14 +76,14 @@ module.factory 'Resource', [
 
       # Fetch result of querying resource.
       @query: (query = {}) ->
-        wrap.call @, $http
+        wrap.call @, 'array', $http
           method: 'GET'
           url: actions.all
           params: query
 
       # Retrieve a single resource
       @get: (params) ->
-        wrap.call @, $http
+        wrap.call @, 'single', $http
           method: 'GET'
           url: fillParams actions.get, params
 
@@ -71,7 +92,7 @@ module.factory 'Resource', [
     
       # Creates new Resource by merging empty object with the supplied
       # server data.
-      constructor: (data) ->
+      constructor: (data = {}) ->
         angular.extend @, data
         do @populate
         parser?.call @
@@ -91,7 +112,7 @@ module.factory 'Resource', [
       # Attempt to save changes. On response, if not error then merge response
       # back into the record.
       save: ->
-        wrap.call super, $http
+        wrap.call super, 'single', $http
           method: 'PATCH'
           url: @getResourceRoute()
         .then (data) =>
@@ -99,7 +120,7 @@ module.factory 'Resource', [
 
       # Deletes the resource.
       delete: ->
-        wrap.call super, $http
+        wrap.call super, 'single', $http
           method: 'DELETE'
           url: @getResourceRoute()
         

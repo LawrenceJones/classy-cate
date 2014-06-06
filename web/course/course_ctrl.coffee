@@ -12,9 +12,6 @@ classy.factory 'Course', (Resource) ->
 
 
 classy.controller 'CourseCtrl', ($scope, $stateParams, Course) ->
-
-  Course.get(mid: $stateParams.mid).then (course) ->
-    console.log course
-    $scope.course = course
+  $scope.course = Course.get(mid: $stateParams.mid)
 
 
