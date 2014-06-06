@@ -1,0 +1,74 @@
+{
+  "validFrom": "2013-09-27T23:00:00.000Z",
+  "validTo": "2014-10-02T23:00:00.000Z",
+  "tid": 10060127,
+  "name": "Operating Systems",
+  "mid": 211,
+  "terms": [
+    2
+  ],
+  "lectureHours": 18,
+  "tutorialHours": 9,
+  "labHours": 0,
+  "weeklyHours": 3,
+  "population": 197,
+  "classes": [
+    "c2",
+    "j2",
+    "v5"
+  ],
+  "noOfHelpers": 4,
+  "syllabus": "",
+  "notes": [
+    {
+      "number": "1",
+      "restype": "url",
+      "title": "Introduction - Lecture 1 (Panopto Link)",
+      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:486:CLASS:NOTES:USER",
+      "time": 1294409600000,
+      "discussions": [
+        12345,
+        23456
+      ]
+    }
+  ],
+  "exercises": [
+    {
+      "number": "11",
+      "type": "LAB",
+      "name": "Pintos Task 3 - Virtual Memory",
+      "start": 1294409600000,
+      "end": 1395964800000,
+      "mailto": "mailto:mjw03@doc.ic.ac.uk?subject=Module 261 'Laboratory 2' - Exercise 11",
+      "spec": "https://cate.doc.ic.ac.uk/howfile.cgi?key=2013:3:743:CLASS:SPECS:USER",
+      "givens": [
+        {
+          "type": "specification",
+          "title": "spec-261-11.txt",
+          "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013::743:CLASS:SPECS:USER",
+          "time": 1294409600000
+        }
+      ],
+      "discussions": [
+        12345,
+        23456
+      ]
+    }
+  ],
+  "grades": [
+    {
+      "number": 6,
+      "type": "LAB",
+      "title": "Rails News",
+      "setBy": "mjw03",
+      "declaration": 1294409600000,
+      "extension": 1294409600000,
+      "submitted": 1294409600000,
+      "grade": "A*"
+    }
+  ],
+  "discussions": [
+    12345,
+    67890
+  ]
+}

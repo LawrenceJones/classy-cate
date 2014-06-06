@@ -78,11 +78,11 @@ classy.run ($q, $rootScope) ->
 
   $rootScope.registeredCourses = [
     {
-      name: 'Software Engineering'
-      mid: '220'
+      name: 'Software Engineering - Algorithms'
+      mid: '202'
     }
     {
-      name: 'Compilers'
-      mid: '230'
+      name: 'Operating Systems'
+      mid: '211'
     }
   ]
