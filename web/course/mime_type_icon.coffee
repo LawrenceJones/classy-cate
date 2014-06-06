@@ -5,14 +5,14 @@ classy.directive 'mimeTypeIcon', ->
 
   # Returns a fontawesome class name for icon based on given exercise type
   getIcon = (type) ->
-    switch type
-      when "pdf" then return "fa-file-pdf-o"
-      when "url" then return "fa-external-link"
-      when "ESSAY" then return "fa-align-left"
-      when "TUT" then return "fa-institution"
-      when "CW" then return "fa-folder-o"
-      when "LAB" then return "fa-code"
-      else return "fa-pencil-square-o"
+    ({
+      PDF: 'fa-file-pdf-o'
+      URL: 'fa-extenal-link'
+      ESSAY: 'fa-align-left'
+      TUT: 'fa-institution'
+      CW: 'fa-folder-o'
+      LAB: 'fa-code'
+    })[type?.toUpperCase()] || 'fa-pencil-square-o'
 
   restrict: 'A'
   replace: true

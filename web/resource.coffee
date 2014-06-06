@@ -2,8 +2,8 @@
 # Resource generator
 ############################################################
 
-module = angular.module 'resource', []
-module.factory 'Resource', [
+resource = angular.module 'resource', []
+resource.factory 'Resource', [
   '$http'
   '$q'
   '$rootScope', ($http, $q, $rootScope) -> (opt = {}) ->
