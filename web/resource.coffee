@@ -102,7 +102,7 @@ resource.factory 'Resource', [
       populate: ->
         for key in relationKeys
           if typeof @[key] == 'object' and not (@[key] instanceof Resource)
-            @[key] = new angular.factory(relations[key]) @[key]
+            @[key] = angular.factory(relations[key])?.makeResource @[key]
         return this
 
       # Generates the api route to this resource.

@@ -10,7 +10,6 @@ classy.factory 'Course', (Resource) ->
       @validTo = new Date @validTo
   })
 
-
 classy.controller 'CourseCtrl', ($scope, $stateParams, Course) ->
   $scope.course = Course.get(mid: $stateParams.mid)
 
