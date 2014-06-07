@@ -5,42 +5,31 @@ classy.factory 'Courses', (Resource) ->
     actions:
       get: '/api/courses/:year/:mid'
     defaultParams: year: 2013
-    parser: ->
-      if @validTo && @validFrom
-        @validTo = new Date @validTo
-        @validFrom = new Date @validFrom
     relations:
       notes: 'Notes'
       exercises: 'Exercises'
       grades: 'Grades'
+      validTo: Date
+      validFrom: Date
   })
 
 classy.factory 'Notes', (Resource) ->
   class Notes extends Resource({
-    parser: ->
-      @time = new Date @time
+    relations:
+      time: Date
   })
 
 classy.factory 'Exercises', (Resource) ->
   class Exercises extends Resource({
-    parser: ->
-      @start = new Date @start
-      @end = new Date @end
-  })
-
-classy.factory 'Grades', (Resource) ->
-  class Grades extends Resource({
-    parser: ->
-      [@declaration, @extension, @submission] = \
-        [@declaration, @extension, @submission].map (ts) ->
-          if typeof ts is 'number' then new Date ts
-          else null
+    relations:
+      start: Date
+      end: Date
   })
 
 classy.controller 'CourseCtrl', ($scope, $stateParams, Courses) ->
   ($scope.course = Courses.get(mid: $stateParams.mid)).$promise
-    .then (course) ->
-      console.log course
-    .catch (err) ->
-      console.log "Error occurred."
+  .then (course) ->
+    console.log course
+  .catch (err) ->
+    console.log "Error occurred."
 

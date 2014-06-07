@@ -102,7 +102,9 @@ resource.factory 'Resource', [
       populate: ->
         for key in relationKeys
           if typeof @[key] == 'object' and not (@[key] instanceof Resource)
-            @[key] = $injector.get(relations[key])?.makeResource @[key]
+            r = relations[key]
+            @[key] = (if typeof r == 'function' then r @[key]
+            else $injector.get(r)?.makeResource @[key])
         return this
 
       # Generates the api route to this resource.

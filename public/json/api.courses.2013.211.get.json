@@ -55,18 +55,6 @@
       ]
     }
   ],
-  "grades": [
-    {
-      "number": 6,
-      "type": "LAB",
-      "title": "Rails News",
-      "setBy": "mjw03",
-      "declaration": 1294409600000,
-      "extension": 1294409600000,
-      "submission": 1294409600000,
-      "grade": "A*"
-    }
-  ],
   "discussions": [
     12345,
     67890

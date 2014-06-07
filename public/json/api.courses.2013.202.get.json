@@ -325,38 +325,6 @@
       ]
     }
   ],
-  "grades": [
-    {
-      "number": 1,
-      "type": "ESSAY",
-      "title": "Group Formation for CWs",
-      "setBy": "alw",
-      "declaration": 1390780800000,
-      "extension": "NONE",
-      "submission": 1391521689000,
-      "grade": ""
-    },
-    {
-      "number": 2,
-      "type": "CW",
-      "title": "Randomised Algorithms",
-      "setBy": "alw",
-      "declaration": 1392768000000,
-      "extension": "NONE",
-      "submission": 1392852359000,
-      "grade": "A*"
-    },
-    {
-      "number": 3,
-      "type": "CW",
-      "title": "Divide and Conquer",
-      "setBy": "bglocker",
-      "declaration": 1395100800000,
-      "extension": "NONE",
-      "submission": 1395183774000,
-      "grade": "A*"
-    }
-  ],
   "discussions": [
     12345,
     67890
