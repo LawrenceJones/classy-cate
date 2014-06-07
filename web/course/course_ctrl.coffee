@@ -11,6 +11,8 @@ classy.factory 'Courses', (Resource) ->
         @validFrom = new Date @validFrom
     relations:
       notes: 'Notes'
+      exercises: 'Exercises'
+      grades: 'Grades'
   })
 
 classy.factory 'Notes', (Resource) ->
@@ -19,10 +21,26 @@ classy.factory 'Notes', (Resource) ->
       @time = new Date @time
   })
 
+classy.factory 'Exercises', (Resource) ->
+  class Exercises extends Resource({
+    parser: ->
+      @start = new Date @start
+      @end = new Date @end
+  })
+
+classy.factory 'Grades', (Resource) ->
+  class Grades extends Resource({
+    parser: ->
+      [@declaration, @extension, @submitted] = \
+        [@declaration, @extension, @submitted].map (ts) ->
+          if typeof ts is 'number' then new Date ts
+          else null
+  })
+
 classy.controller 'CourseCtrl', ($scope, $stateParams, Courses) ->
   ($scope.course = Courses.get(mid: $stateParams.mid)).$promise
     .then (course) ->
       console.log course
-  
-
+    .catch (err) ->
+      console.log "Error occurred."
 

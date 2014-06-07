@@ -19,7 +19,7 @@
             td
               i(mime-type-icon='note.restype')
             td {{ note.title }}
-            td.small dateString(note.time)
+            td.small {{ note.time.format() }}
             td
               span.badge {{ note.discussions.length }}
     .panel.panel-default
@@ -30,9 +30,9 @@
           tr(ng-repeat='grade in course.grades')
             td {{ grade.number }}
             td
-              i.fa(class='{{ getIcon(grade.type) }}')
+              i(mime-type-icon='grade.type')
             td {{ grade.title }}
-            td.small {{ dateString(grade.submitted) }}
+            td.small {{ grade.submitted.format() }}
             td {{ grade.grade }}
 
   .col-md-6
@@ -44,9 +44,9 @@
           tr(ng-repeat='exercise in course.exercises' ng-click='showGivens($index)')
             td {{ exercise.number }}
             td
-              i.fa(class='{{ getIcon(exercise.type) }}')
+              i(mime-type-icon='exercise.type')
             td {{ exercise.name }}
-            td.small {{ dateString(exercise.start) + ' - ' + dateString(exercise.end) }}
+            td.small {{ exercise.start.format() + ' - ' + exercise.end.format() }}
             td
               i.fa.fa-folder-open-o
             td

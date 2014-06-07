@@ -1,6 +1,6 @@
 {
-  "validFrom": "2013-09-27T23:00:00.000Z",
-  "validTo": "2014-10-02T23:00:00.000Z",
+  "validFrom": 1380240000000,
+  "validTo": 1412208000000,
   "tid": 10060127,
   "name": "Software Engineering - Algorithms",
   "mid": 202,
@@ -22,10 +22,98 @@
   "notes": [
     {
       "number": "1",
-      "restype": "url",
-      "title": "Introduction - Lecture 1 (Panopto Link)",
-      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:486:CLASS:NOTES:USER",
-      "time": 1294409600000,
+      "restype": "pdf",
+      "title": "Administration",
+      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:458::NOTES:thb12",
+      "time": 1390151094000,
+      "discussions": [
+        12345,
+        23456
+      ]
+    },
+    {
+      "number": "2",
+      "restype": "pdf",
+      "title": "Introduction",
+      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:459::NOTES:thb12",
+      "time": 1390151094000,
+      "discussions": [
+        12345,
+        23456
+      ]
+    },
+    {
+      "number": "3",
+      "restype": "pdf",
+      "title": "Randomised Algorithms",
+      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:460::NOTES:thb12",
+      "time": 1390151094000,
+      "discussions": [
+        12345,
+        23456
+      ]
+    },
+    {
+      "number": "4",
+      "restype": "pdf",
+      "title": "String Matching Algorithms",
+      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:521::NOTES:thb12",
+      "time": 1390751357000,
+      "discussions": [
+        12345,
+        23456
+      ]
+    },
+    {
+      "number": "5",
+      "restype": "pdf",
+      "title": "Radix Searching Algorithms",
+      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:629::NOTES:thb12",
+      "time": 1391726877000,
+      "discussions": [
+        12345,
+        23456
+      ]
+    },
+    {
+      "number": "6",
+      "restype": "pdf",
+      "title": "Divide and Conquer",
+      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:744::NOTES:thb12",
+      "time": 1394199873000,
+      "discussions": [
+        12345,
+        23456
+      ]
+    },
+    {
+      "number": "7",
+      "restype": "pdf",
+      "title": "Dynamic Programming",
+      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:826::NOTES:thb12",
+      "time": 1394199873000,
+      "discussions": [
+        12345,
+        23456
+      ]
+    },
+    {
+      "number": "8",
+      "restype": "pdf",
+      "title": "Greedy Algorithms",
+      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:889::NOTES:thb12",
+      "time": 1394199873000,
+      "discussions": [
+        12345,
+        23456
+      ]
+    },
+    {
+      "number": "9",
+      "restype": "pdf",
+      "title": "Graph Algorithms",
+      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:938::NOTES:thb12",
+      "time": 1395423458000,
       "discussions": [
         12345,
         23456
@@ -34,13 +122,195 @@
   ],
   "exercises": [
     {
-      "number": "11",
-      "type": "LAB",
-      "name": "Pintos Task 3 - Virtual Memory",
+      "number": "1",
+      "type": "ESSAY",
+      "name": "Group Formation for CWs",
       "start": 1294409600000,
       "end": 1395964800000,
-      "mailto": "mailto:mjw03@doc.ic.ac.uk?subject=Module 261 'Laboratory 2' - Exercise 11",
-      "spec": "https://cate.doc.ic.ac.uk/howfile.cgi?key=2013:3:743:CLASS:SPECS:USER",
+      "mailto": "mailto:foo@foo.com",
+      "spec": "",
+      "givens": [],
+      "discussions": [
+        12345,
+        23456
+      ]
+    },
+    {
+      "number": "2",
+      "type": "CW",
+      "name": "Randomised Algorithms",
+      "start": 1294409600000,
+      "end": 1395964800000,
+      "mailto": "mailto:foo@foo.com",
+      "spec": "",
+      "givens": [
+        {
+          "type": "specification",
+          "title": "spec-261-11.txt",
+          "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013::743:CLASS:SPECS:USER",
+          "time": 1294409600000
+        }
+      ],
+      "discussions": [
+        12345,
+        23456
+      ]
+    },
+    {
+      "number": "3",
+      "type": "CW",
+      "name": "Divide and Conquer",
+      "start": 1294409600000,
+      "end": 1395964800000,
+      "mailto": "mailto:foo@foo.com",
+      "spec": "",
+      "givens": [
+        {
+          "type": "specification",
+          "title": "spec-261-11.txt",
+          "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013::743:CLASS:SPECS:USER",
+          "time": 1294409600000
+        }
+      ],
+      "discussions": [
+        12345,
+        23456
+      ]
+    },
+    {
+      "number": "4",
+      "type": "TUT",
+      "name": "Exercise Batch 1",
+      "start": 1294409600000,
+      "end": 1395964800000,
+      "mailto": "mailto:foo@foo.com",
+      "spec": "",
+      "givens": [
+        {
+          "type": "specification",
+          "title": "spec-261-11.txt",
+          "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013::743:CLASS:SPECS:USER",
+          "time": 1294409600000
+        }
+      ],
+      "discussions": [
+        12345,
+        23456
+      ]
+    },
+    {
+      "number": "5",
+      "type": "TUT",
+      "name": "Exercise Batch 2",
+      "start": 1294409600000,
+      "end": 1395964800000,
+      "mailto": "mailto:foo@foo.com",
+      "spec": "",
+      "givens": [
+        {
+          "type": "specification",
+          "title": "spec-261-11.txt",
+          "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013::743:CLASS:SPECS:USER",
+          "time": 1294409600000
+        }
+      ],
+      "discussions": [
+        12345,
+        23456
+      ]
+    },
+    {
+      "number": "6",
+      "type": "TUT",
+      "name": "Exercise Batch 3",
+      "start": 1294409600000,
+      "end": 1395964800000,
+      "mailto": "mailto:foo@foo.com",
+      "spec": "",
+      "givens": [
+        {
+          "type": "specification",
+          "title": "spec-261-11.txt",
+          "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013::743:CLASS:SPECS:USER",
+          "time": 1294409600000
+        }
+      ],
+      "discussions": [
+        12345,
+        23456
+      ]
+    },
+    {
+      "number": "7",
+      "type": "TUT",
+      "name": "Exercise 4 - Divide and Conquer",
+      "start": 1294409600000,
+      "end": 1395964800000,
+      "mailto": "mailto:foo@foo.com",
+      "spec": "",
+      "givens": [
+        {
+          "type": "specification",
+          "title": "spec-261-11.txt",
+          "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013::743:CLASS:SPECS:USER",
+          "time": 1294409600000
+        }
+      ],
+      "discussions": [
+        12345,
+        23456
+      ]
+    },
+    {
+      "number": "8",
+      "type": "TUT",
+      "name": "Exercise 5 - Dynamic Programming",
+      "start": 1294409600000,
+      "end": 1395964800000,
+      "mailto": "mailto:foo@foo.com",
+      "spec": "",
+      "givens": [
+        {
+          "type": "specification",
+          "title": "spec-261-11.txt",
+          "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013::743:CLASS:SPECS:USER",
+          "time": 1294409600000
+        }
+      ],
+      "discussions": [
+        12345,
+        23456
+      ]
+    },
+    {
+      "number": "9",
+      "type": "TUT",
+      "name": "Exercise 6 - Greedy Algorithms",
+      "start": 1294409600000,
+      "end": 1395964800000,
+      "mailto": "mailto:foo@foo.com",
+      "spec": "",
+      "givens": [
+        {
+          "type": "specification",
+          "title": "spec-261-11.txt",
+          "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013::743:CLASS:SPECS:USER",
+          "time": 1294409600000
+        }
+      ],
+      "discussions": [
+        12345,
+        23456
+      ]
+    },
+    {
+      "number": "10",
+      "type": "TUT",
+      "name": "Exercise 7 - Graph Algorithms",
+      "start": 1294409600000,
+      "end": 1395964800000,
+      "mailto": "mailto:foo@foo.com",
+      "spec": "",
       "givens": [
         {
           "type": "specification",
@@ -57,13 +327,33 @@
   ],
   "grades": [
     {
-      "number": 6,
-      "type": "LAB",
-      "title": "Rails News",
-      "setBy": "mjw03",
-      "declaration": 1294409600000,
-      "extension": 1294409600000,
-      "submitted": 1294409600000,
+      "number": 1,
+      "type": "ESSAY",
+      "title": "Group Formation for CWs",
+      "setBy": "alw",
+      "declaration": 1390780800000,
+      "extension": "NONE",
+      "submitted": 1391521689000,
+      "grade": ""
+    },
+    {
+      "number": 2,
+      "type": "CW",
+      "title": "Randomised Algorithms",
+      "setBy": "alw",
+      "declaration": 1392768000000,
+      "extension": "NONE",
+      "submitted": 1392852359000,
+      "grade": "A*"
+    },
+    {
+      "number": 3,
+      "type": "CW",
+      "title": "Divide and Conquer",
+      "setBy": "bglocker",
+      "declaration": 1395100800000,
+      "extension": "NONE",
+      "submitted": 1395183774000,
       "grade": "A*"
     }
   ],

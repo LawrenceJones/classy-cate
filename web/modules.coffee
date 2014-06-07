@@ -61,9 +61,10 @@ classy.config [
       url: '/audit'
       resolve:
         hits: ($http, $q) ->
+          def = $q.defer()
           $http.get('/audit').success (hits) ->
             def.resolve hits
-          (def = $q.defer()).promise
+          def.promise
       controller: 'AuditCtrl'
       templateUrl: '/partials/audit'
     }
