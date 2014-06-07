@@ -54,7 +54,7 @@ resource.factory 'Resource', [
           data = JSON.parse data
         switch type
           when 'array' then container.push @makeResource(data)...
-          when 'object' then @.call container, data
+          when 'object' then @call container, data
         def.resolve container, status
 
       # Handle case of error in request

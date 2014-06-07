@@ -20,6 +20,9 @@ classy.factory 'Notes', (Resource) ->
   })
 
 classy.controller 'CourseCtrl', ($scope, $stateParams, Courses) ->
-  $scope.course = Courses.get(mid: $stateParams.mid)
+  ($scope.course = Courses.get(mid: $stateParams.mid)).$promise
+    .then (course) ->
+      console.log course
+  
 
 
