@@ -59,6 +59,9 @@ classy.config [
     $stateProvider.state 'app.grades', {
       url: '/grades'
       controller: 'GradesCtrl'
+      resolve:
+        grades: (Grades) ->
+          Grades.all()
       templateUrl: '/partials/grades'
     }
 

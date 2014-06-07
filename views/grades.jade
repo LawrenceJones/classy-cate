@@ -1,4 +1,15 @@
+mixin column(index)
+  .col-md-4
+    course-grades(ng-repeat='course in forCol('+index+')' course='course')
+  
+
 .row
   .col-md-12
     h2 Grades
-    .lead Your personal record
+    .lead Your personal assessment record
+
+.row
+  +column(0)
+  +column(1)
+  +column(2)
+
