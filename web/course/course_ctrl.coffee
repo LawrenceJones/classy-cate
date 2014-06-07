@@ -1,16 +1,25 @@
 classy = angular.module 'classy'
 
-classy.factory 'Course', (Resource) ->
-  class Course extends Resource({
+classy.factory 'Courses', (Resource) ->
+  class Courses extends Resource({
     actions:
       get: '/api/courses/:year/:mid'
     defaultParams: year: 2013
     parser: ->
-      @validFrom = new Date @validFrom
-      @validTo = new Date @validTo
+      if @validTo && @validFrom
+        @validTo = new Date @validTo
+        @validFrom = new Date @validFrom
+    relations:
+      notes: 'Notes'
   })
 
-classy.controller 'CourseCtrl', ($scope, $stateParams, Course) ->
-  $scope.course = Course.get(mid: $stateParams.mid)
+classy.factory 'Notes', (Resource) ->
+  class Notes extends Resource({
+    parser: ->
+      @time = new Date @time
+  })
+
+classy.controller 'CourseCtrl', ($scope, $stateParams, Courses) ->
+  $scope.course = Courses.get(mid: $stateParams.mid)
 
 

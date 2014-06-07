@@ -6,7 +6,7 @@ resource = angular.module 'resource', []
 resource.factory 'Resource', [
   '$http'
   '$q'
-  '$rootScope', ($http, $q, $rootScope) -> (opt = {}) ->
+  '$injector', ($http, $q, $injector) -> (opt = {}) ->
 
     # Configure options
     baseurl       =  opt.baseurl
@@ -102,7 +102,7 @@ resource.factory 'Resource', [
       populate: ->
         for key in relationKeys
           if typeof @[key] == 'object' and not (@[key] instanceof Resource)
-            @[key] = angular.factory(relations[key])?.makeResource @[key]
+            @[key] = $injector.get(relations[key])?.makeResource @[key]
         return this
 
       # Generates the api route to this resource.
