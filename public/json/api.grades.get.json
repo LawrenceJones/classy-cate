@@ -1,0 +1,558 @@
+{
+  "stats": {
+    "subscriptionLastUpdated": 1391790160000,
+    "submissionsCompleted": "Level 3: 35 out of 39 (89.74 %)",
+    "submissionsExtended": "1 out of 35 (2.86 %)",
+    "submissionsLate": "0 out of 35 (0.00 %)"
+  },
+  "requiredModules": [
+    {
+      "mid": "202",
+      "name": "Software Engineering - Algorithms",
+      "exercises": [
+        {
+          "number": 1,
+          "type": "ESSAY",
+          "title": "Group Formation for CWs",
+          "setBy": "alw",
+          "declaration": "Mon - 27 Jan (v5)",
+          "extension": "",
+          "submission": "as4712 (c2)e(1): Tue - 04 Feb 13:48:09",
+          "grade": ""
+        },
+        {
+          "number": 2,
+          "type": "CW",
+          "title": "Randomised Algorithms",
+          "setBy": "alw",
+          "declaration": "Wed - 19 Feb (v5)",
+          "extension": "",
+          "submission": "as4712 (c2)e(2): Wed - 19 Feb 23:25:59",
+          "grade": "A*"
+        },
+        {
+          "number": 3,
+          "type": "CW",
+          "title": "Divide and Conquer",
+          "setBy": "bglocker",
+          "declaration": "Tue - 18 Mar (v5)",
+          "extension": "",
+          "submission": "e(1): Tue - 18 Mar 23:02:54",
+          "grade": "A*"
+        }
+      ],
+      "term": "Term(s): 2",
+      "submission": "REQUIRED",
+      "level": "Level 3"
+    },
+    {
+      "mid": "203",
+      "name": "Human-Centred Design",
+      "exercises": [
+        {
+          "number": 1,
+          "type": "PROJ",
+          "title": "HCD Presentation",
+          "setBy": "mjw03",
+          "declaration": "Thu - 05 Jun (v15)",
+          "extension": "",
+          "submission": "as4712 (c2)e(1): Thu - 05 Jun 21:27:22",
+          "grade": "n/a"
+        },
+        {
+          "number": 2,
+          "type": "REP",
+          "title": "HCD Report",
+          "setBy": "mjw03",
+          "declaration": "No student interaction for this exercise",
+          "extension": "",
+          "submission": "",
+          "grade": ""
+        },
+        {
+          "number": 40,
+          "type": "REP",
+          "title": "HCD Groups",
+          "setBy": "mjw03",
+          "declaration": "Tue - 13 May (v13)",
+          "extension": "",
+          "submission": "as4712 (c2)",
+          "grade": ""
+        }
+      ],
+      "term": "Term(s): 3",
+      "submission": "REQUIRED",
+      "level": "Level 3"
+    },
+    {
+      "mid": "210",
+      "name": "Computer Architecture",
+      "exercises": [
+        {
+          "number": 1,
+          "type": "CW",
+          "title": "Assessed Coursework A",
+          "setBy": "tbecker",
+          "declaration": "Tue - 18 Feb (v1)",
+          "extension": "",
+          "submission": "e(1): Tue - 18 Feb 22:50:43",
+          "grade": "A*"
+        },
+        {
+          "number": 2,
+          "type": "CW",
+          "title": "Assessed Coursework B",
+          "setBy": "tbecker",
+          "declaration": "Tue - 25 Mar (v1)",
+          "extension": "",
+          "submission": "e(1): Tue - 25 Mar 01:36:46",
+          "grade": "A*"
+        }
+      ],
+      "term": "Term(s): 2",
+      "submission": "Selective",
+      "level": "Level 3"
+    },
+    {
+      "mid": "212",
+      "name": "Networks and Communications",
+      "exercises": [
+        {
+          "number": 1,
+          "type": "CW",
+          "title": "Coursework 1",
+          "setBy": "axgopala",
+          "declaration": "Thu - 27 Feb (v1)",
+          "extension": "+4  Mon - 03 Mar",
+          "submission": "e(1): Thu - 27 Feb 23:39:39",
+          "grade": "A*"
+        },
+        {
+          "number": 2,
+          "type": "CW",
+          "title": "Coursework 2",
+          "setBy": "prp",
+          "declaration": "Thu - 27 Mar (v1)",
+          "extension": "",
+          "submission": "e(1): Thu - 27 Mar 23:50:43",
+          "grade": "A"
+        }
+      ],
+      "term": "Term(s): 2",
+      "submission": "REQUIRED",
+      "level": "Level 3"
+    },
+    {
+      "mid": "220",
+      "name": "Software Engineering Design",
+      "exercises": [
+        {
+          "number": 4,
+          "type": "CBC",
+          "title": "Tut 4",
+          "setBy": "rbc",
+          "declaration": "Fri - 08 Nov (v1)",
+          "extension": "",
+          "submission": "e(2): Fri - 08 Nov 22:17:43",
+          "grade": "B"
+        }
+      ],
+      "term": "Term(s): 1",
+      "submission": "REQUIRED",
+      "level": "Level 3"
+    },
+    {
+      "mid": "221",
+      "name": "Compilers",
+      "exercises": [
+        {
+          "number": 1,
+          "type": "CW",
+          "title": "WACC Language Specification",
+          "setBy": "mjw03",
+          "declaration": "Wed - 23 Oct (v7)",
+          "extension": "",
+          "submission": "as4712 (c2)e(1): Wed - 23 Oct 17:03:20",
+          "grade": "A+"
+        },
+        {
+          "number": 2,
+          "type": "CW",
+          "title": "Code generation for Functions using Haskell",
+          "setBy": "phjk",
+          "declaration": "Sat - 26 Oct (v1)",
+          "extension": "",
+          "submission": "e(1): Wed - 30 Oct 18:45:47",
+          "grade": "A*"
+        }
+      ],
+      "term": "Term(s): 1",
+      "submission": "REQUIRED",
+      "level": "Level 3"
+    },
+    {
+      "mid": "223",
+      "name": "Concurrency",
+      "exercises": [
+        {
+          "number": 4,
+          "type": "CW",
+          "title": "CW-1",
+          "setBy": "da04",
+          "declaration": "Fri - 01 Nov (v1)",
+          "extension": "",
+          "submission": "e(1): Fri - 01 Nov 21:46:04",
+          "grade": "A*"
+        },
+        {
+          "number": 6,
+          "type": "CW",
+          "title": "CW 2",
+          "setBy": "da04",
+          "declaration": "Mon - 02 Dec (v1)",
+          "extension": "",
+          "submission": "e(6): Mon - 02 Dec 16:34:47",
+          "grade": "A*"
+        }
+      ],
+      "term": "Term(s): 1",
+      "submission": "REQUIRED",
+      "level": "Level 3"
+    },
+    {
+      "mid": "233",
+      "name": "Computational Techniques",
+      "exercises": [
+        {
+          "number": 1,
+          "type": "CW",
+          "title": "Course work 1",
+          "setBy": "ae",
+          "declaration": "Fri - 21 Feb (v1)",
+          "extension": "",
+          "submission": "h: Fri - 21 Feb",
+          "grade": "A*"
+        },
+        {
+          "number": 9,
+          "type": "CW",
+          "title": "LaplaceTransforms",
+          "setBy": "pgh",
+          "declaration": "Tue - 25 Mar (v1)",
+          "extension": "",
+          "submission": "h: Tue - 25 Mar",
+          "grade": "A*"
+        }
+      ],
+      "term": "Term(s): 2",
+      "submission": "Selective",
+      "level": "Level 3"
+    },
+    {
+      "mid": "240",
+      "name": "Models of Computation",
+      "exercises": [
+        {
+          "number": 1,
+          "type": "CW",
+          "title": "Assessed exercise 1",
+          "setBy": "pg",
+          "declaration": "Tue - 12 Nov (v1)",
+          "extension": "",
+          "submission": "h: Tue - 12 Nov",
+          "grade": "A*"
+        },
+        {
+          "number": 2,
+          "type": "CW",
+          "title": "Assessed Exercise 2",
+          "setBy": "pg",
+          "declaration": "Fri - 06 Dec (v1)",
+          "extension": "",
+          "submission": "h: Fri - 06 Dec",
+          "grade": "A*"
+        }
+      ],
+      "term": "Term(s): 1",
+      "submission": "REQUIRED",
+      "level": "Level 3"
+    },
+    {
+      "mid": "261",
+      "name": "Laboratory 2",
+      "exercises": [
+        {
+          "number": 1,
+          "type": "LAB",
+          "title": "Linkload",
+          "setBy": "mjw03",
+          "declaration": "Mon - 07 Oct (v1)",
+          "extension": "",
+          "submission": "e(2): Mon - 07 Oct 18:55:56",
+          "grade": "A+"
+        },
+        {
+          "number": 2,
+          "type": "LAB",
+          "title": "C++ Enigma",
+          "setBy": "mjw03",
+          "declaration": "Mon - 21 Oct (v1)",
+          "extension": "",
+          "submission": "e(1): Mon - 21 Oct 23:52:24",
+          "grade": "A*"
+        },
+        {
+          "number": 3,
+          "type": "LAB",
+          "title": "WACC Front-End",
+          "setBy": "mjw03",
+          "declaration": "Tue - 05 Nov (v7)",
+          "extension": "",
+          "submission": "as4712 (c2)e(1): Tue - 05 Nov 23:57:15",
+          "grade": "B"
+        },
+        {
+          "number": 4,
+          "type": "LAB",
+          "title": "WACC Back-End",
+          "setBy": "mjw03",
+          "declaration": "Tue - 26 Nov (v7)",
+          "extension": "",
+          "submission": "as4712 (c2)e(1): Tue - 26 Nov 23:17:09",
+          "grade": "F"
+        },
+        {
+          "number": 5,
+          "type": "LAB",
+          "title": "WACC Extensions",
+          "setBy": "mjw03",
+          "declaration": "Fri - 06 Dec (v7)",
+          "extension": "",
+          "submission": "as4712 (c2)e(2): Fri - 06 Dec 23:43:11",
+          "grade": "A*"
+        },
+        {
+          "number": 6,
+          "type": "LAB",
+          "title": "Rails News",
+          "setBy": "mjw03",
+          "declaration": "Fri - 13 Dec (v1)",
+          "extension": "",
+          "submission": "e(2): Fri - 13 Dec 23:54:04",
+          "grade": "A*"
+        },
+        {
+          "number": 7,
+          "type": "LAB",
+          "title": "C++ Chess",
+          "setBy": "mjw03",
+          "declaration": "Mon - 27 Jan (v1)",
+          "extension": "",
+          "submission": "e(1): Mon - 27 Jan 21:47:50",
+          "grade": "B"
+        },
+        {
+          "number": 8,
+          "type": "LAB",
+          "title": "Pintos Task 0 - Alarm Clock",
+          "setBy": "mjw03",
+          "declaration": "Mon - 03 Feb (v5)",
+          "extension": "",
+          "submission": "e(3): Mon - 03 Feb 23:58:10",
+          "grade": "A"
+        },
+        {
+          "number": 9,
+          "type": "LAB",
+          "title": "Pintos Task 1 - Scheduling",
+          "setBy": "mjw03",
+          "declaration": "Mon - 24 Feb (v5)",
+          "extension": "",
+          "submission": "e(2): Mon - 24 Feb 23:51:33",
+          "grade": "A+"
+        },
+        {
+          "number": 10,
+          "type": "LAB",
+          "title": "Pintos Task 2 - User Programs",
+          "setBy": "mjw03",
+          "declaration": "Wed - 12 Mar (v5)",
+          "extension": "",
+          "submission": "e(2): Wed - 12 Mar 23:35:12",
+          "grade": "A*"
+        },
+        {
+          "number": 11,
+          "type": "LAB",
+          "title": "Pintos Task 3 - Virtual Memory",
+          "setBy": "mjw03",
+          "declaration": "Fri - 28 Mar (v5)",
+          "extension": "",
+          "submission": "e(2): Fri - 28 Mar 23:54:44",
+          "grade": "C"
+        },
+        {
+          "number": 39,
+          "type": "CW",
+          "title": "Pintos Groups",
+          "setBy": "mjw03",
+          "declaration": "Mon - 20 Jan (v5)",
+          "extension": "",
+          "submission": "lmj112 (c2)",
+          "grade": ""
+        },
+        {
+          "number": 40,
+          "type": "LAB",
+          "title": "WACC Groups",
+          "setBy": "mjw03",
+          "declaration": "Tue - 15 Oct (v7)",
+          "extension": "",
+          "submission": "as4712 (c2)",
+          "grade": ""
+        }
+      ],
+      "term": "Term(s): 1,2",
+      "submission": "REQUIRED",
+      "level": "Level 3"
+    },
+    {
+      "mid": "271",
+      "name": "2nd Year Group Projects",
+      "exercises": [
+        {
+          "number": 1,
+          "type": "REP",
+          "title": "Milestone Report",
+          "setBy": "mjw03",
+          "declaration": "Tue - 27 May (v5)",
+          "extension": "",
+          "submission": "e(1): Wed - 28 May 16:14:00",
+          "grade": "A*"
+        },
+        {
+          "number": 2,
+          "type": "REP",
+          "title": "Project Report",
+          "setBy": "mjw03",
+          "declaration": "No student interaction for this exercise",
+          "extension": "",
+          "submission": "",
+          "grade": ""
+        },
+        {
+          "number": 3,
+          "type": "PROJ",
+          "title": "Demonstration and Presentation",
+          "setBy": "mjw03",
+          "declaration": "No student interaction for this exercise",
+          "extension": "",
+          "submission": "",
+          "grade": ""
+        },
+        {
+          "number": 4,
+          "type": "CW",
+          "title": "Law Case Study",
+          "setBy": "dham",
+          "declaration": "Wed - 04 Jun (v5)",
+          "extension": "",
+          "submission": "e(1): Wed - 04 Jun 23:21:00",
+          "grade": "N/P"
+        },
+        {
+          "number": 40,
+          "type": "REP",
+          "title": "WebApps Groups",
+          "setBy": "mjw03",
+          "declaration": "Fri - 28 Mar (v5)",
+          "extension": "",
+          "submission": "",
+          "grade": ""
+        }
+      ],
+      "term": "Term(s): 3",
+      "submission": "REQUIRED",
+      "level": "Level 3"
+    },
+    {
+      "mid": "272",
+      "name": "Team Skills Development",
+      "exercises": [
+        {
+          "number": 1,
+          "type": "CW",
+          "title": "Team Skills Development",
+          "setBy": "mjw03",
+          "declaration": "Wed - 15 Jan (v1)",
+          "extension": "",
+          "submission": "e(1): Wed - 15 Jan 19:50:13",
+          "grade": "A+"
+        }
+      ],
+      "term": "Term(s): 2",
+      "submission": "REQUIRED",
+      "level": "Level 3"
+    },
+    {
+      "mid": "276",
+      "name": "Introduction to Prolog",
+      "exercises": [
+        {
+          "number": 4,
+          "type": "CW",
+          "title": "Ex 4 Assessed Cwk",
+          "setBy": "mjs",
+          "declaration": "Fri - 29 Nov (v3)",
+          "extension": "",
+          "submission": "am8112 (c2)e(1): Fri - 29 Nov 18:53:14",
+          "grade": "A*"
+        },
+        {
+          "number": 7,
+          "type": "OT",
+          "title": "Prolog LEXIS Test",
+          "setBy": "mjw03",
+          "declaration": "Mon - 13 Jan (v1)",
+          "extension": "",
+          "submission": "e(1): Mon - 13 Jan 12:25:08",
+          "grade": "A+"
+        }
+      ],
+      "term": "Term(s): 1,2",
+      "submission": "REQUIRED",
+      "level": "Level 3"
+    }
+  ],
+  "optionalModules": [
+    {
+      "mid": "231",
+      "name": "Introduction to Artificial Intelligence",
+      "exercises": [
+        {
+          "number": 1,
+          "type": "CW",
+          "title": "War of Life",
+          "setBy": "ft",
+          "declaration": "No student interaction for this exercise",
+          "extension": "",
+          "submission": "",
+          "grade": ""
+        },
+        {
+          "number": 7,
+          "type": "CBC",
+          "title": "RLwithArguments",
+          "setBy": "ft",
+          "declaration": "No student interaction for this exercise",
+          "extension": "",
+          "submission": "",
+          "grade": ""
+        }
+      ],
+      "term": "Term(s): 2",
+      "submission": "Selective",
+      "level": ""
+    }
+  ]
+}

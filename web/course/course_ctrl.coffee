@@ -31,8 +31,8 @@ classy.factory 'Exercises', (Resource) ->
 classy.factory 'Grades', (Resource) ->
   class Grades extends Resource({
     parser: ->
-      [@declaration, @extension, @submitted] = \
-        [@declaration, @extension, @submitted].map (ts) ->
+      [@declaration, @extension, @submission] = \
+        [@declaration, @extension, @submission].map (ts) ->
           if typeof ts is 'number' then new Date ts
           else null
   })

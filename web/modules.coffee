@@ -40,7 +40,7 @@ classy.config [
     # Splash entry page with user info.
     $stateProvider.state 'app.dashboard', {
       url: '/dashboard'
-      controller: (->) 
+      controller: (->)
       templateUrl: '/partials/dashboard'
     }
 
@@ -55,6 +55,13 @@ classy.config [
       controller: 'CourseCtrl'
       templateUrl: '/partials/course'
     }
+
+    $stateProvider.state 'app.grades', {
+      url: '/grades'
+      controller: 'GradesCtrl'
+      templateUrl: '/partials/grades'
+    }
+
 
     # Security audit information
     $stateProvider.state 'audit', {
