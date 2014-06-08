@@ -9,6 +9,17 @@ A brief few points about this API are...
 
 - All `/api` routes should be requested with an HTTP `Authorization` header
 - Any embedded resources in JSON will have a `_link` property that states the route to that particular resource
+- All Date and Times are represented as a count of milliseconds from midnight 01/01/1970
+
+Various acronyms are used throughout the site to reference different resources. An explanation of these is shown below.
+
+It is important to note that `cid` and `eid` change dependent on the academic year. The acronyms are more to differentiate between other forms of ID than to be used independently to index these resources.
+
+| Acronym | Literal | Usage | Example |
+| ------- | ------- | ----- | ------- |
+| `cid`   | `Course ID` | References a course by the DoC code | `211, Operating Systems` |
+| `tid`   | `Teachdb ID` | Represents the index into the teachdb database for this item | `14678, lmj112` |
+| `eid`   | `Exam ID` | Represents the exam code | `C224, Software Engineering` |
 
 # Group Authentication
 
@@ -26,17 +37,107 @@ Example header. `Authorization: Bearer TOKEN`
 ### Generate new auth token [POST]
 + Request (application/json)
   {
-    "user": "lmj112",
-    "pass": "password"
+    user: "lmj112",
+    pass: "password"
   }
 
 + Response 200 (application/json)
   + Body
     {
-      "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoibG1qMTEyIiwicGFzcyI6InRlblQxbnlGaW5nZXJzIiwiZXhwIjoxNDAyMjI4ODY3LCJpYXQiOjE0MDIxODU2Njd9.kFePbr8qBmo6onQ8akwDUz0Xu_j1fXNbjNuGq4pVr_8"
+      token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoibG1qMTEyIiwicGFzcyI6InRlblQxbnlGaW5nZXJzIiwiZXhwIjoxNDAyMjI4ODY3LCJpYXQiOjE0MDIxODU2Njd9.kFePbr8qBmo6onQ8akwDUz0Xu_j1fXNbjNuGq4pVr_8"
     }
 
 + Response 401 (application/json)
+
+# Group User
+
+## User [/api/users/{login}]
+Each user represents a valid login for all Imperial systems, and specifically for CATe.
+
++ Parameters
+  + login (string,`lmj112`) ... College login.
+
++ Model (application/json)
+
+  {
+    _link: "/api/users/lmj112",
+    login: "lmj112",
+    fname: "Lawrence",
+    lname: "Jones",
+    profile: "https://cate.doc.ic.ac.uk/photo/student/pics12/lmj112.jpg",
+    cand: 00730706,
+    tutor: "Kin Leung (kkleung)",
+    enrolment: [
+      {
+        year: 2012,
+        class: "c1",
+        courses: [
+          {
+            _link: "/api/courses/2012/112",
+            cid: "112",
+            name: "Hardware",
+            eid: "C114",
+            terms: [1],
+            classes: [
+              "c1"
+            ],
+            level: 3
+          },
+          {
+            _link: "/api/courses/2012/130",
+            cid: "130",
+            name: "Databases I",
+            eid: "C130",
+            terms: [2],
+            classes: [
+              "c1"
+            ],
+            level: 3
+          }
+        ]
+      },
+      {
+        year: 2013,
+        class: "c2",
+        courses: [
+          {
+            _link: "/api/courses/2013/212",
+            cid: "212",
+            name: "Networks and Communications",
+            eid: "C214",
+            terms: [2],
+            classes: [
+              "c2"
+            ],
+            level: 3
+          },
+          {
+            _link: "/api/courses/2013/220",
+            cid: "220",
+            name: "Software Engineering Design",
+            eid: "C224",
+            terms: [1],
+            classes: [
+              "c2", "j2"
+            ],
+            level: 3
+          }
+        ]
+      }
+    ]
+  }
+
+### Retrieve User Information [GET]
++ Request
+  + Headers
+    Authorization: Bearer TOKEN
+
++ Response 200
+
+  [User][]
+
++ Response 401
+
 
 # Group Course
 Course related resources of CATe API.
@@ -51,31 +152,34 @@ Each course is referenced by the year it was run along with it's cid (course ID)
 + Model (application/json)
 
   {
-    "_link": "/api/courses/2013/202",
-    "cid": "202",
-    "name": "Software Engineering - Algorithms",
-    "terms": [2],
-    "classes": [
+    _link: "/api/courses/2013/202",
+    cid: "202",
+    name: "Software Engineering - Algorithms",
+    terms: [2],
+    classes: [
       "c2", "j2", "v5"
     ],
-    "dicussions": [
+    dicussions: [
       {
         title: "How do you calculate complexity for Dijkstra's?",
+        author: 'ANON',
+        count: 5,
+        lastUpdated: 
         _link: "/api/discussions/12345"
       },
       {
-        "title": "How to calculate complexity for Karatsuba",
-        "_link": "/api/discussions/152341"
+        title: "How to calculate complexity for Karatsuba",
+        _link: "/api/discussions/152341"
       }
     ],
-    "notes": [
+    notes: [
       {
-        "number": 1,
-        "restype": "pdf",
-        "title": "Administration",
-        "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:458::NOTES:lmj112",
-        "time": 1390151094000,
-        "discussions": [
+        number: 1,
+        restype: "pdf",
+        title: "Administration",
+        link: "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:458::NOTES:lmj112",
+        time: 1390151094000,
+        discussions: [
           {
             title: "Where to find old Algorithm's notes",
             _link: "/api/discussions/987654"
@@ -83,27 +187,27 @@ Each course is referenced by the year it was run along with it's cid (course ID)
         ]
       }
     ],
-    "exercises": [
+    exercises: [
       {
-        "number": 3,
-        "type": "CW",
-        "name": "Divide and Conquer",
-        "start": 1294409600000,
-        "end": 1395964800000,
-        "mailto": "mailto:foo@foo.com",
-        "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:5:1223:c2:SPECS:lmj112",
-        "givens": [
+        number: 3,
+        type: "CW",
+        name: "Divide and Conquer",
+        start: 1294409600000,
+        end: 1395964800000,
+        mailto: "mailto:foo@foo.com",
+        spec: "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:5:1223:c2:SPECS:lmj112",
+        givens: [
           {
-            "type": "specification",
-            "title": "spec-261-11.txt",
-            "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:5:1223:c2:SPECS:lmj112",
-            "time": 1294409600000
+            type: "specification",
+            title: "spec-261-11.txt",
+            link: "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:5:1223:c2:SPECS:lmj112",
+            time: 1294409600000
           }
         ],
-        "discussions": [
+        discussions: [
           {
-            "title": "How to calculate complexity for Karatsuba",
-            "_link": "/api/discussions/152341"
+            title: "How to calculate complexity for Karatsuba",
+            _link: "/api/discussions/152341"
           }
         ]
       }
@@ -134,14 +238,22 @@ Represented as an array of embedded Courses, each course stating it's `cid`, `na
 
   [
     {
-      "cid": "202",
-      "name": "Software Engineering - Algorithms",
-      "_link": "/api/courses/2013/202"
+      cid: "202",
+      name: "Software Engineering - Algorithms",
+      classes: [
+        "c2", "j2", "v5"
+      ],
+      terms: [2],
+      _link: "/api/courses/2013/202"
     },
     {
-      "cid": "211",
-      "name": "Operating Systems",
-      "_link": "/api/courses/2013/211"
+      cid: "211",
+      name: "Operating Systems",
+      classes: [
+        "c2", "j2"
+      ],
+      terms: [2],
+      _link: "/api/courses/2013/211"
     }
   ]
 
@@ -166,32 +278,34 @@ All students have a central grades page on CATe for each year of completed/curre
 
 + Model (application/json)
 
-  [{
-    "course": {
-      "cid": "202",
-      "name": "Software Engineering - Algorithms",
-      "_link": "/api/courses/2013/202"
-    },
-    "exercises": [
-      {
-        "number": 1,
-        "type": "ESSAY",
-        "title": "Group Formation for CWs",
-        "setBy": "alw",
-        "declaration": {
-          "time": 1390780800000,
-          "version": 5
+  [
+    {
+      course: {
+        cid: "202",
+        name: "Software Engineering - Algorithms",
+        _link: "/api/courses/2013/202"
+      },
+      exercises: [
+        {
+          number: 1,
+          type: "ESSAY",
+          title: "Group Formation for CWs",
+          setBy: "alw",
+          declaration: {
+            time: 1390780800000,
+            version: 5
+          }
+          extension: 0,
+          submission: {
+            user: "lmj112",
+            time: 1390611260430,
+            version: 2
+          },
+          grade: "A+"
         }
-        "extension": 0,
-        "submission": {
-          "user": "lmj112",
-          "time": 1390611260430,
-          "version": 2
-        },
-        "grade": "A+"
-      }
-    ]
-  }]
+      ]
+    }
+  ]
 
 ### Retrieve all Grades for Year [GET]
 + Request

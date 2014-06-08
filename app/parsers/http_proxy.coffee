@@ -2,17 +2,17 @@ $q = require 'q'
 request = require 'request'
 process.setMaxListeners 0
 
-# Class for the basic CATe proxy. All instances will own a parser,
+# Class for the basic HTTP proxy. All instances will own a parser,
 # which will facilitate parsing the html source that this class
 # will fetch.
 #
 # User credentials ARE handled here, and care is required.
-module.exports = class CateProxy
+module.exports = class HTTPProxy
 
-  # Constructed using a CateParser class
+  # Constructed using a HTMLParser class
   constructor: (@Parser) ->
-    if not @Parser.CATE_PARSER
-      throw Error "Invalid CateParser object: #{@Parser}"
+    if not @Parser.HTML_PARSER
+      throw Error "Invalid HTMLParser object: #{@Parser}"
 
   # Will generate a url from the parser, then using the supplied
   # USER function, will access the credentials and make the request.
@@ -21,7 +21,7 @@ module.exports = class CateProxy
   # If query if an ARRAY, will process each query individually.
   #
   # DELAY is the amount of time to delay the request by. Used to
-  # prevent contention for CATe on large numbers of queries.
+  # prevent contention for site target on large numbers of queries.
   #
   # SALT is used for multiple requests when they are better spread
   # randomly over a time period. Again, is optional. Used for past

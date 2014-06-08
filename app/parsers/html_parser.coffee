@@ -2,7 +2,7 @@ $q = require 'q'
 jsdom = require 'jsdom'
 jquery = require 'jquery'
 
-# Base class for all CATe parsers. The general usage pattern
+# Base class for all HTML parsers. The general usage pattern
 # is: initialise the parser with the html src url, the query
 # parameters that were used to generate it and a jQuery handle
 # that has parsed the source html.
@@ -10,9 +10,9 @@ jquery = require 'jquery'
 # JSON data, extracted from the html source.
 #
 # User credentials are NOT handled here.
-module.exports = class CateParser
+module.exports = class HTMLParser
 
-  @CATE_PARSER:  true
+  @HTML_PARSER:  true
   @CATE_DOMAIN:  'https://cate.doc.ic.ac.uk'
   @EXAM_DOMAIN:  'https://exams.doc.ic.ac.uk'
   @DBC_DOMAIN:   'https://dbc.doc.ic.ac.uk'
