@@ -1,3 +1,29 @@
+table.course-grades {
+  .progress {
+    margin-bottom: 0px;
+  }
+
+  tr td {
+    vertical-align: middle;
+  }
+
+  .number {
+    width: 10%;
+    text-align: center;
+  }
+  .icon {
+    width: 10%;
+    text-align: center;
+  }
+  .title {
+    width: 60%;
+  }
+  .grade {
+    width: 20%;
+  }
+}
+
+
 table.module-grades {
   .id {
     width: 5%;

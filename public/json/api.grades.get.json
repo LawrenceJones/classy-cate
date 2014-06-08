@@ -271,6 +271,25 @@
     "level": 3
   },
   {
+    "mid": "245",
+    "name": "Statistics",
+    "exercises": [
+      {
+        "number": 1,
+        "type": "CW",
+        "title": "",
+        "setBy": "mjw03",
+        "declaration": "Wed - 11 Dec (v1)",
+        "extension": "",
+        "submission": "h: Wed - 11 Dec",
+        "grade": "A*"
+      }
+    ],
+    "term": "Term(s): 1",
+    "submission": "REQUIRED",
+    "level": 3
+  },
+  {
     "mid": "261",
     "name": "Laboratory 2",
     "exercises": [

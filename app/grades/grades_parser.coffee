@@ -14,7 +14,7 @@ processHeaderRow = ($row) ->
 
 # Extracts submission details from jQuery $row.
 processGradeRow = ($row) ->
-  if (name = $row.find('td:eq(2)').text().trim()) == '' then return
+  # if (name = $row.find('td:eq(2)').text().trim()) == '' then return
   id:  parseInt textExtract  $row.find 'td:eq(0)'
   type:         textExtract  $row.find 'td:eq(1)'
   title:        textExtract  $row.find 'td:eq(2)'
