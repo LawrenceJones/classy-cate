@@ -1,0 +1,178 @@
+FORMAT: 1A
+
+# CATe API
+
+The API built on top of Imperial College's CATe VLE system.
+
+# Group Authentication
+
+## Login [/authenticate]
+CATe API makes use of JSON WebTokens to make requests on behalf of users to the underlying CATe/DoC services.
+
+The basic setup requries an initial authorization request, where the user supplies their college login and password.
+
+Credentials are then encrypted to generate a token string, which is passed back to the client on a 200 response.
+
+Any requests to routes prefixed with `/api` must then include the token in the HTTP `Authorization` header.
+
+Example header. `Authorization: Bearer TOKEN`
+
+### Generate new auth token [POST]
++ Request (application/json)
+  {
+    "user": "lmj112",
+    "pass": "password"
+  }
+
++ Response 200 (application/json)
+  + Body
+    {
+      "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoibG1qMTEyIiwicGFzcyI6InRlblQxbnlGaW5nZXJzIiwiZXhwIjoxNDAyMjI4ODY3LCJpYXQiOjE0MDIxODU2Njd9.kFePbr8qBmo6onQ8akwDUz0Xu_j1fXNbjNuGq4pVr_8"
+    }
+
++ Response 401 (application/json)
+
+# Group Courses
+
+## Course Collection [/api/courses/{year}]
++ Parameters
+  + year (number) ... Year that desired courses were run.
+
++ Model (application/json)
+
+  [
+    {
+      "cid": "202",
+      "name": "Software Engineering - Algorithms"
+    },
+    {
+      "cid": "211",
+      "name": "Operating Systems"
+    }
+  ]
+
+### Index Courses by Year Run [GET]
++ Request
+  + Headers
+    Authorization: Bearer TOKEN
+
++ Response 200
+
+  [Course Collection][]
+
++ Response 401
+
+## Course [/api/courses/{year}/{cid}]
+Each course is referenced by the year it was run along with it's cid (course ID). Both year and cid are required to find a course.
+
++ Parameters
+  + cid (string) ... The unique identifier for the course in CATe.
+  + year (number) ... Year that the course was run.
+
++ Model (application/json)
+
+  {
+    "cid": "202",
+    "name": "Software Engineering - Algorithms",
+    "terms": [2],
+    "classes": [
+      "c2", "j2", "v5"
+    ],
+    "dicussions": [
+      12345,
+      23456
+    ],
+    "notes": [
+      {
+        "number": 1,
+        "restype": "pdf",
+        "title": "Administration",
+        "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:458::NOTES:lmj112",
+        "time": 1390151094000,
+        "discussions": [
+          987654,
+          876543
+        ]
+      }
+    ],
+    "exercises": [
+      {
+        "number": 3,
+        "type": "CW",
+        "name": "Divide and Conquer",
+        "start": 1294409600000,
+        "end": 1395964800000,
+        "mailto": "mailto:foo@foo.com",
+        "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:5:1223:c2:SPECS:lmj112",
+        "givens": [
+          {
+            "type": "specification",
+            "title": "spec-261-11.txt",
+            "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:5:1223:c2:SPECS:lmj112",
+            "time": 1294409600000
+          }
+        ],
+        "discussions": [
+          543211,
+          654321
+        ]
+      }
+    ],
+  }
+
+### Retrieve a Single Course [GET]
++ Request
+  + Headers
+    Authorization: Bearer TOKEN
+
++ Response 200
+
+  [Course][]
+
++ Response 401
+
+# Group Grades
+
+## Grades [/api/grades/{year}]
+All students have a central grades page on CATe for each year of completed/current study. This route exposes data on what modules were taken and what grades were received for said courses.
+
++ Parameters
+  + year (number) ... Year of study.
+
++ Model (application/json)
+
+  [{
+    "cid": "202",
+    "name": "Software Engineering - Algorithms",
+    "exercises": [
+      {
+        "number": 1,
+        "type": "ESSAY",
+        "title": "Group Formation for CWs",
+        "setBy": "alw",
+        "declaration": {
+          "time": 1390780800000,
+          "version": 5
+        }
+        "extension": 0,
+        "submission": {
+          "user": "lmj112",
+          "time": 1390611260430,
+          "version": 2
+        },
+        "grade": "A+"
+      }
+    ]
+  }]
+
+### Retrieve all Grades for Year [GET]
++ Request
+  + Headers
+    Authorization: Bearer TOKEN
+
++ Response 200
+  
+  [Grades][]
+
++ Response 401
+
