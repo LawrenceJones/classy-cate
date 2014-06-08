@@ -45,8 +45,8 @@ Course related resources of CATe API.
 Each course is referenced by the year it was run along with it's cid (course ID). Both year and cid are required to find a course.
 
 + Parameters
-  + cid (string) ... The unique identifier for the course in CATe.
-  + year (number) ... Year that the course was run.
+  + cid (string,`202`) ... The unique identifier for the course in CATe.
+  + year (number,`2013`) ... Year that the course was run.
 
 + Model (application/json)
 
@@ -128,7 +128,7 @@ Collection of all courses run on the given academic year.
 Represented as an array of embedded Courses, each course stating it's `cid`, `name` and respective href to more details.
 
 + Parameters
-  + year (number) ... Year that desired courses were run.
+  + year (number,`2013`) ... Year that desired courses were run.
 
 + Model (application/json)
 
@@ -162,7 +162,7 @@ Represented as an array of embedded Courses, each course stating it's `cid`, `na
 All students have a central grades page on CATe for each year of completed/current study. This route exposes data on what modules were taken and what grades were received for said courses.
 
 + Parameters
-  + year (number) ... Year of study.
+  + year (number,`2013`) ... Year of study.
 
 + Model (application/json)
 
