@@ -1,16 +1,22 @@
 mixin column(index)
   .col-md-4
-    course-grades(ng-repeat='course in forCol('+index+')' course='course')
-  
+    course-grades(ng-repeat='course in cols['+index+']' course='course')
+
+mixin courses
+  .col-sm-12(ng-repeat='course in courses | orderBy: \'mid\'')
+    course-grades(course='course')
 
 .row
   .col-md-12
     h2 Grades
     .lead Your personal assessment record
 
-.row
-
+// In 3 column view, balance panels
+.row.visible-md.visible-lg
   +column(0)
   +column(1)
   +column(2)
 
+// In 1 column view, display courses in order of cid
+.row.visible-sm.visible-xs
+  +courses()

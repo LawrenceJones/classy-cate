@@ -18,15 +18,30 @@ classy.factory 'Grades', (Resource) ->
 
 classy.controller 'GradesCtrl', ($scope, Grades) ->
 
-  Grades.all().$promise.then (grades) ->
-
-    # Remove all ungraded exercises and empty courses
-    $scope.grades = grades.map (course) -> course.clean()
+  # Removes ungraded exercises and filters empty courses from given courses
+  cleanCourses = (courses) ->
+    courses.map (course) -> course.clean()
       .filter (course) -> course.exercises.length > 0
 
-    # Returns the course grade sets for given col
-    $scope.forCol = (col) ->
-      perCol = $scope.grades.length/3
-      first = (c) -> Math.round(c * perCol)
-      $scope.grades[(first col) .. ((first (col+1)) - 1)]
+  # Sorts courses into numCols balanced columns, giving a 2D array
+  columnise = (courses, numCols) ->
+
+    # Returns the height of the given col
+    colHeight = (col) ->
+      col.map (course) -> course.exercises.length + 1.5
+        .reduce ((a, b) -> a + b), 0
+
+    # Returns the shortest column in the given cols
+    shortest = (cols) ->
+      (cols.map (col) -> [col, colHeight col]
+        .reduce (a, b) -> if a[1] < b[1] then a else b)[0]
+
+    courses.sort (c1, c2) -> c2.exercises.length - c1.exercises.length
+    cols = ([] for i in [1..numCols])
+    (shortest cols).push course for course in courses
+    return cols
+
+  Grades.all().$promise.then (courses) ->
+    $scope.courses = cleanCourses courses
+    $scope.cols    = columnise $scope.courses, 3
 
