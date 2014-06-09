@@ -138,6 +138,56 @@ Each user represents a valid login for all Imperial systems, and specifically fo
 
 + Response 401
 
+# Group Timetable
+Provides access to information on set exercises during the specified period.
+
+## Timetable [/api/timetable/{year}/{period}/{class}]
+Every timetable view is defined by the desired year, period and class of the student viewing.
+
++ Parameters
+  + class(string,`c2`) ... Desired timetable class.
+  + period(number,`5`) ... Number of 1..6 that represents term periods from Sept to Summer.
+  + year(number,`2013`) ... Year of study for the timetable.
+
++ Model (application/json)
+
+  {
+    _link: "/api/timetable/2013/5/c2",
+    _meta: {
+      year: 2013,
+      period: 5,
+      class: "c2",
+      start: 1398639600000,
+      end: 1403823600000 
+    },
+    courses: [
+      {
+        _link: "/api/courses/2013/203",
+        cid: "203",
+        name: "Human-Centered Design",
+        exercises: [
+          {
+            _link: "/api/courses/2013/203/exercises/1",
+            num: 1,
+            type: "PROJ",
+            title: "HCD Presentation",
+            start: 1401663600000,
+            end: 1402009200000,
+            mailto: "mailto:mjw03@doc.ic.ac.uk?subject=Module 203 - 'Human-Centered Design' - Exercise 1",
+            handin: null,
+            givens: {
+              _link: "/api/courses/2013/203/exercises/1/givens",
+            }
+            
+          }
+        ]
+      },
+      {
+      }
+    ]
+  }
+
+### Retrieve timetable [GET]
 
 # Group Course
 Course related resources of CATe API.
