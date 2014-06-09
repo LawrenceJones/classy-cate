@@ -1,0 +1,8 @@
+li.dropdown
+  a.dropdown-toggle(data-toggle='dropdown')
+    i.fa.fa-book
+    span(class='nav-text-default', ui-sref='app.course', ui-sref-active='nav-text-active')
+    span.caret(style='margin-left: 8px')
+  ul.dropdown-menu
+    li(ng-repeat='course in courses', course='course', course-option)
+

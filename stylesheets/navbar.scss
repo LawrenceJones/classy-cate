@@ -14,10 +14,11 @@ ul.change-year {
   }
 }
 
-.course-finder {
-  padding: 5px; 
-  margin: 10px 0;
-  border: 0px;
-  background-color: #f8f8f8;
-  width: 300px;
+.nav-text-default {
+  display: none;
+  margin-left: 8px;
+}
+
+.nav-text-active {
+  display: inline !important;
 }

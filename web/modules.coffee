@@ -56,10 +56,22 @@ classy.config [
       templateUrl: '/partials/course'
     }
 
+    $stateProvider.state 'app.timetable', {
+      url: '/timetable'
+      controller: ->
+      templateUrl: '/partials/timetable'
+    }
+
     $stateProvider.state 'app.grades', {
       url: '/grades'
       controller: 'GradesCtrl'
       templateUrl: '/partials/grades'
+    }
+
+    $stateProvider.state 'app.discussions', {
+      url: '/discussions'
+      controller: ->
+      templateUrl: '/partials/discussions'
     }
 
 

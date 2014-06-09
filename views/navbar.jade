@@ -3,9 +3,11 @@ mixin li-anchor(text, state)
     a= text
 
 mixin li-icon(icon, state, msg)
-  li(class='tt', ui-sref!=state, ui-sref-active='active')
+  li(ui-sref!=state, ui-sref-active='active')
     a
-      i.fa(class=icon)
+      i.fa(class!=icon)
+      span(class='nav-text-default' ui-sref!=state, 
+            ui-sref-active='nav-text-active')= msg
 
 mixin extra-links
   li.visible-lg.visible-md
@@ -14,6 +16,24 @@ mixin extra-links
     a#nav-internalreg(href='https://dbc.doc.ic.ac.uk/internalreg') Module Registration
   li.visible-lg
     a(ui-sref='audit') Security
+
+mixin user-links
+  li.dropdown
+    a.dropdown-toggle(data-toggle='dropdown')
+      | Tom Burnell
+      i.fa.fa-user(style='margin-left: 10px')
+    ul.dropdown-menu
+      li
+        a Settings
+      li
+        a(auth-logout) Logout
+      li.divider
+      li
+        a Report Issue
+      li
+        a Project GitHub
+
+
 
 .navbar.navbar-default
   .container
@@ -27,39 +47,10 @@ mixin extra-links
         a.navbar-brand(ui-sref='app.dashboard' style='font-family: Signika; font-size: 25px;') JANe
         span#cc-version
       .collapse.navbar-collapse#nav-links
-        // ul.nav.navbar-nav
         ul.nav.navbar-right.navbar-nav
-          li.dropdown
-            a.dropdown-toggle(data-toggle='dropdown')
-              i.fa.fa-book
-              // span(style='margin-left: 8px') 202: Software Engineering - Algorithms
-              span.caret(style='margin-left: 8px')
-            ul.dropdown-menu
-              li(ng-repeat='course in registeredCourses', 
-                ui-sref!='app.course({mid: course.mid})', 
-                ui-sref-active='active')
-                a {{ course.mid + ': ' + course.name }}
-
+          li(course-selector courses='registeredCourses')
           +li-icon('fa-calendar', 'app.timetable', 'Timetable')
-          +li-icon('fa-trophy', 'app.gradesss', 'Grades')
-
-          li(class='tt', ui-sref!='app.grades', ui-sref-active='active')
-            a
-              i.fa.fa-comment
-              span(style='margin-left: 8px') Discussions
-          // +li-icon('fa-comment', 'app.discussions', 'Discussions')
-          li.dropdown
-            a.dropdown-toggle(data-toggle='dropdown')
-              | Tom Burnell
-              i.fa.fa-user(style='margin-left: 10px')
-            ul.dropdown-menu
-              li
-                a Settings
-              li
-                a(auth-logout) Logout
-              li.divider
-              li
-                a Report Issue
-              li
-                a Project GitHub
-
+          +li-icon('fa-trophy', 'app.grades', 'Grades')
+          +li-icon('fa-comment', 'app.discussions', 'Discussions')
+          +user-links()
+       
