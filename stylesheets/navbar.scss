@@ -1,5 +1,6 @@
 .navbar {
-  margin-top: 15px;
+  // margin-top: 15px;
+  // border-bottom: 1px solid red;
 }
 ul.change-year {
   span.year {
@@ -11,4 +12,12 @@ ul.change-year {
     width: $btn-width;
     min-width: $btn-width;
   }
+}
+
+.course-finder {
+  padding: 5px; 
+  margin: 10px 0;
+  border: 0px;
+  background-color: #f8f8f8;
+  width: 300px;
 }

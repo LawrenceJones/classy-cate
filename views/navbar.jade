@@ -2,6 +2,11 @@ mixin li-anchor(text, state)
   li(ui-sref!=state, ui-sref-active='active')
     a= text
 
+mixin li-icon(icon, state, msg)
+  li(class='tt', ui-sref!=state, ui-sref-active='active')
+    a
+      i.fa(class=icon)
+
 mixin extra-links
   li.visible-lg.visible-md
     a#nav-teachdb(href='https://teachdb.doc.ic.ac.uk/db/') Teach DB
@@ -11,41 +16,50 @@ mixin extra-links
     a(ui-sref='audit') Security
 
 .navbar.navbar-default
-  .container-fluid
-    .navbar-header
-      button.navbar-toggle(data-toggle='collapse', data-target='#nav-links')
-        span.sr-only Toggle navigation
-        span.icon-bar
-        span.icon-bar
-        span.icon-bar
-      a.navbar-brand(ui-sref='app.dashboard') CATe
-      span#cc-version
-    .collapse.navbar-collapse#nav-links
-      ul.nav.navbar-nav
-        li.dropdown
-          a.dropdown-toggle(data-toggle='dropdown')
-            | Courses 
-            span.caret
-          ul.dropdown-menu
-            li(ng-repeat='course in registeredCourses', 
-               ui-sref!='app.course({mid: course.mid})', 
-               ui-sref-active='active')
-              a {{ course.mid + ': ' + course.name }}
-        +li-anchor('Exercises', "app.exercises")
-        +li-anchor('Grades', 'app.grades')
-        +li-anchor('Discussions', 'app.discussions')
-      ul.nav.navbar-right.navbar-nav
-        li.dropdown
-          a.dropdown-toggle(data-toggle='dropdown')
-            i.fa.fa-cog.fa-lg
-          ul.dropdown-menu
-            li
-              a Settings
-            li
-              a(auth-logout) Logout
-            li.divider
-            li
-              a Report Issue
-            li
-              a Project GitHub
+  .container
+    .container-fluid
+      .navbar-header
+        button.navbar-toggle(data-toggle='collapse', data-target='#nav-links')
+          span.sr-only Toggle navigation
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+        a.navbar-brand(ui-sref='app.dashboard' style='font-family: Signika; font-size: 25px;') JANe
+        span#cc-version
+      .collapse.navbar-collapse#nav-links
+        // ul.nav.navbar-nav
+        ul.nav.navbar-right.navbar-nav
+          li.dropdown
+            a.dropdown-toggle(data-toggle='dropdown')
+              i.fa.fa-book
+              // span(style='margin-left: 8px') 202: Software Engineering - Algorithms
+              span.caret(style='margin-left: 8px')
+            ul.dropdown-menu
+              li(ng-repeat='course in registeredCourses', 
+                ui-sref!='app.course({mid: course.mid})', 
+                ui-sref-active='active')
+                a {{ course.mid + ': ' + course.name }}
+
+          +li-icon('fa-calendar', 'app.timetable', 'Timetable')
+          +li-icon('fa-trophy', 'app.gradesss', 'Grades')
+
+          li(class='tt', ui-sref!='app.grades', ui-sref-active='active')
+            a
+              i.fa.fa-comment
+              span(style='margin-left: 8px') Discussions
+          // +li-icon('fa-comment', 'app.discussions', 'Discussions')
+          li.dropdown
+            a.dropdown-toggle(data-toggle='dropdown')
+              | Tom Burnell
+              i.fa.fa-user(style='margin-left: 10px')
+            ul.dropdown-menu
+              li
+                a Settings
+              li
+                a(auth-logout) Logout
+              li.divider
+              li
+                a Report Issue
+              li
+                a Project GitHub
 

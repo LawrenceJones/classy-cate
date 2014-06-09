@@ -33,7 +33,7 @@ classy.directive 'courseGrades', ->
       <div class='panel-heading' ui-sref='app.course({mid: course.mid})'>
         <h3 class='panel-title'><a>{{ course.mid + ': ' + course.name }}</a></h3>
       </div>
-      <table class='table table-striped panel-body course-grades'>
+      <table class='table panel-body course-grades'>
         <tbody>
           <tr ng-repeat='grade in course.exercises'>
             <td class='number'>{{ grade.number }}</td>
