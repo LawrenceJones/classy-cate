@@ -1,66 +1,80 @@
+mixin course-heading
+  h2.course-heading
+    | {{ course.mid }}: {{ course.name }}
+    i.fa.fa-info-circle.small
+
+mixin notes-panel
+  .panel.panel-default.notes-panel
+    .panel-heading
+      h3.panel-title Notes
+    table.table.table-hover.panel-body
+      tbody
+        tr(ng-repeat='note in course.notes' course-note='note.link')
+          td {{ note.number }}
+          td
+            i(mime-type-icon='note.restype')
+          td {{ note.title }}
+          td.small {{ note.time.format() }}
+          td
+            span.badge {{ note.discussions.length }}
+
+mixin grades-panel
+  .panel.panel-default.grades-panel
+    .panel-heading
+      h3.panel-title Grades
+    table.table.table-hover.panel-body
+      tbody
+        tr(ng-repeat='grade in course.grades')
+          td {{ grade.number }}
+          td
+            i(mime-type-icon='grade.type')
+          td {{ grade.title }}
+          td.small {{ grade.submission.format() }}
+          td {{ grade.grade }}
+
+mixin exercises-panel
+  .panel.panel-default.exercises-panel
+    .panel-heading 
+      h3.panel-title Exercises
+    table.table.table-hover.panel-body
+      tbody
+        tr(ng-repeat='exercise in course.exercises' course-exercise='$index')
+          td {{ exercise.number }}
+          td
+            i(mime-type-icon='exercise.type')
+          td {{ exercise.name }}
+          td.small {{ exercise.start.format() + ' - ' + exercise.end.format() }}
+          td
+            i.fa.fa-folder-open-o
+          td
+            span.badge {{ exercise.discussions.length }}
+
+mixin discussions-panel
+  .panel.panel-default.discussions-panel
+    .panel-heading
+      h3.panel-title Discussions
+    table.table.table-hover.panel-body
+      tbody
+        tr(ng-repeat='discussion in discussions')
+          td {{ discussion.title }}
+          td {{ discussion.author }}
+          td {{ dateString(discussion.time) }}
+          td
+            span.badge {{ discussion.posts }}
+
+
 .row
   .col-md-12
-    h2 
-      | {{ course.mid }}: {{ course.name }}
-      i(style='margin-left:3px').fa.fa-info-circle.small
+    +course-heading
 .row
   .col-md-12
     .lead
       | This course ran in the term before last
 .row
   .col-md-6
-    .panel.panel-default
-      .panel-heading
-        h3.panel-title Notes
-      table.table.table-hover.panel-body
-        tbody
-          tr(ng-repeat='note in course.notes' course-note='note.link')
-            td {{ note.number }}
-            td
-              i(mime-type-icon='note.restype')
-            td {{ note.title }}
-            td.small {{ note.time.format() }}
-            td
-              span.badge {{ note.discussions.length }}
-    .panel.panel-default
-      .panel-heading
-        h3.panel-title Grades
-      table.table.table-hover.panel-body
-        tbody
-          tr(ng-repeat='grade in course.grades')
-            td {{ grade.number }}
-            td
-              i(mime-type-icon='grade.type')
-            td {{ grade.title }}
-            td.small {{ grade.submission.format() }}
-            td {{ grade.grade }}
-
+    +notes-panel
+    +grades-panel
   .col-md-6
-    .panel.panel-default
-      .panel-heading 
-        h3.panel-title Exercises
-      table.table.table-hover.panel-body
-        tbody
-          tr(ng-repeat='exercise in course.exercises' course-exercise='$index')
-            td {{ exercise.number }}
-            td
-              i(mime-type-icon='exercise.type')
-            td {{ exercise.name }}
-            td.small {{ exercise.start.format() + ' - ' + exercise.end.format() }}
-            td
-              i.fa.fa-folder-open-o
-            td
-              span.badge {{ exercise.discussions.length }}
-    
-    .panel.panel-default
-      .panel-heading
-        h3.panel-title Discussions
-      table.table.table-hover.panel-body
-        tbody
-          tr(ng-repeat='discussion in discussions')
-            td {{ discussion.title }}
-            td {{ discussion.author }}
-            td {{ dateString(discussion.time) }}
-            td
-              span.badge {{ discussion.posts }}
+    +exercises-panel
+    +discussions-panel
 
