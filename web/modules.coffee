@@ -57,7 +57,7 @@ classy.config [
     }
 
     $stateProvider.state 'app.courses.view', {
-      url: '/:mid'
+      url: '/:cid'
       controller: 'CourseCtrl'
       templateUrl: '/partials/course_view'
     }
@@ -106,11 +106,11 @@ classy.run ($q, $rootScope) ->
   $rootScope.registeredCourses = [
     {
       name: 'Software Engineering - Algorithms'
-      mid: '202'
+      cid: '202'
     }
     {
       name: 'Operating Systems'
-      mid: '211'
+      cid: '211'
     }
   ]
 

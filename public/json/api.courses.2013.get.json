@@ -1,94 +1,129 @@
-{
-  courses = [
-    {
-      "mid": "220",
-      "name": "Software Engineering Design",
-      "lvl": "3",
-    },
-    {
-      "mid": "221",
-      "name": "Compilers",
-      "lvl": "3",
-    },
-    {
-      "mid": "223",
-      "name": "Concurrency",
-      "lvl": "3",
-    },
-    {
-      "mid": "240",
-      "name": "Models of Computation",
-      "lvl": "3",
-    },
-    {
-      "mid": "245",
-      "name": "Statistics",
-      "lvl": "3",
-    },
-    {
-      "mid": "275",
-      "name": "C++ Introduction",
-      "lvl": "3",
-    },
-    {
-      "mid": "261",
-      "name": "Laboratory 2",
-      "lvl": "3",
-    },
-    {
-      "mid": "276",
-      "name": "Introduction to Prolog",
-      "lvl": "3",
-    },
-    {
-      "mid": "202",
-      "name": "Software Engineering - Algorithms",
-      "lvl": "3",
-    },
-    {
-      "mid": "210",
-      "name": "Computer Architecture",
-      "lvl": "3",
-    },
-    {
-      "mid": "211",
-      "name": "Operating Systems",
-      "lvl": "3",
-    },
-    {
-      "mid": "212",
-      "name": "Networks and Communications",
-      "lvl": "3",
-    },
-    {
-      "mid": "231",
-      "name": "Introduction to Artificial Intelligence",
-      "lvl": "3",
-    },
-    {
-      "mid": "272",
-      "name": "Team Skills Development",
-      "lvl": "3",
-    },
-    {
-      "mid": "277",
-      "name": "Introduction to Perl",
-      "lvl": "3",
-    },
-    {
-      "mid": "203",
-      "name": "Human-Centred Design",
-      "lvl": "3",
-    },
-    {
-      "mid": "271",
-      "name": "2nd Year Group Projects",
-      "lvl": "3",
-    },
-    {
-      "mid": "701",
-      "name": "Programming Competition Training",
-      "lvl": "0",
-    }
-  ]
-}
+[
+  {
+    "cid": "202",
+    "name": "Software Engineering - Algorithms",
+    "classes": [ "c2", "j2", "v5" ],
+    "terms": [ 2 ],
+    "_link": "/api/courses/2013/202"
+  },
+  {
+    "cid": "203",
+    "name": "Human-Centred Design",
+    "classes": [ "c2", "j2" ],
+    "terms": [ 3 ],
+    "_link": "/api/courses/2013/203"
+  },
+  {
+    "cid": "210",
+    "name": "Computer Architecture",
+    "classes": [ "c2" ],
+    "terms": [ 2 ],
+    "_link": "/api/courses/2013/210"
+  },
+  {
+    "cid": "211",
+    "name": "Operating Systems",
+    "classes": [ "c2", "j2" ],
+    "terms": [ 2 ],
+    "_link": "/api/courses/2013/211"
+  },
+  {
+    "cid": "212",
+    "name": "Networks and Communications",
+    "classes": [ "c2" ],
+    "terms": [ 2 ],
+    "_link": "/api/courses/2013/212"
+  },
+  {
+    "cid": "220",
+    "name": "Software Engineering Design",
+    "classes": [ "c2", "j2" ],
+    "terms": [ 1 ],
+    "_link": "/api/courses/2013/220"
+  },
+  {
+    "cid": "221",
+    "name": "Compilers",
+    "classes": [ "c2", "j2", "o3" ],
+    "terms": [ 1 ],
+    "_link": "/api/courses/2013/221"
+  },
+  {
+    "cid": "223",
+    "name": "Concurrency",
+    "classes": [ "c2", "j2" ],
+    "terms": [ 1 ],
+    "_link": "/api/courses/2013/223"
+  },
+  {
+    "cid": "231",
+    "name": "Introduction to Artificial Intelligence",
+    "classes": [ "c2", "j2", "o3", "v5" ],
+    "terms": [ 2 ],
+    "_link": "/api/courses/2013/231"
+  },
+  {
+    "cid": "233",
+    "name": "Computation Techniques",
+    "classes": [ "c2" ],
+    "terms": [ 2 ],
+    "_link": "/api/courses/2013/233"
+  },
+  {
+    "cid": "240",
+    "name": "Models of Computation",
+    "classes": [ "c2", "j2", "j3" ],
+    "terms": [ 1 ],
+    "_link": "/api/courses/2013/240"
+  },
+  {
+    "cid": "245",
+    "name": "Statistics",
+    "classes": [ "c2" ],
+    "terms": [ 1 ],
+    "_link": "/api/courses/2013/245"
+  },
+  {
+    "cid": "261",
+    "name": "Laboratory 2",
+    "classes": [ "c2", "j2" ],
+    "terms": [ 1, 2 ],
+    "_link": "/api/courses/2013/261"
+  },
+  {
+    "cid": "271",
+    "name": "2nd Year Group Projects",
+    "classes": [ "c2", "j2" ],
+    "terms": [ 3 ],
+    "_link": "/api/courses/2013/271"
+  },
+  {
+    "cid": "272",
+    "name": "Team Skills Development",
+    "classes": [ "c2", "j2" ],
+    "terms": [ 2 ],
+    "_link": "/api/courses/2013/272"
+  },
+  {
+    "cid": "275",
+    "name": "C++ Introduction",
+    "classes": [ "c2", "j2" ],
+    "terms": [ 1 ],
+    "_link": "/api/courses/2013/275"
+  },
+  {
+    "cid": "276",
+    "name": "Introduction to Prolog",
+    "classes": [ "c2", "j2" ],
+    "terms": [ 1, 2 ],
+    "_link": "/api/courses/2013/276"
+  },
+  {
+    "cid": "277",
+    "name": "Introduction to Perl",
+    "classes": [ "c2", "j2" ],
+    "terms": [ 2 ],
+    "_link": "/api/courses/2013/277"
+  }
+]
+

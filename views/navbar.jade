@@ -39,14 +39,14 @@ mixin course-selector
       i.fa.fa-book
       //- State names, hidden by default, displayed upon switch
       span(ng-repeat='course in registeredCourses')
-        +span-state('app.courses.view({mid: course.mid})', 
-                    "{{course.mid + ': ' + course.name}}")
+        +span-state('app.courses.view({cid: course.cid})', 
+                    "{{course.cid + ': ' + course.name}}")
       +span-state('app.courses', 'All Courses')
       span.caret
     ul.dropdown-menu
       li(ng-repeat='course in registeredCourses', 
-         ui-sref='app.courses.view({mid: course.mid})', ui-sref-active='active')
-        a {{ course.mid + ': ' + course.name }}
+         ui-sref='app.courses.view({cid: course.cid})', ui-sref-active='active')
+        a {{ course.cid + ': ' + course.name }}
       li.divider
       li(ui-sref='app.courses', ui-sref-active='active')
         a All Courses
