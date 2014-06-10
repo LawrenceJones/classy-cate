@@ -1,4 +1,4 @@
-CateParser = require '../cate/cate_parser'
+HTMLParser = require '../html_parser'
 
 # Retrives CATe version, ie. 7.1
 getVersion = ($) ->
@@ -47,7 +47,7 @@ getKeyt = ($) ->
 
 # Parses CATe Dashboard.
 # Accepts data from ~/personal.cgi?keyp=<YEAR>:<USER>
-module.exports = class DashboardParser extends CateParser
+module.exports = class DashboardParser extends HTMLParser
 
   # Extract user personal details from CATe dashboard page.
   extract: ($) ->
@@ -89,7 +89,7 @@ module.exports = class DashboardParser extends CateParser
     defaultClass:   classDetails.klass
     defaultPeriod:  classDetails.period
     # Extracted from the keyt value
-    year: keyt?.match?(/^(\d+):/)[1] || CateParser.defaultYear()
+    year: keyt?.match?(/^(\d+):/)[1] || HTMLParser.defaultYear()
     keyt: keyt
 
   # Generates url from a user login and required year.

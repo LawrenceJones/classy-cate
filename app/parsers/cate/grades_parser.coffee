@@ -1,5 +1,5 @@
-CateParser = require '../cate/cate_parser'
-textExtract = CateParser.textExtract
+HTMLParser = require '../html_parser'
+textExtract = HTMLParser.textExtract
 
 # Extracts header info.
 processHeaderRow = ($row) ->
@@ -45,7 +45,7 @@ extractModules = ($, $table) ->
 
 # Parses the Grades page of CATe.
 # Accepts data from ~/student.cgi?key=<YEAR>:<CLASS>:<USER>
-module.exports = class GradesParser extends CateParser
+module.exports = class GradesParser extends HTMLParser
 
   # Extracts the grades data using the $ handle.
   extract: ($) ->

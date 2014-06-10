@@ -1,8 +1,8 @@
-CateParser = require '../cate/cate_parser'
+HTMLParser = require '../html_parser'
 
 # Parses data about past papers from a past paper indexing page.
 # Accepts data from https://exams.doc.ic.ac.uk/pastpapers/papers.<YEAR-YEAR>
-module.exports = class PastPaperParser extends CateParser
+module.exports = class PastPaperParser extends HTMLParser
 
   # Extract all past papers from an index page.
   # Example index page is https://exams.doc.ic.ac.uk/pastpapers/papers.09-10

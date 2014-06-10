@@ -36,7 +36,9 @@
     "memwatch": "^0.2.2",
     "stream-splitter": "^0.3.0",
     "forever": "^0.11.1",
-    "pg": "^3.2.0"
+    "pg": "^3.2.0",
+    "should": "^4.0.4",
+    "jayschema": "^0.2.7"
   },
   "devDependencies": {
     "read": "*"

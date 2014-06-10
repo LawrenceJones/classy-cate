@@ -1,8 +1,8 @@
-CateParser = require '../cate/cate_parser'
+HTMLParser = require '../html_parser'
 
 # Parses Givens pages of CATe.
 # Accepts data from ~/given.cgi?key=<YEAR>:<ACCESS>:<CODE>:<CLASS>
-module.exports = class GivensParser extends CateParser
+module.exports = class GivensParser extends HTMLParser
 
   # Extracts givens data from a givens page, including various
   # types of document.
@@ -10,7 +10,7 @@ module.exports = class GivensParser extends CateParser
 
     # Fetch ID and name of module
     try
-      [moduleID, moduleName] = CateParser.extractModule $
+      [moduleID, moduleName] = HTMLParser.extractModule $
     catch err then return err
 
     # Store categories inside this array
@@ -37,7 +37,7 @@ module.exports = class GivensParser extends CateParser
           if ($cell = $(this).find('td:eq(0) a')).attr('href')?
             category.givens.push
               title: $cell.html()
-              link:  "#{CateParser.CATE_DOMAIN}/#{$cell.attr('href')}"
+              link:  "#{HTMLParser.CATE_DOMAIN}/#{$cell.attr('href')}"
         categories.push category
 
     # Return an array of categories, each element containing a type and rows

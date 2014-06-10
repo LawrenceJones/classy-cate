@@ -41,8 +41,9 @@ module.exports = class HTTPProxy
       def.reject code: 400, msg: 'Malformed query'
       return def.promise
 
-    # Retrieve the user credentials from the jwt store
-    auth = user('USER_CREDENTIALS')
+    # Retrieve the user credentials from the jwt store, or if testing
+    # and supplied as USER then user that.
+    auth = user?('USER_CREDENTIALS') ? user
     auth.sendImmediately = true
     options = url: url, auth: auth
 

@@ -1,4 +1,4 @@
-CateParser = require '../cate/cate_parser'
+HTMLParser = require '../html_parser'
 
 # Converts a CATE style date into a JS Date object
 # e.g. '2013-1-7' -> Mon Jan 07 2013 00:00:00 GMT+0000 (GMT)
@@ -38,23 +38,23 @@ extractDays = ($, $tr) ->
 # parameters.
 processNotesLink = (href) ->
   rex = /notes\.cgi\?key=(\d+):(\d+):(\d+)/
-  return [] if !rex.test href
+  return null if !rex.test href
   [_, year, code, period] = href?.match?(rex).map? (n) -> parseInt n, 10
-  [ year: year, code: code, period: period, links: [] ]
+  year: year, code: code, period: period
 
-# Extracts module details from a cell jQuery object
-processModuleCell = ($cell) ->
-  [id, name] = $cell.text().split(' - ')
-  id: id
+# Extracts course details from a cell jQuery object
+processCourseCell = ($cell) ->
+  [cid, name] = $cell.text().split(' - ')
+  cid: cid
   name: name.replace(/^\s+|\s+$/g, '')
   notes: processNotesLink $cell.find('a:eq(0)').attr('href')
 
 # Parses an exercise from the given cell
 processExerciseCell = ($, $exCell, currentDate, colSpan) ->
 
-  # Extracts both id and type of exercise, returns [id, type]
+  # Extracts both eid and type of exercise, returns [eid, type]
   extractIdType = ->
-    $exCell # [id, type]
+    $exCell # [eid, type]
       .find 'b:eq(0)'
       .text().split(':')
 
@@ -81,29 +81,32 @@ processExerciseCell = ($, $exCell, currentDate, colSpan) ->
       else if rex.givens.test href
         [_, year, period, code, klass] = href.match rex.givens
         links.givens =
-          year: year, period: period, code: code, class: klass
+          year: parseInt year, 10
+          period: parseInt period, 10
+          code: parseInt code, 10
+          class: klass
     return links
 
-  [id, type] = extractIdType $exCell
+  [eid, type] = extractIdType $exCell
   hrefs = extractHrefs()
 
   name = $exCell
-    .text()[(id.length + type.length + 2)..]
+    .text()[(eid.length + type.length + 2)..]
     .replace(/[\s\n\r\b]*$/, '')
   end = new Date(currentDate.getTime())
   end.setDate(end.getDate() + colSpan - 1)
 
   # Return exercise record
-  id: id, type: type, name: name
-  start: new Date(currentDate.getTime()), end: end
-  mailto: hrefs.mailto, spec: hrefs.spec
-  givens: hrefs.givens, handin: hrefs.handin
+  eid: parseInt(eid, 10), type: type, name: name
+  start: currentDate.getTime(), end: end.getTime()
+  mailto: hrefs.mailto ? null, spec: hrefs.spec ? null
+  givens: hrefs.givens ? null, handin: hrefs.handin ? null
 
 
-# Add the parsed exercises to the given module
-# module - the module to attach the exercises to
+# Add the parsed exercises to the given course
+# course - the course to attach the exercises to
 # exerciseCells - An array of cells (jQuery objects)
-processExerciseCells = ($, $cells, moduleData, dates) ->
+processExerciseCells = ($, $cells, courseData, dates) ->
 
   # Return if cells are null
   if not $cells? then return null
@@ -119,10 +122,7 @@ processExerciseCells = ($, $cells, moduleData, dates) ->
     colSpan = 1 if colSpan == NaN
 
     if $exCell.attr('bgcolor')? and $exCell.find('a').length != 0
-      ex = processExerciseCell $, $exCell, currentDate, colSpan
-      ex.moduleName = moduleData.name
-      ex.moduleID = moduleData.id
-      exercises.push ex
+      exercises.push processExerciseCell $, $exCell, currentDate, colSpan
 
     currentDate.setDate (currentDate.getDate() + colSpan)
 
@@ -168,26 +168,26 @@ getStartEndDates = ($) ->
   end:   "#{year}-#{lastMonth}-#{lastDay}"
   colBufferToFirst: colBuf - 1
 
-# Parses all the modules present in the timetable
-getModules = ($, dates) ->
+# Parses all the courses present in the timetable
+getCourses = ($, dates) ->
 
   $timetable = getTimetable $
 
-  # Returns whether or not an element is a module container
+  # Returns whether or not an element is a course container
   # $elem - jQuery element
-  isModule = ($elem) ->
+  isCourse = ($elem) ->
     $elem.find('font[color="blue"]')
 
   $allRows = $timetable.find('tr')
-  modules = new Array()
+  courses = new Array()
   count = 0
 
   while count < $allRows.length
     currentRow = $allRows[count]
     followingRowCount = 0
-    $moduleElem = $(currentRow).find('td:eq(1)')
-    if isModule($moduleElem).length > 0
-      moduleData = processModuleCell $moduleElem
+    $courseElem = $(currentRow).find('td:eq(1)')
+    if isCourse($courseElem).length > 0
+      courseData = processCourseCell $courseElem
 
       followingRowCount = $(currentRow)
         .find('td:eq(0)')
@@ -199,28 +199,29 @@ getModules = ($, dates) ->
       $exCells = (cs for cs in $exCells when cs?)
 
       exChunks = $exCells.map (cells) ->
-        processExerciseCells $, cells, moduleData, dates
-      moduleData.exercises = [].concat exChunks...
-      modules.push moduleData
+        processExerciseCells $, cells, courseData, dates
+      courseData.exercises = [].concat exChunks...
+      courses.push courseData
     count += followingRowCount + 1
-  return modules
+  return courses
 
 # Parses exercise data from the students timetable.
 # Accepts data from ~/timetable.cgi?keyt=<YEAR>:<PERIOD>:<CLASS>:<USER>
-module.exports = class ExercisesParser extends CateParser
+module.exports = class TimetableParser extends HTMLParser
 
   # Extract all timetabled exams from the student timetable page.
   extract: ($) ->
     dates = getStartEndDates $
-    modules = getModules $, dates
+    courses = getCourses $, dates
 
     # Return parsed data
-    year: @query.year
-    period: @query.period
-    start: new Date dates.start
-    end:   new Date dates.end
-    modules: modules
-    termTitle: getTermTitle $
+    _meta:
+      year:   parseInt @query.year, 10
+      period: parseInt @query.period, 10
+      start: new Date(dates.start).getTime()
+      end:   new Date(dates.end).getTime()
+      title: getTermTitle $
+    courses: courses
 
   # Requires a specified year, period, student class and login.
   # Eg. {year: 2013, period: 3, class: 'c1', user: 'lmj112'}

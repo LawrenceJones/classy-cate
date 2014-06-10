@@ -1,8 +1,8 @@
-CateParser = require '../cate/cate_parser'
+HTMLParser = require '../html_parser'
 
 # Parses module subscriptions from dbc.doc
 # Accepts data from ~/internalreg/subscription.cgi?key=<YEAR>:none:<USER>
-module.exports = class ModulesParser extends CateParser
+module.exports = class ModulesParser extends HTMLParser
 
   # Extracts subscription level for each module.
   extract: ($) ->

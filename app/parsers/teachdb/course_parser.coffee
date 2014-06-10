@@ -1,4 +1,4 @@
-CateParser = require '../cate/cate_parser'
+HTMLParser = require '../html_parser'
 
 # Strips text out of jQuery elem, without newlines or space
 strip = ($elem) ->
@@ -38,7 +38,7 @@ keyParser = (key, val) ->
   
 # Parses course details from teachdb
 # Accepts data from ~/db/<PERIOD>/viewrec?table=Course&id=<TEACHDB_ID>
-module.exports = class CourseParser extends CateParser
+module.exports = class CourseParser extends HTMLParser
 
   # Extracts data from html
   extract: ($) ->

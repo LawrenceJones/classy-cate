@@ -1,5 +1,5 @@
-CateParser = require '../cate/cate_parser'
-CATE_DOMAIN = CateParser.CATE_DOMAIN
+HTMLParser = require '../html_parser'
+CATE_DOMAIN = HTMLParser.CATE_DOMAIN
 
 # Determines locality of links.
 linkIsRemote = ($link) ->
@@ -38,14 +38,14 @@ getNoteLink = ($, $row, q) ->
 
 # Parses the Notes page of CATe.
 # Accepts data from ~/notes.cgi?key=<YEAR>:<CODE>
-module.exports = class NotesParser extends CateParser
+module.exports = class NotesParser extends HTMLParser
 
   # Extracts the notes data from a summary page.
   extract: ($) ->
 
     # Fetch ID and name of module
     try
-      [moduleID, moduleName] = CateParser.extractModule $
+      [moduleID, moduleName] = HTMLParser.extractModule $
     catch err then return err
 
     # Extract rows that represent notes

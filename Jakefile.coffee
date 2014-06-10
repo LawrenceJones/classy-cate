@@ -162,6 +162,17 @@ task 'init-subs', [], async: true, ->
     [ 'Successfully init/update git submodules' ]
   )# }}}
 
+desc 'Runs mocha for tests'
+task 'test', [], async: true, ->
+  title 'Running mocha test suite'# {{{
+  chain\
+  ( [ 'mocha'
+    , [ '--recursive', '--compilers', 'coffee:coffee-script/register'
+        '--globals', 'newW,clickpage' ]
+    , 'Failed to start mocha' ]
+    [ 'Finished mocha' ]
+  ).finally complete# }}}
+
 # API Tasks ############################################
 
 methods = require 'express/node_modules/methods'
@@ -190,7 +201,7 @@ task 'run-parser', [], async: true, (pfile, params...) ->
   title "Attempting to run parser [#{pfile}]"# {{{
   if !pfile? or not fs.existsSync pfile
     fail 'Please supply valid parser script path as argument'
-  Proxy = new (require './app/cate/cate_proxy')(require pfile)
+  Proxy = new (require './app/parsers/http_proxy')(require pfile)
 
   log 'Loading Imperial credentials from ~/.imp'
   [user, pass] = fs.readFileSync(process.env.HOME+'/.imp', 'utf8').split /\n/
