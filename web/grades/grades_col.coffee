@@ -28,23 +28,7 @@ classy.directive 'gradeBadge', ->
 classy.directive 'courseGrades', ->
   restrict: 'E'
   replace: true
-  template: """
-    <div class='panel panel-default'>
-      <div class='panel-heading' ui-sref='app.course({mid: course.mid})'>
-        <h3 class='panel-title'><a>{{ course.mid + ': ' + course.name }}</a></h3>
-      </div>
-      <table class='table panel-body course-grades'>
-        <tbody>
-          <tr ng-repeat='grade in course.exercises'>
-            <td class='number'>{{ grade.number }}</td>
-            <td class='icon'><i mime-type-icon='grade.type'></i></td>
-            <td class='title'>{{ grade.title }}</td>
-            <td class='grade'><grade-badge grade='grade.grade'></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  """
+  templateUrl: '/partials/directives/course_grades'
   scope:
     course: '='
 

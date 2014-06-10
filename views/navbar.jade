@@ -15,7 +15,7 @@ mixin extra-links
 
 mixin user-links
   li.dropdown
-    a.dropdown-toggle(data-toggle='dropdown')
+    a.dropdown-toggle(data-toggle='dropdown', style='border-left: 1px dotted #e4e4e4')
       | Tom Burnell
       i.fa.fa-user(style='margin-left: 10px')
     ul.dropdown-menu
@@ -42,7 +42,7 @@ mixin course-selector
         +span-state('app.courses.view({mid: course.mid})', 
                     '{{course.mid + \': \' + course.name}}')
       +span-state('app.courses', 'All Courses')
-      span.caret(style='margin-left: 8px')
+      span.caret(style='margin-left: 8px;')
     ul.dropdown-menu
       li(ng-repeat='course in registeredCourses', 
          ui-sref='app.courses.view({mid: course.mid})', ui-sref-active='active')
