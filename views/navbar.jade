@@ -29,6 +29,28 @@ mixin user-links
       li
         a Project GitHub
 
+mixin span-state(state, text)
+  span(class='nav-text-default', ui-sref!=state
+       ui-sref-active='nav-text-active')= text
+
+mixin course-selector
+  li.dropdown(ng-class='{active:courseState}')
+    a.dropdown-toggle(data-toggle='dropdown')
+      i.fa.fa-book
+      //- State names, hidden by default, displayed upon switch
+      span(ng-repeat='course in registeredCourses')
+        +span-state('app.courses.view({mid: course.mid})', 
+                    '{{course.mid + \': \' + course.name}}')
+      +span-state('app.courses', 'All Courses')
+      span.caret(style='margin-left: 8px')
+    ul.dropdown-menu
+      li(ng-repeat='course in registeredCourses', 
+         ui-sref='app.courses.view({mid: course.mid})', ui-sref-active='active')
+        a {{ course.mid + ': ' + course.name }}
+      li.divider
+      li(ui-sref='app.courses', ui-sref-active='active')
+        a All Courses
+
 
 nav.navbar.navbar-default.navbar-fixed-top(role='navigation')
   .container
@@ -43,7 +65,7 @@ nav.navbar.navbar-default.navbar-fixed-top(role='navigation')
         span#cc-version
       .collapse.navbar-collapse#nav-links
         ul.nav.navbar-right.navbar-nav
-          li(course-selector courses='registeredCourses')
+          +course-selector()
           +li-icon('fa-calendar', 'app.timetable', 'Timetable')
           +li-icon('fa-trophy', 'app.grades', 'Grades')
           +li-icon('fa-comment', 'app.discussions', 'Discussions')

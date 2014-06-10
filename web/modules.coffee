@@ -59,7 +59,7 @@ classy.config [
     $stateProvider.state 'app.courses.view', {
       url: '/:mid'
       controller: 'CourseCtrl'
-      templateUrl: '/partials/course'
+      templateUrl: '/partials/course_view'
     }
 
     $stateProvider.state 'app.timetable', {
@@ -97,10 +97,11 @@ classy.config [
 ]
 
 classy.run ($q, $rootScope) ->
-  $rootScope.$courseState = true
+  
   # Keep track of state in $rootScope
   $rootScope.$on '$stateChangeSuccess', ($event, state) ->
     $rootScope.currentState = state.name
+    $rootScope.courseState = /app\.courses/.test state.name
 
   $rootScope.registeredCourses = [
     {
@@ -112,3 +113,4 @@ classy.run ($q, $rootScope) ->
       mid: '211'
     }
   ]
+
