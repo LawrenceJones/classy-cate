@@ -12,7 +12,7 @@ classy.directive 'courseOption', ->
   replace: true
   template: """
     <li class='course-option' id='co-{{ course.mid }}' 
-        ui-sref='app.course({mid:course.mid})' ui-sref-active='active')>
+        ui-sref='app.courses.view({mid:course.mid})' ui-sref-active='active')>
       <a>{{ course.mid + ': ' + course.name }}</a>
     </li>
   """

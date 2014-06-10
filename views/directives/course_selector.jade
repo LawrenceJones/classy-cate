@@ -1,8 +1,18 @@
+mixin span-state(state, text)
+  span(class='nav-text-default'
+       ui-sref!=state
+       ui-sref-active='nav-text-active')= text
+
 li.dropdown
   a.dropdown-toggle(data-toggle='dropdown')
     i.fa.fa-book
-    span(class='nav-text-default', ui-sref='app.course', ui-sref-active='nav-text-active')
+    span(ng-repeat='course in courses')
+      +span-state('app.courses.view({mid: course.mid})', '{{course.mid + \': \' + course.name}}')
+    +span-state('app.courses', 'All Courses')
     span.caret(style='margin-left: 8px')
   ul.dropdown-menu
     li(ng-repeat='course in courses', course='course', course-option)
+    li.divider
+    li(ui-sref='app.courses', ui-sref-active='active')
+      a All Courses
 

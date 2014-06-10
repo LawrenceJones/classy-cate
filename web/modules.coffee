@@ -50,8 +50,14 @@ classy.config [
       templateUrl: '/partials/login'
     }
 
-    $stateProvider.state 'app.course', {
-      url: '/course/:mid'
+    $stateProvider.state 'app.courses', {
+      url: '/courses'
+      controller: ->
+      templateUrl: '/partials/courses'
+    }
+
+    $stateProvider.state 'app.courses.view', {
+      url: '/:mid'
       controller: 'CourseCtrl'
       templateUrl: '/partials/course'
     }
@@ -91,7 +97,7 @@ classy.config [
 ]
 
 classy.run ($q, $rootScope) ->
-
+  $rootScope.$courseState = true
   # Keep track of state in $rootScope
   $rootScope.$on '$stateChangeSuccess', ($event, state) ->
     $rootScope.currentState = state.name
