@@ -15,9 +15,9 @@ mixin extra-links
 
 mixin user-links
   li.dropdown
-    a.dropdown-toggle(data-toggle='dropdown', style='border-left: 1px dotted #e4e4e4')
+    a.dropdown-toggle.user-link(data-toggle='dropdown')
       | Tom Burnell
-      i.fa.fa-user(style='margin-left: 10px')
+      i.fa.fa-user
     ul.dropdown-menu
       li
         a Settings
@@ -34,15 +34,15 @@ mixin span-state(state, text)
        ui-sref-active='nav-text-active')= text
 
 mixin course-selector
-  li.dropdown(ng-class='{active:courseState}')
+  li.dropdown.course-selector(ng-class='{active:courseState}')
     a.dropdown-toggle(data-toggle='dropdown')
       i.fa.fa-book
       //- State names, hidden by default, displayed upon switch
       span(ng-repeat='course in registeredCourses')
         +span-state('app.courses.view({mid: course.mid})', 
-                    '{{course.mid + \': \' + course.name}}')
+                    "{{course.mid + ': ' + course.name}}")
       +span-state('app.courses', 'All Courses')
-      span.caret(style='margin-left: 8px;')
+      span.caret
     ul.dropdown-menu
       li(ng-repeat='course in registeredCourses', 
          ui-sref='app.courses.view({mid: course.mid})', ui-sref-active='active')
@@ -61,7 +61,7 @@ nav.navbar.navbar-default.navbar-fixed-top(role='navigation')
           span.icon-bar
           span.icon-bar
           span.icon-bar
-        a.navbar-brand(ui-sref='app.dashboard' style='font-family: Signika; font-size: 25px;') JANe
+        a.navbar-brand.site-logo(ui-sref='app.dashboard') JANe
         span#cc-version
       .collapse.navbar-collapse#nav-links
         ul.nav.navbar-right.navbar-nav

@@ -19,3 +19,16 @@ ul.change-year {
   display: inline !important;
 }
 
+.user-link {
+  border-left: 1px dotted #e4e4e4;
+  i { margin-left: 10px; }
+}
+
+.course-selector {
+  span.caret { margin-left: 8px; }
+}
+
+.site-logo {
+  font-family: Signika;
+  font-size: 25px;
+}
