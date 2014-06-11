@@ -1,4 +1,4 @@
-# Classy CATE
+# GREP
 
 ## Geting Setup
 
@@ -64,4 +64,7 @@ Example...
 
 The above would curl not from the route handler, but from the file `public/json/api.courses.2013.202.get.json`.
 
+# Acknowledgements
+
+This project was initially a fork of [Peter Hamilton's](http://github.com/petehamilton) excellent [classy-cate](http://github.com/petehamilton/classy-cate) webscript, designed to reskin Imperial's CATe. Thanks go to him for the inspiration and tools to develop further.
 
