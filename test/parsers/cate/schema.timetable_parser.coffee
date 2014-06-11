@@ -1,11 +1,4 @@
-should = require 'should'
-
-JaySchema = require 'jayschema'
-js = new JaySchema
-
-HTTPProxy = require 'app/parsers/http_proxy'
-TimetableParser = require 'app/parsers/cate/timetable_parser'
-TimetableProxy = new HTTPProxy TimetableParser
+# JSON Schema for app/parsers/cate/timetable_parser
 
 metaSchema =
   type: 'object'
@@ -61,7 +54,7 @@ courseSchema =
       type: 'array'
       items: exerciseSchema
 
-ttSchema =
+module.exports = ttSchema =
   type: 'object'
   additionalProperties: false
   properties:
@@ -69,18 +62,4 @@ ttSchema =
     courses:
       type: 'array'
       items: courseSchema
-
-describe 'timetable parser', ->
-
-  it 'produces schema validated json', (done) ->
-    creds = require 'test/creds'
-    req = TimetableProxy.makeRequest creds.opt, creds
-    req.then (tt) ->
-      js.validate tt, ttSchema, (errs) ->
-        errs?.should.fail 'failed to validate schema'
-        do done
-    req?.catch (err) ->
-      should.fail 'failed to make connection'
-    
-
 
