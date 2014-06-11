@@ -58,7 +58,7 @@ chain = (cmds..., opt) ->
     prog.stdout.pipe pOut
     prog.stderr.pipe pErr
     prog.on 'exit', (err) ->
-      do newline
+      do newline if cmds.length is 0
       if !check err
         def.reject err, fmsg
       else if cmds.length != 0 then run cmds...
@@ -126,7 +126,7 @@ desc 'By default, start the dev server'
 task 'default', ['start-dev']
 
 desc 'Setup git hooks by symlinking .git/hooks dir'
-task 'setup-hooks', [], async: true, ->
+task 'setup-hooks', ['link-mods'], async: true, ->
   title 'Symlinking git hooks'# {{{
   chain\
   ( [ 'rm', ['-rf', './.git/hooks']
@@ -136,6 +136,20 @@ task 'setup-hooks', [], async: true, ->
     , 'Failed to symlink ./.git/hooks -> ./hooks' ]
     # Success output
     [ 'Successfully symlinked ./.git/hooks -> ./hooks' ]
+  ).finally complete# }}}
+
+desc 'Symlinks app and test into the node_modules folder'
+task 'link-mods', [], async: true, ->
+  title 'Symlinking app and test into node_modules'# {{{
+  chain\
+  ( [ 'rm', ['-f', './node_modules/app', './node_modules/test']
+    , 'Failed to remove old links' ]
+    [ 'ln', ['-s', '../app', './node_modules/app']
+    , 'Failed to symlink ./node_modules/app -> ../app' ]
+    [ 'ln', ['-s', '../test', './node_modules/test']
+    , 'Failed to symlink ./node_modules/test -> ../test' ]
+    # Success output
+    [ 'Successfully symlinked app and test' ]
   ).finally complete# }}}
 
 desc 'Start dev node server'
