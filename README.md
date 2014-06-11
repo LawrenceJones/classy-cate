@@ -1,10 +1,10 @@
-# GREP
+# grep-doc
 
 ## Geting Setup
 
 The following steps will setup a dev environment, the last `jake` being optional to start the dev server...
 
-    git clone https://github.com/LawrenceJones/classy-cate.git
+    git clone https://github.com/LawrenceJones/grep-doc.git
     git checkout webapps
     npm install
     jake
@@ -13,7 +13,7 @@ The following steps will setup a dev environment, the last `jake` being optional
 
 Deployment takes place via a git push command. Taking the host `docvm.doc.ic.ac.uk` as an example...
 
-    git remote add deploy ssh://USER@docvm.doc.ic.ac.uk:/home/web/classy
+    git remote add deploy ssh://USER@docvm.doc.ic.ac.uk:/home/web/grep-doc
     git push deploy live:master
 
 ## Configuring Deploy Remote
@@ -28,10 +28,10 @@ inside a post-receive githook, while the deployment logic is inside the Jakefile
 
 Assuming you're on your production server, then a whistle-stop setup is...
 
-    git clone https://github.com/LawrenceJones/classy-cate.git ~/classy
-    mkdir -p /home/web/classy && cd /home/web/classy
+    git clone https://github.com/LawrenceJones/grep-doc.git ~/grep-doc
+    mkdir -p /home/web/grep-doc && cd /home/web/grep-doc
     git init --bare
-    rm -rf ./hooks && ln -s ~/classy/hooks ./hooks
+    rm -rf ./hooks && ln -s ~/grep-doc/hooks ./hooks
     mkdir node_modules
     npm install -g jake forever coffee-script
 

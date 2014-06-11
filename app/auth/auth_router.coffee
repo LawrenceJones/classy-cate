@@ -7,7 +7,6 @@ module.exports = (app) ->
   # Auths user against CATe
   app.post '/authenticate', (req, res) ->
 
-    console.log req.body
     input = [user, pass] = [req.body.user, req.body.pass]
     valid = input.reduce (a = true, c) ->
       a && c? && typeof c == 'string' && c.trim() != ''
