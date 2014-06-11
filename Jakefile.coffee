@@ -209,22 +209,28 @@ task 'routes', [], ->
 
 # Classy Tasks #########################################
 
-desc 'Runs a parser class given the supplied parameters'
-task 'run-parser', [], async: true, (pfile, params...) ->
-  title "Attempting to run parser [#{pfile}]"# {{{
+loadParser = (pfile) ->
   if !pfile? or not fs.existsSync pfile
     fail 'Please supply valid parser script path as argument'
-  Proxy = new (require './app/parsers/http_proxy')(require pfile)
+  require pfile
 
-  log 'Loading Imperial credentials from ~/.imp'
-  [user, pass] = fs.readFileSync(process.env.HOME+'/.imp', 'utf8').split /\n/
-  creds = -> user: user, pass: pass
-
-  # Generate query from args key:val
+# Generate query from args key:val
+parseQuery = (params) ->
   query = new Object()
   for param in params
     [key, val] = param.split ':'
     query[key] = val
+  query
+
+desc 'Runs a parser class given the supplied parameters'
+task 'run-parser', [], async: true, (pfile, params...) ->
+  title "Attempting to run parser [#{pfile}]"# {{{
+  Proxy = new (require './app/parsers/http_proxy')(loadParser pfile)
+
+  log 'Loading Imperial credentials from ~/.imp'
+  [user, pass] = fs.readFileSync(process.env.HOME+'/.imp', 'utf8').split /\n/
+  creds = -> user: user, pass: pass
+  query = parseQuery params
 
   # Make request with proxy
   req = Proxy.makeRequest query, creds
@@ -233,6 +239,18 @@ task 'run-parser', [], async: true, (pfile, params...) ->
     succeed 'Successfully parsed page'
   req.catch (err) ->
     fail err.msg# }}}
+
+desc 'Generates resource URL from query parameters, using supplied parser'
+task 'gen-url', [], async: true, (pfile, params...) ->
+  title "Attempting to generate URL using [#{pfile}]"# {{{
+  Parser = loadParser pfile
+  query = parseQuery params
+
+  try log Parser.url query
+  catch err
+    fail err.msg
+
+  succeed 'Successfully generated URL'# }}}
 
 # Asset Tasks ##########################################
 
