@@ -8,28 +8,93 @@ HTTPProxy = ParserTools.HTTPProxy
 validate = (schema, Proxy, query, done) ->
   req = Proxy.makeRequest query, creds
   req.then (json) ->
-    jayschema.validate json, schema, (errs) ->
-      errs?.should.fail 'failed to validate schema'
+    jayschema.validate json, schema, (errs = []) ->
+      if errs.length > 0
+        console.error errs.map((e)->e.toString()).join '\n'
+        should.fail 'Failed to validate schema'
       do done
   req.catch (err) ->
     should.fail 'failed to make connection'
   
-describe 'parsers', ->
+describe 'Parsers', ->
 
   describe 'cate', ->
 
-    describe 'timetable', ->
+    describe 'TimetableParser', ->
 
-      ttSchema = require 'test/parsers/cate/schema.timetable_parser.coffee'
-      TimetableProxy = new HTTPProxy ParserTools.cate.TimetableParser
-      queryPeriod = (period) ->
-        query = {}
-        query[k] = v for own k,v of creds.opt
-        query.period = period; query
+      if not process.env.UNIT_ONLY then describe '#extract', ->
 
-      [1..6].map (p) ->
-        it "validated period #{p}", (done) ->
-          validate ttSchema, TimetableProxy, queryPeriod(p), done
+        ttSchema = require 'test/parsers/cate/schema.timetable_parser.coffee'
+        TimetableProxy = new HTTPProxy ParserTools.cate.TimetableParser
+        queryPeriod = (period) ->
+          query = {}
+          query[k] = v for own k,v of creds.opt
+          query.period = period; query
+
+        [1..6].map (p) ->
+          it "should validate JSON for period #{p}", (done) ->
+            validate ttSchema, TimetableProxy, queryPeriod(p), done
+
+  describe 'teachdb', ->
+
+    describe 'StudentParser', ->
+
+      StudentParser = ParserTools.teachdb.StudentParser
+      StudentProxy = new HTTPProxy StudentParser
+      courses = [
+        {classes: ['c1', 'j1', 'c3']}
+        {classes: ['c1', 'j2']}
+        {classes: ['c1']}
+        {classes: ['c2', 'j2']}
+        {classes: ['c2']}
+      ]
+      
+      if not process.env.UNIT_ONLY then describe '#extract', ->
+
+        studentSchema = require 'test/parsers/teachdb/schema.student_parser.coffee'
+        it "should validate JSON for tid #{creds.opt.tid}", (done) ->
+          validate studentSchema, StudentProxy, tid: creds.opt.tid, done
+
+      describe '#estimateYearStudied', ->
+        estimateYears = StudentParser._helpers.estimateYearsStudied
+        it 'should return 1 for 2012 entry, on 12 Aug 2013', ->
+          estimateYears 2012, new Date('12 Jan 2013')
+          .should.equal 1
+        it 'should return 2 for 2012 entry, on 10 Sept 2013', ->
+          estimateYears 2012, new Date('10 Sept 2013')
+          .should.equal 2
+        it 'should return 1 for 2012 entry, on 5 Aug 2012', ->
+          estimateYears 2012, new Date('5 Aug 2012')
+          .should.equal 1
+
+      describe '#combinations', ->
+        it "should return [['A','B'],['A','C'],['B','C']] when choosing 2 from ['A','B','C']", ->
+          combos = StudentParser._helpers.combinations ['A','B','C'], 2
+          combos.should.containEql ['A','B']
+          combos.should.containEql ['A','C']
+          combos.should.containEql ['B','C']
+          combos.should.have.length 3
+
+      describe '#findLongestRuns', ->
+        findLongestRuns = StudentParser._helpers.findLongestRuns
+        runs = findLongestRuns courses
+        
+        it "should discount classes that don't appear consequtively", ->
+          runs.should.not.have.key 'j2'
+
+        it 'should accurately count successive classes', ->
+          runs.should.containEql c1: 3, c2:2
+
+      describe '#bestGuessClasses', ->
+        guesses = StudentParser._helpers.bestGuessClasses courses, 2012, new Date('12 June 2014')
+        it 'should guess c1 and c2', ->
+          guesses.should.containEql 'c1', 'c2'
+          guesses.should.have.length 2
+
+      describe '#url', ->
+        it 'should generate correct url', ->
+          StudentParser.url tid: 123456
+          .should.equal 'https://teachdb.doc.ic.ac.uk/db/All/viewrec?table=Student&id=123456'
 
       
 
