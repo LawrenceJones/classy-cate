@@ -60,71 +60,66 @@ Each user represents a valid login for all Imperial systems, and specifically fo
 + Model (application/json)
 
   {
-    _link: "/api/users/lmj112",
-    login: "lmj112",
-    fname: "Lawrence",
-    lname: "Jones",
-    profile: "https://cate.doc.ic.ac.uk/photo/student/pics12/lmj112.jpg",
-    cand: 00730706,
-    tutor: "Kin Leung (kkleung)",
-    enrolment: [
-      {
-        year: 2012,
-        class: "c1",
-        courses: [
-          {
-            _link: "/api/courses/2012/112",
+    _meta: {
+      link: "/api/users/lmj112",
+      login: "lmj112",
+      tid: 14678
+    },
+    data: {
+      validFrom: 1348873200000,
+      validTo: 1474930800000,
+      tid: 14678,
+      login: "lmj112",
+      email: "lawrence.jones12@imperial.ac.uk",
+      salutaion: "Mr.",
+      fname: "Lawrence",
+      lname: "Jones",
+      origin: "HOME",
+      entryYear: 2012,
+      url: "http://www.doc.ic.ac.uk/~lmj112",
+      cand: "00730706",
+      profile: "https://cate.doc.ic.ac.uk/photo/student/pics12/lmj112.jpg",
+      courses: [
+        {
+          _meta: {
+            link: "/api/courses/2012/112",
+            year: 2012,
+            cid: "112"
+          },
+          data: {
             cid: "112",
             name: "Hardware",
             eid: "C114",
             terms: [1],
-            classes: [
-              "c1"
-            ],
-            level: 3
-          },
-          {
-            _link: "/api/courses/2012/130",
-            cid: "130",
-            name: "Databases I",
-            eid: "C130",
-            terms: [2],
-            classes: [
-              "c1"
-            ],
-            level: 3
+            classes: ["c1"]
           }
-        ]
-      },
-      {
-        year: 2013,
-        class: "c2",
-        courses: [
-          {
-            _link: "/api/courses/2013/212",
-            cid: "212",
-            name: "Networks and Communications",
-            eid: "C214",
-            terms: [2],
-            classes: [
-              "c2"
-            ],
-            level: 3
+        },
+        {
+          _meta: {
+            link: "/api/courses/2013/240",
+            year: 2013,
+            cid: "240"
           },
-          {
-            _link: "/api/courses/2013/220",
-            cid: "220",
-            name: "Software Engineering Design",
-            eid: "C224",
+          data: {
+            cid: "240",
+            name: "Models of Computation",
+            eid: "C244",
             terms: [1],
-            classes: [
-              "c2", "j2"
-            ],
-            level: 3
+            classes: ["c2", "j2", "j3"]
           }
-        ]
-      }
-    ]
+        }
+      ]
+      enrolment: [
+        {
+          year: 2012,
+          class: "c1"
+        },
+        {
+          year: 2013,
+          class: "c2"
+        }
+      ]
+    }
   }
 
 ### Retrieve User Information [GET]

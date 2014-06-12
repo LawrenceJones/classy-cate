@@ -13,6 +13,7 @@ T_Date = (d) -> new Date(d)?.getTime()
 T_Classes = (s) -> s.split /,\s*/g
 T_Term = (s) -> T_Classes(s).map T_Int
 T_Origin = (s='') -> s.toUpperCase()
+T_Eid = (s) -> if s is '-' then null else s
 
 # Translation for teachdb keys
 dict =
@@ -115,7 +116,7 @@ module.exports = class StudentParser extends HTMLParser
       terms = _terms.split(',').map (t) -> parseInt t, 10
       classes = _classes.split /,\s+/
       user.courses.push
-        cid: cid, name: name, eid: eid
+        cid: cid, name: name, eid: T_Eid eid
         terms: terms, classes: classes
 
     # Try to guess students classes

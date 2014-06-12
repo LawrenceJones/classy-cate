@@ -14,7 +14,7 @@ courseSchema =
   properties:
     cid: type: 'string'
     name: type: 'string'
-    eid: type: 'string'
+    eid: type: ['string', 'null']
     terms:
       type: 'array'
       items: type: 'integer'
