@@ -1,11 +1,12 @@
 classy = angular.module 'classy'
 
 # Represents a module of grades
-classy.factory 'Grades', (Resource) ->
+classy.factory 'Grades', (Resource, $rootScope) ->
   class Grades extends Resource({
     actions:
-      all: '/api/grades'
-    defaultParams: year: 2013
+      all: '/api/grades'   # TODO: suffix with /:year and fix Resource
+    defaultParams:
+      year: $rootScope.AppState.currentYear
   })
     
     # Removes all ungraded exercises

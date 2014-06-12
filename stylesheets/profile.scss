@@ -1,0 +1,24 @@
+table.profile-details {
+  th td {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+}
+
+table.course-registration {
+
+  tr td {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    a {
+      color: inherit;
+    }
+  }
+
+  .co-name {
+    max-width: 160px;
+  }
+
+}

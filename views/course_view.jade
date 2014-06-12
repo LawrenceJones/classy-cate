@@ -1,6 +1,6 @@
 mixin course-heading
   h2.course-heading
-    | {{ course.mid }}: {{ course.name }}
+    | {{ course.cid }}: {{ course.name }}
     i.fa.fa-info-circle.small
 
 mixin notes-panel
@@ -55,10 +55,10 @@ mixin discussions-panel
       h3.panel-title Discussions
     table.table.table-hover.panel-body
       tbody
-        tr(ng-repeat='discussion in discussions')
+        tr(ng-repeat='discussion in course.discussions')
           td {{ discussion.title }}
           td {{ discussion.author }}
-          td {{ dateString(discussion.time) }}
+          td {{ discussion.time.format() }}
           td
             span.badge {{ discussion.posts }}
 
@@ -69,7 +69,7 @@ mixin discussions-panel
 .row
   .col-md-12
     .lead
-      | This course ran in the term before last
+      | This course is running in the current term
 .row
   .col-md-6
     +notes-panel

@@ -1,10 +1,11 @@
 classy = angular.module 'classy'
 
-classy.factory 'Courses', (Resource) ->
+classy.factory 'Courses', (Resource, $rootScope) ->
   class Courses extends Resource({
     actions:
       get: '/api/courses/:year/:cid'
-    defaultParams: year: 2013
+    defaultParams:
+      year: $rootScope.AppState.currentYear
     relations:
       notes: 'Notes'
       exercises: 'Exercises'
@@ -26,10 +27,12 @@ classy.factory 'Exercises', (Resource) ->
       end: Date
   })
 
-classy.controller 'CourseCtrl', ($scope, $stateParams, Courses) ->
-  ($scope.course = Courses.get(cid: $stateParams.cid)).$promise
+classy.controller 'CoursesViewCtrl', ($scope, $stateParams, $state, Courses) ->
+  ($scope.course = Courses.get $stateParams).$promise
   .then (course) ->
     console.log course
+
   .catch (err) ->
+    $state.transitionTo 'app.courses', {}
     console.log "Error occurred."
 

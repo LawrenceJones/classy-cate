@@ -1,0 +1,49 @@
+mixin column(index)
+  .panel.panel-default(ng-repeat='year in cols['+index+']')
+    .panel-heading
+      h3.panel-title {{ 'Class ' + year.class.toUpperCase()  + ' in ' + year.year }}
+    table.table.table-striped.panel-body.course-registration
+      thead
+        tr
+          th.co-code Code
+          th.co-name Name
+          th.co-exam.hidden-xs Exam
+          th.co-terms Terms
+          th.co-classes.visible-lg.visible-sm Classes
+          th.co-level Level
+      tbody
+        tr(ng-repeat='course in year.courses')
+          td.co-code
+            a(ui-sref='app.courses.view({cid: course.cid})') {{ course.cid }}
+          td.co-name
+            a(ui-sref='app.courses.view({cid: course.cid})') {{ course.name }}
+          td.co-exam.hidden-xs
+            a(ui-sref='app.exams.view({eid: course.eid})') {{ course.eid }}
+          td.co-terms {{ course.terms.join(", ") }}
+          td.co-classes.visible-lg.visible-sm {{ course.classes.join(", ") }}
+          td.co-level {{ course.level }}
+ 
+.row
+  .col-md-12
+    h2 {{ profile.fullName()  }}
+    .lead Student profile for {{ profile.login }}
+
+.row
+  .col-md-6
+    .panel.panel-default
+      table.table.table-bordered.panel-body.profile-details
+        tbody
+          tr
+            th.cand-no.active Candidate No.
+            td.cand-no {{ profile.cand }}
+          tr
+            th.entry.active Entry Year
+            td.entry {{ profile.entryYear }}
+          tr
+            th.p-tutor.active Personal Tutor
+            td.p-tutor {{ profile.tutorName() + ' (' + profile.tutor.login + ')' }}
+
+    +column(0)
+  .col-md-6
+    +column(1)
+
