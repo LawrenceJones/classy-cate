@@ -78,7 +78,7 @@ resource.factory 'Resource', [
       @query: (query = {}) ->
         wrap.call @, 'array', $http
           method: 'GET'
-          url: actions.all
+          url: fillParams actions.all, query
           params: query
 
       # Retrieve a single resource
