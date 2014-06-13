@@ -5,14 +5,15 @@ jayschema = new (JaySchema = require 'jayschema')
 ParserTools = require 'app/parsers'
 HTTPProxy = ParserTools.HTTPProxy
 
-validate = (schema, Proxy, query, done) ->
+validate = (schema, Proxy, query, done, cb) ->
   req = Proxy.makeRequest query, creds
   req.then (json) ->
+    console.log json
     jayschema.validate json, schema, (errs = []) ->
       if errs.length > 0
         console.error errs.map((e)->e.toString()).join '\n'
         should.fail 'Failed to validate schema'
-      do done
+      cb?(json) || do done
   req.catch (err) ->
     should.fail 'failed to make connection'
   
@@ -36,6 +37,25 @@ describe 'Parsers', ->
             validate ttSchema, TimetableProxy, queryPeriod(p), done
 
   describe 'teachdb', ->
+
+    describe 'StudentIDParser', ->
+
+      sidSchema = require 'test/parsers/teachdb/schema.student_id_parser.coffee'
+      StudentIDParser = ParserTools.teachdb.StudentIDParser
+      StudentIDProxy = new HTTPProxy StudentIDParser
+      tids = [
+        ['lmj112', 14678]
+        ['thb12', 14658]
+        ['nonvalid', null]
+      ]
+
+      tids.map (elem) ->
+        [login, exp] = elem
+        it "should resolve #{login} to tid = #{exp}", (done) ->
+          validate sidSchema, StudentIDProxy, login: login, null, (data) ->
+            data._meta.tid.should.equal exp
+            do done
+            
 
     describe 'StudentParser', ->
 

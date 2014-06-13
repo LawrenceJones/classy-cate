@@ -177,13 +177,14 @@ task 'init-subs', [], async: true, ->
   )# }}}
 
 desc 'Runs mocha for tests'
-task 'test', [], async: true, ->
+task 'test', [], async: true, (pattern) ->
   title 'Running mocha test suite'# {{{
   spawn\
   ( 'mocha'
     [ '--recursive', '--compilers', 'coffee:coffee-script/register'
       '--globals', 'newW,clickpage'
-      '--reporter', 'spec', '--colors' ]
+      '--reporter', 'spec', '--colors'
+      '--grep', pattern ? '' ]
     stdio: 'inherit' )# }}}
 
 # API Tasks ############################################

@@ -11,4 +11,5 @@ module.exports =
   # teachdb Parsers
   teachdb:
     StudentParser: require './teachdb/student_parser'
+    StudentIDParser: require './teachdb/student_id_parser'
 
