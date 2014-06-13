@@ -1,0 +1,59 @@
+.timetable {
+
+  .table-responsive {
+    overflow: auto;
+  }
+
+  table {
+    table-layout: fixed; 
+    border-collapse: separate;
+  }
+
+
+  .date-exs {
+
+    table.floatThead-table {
+      border-collapse: collapse;
+      border-top: none;
+      border-bottom: none;
+      background-color: #FFF;
+    }
+
+    col {
+      width: 30px;
+    }
+
+    .days-header {
+
+      th {
+        border: 1px solid black;
+      }
+      
+    }
+    
+    .course-body {
+
+      td {
+        overflow: ellipsis;
+      }
+
+      .exercise {
+        background-color: gray;
+      }
+
+    }
+  }
+
+}
+
+
+
+#vertical-line {
+    width: 2px;
+    background-color: #BDBDBD;
+    display: inline-block;
+    position: absolute;
+    height: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
+}

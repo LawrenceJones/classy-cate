@@ -64,7 +64,7 @@ classy.config [
 
     $stateProvider.state 'app.timetable', {
       url: '/timetable'
-      controller: ->
+      controller: 'TimetableCtrl'
       templateUrl: '/partials/timetable'
     }
 
