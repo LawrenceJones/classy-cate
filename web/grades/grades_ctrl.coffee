@@ -16,7 +16,6 @@ classy.factory 'Grades', (Resource, $rootScope) ->
           @exercises.splice j, 1
       return @ if @exercises.length > 0
 
-
 classy.controller 'GradesCtrl', ($scope, Grades, $stateParams, $state) ->
 
   # Removes ungraded exercises and filters empty courses from given courses

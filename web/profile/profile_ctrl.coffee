@@ -14,7 +14,9 @@ classy.factory 'Users', (Resource) ->
 
 classy.controller 'ProfileCtrl', ($scope, $rootScope, Users) ->
   ($scope.profile = Users.get(login: "thb12")).$promise
-    .then (profile) ->
+    .then (response) ->
+
+      profile = response.data
 
       profile.enrolment.map (e) ->
         e.courses.map (c) ->

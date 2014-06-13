@@ -4,6 +4,7 @@ classy.factory 'Courses', (Resource, $rootScope) ->
   class Courses extends Resource({
     actions:
       get: '/api/courses/:year/:cid'
+      all: '/api/courses/:year'
     defaultParams:
       year: $rootScope.AppState.currentYear
     relations:
@@ -34,5 +35,5 @@ classy.controller 'CoursesViewCtrl', ($scope, $stateParams, $state, Courses) ->
 
   .catch (err) ->
     # For now, transition to courses index if 404: TODO
-    $state.transitionTo 'app.courses' if err.status is 404
+    $state.transitionTo 'app.courses', $stateParams if err.status is 404
 

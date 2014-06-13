@@ -1,7 +1,33 @@
+mixin column(term)
+  .col-md-4
+    .panel.panel-default
+      .panel-heading
+        h3.panel-title
+          | Term 
+          =term
+      table.table.table-striped.table-bordered.panel-body.courses-col
+        thead
+          tr
+            th Code
+            th Name
+            th Terms
+            th Classes
+        tbody
+          tr(ng-repeat="course in courses | runsInTerm:"+term+" | orderBy: 'cid'")
+            td {{ course.cid }}
+            td {{ course.name }}
+            td {{ termsStr(course.terms) }}
+            td {{ coursesStr(course.classes) }}
+
+
 // ui-view for nested course pages to replace
 .courses(ui-view='')
   .row
     .col-md-12
       h2 All Courses
       .lead Every course running in DoC this year
-    
+  
+  .row
+    +column(1)
+    +column(2)
+    +column(3)
