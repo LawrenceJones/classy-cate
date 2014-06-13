@@ -55,11 +55,11 @@ resource.factory 'Resource', [
         switch type
           when 'array' then container.push @makeResource(data)...
           when 'object' then @call container, data
-        def.resolve container, status
+        def.resolve { data: container, status }
 
       # Handle case of error in request
       req.error (data, status) ->
-        def.reject data, status
+        def.reject { data, status }
 
       return container
 
@@ -72,13 +72,13 @@ resource.factory 'Resource', [
         else new @ data
 
       # Get index of all resources.
-      @all: -> do @query
+      @all: (params) -> @query(params)
 
       # Fetch result of querying resource.
-      @query: (query = {}) ->
+      @query: (params, query = {}) ->
         wrap.call @, 'array', $http
           method: 'GET'
-          url: actions.all
+          url: fillParams actions.all, params
           params: query
 
       # Retrieve a single resource

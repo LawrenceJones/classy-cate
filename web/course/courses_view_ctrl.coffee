@@ -30,9 +30,9 @@ classy.factory 'Exercises', (Resource) ->
 classy.controller 'CoursesViewCtrl', ($scope, $stateParams, $state, Courses) ->
   ($scope.course = Courses.get $stateParams).$promise
   .then (course) ->
-    console.log course
+    console.log $stateParams
 
   .catch (err) ->
-    $state.transitionTo 'app.courses', {}
-    console.log "Error occurred."
+    # For now, transition to courses index if 404: TODO
+    $state.transitionTo 'app.courses' if err.status is 404
 

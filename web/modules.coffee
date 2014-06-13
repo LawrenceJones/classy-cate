@@ -71,7 +71,7 @@ classy.config [
     }
 
     $stateProvider.state 'app.timetable', {
-      url: '/timetable'
+      url: '/timetable?year&period'
       controller: ->
       templateUrl: '/partials/timetable'
       canTimeTravel: true
