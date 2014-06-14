@@ -14,11 +14,11 @@ mixin column(index)
       tbody
         tr(ng-repeat='course in year.courses')
           td.co-code
-            a(ui-sref='app.courses.view({cid: course.cid})') {{ course.cid }}
+            a(course-link='course') {{ course.cid }}
           td.co-name
-            a(ui-sref='app.courses.view({cid: course.cid})') {{ course.name }}
+            a(course-link='course') {{ course.name }}
           td.co-exam.hidden-xs
-            a(ui-sref='app.exams.view({eid: course.eid})') {{ course.eid }}
+            a(exam-link='course') {{ course.eid }}
           td.co-terms {{ course.terms.join(", ") }}
           td.co-classes.visible-lg.visible-sm {{ course.classes.join(", ") }}
           td.co-level {{ course.level }}

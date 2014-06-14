@@ -5,7 +5,7 @@ classy.filter 'runsInTerm', ->
   (arr, term) -> arr.filter (course) -> term in course.terms
 
 
-classy.controller 'CoursesCtrl', ($scope, $stateParams, $state,
+classy.controller 'CoursesCtrl', ($scope, $stateParams, $state, $rootScope,
                                   Courses, FormattingService) ->
 
   ($scope.courses = Courses.all $stateParams).$promise
@@ -13,6 +13,7 @@ classy.controller 'CoursesCtrl', ($scope, $stateParams, $state,
 
       $scope.termsStr   = FormattingService.termsArrayToString
       $scope.coursesStr = FormattingService.courseArrayToString
+      $scope.stateYear  = $stateParams.year || $rootScope.AppState.currentYear
 
     .catch (err) ->
       # For now, transition to default courses index if 404: TODO

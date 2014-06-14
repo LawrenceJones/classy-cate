@@ -14,8 +14,10 @@ mixin column(term)
             th Classes
         tbody
           tr(ng-repeat="course in courses | runsInTerm:"+term+" | orderBy: 'cid'")
-            td {{ course.cid }}
-            td {{ course.name }}
+            td
+              a(course-link='course') {{ course.cid }}
+            td 
+              a(course-link='course') {{ course.name }}
             td {{ termsStr(course.terms) }}
             td {{ coursesStr(course.classes) }}
 
