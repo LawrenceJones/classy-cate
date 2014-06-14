@@ -33,5 +33,5 @@ classy.controller 'CoursesViewCtrl', ($scope, $stateParams, $state, Courses) ->
   .then ((course) -> )
   .catch (err) ->
     # For now, transition to courses index if 404: TODO
-    $state.transitionTo 'app.courses', $stateParams if err.status is 404
+    $state.go 'app.courses' if err.status is 404
 

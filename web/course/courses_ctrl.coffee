@@ -16,6 +16,6 @@ classy.controller 'CoursesCtrl', ($scope, $stateParams, $state, $rootScope,
       $scope.stateYear  = $stateParams.year || $rootScope.AppState.currentYear
 
     .catch (err) ->
-      # For now, transition to default courses index if 404: TODO
-      $state.transitionTo 'app.courses' if err.status is 404
+      # For now, transition to dashboard if 404: TODO
+      $state.go 'app.dashboard' if err.status is 404
 

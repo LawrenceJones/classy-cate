@@ -35,6 +35,7 @@ classy.config [
     # Abstract parent to force dash loading first
     $stateProvider.state 'app', {
       abstract: true
+      url: '?year'
     }
 
     # Splash entry page with user info.
@@ -54,34 +55,31 @@ classy.config [
       url: '/profile'
       controller: 'ProfileCtrl'
       templateUrl: '/partials/profile'
+      userState: true
     }
 
     $stateProvider.state 'app.courses', {
-      url: '/courses?year'
+      url: '/courses'
       controller: 'CoursesCtrl'
       templateUrl: '/partials/courses'
-      canTimeTravel: true
     }
 
     $stateProvider.state 'app.courses.view', {
       url: '/:cid'
       controller: 'CoursesViewCtrl'
       templateUrl: '/partials/course_view'
-      canTimeTravel: true
     }
 
     $stateProvider.state 'app.timetable', {
-      url: '/timetable?year&period'
+      url: '/timetable?period'
       controller: ->
       templateUrl: '/partials/timetable'
-      canTimeTravel: true
     }
 
     $stateProvider.state 'app.grades', {
-      url: '/grades?year'
+      url: '/grades'
       controller: 'GradesCtrl'
       templateUrl: '/partials/grades'
-      canTimeTravel: true
     }
 
     $stateProvider.state 'app.discussions', {
@@ -106,30 +104,23 @@ classy.config [
 
 ]
 
-classy.run ($q, $rootScope) ->
+classy.run ($q, $rootScope, $stateParams) ->
 
   # Keep track of state in $rootScope
-  $rootScope.$on '$stateChangeSuccess', ($event, state) ->
+  $rootScope.$on '$stateChangeSuccess', ($event, state, $stateParams) ->
     $rootScope.currentState = state.name
-    $rootScope.courseState = /app\.courses/.test state.name
-    $rootScope.canTimeTravel = state.canTimeTravel? and state.canTimeTravel
+    $rootScope.courseState  = /app\.courses/.test state.name
+    $rootScope.userState    = state.userState? and state.userState
+    if (year = $stateParams.year)? then $rootScope.AppState.currentYear = parseInt year
 
   $rootScope.AppState =
+
+    # currentYear initially the academic year at present moment in time
     currentYear:
       if (current = new Date).getMonth() < 8 then current.getFullYear() - 1
       else current.getFullYear()
 
-
-  $rootScope.timeTravelYears = [
-    {
-      year: 2013
-      class: 'c2'
-    }
-    {
-      year: 2012
-      class: 'c1'
-    }
-  ]
+    availableYears: [ 2013, 2012 ]
 
   $rootScope.registeredCourses = [
     {

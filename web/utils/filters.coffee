@@ -10,3 +10,11 @@ classy.filter 'column', ->
     last   = Math.round(perCol*(col+1)-1)
     arr[first..last]
 
+# Sorts an array numerically ascending
+classy.filter 'numericalSort', ->
+  (arr) -> arr.sort()
+
+# Reverses an array
+classy.filter 'reverse', ->
+  (arr) -> arr.reverse()
+
