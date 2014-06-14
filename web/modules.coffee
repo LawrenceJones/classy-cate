@@ -111,7 +111,10 @@ classy.run ($q, $rootScope, $stateParams) ->
     $rootScope.currentState = state.name
     $rootScope.courseState  = /app\.courses/.test state.name
     $rootScope.userState    = state.userState? and state.userState
-    if (year = $stateParams.year)? then $rootScope.AppState.currentYear = parseInt year
+    
+    if (year = $stateParams.year)? and \
+       (year = parseInt year) in $rootScope.AppState.availableYears
+      $rootScope.AppState.currentYear = parseInt year
 
   $rootScope.AppState =
 
