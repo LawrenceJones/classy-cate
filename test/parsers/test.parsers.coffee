@@ -9,7 +9,16 @@ validate = (schema, Proxy, query, done, cb) ->
   req = Proxy.makeRequest query, creds
   req.then (json) ->
     jayschema.validate json, schema, (errs = []) ->
-      if errs.length > 0 then should.fail errs
+      if errs.length > 0
+        errors = {}
+        for err in errs
+          (errors[err.desc] ?= []).push err
+        for own desc,errs of errors
+          console.error """\n
+          #{errs.length} instances of error "#{desc}"
+          Errors at [#{err.instanceContext+', ' for err in errs[0..1]}]\n
+          """
+        should.fail errs
       cb?(json) || done?()
   req.catch (err) ->
     should.fail err

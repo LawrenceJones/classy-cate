@@ -32,12 +32,20 @@ givensSchema =
 exerciseSchema =
   type: 'object'
   additionalProperties: false
+  required: [
+    'eid', 'type', 'name', 'start', 'end'
+    'group', 'assessed', 'handin', 'spec'
+    'mailto', 'givens'
+  ]
   properties:
     eid: type: 'integer'
     type: type: 'string'
     name: type: 'string'
     start: type: 'integer'
     end: type: 'integer'
+    group: type: 'boolean'
+    assessed: type: 'boolean'
+    submission: type: 'boolean'
     handin: type: ['string', 'null']
     spec: type: ['string', 'null']
     mailto: type: ['string', 'null']

@@ -96,11 +96,26 @@ processExerciseCell = ($, $exCell, currentDate, colSpan) ->
   end = new Date(currentDate.getTime())
   end.setDate(end.getDate() + colSpan - 1)
 
+  typeCols = (col) ->
+    # [group, assessed, submitted]
+    if /^#f0ccf0$/i.test col
+      [true, true, true]
+    else if /^#cdcdcd$/i.test col
+      [false, false, true]
+    else if /^(#FFFFFF|white)$/i.test col
+      [false, false, false]
+    else if /^#CCFFCC$/i.test col
+      [false, true, true]
+
+  cellCol = $exCell.attr 'bgcolor'
+  [group, assessed, submitted] = typeCols cellCol
+
   # Return exercise record
   eid: parseInt(eid, 10), type: type, name: name
   start: currentDate.getTime(), end: end.getTime()
   mailto: hrefs.mailto ? null, spec: hrefs.spec ? null
   givens: hrefs.givens ? null, handin: hrefs.handin ? null
+  submission: submitted, group: group, assessed: assessed
 
 
 # Add the parsed exercises to the given course
