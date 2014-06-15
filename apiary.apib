@@ -65,61 +65,55 @@ Each user represents a valid login for all Imperial systems, and specifically fo
       login: "lmj112",
       tid: 14678
     },
-    data: {
-      validFrom: 1348873200000,
-      validTo: 1474930800000,
-      tid: 14678,
-      login: "lmj112",
-      email: "lawrence.jones12@imperial.ac.uk",
-      salutaion: "Mr.",
-      fname: "Lawrence",
-      lname: "Jones",
-      origin: "HOME",
-      entryYear: 2012,
-      url: "http://www.doc.ic.ac.uk/~lmj112",
-      cand: "00730706",
-      profile: "https://cate.doc.ic.ac.uk/photo/student/pics12/lmj112.jpg",
-      courses: [
-        {
-          _meta: {
-            link: "/api/courses/2012/112",
-            year: 2012,
-            cid: "112"
-          },
-          data: {
-            cid: "112",
-            name: "Hardware",
-            eid: "C114",
-            terms: [1],
-            classes: ["c1"]
-          }
-        },
-        {
-          _meta: {
-            link: "/api/courses/2013/240",
-            year: 2013,
-            cid: "240"
-          },
-          data: {
-            cid: "240",
-            name: "Models of Computation",
-            eid: "C244",
-            terms: [1],
-            classes: ["c2", "j2", "j3"]
-          }
-        }
-      ]
-      enrolment: [
-        {
+    validFrom: 1348873200000,             // Time for which this student is enrolled
+    validTo: 1474930800000,               // Limit of current enrolment status
+    tid: 14678,                           // Teach ID, an index into the teachdb database
+    login: "lmj112",                              // College login
+    email: "lawrence.jones12@imperial.ac.uk",     // College email
+    salutaion: "Mr.",                             // Official salutation Mr, Mrs, Ms...
+    fname: "Lawrence",                            // Firstname
+    lname: "Jones",                               // Lastname
+    origin: "HOME",                               // Student status
+    entryYear: 2012,                              // Year arrived at college
+    url: "http://www.doc.ic.ac.uk/~lmj112",       // Personal college sites
+    cand: "00730706",                             // Official candidate number
+    profile: "https://cate.doc.ic.ac.uk/photo/student/pics12/lmj112.jpg",   // url of CATe profile picture
+    courses: [
+      {
+        _meta: {
+          link: "/api/courses/2012/112",
           year: 2012,
-          class: "c1"
+          cid: "112"
         },
-        {
+        cid: "112",                 // Course ID, unique with year of study
+        name: "Hardware",           // Name of course
+        eid: "C114",                // Associated exam ID
+        terms: [1],                 // Terms studied
+        classes: ["c1"]             // Classes that are enrolled into this course
+      },
+      {
+        _meta: {
+          link: "/api/courses/2013/240",
           year: 2013,
-          class: "c2"
-        }
-      ]
-    }
+          cid: "240"
+        },
+        cid: "240",
+        name: "Models of Computation",
+        eid: "C244",
+        terms: [1],
+        classes: ["c2", "j2", "j3"]
+      }
+    ]
+    enrolment: [
+      {
+        year: 2012,   // In 2012, this student was enrolled in
+        class: "c1"   // class C1.
+      },
+      {
+        year: 2013,
+        class: "c2"
+      }
+    ]
   }
 
 ### Retrieve User Information [GET]
@@ -147,8 +141,8 @@ Every timetable view is defined by the desired year, period and class of the stu
 + Model (application/json)
 
   {
-    _link: "/api/timetable/2013/5/c2",
     _meta: {
+      link: "/api/timetable/2013/5/c2",
       year: 2013,
       period: 5,
       class: "c2",
@@ -157,27 +151,35 @@ Every timetable view is defined by the desired year, period and class of the stu
     },
     courses: [
       {
-        _link: "/api/courses/2013/203",
-        cid: "203",
-        name: "Human-Centered Design",
+        _meta: {
+          link: "/api/courses/2013/203"
+        }
+        cid: "203",                             // Course ID, unique with year
+        name: "Human-Centered Design",          // Name of course
         exercises: [
           {
-            _link: "/api/courses/2013/203/exercises/1",
-            num: 1,
-            type: "PROJ",
-            title: "HCD Presentation",
-            start: 1401663600000,
-            end: 1402009200000,
+            _meta: {
+              link: "/api/courses/2013/203/exercises/1"
+            }
+            num: 1,                           // Exercise number, sequential
+            type: "PROJ",                     // Type of exercise
+            title: "HCD Presentation",        // Exercise title by CATe
+            start: 1401663600000,             // Moment at which exercise became active
+            end: 1402009200000,               // Deadline or handin moment for exercise
+            // Formatted mailto reference to autostart email with appropriate subject
             mailto: "mailto:mjw03@doc.ic.ac.uk?subject=Module 203 - 'Human-Centered Design' - Exercise 1",
-            handin: null,
+            handin: null,       // Link to the CATe handin page
+            submission: true,   // This exercise requires a submission
+            group: true,        // This exercise is run in groups
+            assessed: true,     // True if the grade for this exercise counts toward students degree
             givens: {
-              _link: "/api/courses/2013/203/exercises/1/givens",
+              _meta: {
+                link: "/api/courses/2013/203/exercises/1/givens"
+              }
             }
             
           }
         ]
-      },
-      {
       }
     ]
   }
