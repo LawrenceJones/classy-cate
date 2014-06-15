@@ -1,6 +1,12 @@
+$coursework-colour: #dff0d8;
+$tutorial-colour: #d9edf7;
+$default-exercise-colour: #fcf8e3;
 $row-exercises-height: 30px;
+$course-names-border-spacing: 2px;
 $thead-margin-bottom: 10px;
-$day-height: 18px;
+$day-height: 20px;
+$day-padding: 8px;
+$day-border: 1px;
 $day-width: 30px;
 
 #timetable {
@@ -21,11 +27,13 @@ $day-width: 30px;
   #table-course-names {
 
     table {
-      margin-top: 33px;
-      border-spacing: 2px;
+      border-spacing: $course-names-border-spacing;
+      margin-top: $day-height + 2 * $day-padding + 2 * $day-border + 
+                  $thead-margin-bottom - $course-names-border-spacing;
     }
 
     td {
+      background-color: #e7e7e7;
       overflow: hidden;
       text-overflow: ellipsis;
       vertical-align: middle;
@@ -49,13 +57,20 @@ $day-width: 30px;
       width: $day-width;
     }
 
+    tbody:first-of-type::before {
+      line-height: $thead-margin-bottom;
+      content:"-";
+      color: white;/* to hide text */
+      display: block;
+  }
 
     #days-header {
 
       th {
-        border: 1px solid black;
+        border: $day-border solid black;
         text-align: center;
         overflow: hidden;
+        padding: $day-padding;
       }
 
       .cell {
@@ -72,12 +87,20 @@ $day-width: 30px;
         white-space: nowrap;
       }
 
-      .exercise {
-        background-color: gray;
-      }
-
       .cell {
         margin-top: 1px;
+      }
+
+      .coursework {
+        background-color: $coursework-colour;
+      }
+
+      .tutorial {
+        background-color: $tutorial-colour;
+      }
+
+      .other-exercise {
+        background-color: $default-exercise-colour;
       }
 
     }

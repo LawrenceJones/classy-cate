@@ -42,8 +42,11 @@ classy.directive 'daysBar', ->
 
 classy.directive 'exerciseBox', ->
 
-  getExerciseClass = (ex) ->
-    'panel-default'
+  getExerciseClass = (type) ->
+    ({
+      CW:  'coursework'
+      TUT: 'tutorial'
+    })[type?.toUpperCase()] || 'other-exercise'
 
   restrict: 'A'
   replace: true
@@ -58,5 +61,4 @@ classy.directive 'exerciseBox', ->
   """
   link: ($scope, $elem, attr) ->
     ex = ($scope.$eval attr.box).ex
-    if ex?
-      $elem.addClass "exercise panel #{getExerciseClass ex}"
+    $elem.addClass "panel panel-default #{getExerciseClass ex.type}" if ex?
