@@ -1,6 +1,6 @@
 classy = angular.module 'classy'
 
-classy.factory 'Courses', (Resource, $rootScope) ->
+classy.factory 'Courses', (Resource, $rootScope, Format, Convert) ->
   class Courses extends Resource({
     actions:
       get: '/api/courses/:year/:cid'
@@ -21,6 +21,11 @@ classy.factory 'Courses', (Resource, $rootScope) ->
     formatClasses: ->
       @classes?.join "  "
 
+    describeTerms: ->
+      return if not @terms?
+      terms = @terms.map (term) -> Convert.termToName term
+      "This course runs in the #{Format.asEnglishList terms} #{Format.pluraliseIf 'term', terms.length}"
+
 classy.factory 'Notes', (Resource) ->
   class Notes extends Resource({
     relations:
@@ -36,7 +41,7 @@ classy.factory 'Exercises', (Resource) ->
 
 classy.controller 'CoursesViewCtrl', ($scope, $stateParams, $state, Courses) ->
   ($scope.course = Courses.get $stateParams).$promise
-  .then ((course) -> )
+  .then ((course, status) -> )
   .catch (err) ->
     # For now, transition to courses index if 404: TODO
     $state.go 'app.courses' if err.status is 404

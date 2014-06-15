@@ -68,8 +68,7 @@ mixin discussions-panel
     +course-heading
 .row
   .col-md-12
-    .lead
-      | This course is running in the current term
+    .lead {{ course.describeTerms() }}
 .row
   .col-md-6
     +notes-panel

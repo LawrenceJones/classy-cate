@@ -105,17 +105,28 @@ classy.config [
 
 ]
 
-classy.run ($q, $rootScope, $state, $stateParams, $location) ->
 
-  currentAcYear = \
-    if (current = new Date).getMonth() < 8 then current.getFullYear() - 1
-    else current.getFullYear()
+# Service to provide useful datas true at this moment of time
+classy.service 'Current', (Convert) ->
+  academicYear: ->
+    if (current = new Date).getMonth() < 8
+      return current.getFullYear() - 1
+    current.getFullYear()
+
+  period: ->
+    3 # TODO: calculate this
+
+  term: ->
+    Convert.periodToTerm @period()
+
+
+classy.run ($q, $rootScope, $state, $stateParams, $location, Current) ->
 
   # Keep track of state in $rootScope
   $rootScope.$on '$stateChangeSuccess', ($event, state, $stateParams) ->
     $rootScope.currentState = state.name
     $rootScope.courseState  = /app\.courses/.test state.name
-    $rootScope.userState    = state.userState? and state.userState
+    $rootScope.userState    = state.userState
 
     # If year given as query param, change state if year available, 
     # otherwise update URL to reflect this and prevent errors when 
@@ -127,7 +138,9 @@ classy.run ($q, $rootScope, $state, $stateParams, $location) ->
         $location.search 'year', $rootScope.AppState.currentYear
 
   $rootScope.AppState =
-    currentYear: currentAcYear
+    currentYear: Current.academicYear()
+    currentPeriod: Current.period()
+    currentTerm: Current.term()
     availableYears: [ 2013, 2012 ]
 
   $rootScope.registeredCourses = [
