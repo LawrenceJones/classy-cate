@@ -46,6 +46,8 @@ mixin course-selector
       +span-state('app.courses', 'All Courses')
       span.caret
     ul.dropdown-menu
+      li.dropdown-header
+        | Subscribed courses this period
       li(ng-repeat='course in registeredCourses', 
          ui-sref='app.courses.view({cid: course.cid})', ui-sref-active='active')
         a {{ course.cid + ': ' + course.name }}
@@ -58,6 +60,8 @@ mixin year-selector
     a.dropdown-toggle(data-toggle='dropdown')
       i.fa.fa-history
     ul.dropdown-menu
+      li.dropdown-header
+        | Academic year
       li(ng-repeat='year in AppState.availableYears | numericalSort | reverse'
          ng-click='changeYear(year)'
          ng-class='{active: AppState.currentYear == year}')

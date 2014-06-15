@@ -10,7 +10,7 @@ classy.directive 'courseLink', ($state) ->
   link: ($scope, $a, attr) ->
     cid = ($scope.$eval attr.courseLink).cid
     $a.on 'click', ->
-      $state.transitionTo 'app.courses.view', { cid: cid, year: $scope.stateYear }
+      $state.transitionTo 'app.courses.view', cid: cid
 
 
 classy.directive 'examLink', ($state) ->

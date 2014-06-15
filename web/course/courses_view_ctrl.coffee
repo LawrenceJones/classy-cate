@@ -15,6 +15,12 @@ classy.factory 'Courses', (Resource, $rootScope) ->
       validFrom: Date
   })
 
+    formatTerms: ->
+      @terms?.join ", "
+
+    formatClasses: ->
+      @classes?.join "  "
+
 classy.factory 'Notes', (Resource) ->
   class Notes extends Resource({
     relations:
