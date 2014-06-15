@@ -42,7 +42,7 @@ classy.config [
     # Splash entry page with user info.
     $stateProvider.state 'app.dashboard', {
       url: '/dashboard'
-      controller: (->)
+      controller: 'DashboardCtrl'
       templateUrl: '/partials/dashboard'
     }
 

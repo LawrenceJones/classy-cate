@@ -8,9 +8,9 @@ classy.directive 'courseNote', ($window) ->
 
 classy.directive 'courseExercise', ->
   restrict: 'A'
-  link: ($scope, $tr, attr) ->
-    $tr.on 'click', ->
-      console.log "Will expand to show resources for #{$scope.$eval attr.courseExercise}"
+  link: ($scope, $tbody, attr) ->
 
-  # TODO
+    $tbody.find(".ex-title").on 'click', ->
+      $tbody.closest("table").find("tbody").not($tbody).find(".ex-given").addClass("hide")
+      $tbody.find(".ex-given").toggleClass("hide")
 
