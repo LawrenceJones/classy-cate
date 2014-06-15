@@ -1,4 +1,13 @@
-.timetable {
+$row-exercises-height: 30px;
+$thead-margin-bottom: 10px;
+$day-height: 18px;
+$day-width: 30px;
+
+#timetable {
+
+  .cell {
+    height: $row-exercises-height;
+  }
 
   .table-responsive {
     overflow: auto;
@@ -9,24 +18,48 @@
     border-collapse: separate;
   }
 
+  #table-course-names {
 
-  .date-exs {
+    table {
+      margin-top: 33px;
+      border-spacing: 2px;
+    }
+
+    td {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      vertical-align: middle;
+      text-align: center;
+      white-space: normal;
+    }
+
+
+  }
+
+
+  #date-exs {
 
     table.floatThead-table {
-      border-collapse: collapse;
       border-top: none;
       border-bottom: none;
       background-color: #FFF;
     }
 
     col {
-      width: 30px;
+      width: $day-width;
     }
 
-    .days-header {
+
+    #days-header {
 
       th {
         border: 1px solid black;
+        text-align: center;
+        overflow: hidden;
+      }
+
+      .cell {
+        height: $day-height;
       }
       
     }
@@ -34,11 +67,17 @@
     .course-body {
 
       td {
-        overflow: ellipsis;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
 
       .exercise {
         background-color: gray;
+      }
+
+      .cell {
+        margin-top: 1px;
       }
 
     }
@@ -46,14 +85,3 @@
 
 }
 
-
-
-#vertical-line {
-    width: 2px;
-    background-color: #BDBDBD;
-    display: inline-block;
-    position: absolute;
-    height: 100%;
-    margin-left: 10px;
-    margin-right: 10px;
-}

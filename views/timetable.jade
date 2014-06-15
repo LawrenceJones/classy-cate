@@ -1,23 +1,15 @@
-.row.timetable
-  .col-md-2.table-course-names
+.row#timetable
+
+  .col-md-2#table-course-names
     table.table
-      tr(ng-repeat='course in courses')
-        td.panel.panel-default
-          {{course.name}}
+      tr(course-cell, ng-repeat='course in courses', course='course')
 
   .col-md-10
-    .wrapper
-      .table-responsive.date-exs
-        table.table
-          colgroup
-            col(ng-repeat='day in days track by $index')
-          thead.days-header
-            tr
-              th(ng-repeat='day in days track by $index') 
-                {{day}}
-            
-          tbody.course-body(ng-repeat='course in courses')
-            tr(ng-repeat='row in course.rows')
-              td(colspan='{{ cell.colspan }}', ng-repeat='cell in row'
-              ng-class='{\'panel panel-default exercise\': cell.ex}')
-                {{cell.ex.name}}
+    .table-responsive#date-exs
+      table.table
+        colgroup
+          col(ng-repeat='day in days track by $index')
+        thead#days-header(days-bar)
+        tbody.course-body(ng-repeat='course in courses')
+          tr(ng-repeat='row in course.rows')
+            td(exercise-box, ng-repeat='box in row', box='box')
