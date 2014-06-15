@@ -36,6 +36,7 @@ classy.config [
     $stateProvider.state 'app', {
       abstract: true
       url: '?year'
+      reloadOnSearch: false  # Allows modification of URL query params without forcing reload
     }
 
     # Splash entry page with user info.
@@ -104,25 +105,29 @@ classy.config [
 
 ]
 
-classy.run ($q, $rootScope, $stateParams) ->
+classy.run ($q, $rootScope, $state, $stateParams, $location) ->
+
+  currentAcYear = \
+    if (current = new Date).getMonth() < 8 then current.getFullYear() - 1
+    else current.getFullYear()
 
   # Keep track of state in $rootScope
   $rootScope.$on '$stateChangeSuccess', ($event, state, $stateParams) ->
     $rootScope.currentState = state.name
     $rootScope.courseState  = /app\.courses/.test state.name
     $rootScope.userState    = state.userState? and state.userState
-    
-    if (year = $stateParams.year)? and \
-       (year = parseInt year) in $rootScope.AppState.availableYears
-      $rootScope.AppState.currentYear = parseInt year
+
+    # If year given as query param, change state if year available, 
+    # otherwise update URL to reflect this and prevent errors when 
+    # sharing URLs 
+    if (year = $stateParams.year)?
+      if (year = parseInt year) in $rootScope.AppState.availableYears
+        $rootScope.AppState.currentYear = year
+      else
+        $location.search 'year', $rootScope.AppState.currentYear
 
   $rootScope.AppState =
-
-    # currentYear initially the academic year at present moment in time
-    currentYear:
-      if (current = new Date).getMonth() < 8 then current.getFullYear() - 1
-      else current.getFullYear()
-
+    currentYear: currentAcYear
     availableYears: [ 2013, 2012 ]
 
   $rootScope.registeredCourses = [

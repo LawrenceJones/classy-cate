@@ -5,4 +5,4 @@ classy.controller 'YearCtrl', ($scope, $rootScope, $state) ->
 
     if $rootScope.AppState.currentYear isnt year
       $state.go $state.current.name, year: year
-      # $rootScope.AppState.currentYear = year
+
