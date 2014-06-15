@@ -16,12 +16,11 @@ module.exports = class StudentIDParser extends HTMLParser
 
     uri = $idCell.find('a:eq(0)').attr 'href'
     tid = uri?.match(/^viewrec\?table=Student&id=(\d+)$/)[1]
-    console.log tid
 
     return FAIL if !tid
 
     _meta:
-      tid: tid
+      tid: parseInt tid, 10
       login: @query.login
 
   # Requires a student college login

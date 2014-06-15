@@ -8,14 +8,11 @@ HTTPProxy = ParserTools.HTTPProxy
 validate = (schema, Proxy, query, done, cb) ->
   req = Proxy.makeRequest query, creds
   req.then (json) ->
-    console.log json
     jayschema.validate json, schema, (errs = []) ->
-      if errs.length > 0
-        console.error errs.map((e)->e.toString()).join '\n'
-        should.fail 'Failed to validate schema'
-      cb?(json) || do done
+      if errs.length > 0 then should.fail errs
+      cb?(json) || done?()
   req.catch (err) ->
-    should.fail 'failed to make connection'
+    should.fail err
   
 describe 'Parsers', ->
 
@@ -53,7 +50,7 @@ describe 'Parsers', ->
         [login, exp] = elem
         it "should resolve #{login} to tid = #{exp}", (done) ->
           validate sidSchema, StudentIDProxy, login: login, null, (data) ->
-            data._meta.tid.should.equal exp
+            data._meta.tid.should.equal exp if exp
             do done
             
 

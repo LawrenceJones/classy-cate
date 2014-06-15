@@ -183,7 +183,7 @@ task 'test', [], async: true, (pattern) ->
   ( 'mocha'
     [ '--recursive', '--compilers', 'coffee:coffee-script/register'
       '--globals', 'newW,clickpage'
-      '--reporter', 'spec', '--colors'
+      '--reporter', 'spec', '--colors', '--timeout', '5000'
       '--grep', pattern ? '' ]
     stdio: 'inherit' )# }}}
 
