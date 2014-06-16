@@ -14,13 +14,11 @@ mixin extra-links
     a(ui-sref='audit') Security
 
 mixin user-links
-  li.dropdown(ng-class='{active: userState}')
+  li.dropdown
     a.dropdown-toggle.user-link.nav-left-divided(data-toggle='dropdown')
       | {{ user.fname }}
       i.fa.fa-user
     ul.dropdown-menu
-      li(ui-sref='app.profile' ui-sref-active='active')
-        a Profile
       li
         a Settings
       li
@@ -64,7 +62,7 @@ mixin year-selector
         | Academic year
       li(ng-repeat='year in availableYears | numericalSort | reverse'
          ng-click='changeYear(year)'
-         ng-class='{active: AppState.currentYear == year}')
+         ng-class='{active: currentYear == year}')
         a {{ year }}
 
 
@@ -77,7 +75,7 @@ nav.navbar.navbar-default.navbar-fixed-top(role='navigation' ng-controller='NavC
           span.icon-bar
           span.icon-bar
           span.icon-bar
-        a.navbar-brand.site-logo(ui-sref='app.dashboard') 
+        a.navbar-brand.site-logo(ui-sref='app.profile') 
           i.fa.fa-terminal
           | grep doc
         span#cc-version

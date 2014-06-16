@@ -46,5 +46,5 @@ classy.controller 'GradesCtrl', ($scope, Grades, $stateParams, $state) ->
 
     .catch (err) ->
       # For now, redirect to default grades page if 404: TODO
-      $state.go 'app.dashboard' if err.status is 404
+      $state.go 'app.profile' if err.status is 404
 

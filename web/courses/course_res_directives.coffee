@@ -2,21 +2,23 @@ classy = angular.module 'classy'
 
 classy.directive 'courseNote', ($window) ->
   restrict: 'A'
-  link: ($scope, $tr, attr) ->
-    $tr.find("td.title a").on 'click', ->
-      $window.open $scope.$eval(attr.courseNote), '_blank'
-
+  templateUrl: '/partials/directives/course_note'
+  scope: note: '='
+  replace: true
 
 classy.directive 'courseExercise', ->
   restrict: 'A'
-  link: ($scope, $tbody, attr) ->
+  templateUrl: '/partials/directives/course_exercise'
+  scope: exercise: '='
+  replace: true
 
+  link: ($scope, $tbody, attr) ->
     $tbody.find("td.title a").on 'click', ->
       $tbody.closest("table").find("tbody").not($tbody).find(".ex-given").addClass("hide")
       $tbody.find(".ex-given").toggleClass("hide")
 
 
-classy.directive 'discussionsBadge', ->
+classy.directive 'discussionsBadge', (Format) ->
   getCol = (num) ->
     return 'success' if num > 10
     return 'info' if 5 < num <= 10
@@ -29,7 +31,8 @@ classy.directive 'discussionsBadge', ->
   scope: discussions: '='
   replace: true
   link: ($scope, $db, attr) ->
+    num = $scope.discussions?.length
     $db
       .addClass "progress-bar-#{getCol $scope.discussions?.length}"
-      .attr("title", "#{$scope.discussions?.length} discussions")
+      .attr("title", "#{num} #{Format.pluraliseIf 'discussion', num} on this resource")
       .tooltip()

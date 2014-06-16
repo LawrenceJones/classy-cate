@@ -1,7 +1,6 @@
 mixin course-heading
   h2.course-heading
     | {{ course.cid }}: {{ course.name }}
-    i.fa.fa-info-circle.small
 
 mixin notes-panel
   .panel.panel-default.notes-panel
@@ -9,16 +8,8 @@ mixin notes-panel
       h3.panel-title Notes
     table.table.table-hover.panel-body.course-notes.resource-list
       tbody
-        tr(course-note='note.link' ng-repeat='note in course.notes')
-          td.number {{ note.number }}
-          td.icon
-            i(mime-type-icon='note.restype')
-          td.title
-            a {{ note.title }}
-          td.time.small.visible-lg by {{ note.owner }} on {{ note.time.format() }}
-          td.discussions
-            discussions-badge(discussions='note.discussions')
-
+        tr(ng-repeat='note in course.notes', course-note note='note')
+          
 mixin grades-panel
   .panel.panel-default.grades-panel
     .panel-heading
@@ -38,25 +29,8 @@ mixin exercises-panel
     .panel-heading 
       h3.panel-title Exercises
     table.table.table-hover.panel-body.course-exercises.resource-list
-      tbody(course-exercise ng-repeat='exercise in course.exercises')
-        tr.ex-title
-          td.number {{ exercise.number }}
-          td.icon
-            i(mime-type-icon='exercise.type')
-          td.title
-            a {{ exercise.title }}
-          td.time.small.visible-lg {{ exercise.start.format() + ' - ' + exercise.end.format() }}
-          td
-            discussions-badge(discussions='exercise.discussions')
-        tr.ex-given.hide(ng-repeat='given in exercise.givens')
-          td.number
-          td.icon
-            i(mime-type-icon='given.type')
-          td.title
-            a {{ given.title }}
-          td.time.small.visible-lg {{ given.time.format() }}
-          td 
-
+      tbody(course-exercise exercise='exercise' ng-repeat='exercise in course.exercises')
+        
 mixin discussions-panel
   .panel.panel-default.discussions-panel
     .panel-heading

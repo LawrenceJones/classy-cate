@@ -30,7 +30,7 @@ classy.config [
     $httpProvider.interceptors.push 'authInterceptor'
 
     # Default route to dashboard
-    $urlRouterProvider.otherwise '/dashboard'
+    $urlRouterProvider.otherwise '/profile'
 
     # Login page for college credentials.
     $stateProvider.state 'login', {
@@ -47,18 +47,10 @@ classy.config [
         user: (AppState) -> AppState.loaded()
     }
 
-    # Splash entry page with user info.
-    $stateProvider.state 'app.dashboard', {
-      url: '/dashboard'
-      controller: 'DashboardCtrl'
-      templateUrl: '/partials/dashboard'
-    }
-
     $stateProvider.state 'app.profile', {
       url: '/profile'
       controller: 'ProfileCtrl'
       templateUrl: '/partials/profile'
-      userState: true
     }
 
     $stateProvider.state 'app.courses', {
@@ -158,7 +150,6 @@ classy.run ($q, $rootScope, $state, $stateParams, $location, AppState) ->
   $rootScope.$on '$stateChangeSuccess', ($event, state, $stateParams) ->
     $rootScope.currentState = state.name
     $rootScope.courseState  = /app\.courses/.test state.name
-    $rootScope.userState    = state.userState
 
     AppState.updateYear (parseInt year) if (year = $stateParams.year)?
       
