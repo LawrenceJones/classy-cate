@@ -13,13 +13,34 @@ classy = angular.module 'classy', [
 # Save the initial window state
 window.initialState = window.location.hash
 
-Date::format = ->
-  [d, m] = [@getDate(), @getMonth() + 1].map (n) ->
-    ('000' + n).slice -2
-  "#{d}/#{m}/#{@getFullYear()}"
+classy.factory 'DateUtils', ->
+  Date::format = ->
+    [d, m] = [@getDate(), @getMonth() + 1].map (n) ->
+      ('000' + n).slice -2
+    "#{d}/#{m}/#{@getFullYear()}"
 
-Date::printTime = ->
-  @toTimeString().match(/^(\d+):(\d+)/)[0]
+  Date::printTime = ->
+    @toTimeString().match(/^(\d+):(\d+)/)[0]
+  
+  # Return an array of js dates in the range from the
+  # object date, to the given date
+  Date::getDatesTo = (end) ->
+    range = []
+    current = new Date(@) #Starting date
+    while current <= end
+      range.push current
+      current = new Date(current) #Starting date
+      current.setDate (current.getDate() + 1)
+    range
+
+
+  # Returns a js date representing the midnight time.
+  Date::midnight = ->
+    mn = new Date(@)
+    mn.setHours 0, 0, 0, 0
+    mn
+
+  return Date.prototype
 
 # Configure the routes for the module
 classy.config [
@@ -96,7 +117,7 @@ classy.config [
 
 ]
 
-classy.run ($q, $rootScope) ->
+classy.run ($q, $rootScope, DateUtils) ->
   
   # Keep track of state in $rootScope
   $rootScope.$on '$stateChangeSuccess', ($event, state) ->

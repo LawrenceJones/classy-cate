@@ -2,7 +2,7 @@
 
   .col-md-2.hidden-sm.hidden-xs#table-course-names
     table.table
-      tr(course-cell, ng-repeat='course in courses', course='course')
+      tr(course-cell='course', ng-repeat='course in courses')
 
   .col-md-10
     .table-responsive#date-exs

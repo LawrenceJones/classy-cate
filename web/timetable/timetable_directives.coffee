@@ -4,19 +4,18 @@ classy.directive 'courseCell', ->
 
   restrict: 'A'
   replace: true
-  scope:
-    course: '='
+  scope: course: '=courseCell'
   template: """
           <tr>
             <td class='panel panel-default'>
-              <div class='cell'>
+              <div class='wrap-cell'>
                 {{course.name}}
               </div>
             </td>
           </tr>
   """
   link: ($scope, $elem, attr) ->
-    length = ($scope.$eval attr.course).rows.length
+    length = $scope.course.rows.length
     newHeight = (parseInt $elem.css 'height') * length
     $elem.css('height', "#{newHeight}px")
 
@@ -28,7 +27,7 @@ classy.directive 'daysBar', ->
           <thead>
             <tr>
               <th ng-repeat='day in days track by $index'>
-                <div class='cell'>
+                <div class='wrap-cell'>
                   {{day}}
                 </div>
               </th>
@@ -50,11 +49,10 @@ classy.directive 'exerciseBox', ->
 
   restrict: 'A'
   replace: true
-  scope:
-    box: '='
+  scope: box: '='
   template: """
-            <td colspan='{{box.colspan}}' ng-class='{today: box.today}'>
-              <div class='cell'>
+            <td colspan='{{box.options.colspan}}' ng-class='{today: box.options.isToday}'>
+              <div class='wrap-cell'>
                 {{box.ex.name}}
               </div>
             </td>

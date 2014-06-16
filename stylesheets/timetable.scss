@@ -1,6 +1,7 @@
 $coursework-colour: #dff0d8;
 $tutorial-colour: #d9edf7;
 $default-exercise-colour: #fcf8e3;
+$today-vertical-bar-colour: #d9534f;
 $row-exercises-height: 30px;
 $course-names-border-spacing: 2px;
 $thead-margin-bottom: 10px;
@@ -11,7 +12,7 @@ $day-width: 30px;
 
 #timetable {
 
-  .cell {
+  .wrap-cell {
     height: $row-exercises-height;
   }
 
@@ -74,7 +75,7 @@ $day-width: 30px;
         padding: $day-padding;
       }
 
-      .cell {
+      .wrap-cell {
         height: $day-height;
       }
       
@@ -89,10 +90,10 @@ $day-width: 30px;
       }
 
       .today {
-        background: red;
+        background: $today-vertical-bar-colour;
       }
 
-      .cell {
+      .wrap-cell {
         margin-top: 1px;
       }
 

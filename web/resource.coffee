@@ -101,9 +101,9 @@ resource.factory 'Resource', [
       # are specified as model relations by new'ing their contents.
       populate: ->
         for key in relationKeys
-          if typeof @[key] == 'object' and not (@[key] instanceof Resource)
+          if not (@[key] instanceof Resource)
             r = relations[key]
-            @[key] = (if typeof r == 'function' then r @[key]
+            @[key] = (if typeof r == 'function' then new r @[key]
             else $injector.get(r)?.makeResource @[key])
         return this
 
