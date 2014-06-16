@@ -12,14 +12,12 @@ classy.factory 'Users', (Resource) ->
     tutorName: ->
       [@tutor?.title, @tutor?.fname, @tutor?.lname].join " "
 
-classy.controller 'ProfileCtrl', ($scope, $rootScope) ->
+classy.controller 'ProfileCtrl', ($scope, AppState) ->
 
     # TODO: tidy up, balance properly, consider first years
-    profile = $rootScope.user
+    $scope.profile = (profile = AppState.user)
 
     $scope.cols = []
     $scope.cols[0] = [ profile.enrolment[0] ]
     $scope.cols[1] = [ profile.enrolment[1] ]
-
-    $rootScope.profile = profile
 

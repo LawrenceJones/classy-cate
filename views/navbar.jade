@@ -62,13 +62,13 @@ mixin year-selector
     ul.dropdown-menu
       li.dropdown-header
         | Academic year
-      li(ng-repeat='year in AppState.availableYears | numericalSort | reverse'
+      li(ng-repeat='year in availableYears | numericalSort | reverse'
          ng-click='changeYear(year)'
          ng-class='{active: AppState.currentYear == year}')
         a {{ year }}
 
 
-nav.navbar.navbar-default.navbar-fixed-top(role='navigation')
+nav.navbar.navbar-default.navbar-fixed-top(role='navigation' ng-controller='NavCtrl')
   .container
     .container-fluid
       .navbar-header

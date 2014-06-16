@@ -1,12 +1,12 @@
 classy = angular.module 'classy'
 
-classy.factory 'Courses', (Resource, $rootScope, Format, Convert) ->
+classy.factory 'Courses', (Resource, AppState, Format, Convert) ->
   class Courses extends Resource({
     actions:
       get: '/api/courses/:year/:cid'
       all: '/api/courses/:year'
     defaultParams:
-      year: $rootScope.AppState.currentYear
+      year: AppState.currentYear
     relations:
       notes: 'Notes'
       exercises: 'Exercises'

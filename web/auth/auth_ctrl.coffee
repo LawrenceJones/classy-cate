@@ -1,8 +1,8 @@
 auth = angular.module 'auth'
 auth.controller\
 ( 'AuthCtrl'
-, [ 'Auth', 'AppState', '$scope', '$http', '$window', '$state'
-    (Auth,   AppState,   $scope,   $http,   $window,   $state) ->
+, [ 'Auth', '$scope', '$http', '$window', '$state'
+    (Auth,   $scope,   $http,   $window,   $state) ->
 
       $scope.input =
         user: null
@@ -19,7 +19,6 @@ auth.controller\
             $window.location = $window.blockedHash
             $window.blockedHash = null
           else
-            AppState.user = data.user # load authed user into AppState
             $state.transitionTo 'app.dashboard' # or whatever home
         authed.catch ->
           $scope.denied  = true

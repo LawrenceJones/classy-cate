@@ -5,7 +5,7 @@ classy.filter 'runsInTerm', ->
   (arr, term) -> arr.filter (course) -> term in course.terms
 
 
-classy.controller 'CoursesCtrl', ($scope, $stateParams, $state, $rootScope, Courses) ->
+classy.controller 'CoursesCtrl', ($scope, $stateParams, $state, Courses) ->
 
   ($scope.courses = Courses.all $stateParams).$promise
     .then ((response) -> )

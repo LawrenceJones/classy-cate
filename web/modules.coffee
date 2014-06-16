@@ -44,13 +44,7 @@ classy.config [
       url: '?year'
       reloadOnSearch: false
       resolve:
-        user: ($rootScope, Auth, Users) ->
-          (Auth.whoami false)
-            .then (user) ->
-              Users.get({login: user}).$promise.then (response) ->
-                $rootScope.user = response.data
-            .catch (err) ->
-              console.log err
+        user: (AppState) -> AppState.loaded()
     }
 
     # Splash entry page with user info.
@@ -127,8 +121,38 @@ classy.service 'Current', (Convert) ->
   term: ->
     Convert.periodToTerm @period()
 
+# 
+classy.service 'AppState', (Auth, Current, Users, $location, $q) ->
+  currentYear:    Current.academicYear()
+  currentPeriod:  Current.period()
+  currentTerm:    Current.term()
+  availableYears: [ 2013, 2012 ]
+  user: null
 
-classy.run ($q, $rootScope, $state, $stateParams, $location, Current) ->
+  updateYear: (year) ->
+    if year in @availableYears then @currentYear = year
+
+  # Returns a promise which resolves with a Users instance encapsulating
+  # a user profile. Profile also added to AppState.user
+  loaded: ->
+    def = $q.defer()
+    def.resolve @user if @user?
+
+    (Auth.whoami true)
+      .then (login) =>
+        (Users.get login: 'thb12').$promise
+          .then (response) =>
+            @user = (user = response.data)
+            def.resolve user
+          .catch (err) ->
+            def.reject err
+      .catch (err) ->
+        def.reject err
+
+    def.promise
+
+
+classy.run ($q, $rootScope, $state, $stateParams, $location, AppState) ->
 
   # Keep track of state in $rootScope
   $rootScope.$on '$stateChangeSuccess', ($event, state, $stateParams) ->
@@ -136,21 +160,8 @@ classy.run ($q, $rootScope, $state, $stateParams, $location, Current) ->
     $rootScope.courseState  = /app\.courses/.test state.name
     $rootScope.userState    = state.userState
 
-    # If year given as query param, change state if year available, 
-    # otherwise update URL to reflect this and prevent errors when 
-    # sharing URLs 
-    if (year = $stateParams.year)?
-      if (year = parseInt year) in $rootScope.AppState.availableYears
-        $rootScope.AppState.currentYear = year
-      else
-        $location.search 'year', $rootScope.AppState.currentYear
-
-  $rootScope.AppState =
-    currentYear: Current.academicYear()
-    currentPeriod: Current.period()
-    currentTerm: Current.term()
-    availableYears: [ 2013, 2012 ]
-
+    AppState.updateYear (parseInt year) if (year = $stateParams.year)?
+      
   $rootScope.registeredCourses = [
     {
       name: 'Software Engineering - Algorithms'

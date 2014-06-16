@@ -1,8 +1,10 @@
 classy = angular.module 'classy'
 
-classy.controller 'YearCtrl', ($scope, $rootScope, $state) ->
+classy.controller 'YearCtrl', ($scope, $state, AppState) ->
+  $scope.availableYears = AppState.availableYears
+
   $scope.changeYear = (year) ->
 
-    if $rootScope.AppState.currentYear isnt year
+    if AppState.currentYear isnt year
       $state.go $state.current.name, year: year
 
