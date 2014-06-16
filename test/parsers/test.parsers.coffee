@@ -29,7 +29,7 @@ describe 'Parsers', ->
 
     describe 'TimetableParser', ->
 
-      if not process.env.UNIT_ONLY then describe '#extract', ->
+      if process.env.API then describe '#extract', ->
 
         ttSchema = require 'test/parsers/cate/schema.timetable_parser.coffee'
         TimetableProxy = new HTTPProxy ParserTools.cate.TimetableParser

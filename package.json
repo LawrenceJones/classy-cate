@@ -38,7 +38,8 @@
     "forever": "^0.11.1",
     "pg": "^3.2.0",
     "should": "^4.0.4",
-    "jayschema": "^0.2.7"
+    "jayschema": "^0.2.7",
+    "colorize": "git://github.com/LawrenceJones/colorize"
   },
   "devDependencies": {
     "read": "*"
