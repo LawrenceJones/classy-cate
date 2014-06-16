@@ -10,16 +10,14 @@ mixin column(term)
           tr
             th Code
             th Name
-            th Terms
-            th Classes
         tbody
           tr(ng-repeat="course in term = (courses | runsInTerm:"+term+" | orderBy: 'cid' | filter:input.search)")
             td
               a(course-link='course') {{ course.cid }}
             td
               a(course-link='course') {{ course.name }}
-            td {{ course.formatTerms() }}
-            td {{ course.formatClasses() }}
+            // td {{ course.formatTerms() }}
+            // td {{ course.formatClasses() }}
       .panel-body(ng-show='term.length == 0')
         | No matching courses this term
 

@@ -14,15 +14,9 @@ mixin grades-panel
   .panel.panel-default.grades-panel
     .panel-heading
       h3.panel-title Grades
-    table.table.table-hover.panel-body
+    table.table.table-hover.panel-body.course-grades
       tbody
-        tr(ng-repeat='grade in course.grades')
-          td {{ grade.number }}
-          td
-            i(mime-type-icon='grade.type')
-          td {{ grade.title }}
-          td.small {{ grade.submission.format() }}
-          td {{ grade.grade }}
+        tr(ng-repeat='grade in course.grades' course-grade grade='grade')
 
 mixin exercises-panel
   .panel.panel-default.exercises-panel

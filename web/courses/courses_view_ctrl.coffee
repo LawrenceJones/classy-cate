@@ -47,10 +47,19 @@ classy.factory 'Givens', (Resource) ->
       time: Date
   })
 
-classy.controller 'CoursesViewCtrl', ($scope, $stateParams, $state, Courses) ->
-  ($scope.course = Courses.get $stateParams).$promise
-  .then ((response) -> )
-  .catch (err) ->
-    # For now, transition to courses index if 404: TODO
-    $state.go 'app.courses' if err.status is 404
+classy.controller 'CoursesViewCtrl', ($scope, $stateParams, $state, $q, Courses, Grades) ->
+
+  $q.all [(Courses.get $stateParams).$promise, (Grades.all $stateParams).$promise]
+    .then ([course, grades]) ->
+
+      course = course.data
+      grades = (grades.data.filter (c) -> c.cid is course.cid)[0]
+      course.grades = grades?.clean()?.exercises ? []
+      $scope.course = course
+
+
+    .catch (err) ->
+      # For now, transition to courses index if 404: TODO
+      $state.go 'app.courses' if err.status is 404
+
 

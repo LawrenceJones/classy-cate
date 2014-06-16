@@ -17,6 +17,11 @@ classy.directive 'courseExercise', ->
       $tbody.closest("table").find("tbody").not($tbody).find(".ex-given").addClass("hide")
       $tbody.find(".ex-given").toggleClass("hide")
 
+classy.directive 'courseGrade', ->
+  restrict: 'A'
+  templateUrl: '/partials/directives/course_grade'
+  scope: grade: '='
+  replace: true
 
 classy.directive 'discussionsBadge', (Format) ->
   getCol = (num) ->
