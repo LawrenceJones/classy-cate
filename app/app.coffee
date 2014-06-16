@@ -18,107 +18,96 @@ seedApi  = require './midware/seed_api'
 # Load extra js utilities
 utils = require './etc/utilities'
 
+# Determine NODE_ENV
+NODE_ENV = process.NODE_ENV ? 'development'
+
+# Load server prov.json
+proc = JSON.parse(fs.readFileSync './proc.json', 'utf8')
+
 # Init app
-module.exports = app = (configure = (app, config) ->
+module.exports = class GrepDoc
 
-  ENV = app.settings.env
+  constructor: (@app = express(), @proc = proc) ->
+    do @configure
 
-  # Init app settings
-  app.set 'title', 'Catie'
-  app.set 'view engine', 'jade'
-  app.set 'views', config.paths.views_dir
-  app.set 'json spaces', (if ENV == 'production' then 0 else 2)
+  # Loads basic server configuration
+  configure: (ENV = NODE_ENV) ->
 
-  # Configure middleware
-  app.use morgan('dev')                                     # logger
-  # app.use compress()                                        # gzip
-  app.use bodyParser.json()                                 # json
-  app.use bodyParser.urlencoded()                           # params
+    # Init app settings
+    @app.set 'title', 'Catie'
+    @app.set 'view engine', 'jade'
+    @app.set 'views', config.paths.views_dir
+    @app.set 'json spaces', (if ENV == 'production' then 0 else 2)
 
-  # If on heroku, force https
-  if process.env.ON_HEROKU
-    app.use (req, res, next) ->
-      reqType = req.headers['x-forwarded-proto']
-      if reqType == 'https' then next()
-      else
-        res.redirect "https://#{req.headers.host}#{req.url}"
+    # Configure middleware
+    @app.use morgan('dev')                                     # logger
+    @app.use bodyParser.json()                                 # json
+    @app.use bodyParser.urlencoded()                           # params
 
-  # Configure nodetime if env has config
-  if process.env.NODETIME_APP_NAME?
-    nodetime.profile config.nodetime
+  # Connects to mongodb client
+  connectDb: ->
+    (require './db').connect(config)
 
-  # Supply json seed if present
-  if process.env.SEED_API
-    app.use '/api', seedApi
-      seedDir: config.paths.seed_dir
-      prefix: '/api'
-
-  # Decode the user credentials
-  app.use '/api', (req, res, next) ->
-    if !req.headers.authorization? && req.query.token?
-      req.headers.authorization = "Bearer #{req.query.token}"
-    next()
+  # Routes in sequential order
+  route: ->
+    do @connectDb
+    [
+      './api/courses/routes'
+    ]
+      .map (routePath) =>
+        (require routePath).configure(@app)
 
   # This is the setup of the jsonwebtoken access. The jwt middleware
   # will decode any authorization headers on incoming requests into
   # a function, located on req.user.
+  #
   # To enable easy tracking of credential use, the function will only
   # return the credentials if it is passed 'USER_CREDENTIALS' as a
   # parameter. This enables easy prevention of credential abuse.
-  app.use '/api', jwt
-    secret: config.express.SECRET
-    lock: 'USER_CREDENTIALS'
-  app.use '/api', (req, res, next) ->
-    if req.user?
-      # Access login to mark a user into the config hash. This is only
-      # to enable no of user tracking, only a login is recorded.
-      config.users[req.user('USER_CREDENTIALS').user] = true
-      next()
-    else res.send 401, 'Token expired!'
+  usejwt: ->
+    app.use '/api', jwt
+      secret: config.express.SECRET
+      lock: 'USER_CREDENTIALS'
 
-  # Live compilation, shouldnt be used in production
-  if ENV == 'development'
-    app.get '/env', (req, res) -> res.send 'dev'
+  # Hot compile transpiled assets, for dev only
+  hotCompile: ->
     cssget = require './midware/styles'
-    app.get '/css/app.css', cssget config.paths.styles_dir     # sass
-    app.get '/js/app.js', ngget                                # app.js
+    @app.get '/css/app.css', cssget config.paths.styles_dir     # sass
+    @app.get '/js/app.js', ngget                                # app.js
       angularPath: config.paths.web_dir
-    
-  # Asset serving
-  app.use express.static config.paths.public_dir            # static
-  app.use partials                                          # jade
-    views:  config.paths.views_dir
-    prefix: '/partials'
+    app.use partials                                          # jade
+      views:  config.paths.views_dir
+      prefix: '/partials'
 
-  return app
+  # Supply json seed if present
+  seedApi: ->
+    app.use '/api', seedApi
+      seedDir: config.paths.seed_dir
+      prefix: '/api'
 
-)(express(), config)
+  # Serves static web assets from a public directory
+  serveStatic: ->
+    @app.use express.static config.paths.public_dir
 
-# Start database
-(require './etc/db')(config, !module.parent, !module.parent)
+  # Loads authentication over /api routes
+  secureAPI: ->
+    (require './auth').configure @app
 
-# Load routes in given order
-app.route = ->
-  [
-    './auth/auth_router'
-    './dashboard/dashboard_router'
-    './grades/grades_router'
-    './notes/notes_router'
-    './givens/givens_router'
-    './exercises/exercises_router'
-    './exams/exam_router'
-    './uploads/upload_router'
-    './modules/cate_module_router'
-  ]
-    .map (routePath) ->
-      (require routePath)(app)
+  # Starts the app on the given PORT
+  run: (PORT = (proc.port ? process.env.PORT), cb) ->
+    server = @app.listen PORT, (err) ->
+      if err then cb? err, 'Failed to start server'
+      cb? null, "Listening at localhost:#{PORT}"
+    server
 
-if server = !module.parent
-  do app.route
 
-  # Load app
-  proc = JSON.parse fs.readFileSync './proc.json', 'utf8'
-  app.listen (PORT = proc.port || process.env.PORT), ->
-    console.log "Started server running in #{app.settings.env}"
-    console.log "Listening at https://localhost:#{PORT}"
-
+if !module.parent
+  grepDoc = new GrepDoc
+  grepDoc.usejwt()
+  grepDoc.secureAPI()  if NODE_ENV != 'testing'
+  grepDoc.hotCompile() if NODE_ENV == 'development'
+  grepDoc.route()
+  grepDoc.serveStatic()
+  grepDoc.run undefined, (err, msg) ->
+    if err then throw new Error msg
+    else console.log msg

@@ -29,10 +29,11 @@ enrolmentSchema =
     year: type: 'integer'
     class: type: 'string'
 
-userSchema =
+module.exports = studentSchema =
   type: 'object'
   additionalProperties: false
   properties:
+    _meta: metaSchema
     tid: type: 'integer'
     validFrom: type: 'integer'
     validTo: type: 'integer'
@@ -51,12 +52,4 @@ userSchema =
     enrolment:
       type: 'array'
       items: enrolmentSchema
-
-
-module.exports = studentSchema =
-  type: 'object'
-  additionalProperties: false
-  properties:
-    _meta: metaSchema
-    user: userSchema
 

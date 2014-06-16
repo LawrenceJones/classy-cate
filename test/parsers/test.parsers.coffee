@@ -25,7 +25,7 @@ validate = (schema, Proxy, query, done, cb) ->
   
 describe 'Parsers', ->
 
-  describe 'cate', ->
+  describe 'CATe', ->
 
     describe 'TimetableParser', ->
 
@@ -58,8 +58,9 @@ describe 'Parsers', ->
       tids.map (elem) ->
         [login, exp] = elem
         it "should resolve #{login} to tid = #{exp}", (done) ->
-          validate sidSchema, StudentIDProxy, login: login, null, (data) ->
-            data._meta.tid.should.equal exp if exp
+          validate sidSchema, StudentIDProxy, login: login, null, (student) ->
+            student.tid.should.eql exp if exp
+            student.login.should.eql login
             do done
             
 

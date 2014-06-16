@@ -199,66 +199,40 @@ Each course is referenced by the year it was run along with it's cid (course ID)
 + Model (application/json)
 
   {
-    _link: "/api/courses/2013/202",
+    _meta: {
+      link: "/api/courses/2013/202"
+    }
     cid: "202",
     name: "Software Engineering - Algorithms",
     terms: [2],
     classes: [
       "c2", "j2", "v5"
     ],
-    dicussions: [
-      {
-        title: "How do you calculate complexity for Dijkstra's?",
-        author: 'ANON',
-        count: 5,
-        lastUpdated: 
-        _link: "/api/discussions/12345"
+    notes: {
+      _meta: {
+        link: "/api/courses/2013/202/notes"
       },
-      {
-        title: "How to calculate complexity for Karatsuba",
-        _link: "/api/discussions/152341"
+      collection: [
+        {
+          number: 1,
+          restype: "pdf",
+          title: "Administration",
+          link: "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:458::NOTES:lmj112",
+          time: 1390151094000,
+          discussions: [
+            {
+              title: "Where to find old Algorithm's notes",
+              _link: "/api/discussions/987654"
+            }
+          ]
+        }
+      ]
+    },
+    exercises: {
+      _meta: {
+        link: "/api/courses/2013/202/exercises"
       }
-    ],
-    notes: [
-      {
-        number: 1,
-        restype: "pdf",
-        title: "Administration",
-        link: "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:458::NOTES:lmj112",
-        time: 1390151094000,
-        discussions: [
-          {
-            title: "Where to find old Algorithm's notes",
-            _link: "/api/discussions/987654"
-          }
-        ]
-      }
-    ],
-    exercises: [
-      {
-        number: 3,
-        type: "CW",
-        name: "Divide and Conquer",
-        start: 1294409600000,
-        end: 1395964800000,
-        mailto: "mailto:foo@foo.com",
-        spec: "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:5:1223:c2:SPECS:lmj112",
-        givens: [
-          {
-            type: "specification",
-            title: "spec-261-11.txt",
-            link: "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:5:1223:c2:SPECS:lmj112",
-            time: 1294409600000
-          }
-        ],
-        discussions: [
-          {
-            title: "How to calculate complexity for Karatsuba",
-            _link: "/api/discussions/152341"
-          }
-        ]
-      }
-    ],
+    }
   }
 
 ### Retrieve a Single Course [GET]

@@ -7,7 +7,7 @@ module.exports = class StudentIDParser extends HTMLParser
   # Extracts data from html. Returns tid: null if unsuccessful.
   extract: ($) ->
     
-    FAIL = _meta: tid: null, login: @query.login
+    FAIL = tid: null, login: @query.login
 
     $idCell =
       $('table[width="95%"][border="1"] tr:gt(1) td[bgcolor="#efefef"]:eq(0)')
@@ -19,9 +19,8 @@ module.exports = class StudentIDParser extends HTMLParser
 
     return FAIL if !tid
 
-    _meta:
-      tid: parseInt tid, 10
-      login: @query.login
+    tid: parseInt tid, 10
+    login: @query.login
 
   # Requires a student college login
   # Eg. {login: "lmj112"}

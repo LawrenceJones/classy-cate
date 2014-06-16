@@ -159,7 +159,7 @@ task 'test', [], async: true, (pattern) ->
   ( 'mocha'
     [ '--recursive', '--compilers', 'coffee:coffee-script/register'
       '--globals', 'newW,clickpage', '--growl'
-      '--reporter', 'spec', '--colors', '--timeout', '5000'
+      '--reporter', 'spec', '--colors', '--timeout', if process.API then '5000' else '1000'
       '--grep', pattern ? '' ]
     stdio: 'inherit' )# }}}
 
@@ -168,7 +168,7 @@ task 'watch', [], async: true, (pattern) ->
   title 'Watch ./app ./test folders for change'# {{{
   cmd = if pattern then "jake test[#{pattern}]" else 'jake test'
   chain\
-  ( [ './node_modules/watchme/bin/watchme'
+  ( [ 'watchme'
     , [ '-c', './app', './test'
       , '-e', "\"#{cmd}\"" ]
     , 'Failed to run watchme. Run npm install?' ]

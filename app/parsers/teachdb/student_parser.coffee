@@ -124,10 +124,10 @@ module.exports = class StudentParser extends HTMLParser
       (for c,i in bestGuessClasses(user.courses, user.entryYear) ? []
         year: user.entryYear+i, class: c)
 
-    _meta:
+    user['_meta'] =
       tid: user.tid
       login: user.login
-    user: user
+    user
 
   # Requires a teachdb student ID
   # Eg. {tid: 10020175}
