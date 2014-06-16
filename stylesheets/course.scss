@@ -5,3 +5,49 @@
 .exercises-panel table tbody {
   border: 0px !important;
 }
+
+table.resource-list {
+  tr {
+    .number {
+      width: 6%;
+      text-align: center;
+    }
+    .icon {
+      width: 6%;
+      text-align: center;
+    }
+    .discussions {
+      width: 8%;
+      text-align: center;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    span.disc-badge {
+      width: 100%;
+      cursor: pointer;
+    }
+  }
+}
+
+table.course-notes {
+  .title {
+    width: 40%;
+  }
+  .time {
+    width: 40%;
+    color: grey;
+  }
+}
+
+table.course-exercises {
+  .title {
+    width: 50%;
+  }
+  .time {
+    width: 30%;
+    color: grey;
+  }
+}

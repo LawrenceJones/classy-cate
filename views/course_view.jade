@@ -7,16 +7,17 @@ mixin notes-panel
   .panel.panel-default.notes-panel
     .panel-heading
       h3.panel-title Notes
-    table.table.table-hover.panel-body
+    table.table.table-hover.panel-body.course-notes.resource-list
       tbody
-        tr(ng-repeat='note in course.notes' course-note='note.link')
-          td {{ note.number }}
-          td
+        tr(ng-repeat='note in course.notes')
+          td.number {{ note.number }}
+          td.icon
             i(mime-type-icon='note.restype')
-          td {{ note.title }}
-          td.small {{ note.time.format() }}
-          td
-            span.badge {{ note.discussions.length }}
+          td.title
+            a(href='{{ note.link }}', target='_blank') {{ note.title }}
+          td.time.small.visible-lg by {{ note.owner }} on {{ note.time.format() }}
+          td.discussions
+            discussions-badge(discussions='note.discussions')
 
 mixin grades-panel
   .panel.panel-default.grades-panel
@@ -36,18 +37,16 @@ mixin exercises-panel
   .panel.panel-default.exercises-panel
     .panel-heading 
       h3.panel-title Exercises
-    table.table.table-hover.panel-body
+    table.table.table-hover.panel-body.course-exercises.resource-list
       tbody(course-exercise ng-repeat='exercise in course.exercises')
         tr.ex-title
-          td {{ exercise.number }}
-          td
+          td.number {{ exercise.number }}
+          td.icon
             i(mime-type-icon='exercise.type')
-          td {{ exercise.name }}
-          td.small {{ exercise.start.format() + ' - ' + exercise.end.format() }}
+          td.title {{ exercise.title }}
+          td.time.small.visible-lg {{ exercise.start.format() + ' - ' + exercise.end.format() }}
           td
-            i.fa.fa-folder-open-o(ng-if='exercise.givens.length > 0')
-          td
-            span.badge {{ exercise.discussions.length }}
+            discussions-badge(discussions='exercise.discussions')
         tr.ex-given.hide(ng-repeat='given in exercise.givens')
           td(colspan='6')
             | {{ given.title }}

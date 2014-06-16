@@ -41,7 +41,12 @@ classy.factory 'Exercises', (Resource) ->
 
 classy.controller 'CoursesViewCtrl', ($scope, $stateParams, $state, Courses) ->
   ($scope.course = Courses.get $stateParams).$promise
-  .then ((course, status) -> )
+  .then (response) ->
+    
+    console.log (course = response.data)
+    # console.log course.validFrom.getFullYear()
+
+
   .catch (err) ->
     # For now, transition to courses index if 404: TODO
     $state.go 'app.courses' if err.status is 404

@@ -40,7 +40,7 @@ mixin course-selector
     a.dropdown-toggle(data-toggle='dropdown')
       i.fa.fa-book
       //- State names, hidden by default, displayed upon switch
-      span(ng-repeat='course in registeredCourses')
+      span.hidden-md.hidden-sm(ng-repeat='course in registeredCourses')
         +span-state('app.courses.view({cid: course.cid})', 
                     "{{course.cid + ': ' + course.name}}")
       +span-state('app.courses', 'All Courses')
