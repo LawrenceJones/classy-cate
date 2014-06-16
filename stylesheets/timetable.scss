@@ -1,12 +1,14 @@
 $coursework-colour: #dff0d8;
 $tutorial-colour: #d9edf7;
 $default-exercise-colour: #fcf8e3;
+$course-name-bg-colour: #f8f8f8;
+$weekend-bg-color: #e7e7e7;
 $today-vertical-bar-colour: #d9534f;
 $row-exercises-height: 30px;
 $course-names-border-spacing: 2px;
 $thead-margin-bottom: 10px;
 $day-height: 20px;
-$day-padding: 8px;
+$day-padding: 6px;
 $day-border: 1px;
 $day-width: 30px;
 
@@ -14,6 +16,10 @@ $day-width: 30px;
 
   .wrap-cell {
     height: $row-exercises-height;
+    line-height: $row-exercises-height;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
 
   .table-responsive {
@@ -34,7 +40,7 @@ $day-width: 30px;
     }
 
     td {
-      background-color: #e7e7e7;
+      background-color: $course-name-bg-colour;
       overflow: hidden;
       text-overflow: ellipsis;
       vertical-align: middle;
@@ -42,21 +48,32 @@ $day-width: 30px;
       white-space: normal;
     }
 
+    a {
+      color: black;
+    }
+
+    .wrap-cell {
+      word-wrap: break-word;
+    }
+
   }
 
 
   #date-exs {
 
-    table.floatThead-table {
-      border-top: none;
-      border-bottom: none;
-      background-color: #FFF;
-    }
-
     col {
       width: $day-width;
     }
 
+    .weekend {
+        background-color: $weekend-bg-color;
+     }
+
+    .today {
+      background: $today-vertical-bar-colour;
+    }
+
+ 
     /* This will separate the thead and the
        first tbody (i.e. days and exercises) */
     tbody:first-of-type::before {
@@ -70,15 +87,18 @@ $day-width: 30px;
 
       th {
         border: $day-border solid #ddd;
-        text-align: center;
-        overflow: hidden;
         padding: $day-padding;
+        font-weight: normal;
+        overflow: hidden;
+        text-align: center;
       }
 
       .wrap-cell {
         height: $day-height;
+        line-height: $day-height;
+        overflow: visible;
       }
-      
+
     }
     
     .course-body {
@@ -87,14 +107,7 @@ $day-width: 30px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-      }
-
-      .today {
-        background: $today-vertical-bar-colour;
-      }
-
-      .wrap-cell {
-        margin-top: 1px;
+        vertical-align: middle;
       }
 
       .coursework {

@@ -1,6 +1,6 @@
 [
   {
-    "mid": "202",
+    "cid": "202",
     "name": "Software Engineering - Algorithms",
     "exercises": [
       {
@@ -39,7 +39,7 @@
     "level": 3
   },
   {
-    "mid": "203",
+    "cid": "203",
     "name": "Human-Centred Design",
     "exercises": [
       {
@@ -78,7 +78,7 @@
     "level": "3"
   },
   {
-    "mid": "210",
+    "cid": "210",
     "name": "Computer Architecture",
     "exercises": [
       {
@@ -107,7 +107,7 @@
     "level": "3"
   },
   {
-    "mid": "212",
+    "cid": "212",
     "name": "Networks and Communications",
     "exercises": [
       {
@@ -136,7 +136,7 @@
     "level": "3"
   },
   {
-    "mid": "220",
+    "cid": "220",
     "name": "Software Engineering Design",
     "exercises": [
       {
@@ -155,7 +155,7 @@
     "level": 3
   },
   {
-    "mid": "221",
+    "cid": "221",
     "name": "Compilers",
     "exercises": [
       {
@@ -184,7 +184,7 @@
     "level": 3
   },
   {
-    "mid": "223",
+    "cid": "223",
     "name": "Concurrency",
     "exercises": [
       {
@@ -213,7 +213,7 @@
     "level": 3
   },
   {
-    "mid": "233",
+    "cid": "233",
     "name": "Computational Techniques",
     "exercises": [
       {
@@ -242,7 +242,7 @@
     "level": 3
   },
   {
-    "mid": "240",
+    "cid": "240",
     "name": "Models of Computation",
     "exercises": [
       {
@@ -271,7 +271,7 @@
     "level": 3
   },
   {
-    "mid": "245",
+    "cid": "245",
     "name": "Statistics",
     "exercises": [
       {
@@ -290,7 +290,7 @@
     "level": 3
   },
   {
-    "mid": "261",
+    "cid": "261",
     "name": "Laboratory 2",
     "exercises": [
       {
@@ -429,7 +429,7 @@
     "level": 3
   },
   {
-    "mid": "271",
+    "cid": "271",
     "name": "2nd Year Group Projects",
     "exercises": [
       {
@@ -488,7 +488,7 @@
     "level": 3
   },
   {
-    "mid": "272",
+    "cid": "272",
     "name": "Team Skills Development",
     "exercises": [
       {
@@ -507,7 +507,7 @@
     "level": 3
   },
   {
-    "mid": "276",
+    "cid": "276",
     "name": "Introduction to Prolog",
     "exercises": [
       {
@@ -536,7 +536,7 @@
     "level": 3
   },
   {
-    "mid": "231",
+    "cid": "231",
     "name": "Introduction to Artificial Intelligence",
     "exercises": [
       {

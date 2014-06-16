@@ -51,19 +51,7 @@ classy.config [
     $httpProvider.interceptors.push 'authInterceptor'
 
     # Default route to dashboard
-    $urlRouterProvider.otherwise '/dashboard'
-
-    # Abstract parent to force dash loading first
-    $stateProvider.state 'app', {
-      abstract: true
-    }
-
-    # Splash entry page with user info.
-    $stateProvider.state 'app.dashboard', {
-      url: '/dashboard'
-      controller: (->)
-      templateUrl: '/partials/dashboard'
-    }
+    $urlRouterProvider.otherwise '/profile'
 
     # Login page for college credentials.
     $stateProvider.state 'login', {
@@ -71,16 +59,31 @@ classy.config [
       templateUrl: '/partials/login'
     }
 
+    # Abstract parent to force loading user first
+    $stateProvider.state 'app', {
+      abstract: true
+      url: '?year'
+      reloadOnSearch: false
+      resolve:
+        user: (AppState) -> AppState.loaded()
+    }
+
+    $stateProvider.state 'app.profile', {
+      url: '/profile'
+      controller: 'ProfileCtrl'
+      templateUrl: '/partials/profile'
+    }
+
     $stateProvider.state 'app.courses', {
       url: '/courses'
-      controller: ->
+      controller: 'CoursesCtrl'
       templateUrl: '/partials/courses'
     }
 
     $stateProvider.state 'app.courses.view', {
       url: '/:cid'
-      controller: 'CourseCtrl'
-      templateUrl: '/partials/course_view'
+      controller: 'CoursesViewCtrl'
+      templateUrl: '/partials/courses_view'
     }
 
     $stateProvider.state 'app.timetable', {
@@ -117,13 +120,66 @@ classy.config [
 
 ]
 
-classy.run ($q, $rootScope, DateUtils) ->
-  
-  # Keep track of state in $rootScope
-  $rootScope.$on '$stateChangeSuccess', ($event, state) ->
-    $rootScope.currentState = state.name
-    $rootScope.courseState = /app\.courses/.test state.name
+# Service to provide useful datas true at this moment of time
+classy.service 'Current', (Convert) ->
+  academicYear: ->
+    if (current = new Date).getMonth() < 8
+      return current.getFullYear() - 1
+    current.getFullYear()
 
+  period: ->
+    3 # TODO: calculate this
+
+  term: ->
+    Convert.periodToTerm @period()
+
+  isToday: (date) ->
+    # Timetable debugging version:
+    date.midnight().getTime() is (new Date(2014, 1, 15).midnight().getTime())
+    # Final version:
+    # (date.midnight().getTime()) is (new Date(Date.now()).midnight.getTime())
+    
+
+# 
+classy.service 'AppState', (Auth, Current, Users, $location, $q) ->
+  currentYear:    Current.academicYear()
+  currentPeriod:  Current.period()
+  currentTerm:    Current.term()
+  availableYears: [ 2013, 2012 ]
+  user: null
+
+  updateYear: (year) ->
+    if year in @availableYears then @currentYear = year
+
+  # Returns a promise which resolves with a Users instance encapsulating
+  # a user profile. Profile also added to AppState.user
+  loaded: ->
+    def = $q.defer()
+    def.resolve @user if @user?
+
+    (Auth.whoami true)
+      .then (login) =>
+        (Users.get login: 'thb12').$promise
+          .then (response) =>
+            @user = (user = response.data)
+            def.resolve user
+          .catch (err) ->
+            def.reject err
+      .catch (err) ->
+        def.reject err
+
+    def.promise
+
+
+classy.run ($q, $rootScope, $state, $stateParams, $location, DateUtils, AppState) ->
+
+  # Keep track of state in $rootScope
+  $rootScope.$on '$stateChangeSuccess', ($event, state, $stateParams) ->
+    $rootScope.currentState = state.name
+    $rootScope.courseState  = /app\.courses/.test state.name
+
+    AppState.updateYear (parseInt year) if (year = $stateParams.year)?
+      
   $rootScope.registeredCourses = [
     {
       name: 'Software Engineering - Algorithms'
@@ -132,6 +188,34 @@ classy.run ($q, $rootScope, DateUtils) ->
     {
       name: 'Operating Systems'
       cid: '211'
+    }
+    {
+      name: 'Networks and Communications'
+      cid: '212'
+    }
+    {
+      name: 'Introduction to Artificial Intelligence'
+      cid: '231'
+    }
+    {
+      name: 'Computational Techniques'
+      cid: '233'
+    }
+    {
+      name: 'Laboratory 2'
+      cid: '261'
+    }
+    {
+      name: '2nd Year Group Projects'
+      cid: '271'
+    }
+    {
+      name: 'Team Skills Development'
+      cid: '272'
+    }
+    {
+      name: 'Introduction to Prolog'
+      cid: '276'
     }
   ]
 

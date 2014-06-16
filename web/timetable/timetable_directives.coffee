@@ -9,15 +9,23 @@ classy.directive 'courseCell', ->
           <tr>
             <td class='panel panel-default'>
               <div class='wrap-cell'>
-                {{course.name}}
+               <a course-link='course'> {{course.name}} 
               </div>
             </td>
           </tr>
   """
   link: ($scope, $elem, attr) ->
+    # Setting the cell's height of the course name equal to the
+    # total height of the exercises row for the particular course
     length = $scope.course.rows.length
-    newHeight = (parseInt $elem.css 'height') * length
+    borderSpacing = parseInt $elem.parent().css 'border-spacing'
+    padding = parseInt $elem.find('td').css 'padding'
+    border = parseInt $elem.find('td').css 'border'
+    wrap = borderSpacing + 2 * (padding + border)
+    newHeight = (parseInt $elem.css 'height') * length - wrap
+    $elem = $elem.find('.wrap-cell')
     $elem.css('height', "#{newHeight}px")
+    $elem.css('line-height', "#{newHeight}px")
 
 
 classy.directive 'daysBar', ->
@@ -34,9 +42,9 @@ classy.directive 'daysBar', ->
             </tr>
 
             <tr>
-              <th ng-repeat='day in period.days track by $index'>
+              <th ng-repeat='day in period.days track by $index' ng-class='{today: day.isToday, weekend: day.isWeekend}'>
                 <div class='wrap-cell'>
-                  {{day}}
+                  {{day.number}}
                 </div>
               </th>
             </tr>
@@ -61,6 +69,7 @@ classy.directive 'exerciseBox', ->
   template: """
             <td colspan='{{box.options.colspan}}' ng-class='{today: box.options.isToday}'>
               <div class='wrap-cell'>
+                <i ng-if='box.ex' mime-type-icon='box.ex.type'></i>
                 {{box.ex.name}}
               </div>
             </td>

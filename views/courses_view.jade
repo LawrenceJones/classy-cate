@@ -1,23 +1,15 @@
 mixin course-heading
   h2.course-heading
-    | {{ course.mid }}: {{ course.name }}
-    i.fa.fa-info-circle.small
+    | {{ course.cid }}: {{ course.name }}
 
 mixin notes-panel
   .panel.panel-default.notes-panel
     .panel-heading
       h3.panel-title Notes
-    table.table.table-hover.panel-body
+    table.table.table-hover.panel-body.course-notes.resource-list
       tbody
-        tr(ng-repeat='note in course.notes' course-note='note.link')
-          td {{ note.number }}
-          td
-            i(mime-type-icon='note.restype')
-          td {{ note.title }}
-          td.small {{ note.time.format() }}
-          td
-            span.badge {{ note.discussions.length }}
-
+        tr(ng-repeat='note in course.notes', course-note note='note')
+          
 mixin grades-panel
   .panel.panel-default.grades-panel
     .panel-heading
@@ -36,29 +28,19 @@ mixin exercises-panel
   .panel.panel-default.exercises-panel
     .panel-heading 
       h3.panel-title Exercises
-    table.table.table-hover.panel-body
-      tbody
-        tr(ng-repeat='exercise in course.exercises' course-exercise='$index')
-          td {{ exercise.number }}
-          td
-            i(mime-type-icon='exercise.type')
-          td {{ exercise.name }}
-          td.small {{ exercise.start.format() + ' - ' + exercise.end.format() }}
-          td
-            i.fa.fa-folder-open-o
-          td
-            span.badge {{ exercise.discussions.length }}
-
+    table.table.table-hover.panel-body.course-exercises.resource-list
+      tbody(course-exercise exercise='exercise' ng-repeat='exercise in course.exercises')
+        
 mixin discussions-panel
   .panel.panel-default.discussions-panel
     .panel-heading
       h3.panel-title Discussions
     table.table.table-hover.panel-body
       tbody
-        tr(ng-repeat='discussion in discussions')
+        tr(ng-repeat='discussion in course.discussions')
           td {{ discussion.title }}
           td {{ discussion.author }}
-          td {{ dateString(discussion.time) }}
+          td {{ discussion.time.format() }}
           td
             span.badge {{ discussion.posts }}
 
@@ -68,8 +50,7 @@ mixin discussions-panel
     +course-heading
 .row
   .col-md-12
-    .lead
-      | This course ran in the term before last
+    .lead {{ course.describeTerms() }}
 .row
   .col-md-6
     +notes-panel

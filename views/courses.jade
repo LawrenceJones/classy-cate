@@ -1,2 +1,44 @@
+mixin column(term)
+  .col-md-4
+    .panel.panel-default
+      .panel-heading
+        h3.panel-title
+          | Term 
+          =term
+      table.table.table-striped.table-bordered.panel-body.courses-col(ng-show='term.length > 0')
+        thead
+          tr
+            th Code
+            th Name
+            th Terms
+            th Classes
+        tbody
+          tr(ng-repeat="course in term = (courses | runsInTerm:"+term+" | orderBy: 'cid' | filter:input.search)")
+            td
+              a(course-link='course') {{ course.cid }}
+            td
+              a(course-link='course') {{ course.name }}
+            td {{ course.formatTerms() }}
+            td {{ course.formatClasses() }}
+      .panel-body(ng-show='term.length == 0')
+        | No matching courses this term
+
+
+mixin filter
+  input.form-control.index-filter(placeholder='Search' ng-model='input.search')
+
+
+
 // ui-view for nested course pages to replace
 .courses(ui-view='')
+  .row
+    .col-md-12
+      h2 All Courses
+    .col-md-8
+      .lead All courses running in DoC this year
+    .col-md-4
+      +filter()
+  .row
+    +column(1)
+    +column(2)
+    +column(3)

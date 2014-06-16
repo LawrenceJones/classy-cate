@@ -1,0 +1,53 @@
+.course-heading {
+  i { margin-left: 3px; }
+}
+
+.exercises-panel table tbody {
+  border: 0px !important;
+}
+
+table.resource-list {
+  tr {
+    td {
+      vertical-align: middle;
+    }
+    .number {
+      width: 6%;
+      text-align: center;
+    }
+    .icon {
+      width: 6%;
+      text-align: center;
+    }
+    .title {
+      width: 80%;
+    }
+    .discussions {
+      width: 8%;
+      text-align: center;
+    }
+    .time {
+      color: grey;
+      font-size: 11px;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    span.disc-badge {
+      width: 100%;
+      cursor: pointer;
+    }
+  }
+}
+
+
+table.course-exercises {
+  tr.ex-given {
+    td .ex-given-container {
+      margin: 0px 40px;
+      border: 1px solid red;
+    }
+  }
+}

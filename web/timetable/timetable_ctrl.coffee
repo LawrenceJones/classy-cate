@@ -26,9 +26,6 @@ classy.controller 'TimetableCtrl', ($scope, $stateParams, Timetable,
   .then (course) ->
     $scope.period = PeriodFormatter timetable.start, timetable.end
     $scope.courses = CourseFormatter timetable
-    $scope.isToday =  (date) ->
-      date.midnight().getTime() is (new Date(2014, 1, 15).midnight().getTime())
-
 
   .catch (err) ->
     console.log err

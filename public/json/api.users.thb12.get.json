@@ -4,13 +4,14 @@
   "fname": "Thomas",
   "lname": "Burnell",
   "profile": "https://cate.doc.ic.ac.uk/photo/student/pics12/thb12.jpg",
-  "cand": 00728783,
+  "cand": "00728783",
   "tutor": {
     "login": "imh",
     "title": "Prof",
     "fname": "Ian",
     "lname": "Hodkinson"
   },
+  "entryYear": 2012,
   "enrolment": [
     {
       "year": 2012,
@@ -304,3 +305,4 @@
       ]
     }
   ]
+}

@@ -1,15 +1,22 @@
 classy = angular.module 'classy'
 
-classy.factory 'PeriodFormatter', ->
+classy.factory 'PeriodFormatter', (Current) ->
   (start, end) ->
     getMonthName = (monthNumber) ->
       (['January', 'February', 'March', 'April',
         'May', 'June', 'July', 'August', 'September',
         'October', 'November', 'December'])[monthNumber]
+    isWeekend = (date) ->
+      date.getDay() % 6 is 0
 
     period = days: [], months: {}
     for d in start.getDatesTo(end)
-      period.days.push d.getDate()
+      period.days.push {
+        number: d.getDate()
+        isWeekend: isWeekend d
+        isToday: Current.isToday d
+      }
+
       month = d.getMonth()
       if period.months[month]?
         period.months[month].size++
@@ -20,7 +27,7 @@ classy.factory 'PeriodFormatter', ->
 
 # Given the returned json the factory returns a data structure of the form
 # [{name: string, rows: [{ex: object/null, options: object}]}]
-classy.factory 'CourseFormatter', ->
+classy.factory 'CourseFormatter', (Current) ->
   dayMS = 24*60*60*1000
   contains = (ex, date) -> ex.start <= date <= ex.end
   splitInRows = (exercises) ->
@@ -43,12 +50,9 @@ classy.factory 'CourseFormatter', ->
       subrow = 0
     rows
 
-  isToday = (date) ->
-    date.midnight().getTime() is (new Date(2014, 1, 15).midnight().getTime())
-
   getOptions = (ex, date) ->
-    colspan: if ex? then (ex.start.getDatesTo(ex.end).length) else 1
-    isToday: isToday date
+    colspan: (ex?.start.getDatesTo(ex.end).length) ? 1
+    isToday: Current.isToday date
 
   formatCourses = (timetable) ->
     timetable.modules.map (course) ->
@@ -62,11 +66,9 @@ classy.factory 'CourseFormatter', ->
           for date in timetable.start.getDatesTo timetable.end
             i++ while (row[i]?.end.getTime()) < date.getTime()
             if (date.midnight().getTime()) is (row[i]?.start.midnight().getTime())
-              # formattedRow.push {ex: row[i], options: getOptions row[i], date}
-              formattedRow.push {ex: row[i], date: date}
+              formattedRow.push {ex: row[i], options: getOptions row[i], date}
             else if (not row[i]?) or not contains(row[i], date)
-              # formattedRow.push {ex: null, options: getOptions null, date}
-              formattedRow.push {ex: null, date: date}
+              formattedRow.push {ex: null, options: getOptions null, date}
           formattedRow
 
   return formatCourses
