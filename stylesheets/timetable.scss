@@ -41,7 +41,6 @@ $day-width: 30px;
       white-space: normal;
     }
 
-
   }
 
 
@@ -57,17 +56,19 @@ $day-width: 30px;
       width: $day-width;
     }
 
+    /* This will separate the thead and the
+       first tbody (i.e. days and exercises) */
     tbody:first-of-type::before {
       line-height: $thead-margin-bottom;
       content:"-";
-      color: white;/* to hide text */
+      color: white; /* to hide text */
       display: block;
-  }
+    }
 
     #days-header {
 
       th {
-        border: $day-border solid black;
+        border: $day-border solid #ddd;
         text-align: center;
         overflow: hidden;
         padding: $day-padding;
@@ -85,6 +86,10 @@ $day-width: 30px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+      }
+
+      .today {
+        background: red;
       }
 
       .cell {

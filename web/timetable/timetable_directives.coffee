@@ -53,7 +53,7 @@ classy.directive 'exerciseBox', ->
   scope:
     box: '='
   template: """
-            <td colspan='{{box.colspan}}'>
+            <td colspan='{{box.colspan}}' ng-class='{today: box.today}'>
               <div class='cell'>
                 {{box.ex.name}}
               </div>

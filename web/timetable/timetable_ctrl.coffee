@@ -12,6 +12,7 @@ classy.controller 'TimetableCtrl', ($scope, $stateParams, Timetable) ->
   dayMS = 24*60*60*1000
   colspan = (ex) -> (ex.end - ex.start)/dayMS + 1
   contains = (ex, timestamp) -> ex.start <= timestamp <= ex.end
+  isToday = (t) -> (midnightTimestamp t) is (midnightTimestamp (new Date(2014, 1, 15).getTime()))
 
   # Returns the timestamp of midnight on the day of the given timestamp
   midnightTimestamp = (timestamp) ->
@@ -26,16 +27,15 @@ classy.controller 'TimetableCtrl', ($scope, $stateParams, Timetable) ->
         rows: (splitInRows course.exercises).map (row) ->
           formattedRow = []
           i = 0
-          console.log timetable.start
           # For each day, insert an exercise (if present) or an
           # empty cell with colspan 1
           for t in [timetable.start..timetable.end] by dayMS
             i++ while row[i]?.end < t
             if (midnightTimestamp t) is (midnightTimestamp row[i]?.start)
-              formattedRow.push {colspan: colspan(row[i]), ex: row[i]}
+              formattedRow.push {colspan: colspan(row[i]), ex: row[i], today: isToday t}
             else if (not row[i]?) or not contains(row[i], t)
-              formattedRow.push {colspan: 1, ex: null}
-          return formattedRow
+              formattedRow.push {colspan: 1, ex: null, today: isToday t}
+          formattedRow
 
   splitInRows = (exercises) ->
     # Returns true if the given exercise overlaps with the last
