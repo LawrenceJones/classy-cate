@@ -8,7 +8,7 @@
     .table-responsive#date-exs
       table.table
         colgroup
-          col(ng-repeat='day in days track by $index')
+          col(ng-repeat='day in period.days track by $index')
         thead#days-header(days-bar)
         tbody.course-body(ng-repeat='course in courses')
           tr(ng-repeat='row in course.rows')

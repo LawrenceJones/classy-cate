@@ -26,7 +26,15 @@ classy.directive 'daysBar', ->
   template: """
           <thead>
             <tr>
-              <th ng-repeat='day in days track by $index'>
+              <th colspan='{{values["size"]}}' ng-repeat='(month, values) in period.months'>
+                <div class='wrap-cell'>
+                  {{values['name']}}
+                </div>
+              </th>
+            </tr>
+
+            <tr>
+              <th ng-repeat='day in period.days track by $index'>
                 <div class='wrap-cell'>
                   {{day}}
                 </div>

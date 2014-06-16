@@ -14,7 +14,7 @@ classy.factory 'Timetable', (Resource) ->
   })
 
 classy.factory 'Modules', (Resource) ->
-  class Modulues extends Resource({
+  class Modules extends Resource({
     relations:
       exercises: 'Exercises'
   })
@@ -24,8 +24,11 @@ classy.controller 'TimetableCtrl', ($scope, $stateParams, Timetable,
 
   (timetable = Timetable.get({})).$promise
   .then (course) ->
-    $scope.days = PeriodFormatter timetable.start, timetable.end
+    $scope.period = PeriodFormatter timetable.start, timetable.end
     $scope.courses = CourseFormatter timetable
+    $scope.isToday =  (date) ->
+      date.midnight().getTime() is (new Date(2014, 1, 15).midnight().getTime())
+
 
   .catch (err) ->
     console.log err

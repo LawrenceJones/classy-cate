@@ -29,7 +29,7 @@ $day-width: 30px;
 
     table {
       border-spacing: $course-names-border-spacing;
-      margin-top: $day-height + 2 * $day-padding + 2 * $day-border + 
+      margin-top: 2 * ($day-height + 2 * $day-padding + 2 * $day-border) +
                   $thead-margin-bottom - $course-names-border-spacing;
     }
 
