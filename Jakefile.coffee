@@ -158,10 +158,21 @@ task 'test', [], async: true, (pattern) ->
   spawn\
   ( 'mocha'
     [ '--recursive', '--compilers', 'coffee:coffee-script/register'
-      '--globals', 'newW,clickpage'
+      '--globals', 'newW,clickpage', '--growl'
       '--reporter', 'spec', '--colors', '--timeout', '5000'
       '--grep', pattern ? '' ]
     stdio: 'inherit' )# }}}
+
+desc 'Start test watching'
+task 'watch', [], async: true, (pattern) ->
+  title 'Watch ./app ./test folders for change'# {{{
+  cmd = if pattern then "jake test[#{pattern}]" else 'jake test'
+  chain\
+  ( [ './node_modules/watchme/bin/watchme'
+    , [ '-c', './app', './test'
+      , '-e', "\"#{cmd}\"" ]
+    , 'Failed to run watchme. Run npm install?' ]
+  ).finally complete# }}}
 
 # API Tasks ############################################
 
