@@ -70,7 +70,7 @@ classy.config [
     $stateProvider.state 'app.courses.view', {
       url: '/:cid'
       controller: 'CoursesViewCtrl'
-      templateUrl: '/partials/course_view'
+      templateUrl: '/partials/courses_view'
     }
 
     $stateProvider.state 'app.timetable', {

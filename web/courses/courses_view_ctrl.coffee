@@ -24,7 +24,8 @@ classy.factory 'Courses', (Resource, AppState, Format, Convert) ->
     describeTerms: ->
       return if not @terms?
       terms = @terms.map (term) -> Convert.termToName term
-      "This course runs in the #{Format.asEnglishList terms} #{Format.pluraliseIf 'term', terms.length}"
+      "This course runs in the #{Format.asEnglishList terms} 
+        #{Format.pluraliseIf 'term', terms.length}"
 
 classy.factory 'Notes', (Resource) ->
   class Notes extends Resource({
@@ -41,12 +42,7 @@ classy.factory 'Exercises', (Resource) ->
 
 classy.controller 'CoursesViewCtrl', ($scope, $stateParams, $state, Courses) ->
   ($scope.course = Courses.get $stateParams).$promise
-  .then (response) ->
-    
-    console.log (course = response.data)
-    # console.log course.validFrom.getFullYear()
-
-
+  .then ((response) -> )
   .catch (err) ->
     # For now, transition to courses index if 404: TODO
     $state.go 'app.courses' if err.status is 404
