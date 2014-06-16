@@ -16,7 +16,7 @@ mixin extra-links
 mixin user-links
   li.dropdown(ng-class='{active: userState}')
     a.dropdown-toggle.user-link.nav-left-divided(data-toggle='dropdown')
-      | Andrea
+      | {{ user.fname }}
       i.fa.fa-user
     ul.dropdown-menu
       li(ui-sref='app.profile' ui-sref-active='active')

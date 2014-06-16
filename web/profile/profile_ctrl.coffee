@@ -12,19 +12,14 @@ classy.factory 'Users', (Resource) ->
     tutorName: ->
       [@tutor?.title, @tutor?.fname, @tutor?.lname].join " "
 
-classy.controller 'ProfileCtrl', ($scope, $rootScope, Users) ->
-  ($scope.profile = Users.get(login: "thb12")).$promise
-    .then (response) ->
+classy.controller 'ProfileCtrl', ($scope, $rootScope) ->
 
-      # TODO: tidy up, balance properly, consider first years
-      profile = response.data
+    # TODO: tidy up, balance properly, consider first years
+    profile = $rootScope.user
 
-      $scope.cols = []
-      $scope.cols[0] = [ profile.enrolment[0] ]
-      $scope.cols[1] = [ profile.enrolment[1] ]
+    $scope.cols = []
+    $scope.cols[0] = [ profile.enrolment[0] ]
+    $scope.cols[1] = [ profile.enrolment[1] ]
 
-      $rootScope.profile = profile
-
-    .catch (err) ->
-      console.log err
+    $rootScope.profile = profile
 

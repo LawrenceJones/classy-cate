@@ -32,11 +32,25 @@ classy.config [
     # Default route to dashboard
     $urlRouterProvider.otherwise '/dashboard'
 
-    # Abstract parent to force dash loading first
+    # Login page for college credentials.
+    $stateProvider.state 'login', {
+      url: '/login'
+      templateUrl: '/partials/login'
+    }
+
+    # Abstract parent to force loading user first
     $stateProvider.state 'app', {
       abstract: true
       url: '?year'
-      reloadOnSearch: false  # Allows modification of URL query params without forcing reload
+      reloadOnSearch: false
+      resolve:
+        user: ($rootScope, Auth, Users) ->
+          (Auth.whoami false)
+            .then (user) ->
+              Users.get({login: user}).$promise.then (response) ->
+                $rootScope.user = response.data
+            .catch (err) ->
+              console.log err
     }
 
     # Splash entry page with user info.
@@ -44,12 +58,6 @@ classy.config [
       url: '/dashboard'
       controller: 'DashboardCtrl'
       templateUrl: '/partials/dashboard'
-    }
-
-    # Login page for college credentials.
-    $stateProvider.state 'login', {
-      url: '/login'
-      templateUrl: '/partials/login'
     }
 
     $stateProvider.state 'app.profile', {

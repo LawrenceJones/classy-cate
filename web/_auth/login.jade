@@ -1,0 +1,30 @@
+mixin user-pass
+  input.user-input.form-control.input-lg(
+    type='text'
+    ng-model!='input.user'
+    placeholder='College login', required='')
+  input.password-input.form-control.input-lg(
+    type='password'
+    ng-model!='input.pass'
+    placeholder='Password', required='')
+
+.pane.login
+  form.form-login(ng-controller='AuthCtrl')
+    .row
+      .col-md-12
+        +user-pass()
+    .buffer
+    .row.unselectable
+      .col-md-12
+        button.submit.btn.btn-default.btn-lg(ng-click!='submit()', ng-class!="{'btn-warning': denied, disabled: waiting}") Login
+    .row.unselectable.hide
+      .col-md-8
+        label.remember
+          input(type='checkbox', ng-model!='input.remember')
+          span Remember me
+    hr
+    .row
+      .col-md-6.forgotten
+        a(ui-sref='audit') Why trust me?
+      .col-md-6.register
+        span WebApps
