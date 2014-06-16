@@ -9,12 +9,12 @@ mixin notes-panel
       h3.panel-title Notes
     table.table.table-hover.panel-body.course-notes.resource-list
       tbody
-        tr(ng-repeat='note in course.notes')
+        tr(course-note='note.link' ng-repeat='note in course.notes')
           td.number {{ note.number }}
           td.icon
             i(mime-type-icon='note.restype')
           td.title
-            a(href='{{ note.link }}', target='_blank') {{ note.title }}
+            a {{ note.title }}
           td.time.small.visible-lg by {{ note.owner }} on {{ note.time.format() }}
           td.discussions
             discussions-badge(discussions='note.discussions')
@@ -43,13 +43,19 @@ mixin exercises-panel
           td.number {{ exercise.number }}
           td.icon
             i(mime-type-icon='exercise.type')
-          td.title {{ exercise.title }}
+          td.title
+            a {{ exercise.title }}
           td.time.small.visible-lg {{ exercise.start.format() + ' - ' + exercise.end.format() }}
           td
             discussions-badge(discussions='exercise.discussions')
         tr.ex-given.hide(ng-repeat='given in exercise.givens')
-          td(colspan='6')
-            | {{ given.title }}
+          td.number
+          td.icon
+            i(mime-type-icon='given.type')
+          td.title
+            a {{ given.title }}
+          td.time.small.visible-lg {{ given.time.format() }}
+          td 
 
 mixin discussions-panel
   .panel.panel-default.discussions-panel

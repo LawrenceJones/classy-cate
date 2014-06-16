@@ -38,6 +38,13 @@ classy.factory 'Exercises', (Resource) ->
     relations:
       start: Date
       end: Date
+      givens: 'Givens'
+  })
+
+classy.factory 'Givens', (Resource) ->
+  class Givens extends Resource({
+    relations:
+      time: Date
   })
 
 classy.controller 'CoursesViewCtrl', ($scope, $stateParams, $state, Courses) ->

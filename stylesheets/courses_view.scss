@@ -50,4 +50,11 @@ table.course-exercises {
     width: 30%;
     color: grey;
   }
+
+  tr.ex-given {
+    td .ex-given-container {
+      margin: 0px 40px;
+      border: 1px solid red;
+    }
+  }
 }
