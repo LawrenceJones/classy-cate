@@ -39,6 +39,8 @@ classy.factory 'DateUtils', ->
     mn = new Date(@)
     mn.setHours 0, 0, 0, 0
     mn
+  
+  Date.dayMS = 24*60*60*1000
 
   return Date.prototype
 

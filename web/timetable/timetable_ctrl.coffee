@@ -10,13 +10,7 @@ classy.factory 'Timetable', (Resource) ->
     relations:
       start: Date
       end: Date
-      modules: 'Modules'
-  })
-
-classy.factory 'Modules', (Resource) ->
-  class Modules extends Resource({
-    relations:
-      exercises: 'Exercises'
+      courses: 'Courses'
   })
 
 classy.controller 'TimetableCtrl', ($scope, $stateParams, Timetable,

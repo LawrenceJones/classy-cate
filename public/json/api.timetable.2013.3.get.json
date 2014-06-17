@@ -3,7 +3,7 @@
   "period": "3",
   "start": 1389571200000,
   "end": 1395964800000,
-  "modules": [
+  "courses": [
     {
       "id": "202",
       "name": "Software Engineering",
