@@ -1,14 +1,10 @@
-describe 'Auth unit tests', ->
+describe 'Auth', ->
 
   [$compile, $rootScope] = [null, null]
 
-  beforeEach -> angular.mock.module 'grepdoc'
+  beforeEach module 'auth'
 
-  beforeEach ->
-    inject ['$compile', '$rootScope', ($c, $r) ->
-      $compile = $c
-      $rootScope = $r
-    ]
+  it 'should have a factory Auth', ->
+    # TODO
 
-  it 'should run this test', ->
-    return true
+

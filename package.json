@@ -53,7 +53,8 @@
     "karma-requirejs": "^0.2.2",
     "karma-html2js-preprocessor": "^0.1.0",
     "read": "*",
-    "karma-growl": "^0.1.0"
+    "karma-growl": "^0.1.0",
+    "karma-spec-reporter": "0.0.13"
   },
   "engines": {
     "node": "0.10.x"

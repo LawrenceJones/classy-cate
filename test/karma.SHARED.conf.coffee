@@ -2,7 +2,7 @@ module.exports = ->
 
   basePath: '../'
   frameworks: ['mocha']
-  reporters: ['progress']
+  reporters: ['spec', 'growl']
 
   # preprocess matching files before serving them to the browser
   # available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
