@@ -4,9 +4,9 @@ $group-assessed-ex-colour: #dea5a4;
 $default-exercise-colour: #f0f0f0;
 $course-name-bg-colour: #f8f8f8;
 $weekend-bg-color: #f0f0f0;
-$today-vertical-bar-colour: #fbeec2;
-$day-highlighted-colour: #f9c236;
-$weekend-highlighted-colour: #bd8802;
+$today-vertical-bar-colour: rgba(40, 136, 173, 0.17);
+$day-highlighted-colour: #fbeec2;
+$weekend-highlighted-colour: #f5db85;
 $row-exercises-height: 45px;
 $course-names-border-spacing: 2px;
 $days-margin-bottom: 10px;
@@ -146,8 +146,8 @@ $day-width: 30px;
         border-bottom: 0;
       }
 
-
     }
+
   }
 
 }

@@ -46,10 +46,6 @@ classy.directive 'exerciseBox', ->
     else
       return 'default-exercise'
 
-  highlightsDays = ([start, end], cell) ->
-    $('#days-bar').find('th').map (i, e) ->
-      $(e).addClass 'highlighted-day' if start <= i <= end
-    
   restrict: 'A'
   replace: true
   scope: box: '='
@@ -62,14 +58,21 @@ classy.directive 'exerciseBox', ->
             </td>
   """
   link: ($scope, $elem, attr) ->
-    box = ($scope.$eval attr.box)
+    box = $scope.box
+
+    highlightsDays = ->
+      [start, end] = box.options.position
+      $('#days-bar').find('th').map (i, e) ->
+        $(e).addClass 'highlighted-day' if start <= i <= end
+
+    removeHighlightsDays = ->
+      $('.highlighted-day').map (i, e) ->
+        $(e).removeClass 'highlighted-day'
+
     if box.ex?
       $elem.addClass "panel panel-default exercise #{getExerciseClass box.ex}"
-      $elem.on 'click', ->
-        highlightsDays box.options.position, $elem
+      $elem.hover highlightsDays, removeHighlightsDays
     else
       $elem.addClass "today" if box.options.isToday
-      $elem.on 'click', ->
-        $('.highlighted-day').map (i, d) -> $(d).removeClass 'highlighted-day'
     
 
