@@ -10,41 +10,39 @@ auth.factory\
 
         @user = null
 
-        @isMe: (user) ->
-          user?.is @user # or whatever custom equality
+        # Returns user information for the currently logged in user
+        @whoami: (force = false) ->
+          @user = undefined if force
+          $q.fcall =>
+            return @user if @user?
+            $http.get(url: '/authenticate').success (@user) => @user
 
-        @whoami: (force) ->
-          return deferred.promise if deferred? and !force
-          deferred = $q.defer()
-          if !force and @user? then deferred.resolve @user
-          else $http({
-              url: '/api/whoami' # identity route on server
-              cache: false  # must be for force
-            })\
-              .success (data, status) ->
-                deferred.resolve (Auth.user = JSON.parse data)
-              .error (data) ->
-                deferred.reject  (Auth.user = null)
-          deferred.promise
+        # Sets the token value in the windows localStorage. Returns the
+        # JSON token string.
+        @storeToken: (data, verbose = true) ->
+          console.log 'Success: Authenticated' if verbose
+          Auth.user = data.user
+          $window.localStorage.token = data.token
 
-        @login: (user, pass) ->
-          deferred = $q.defer()
-          $http
-            .post '/authenticate', user: user, pass: pass
-            .success (data, status) ->
-              console.log 'Success: Authenticated'
-              $window.localStorage.token = data.token
-              Auth.user = data.user
-              deferred.resolve data
-            .error (data, status) ->
-              console.log 'Error: Invalid user/pass'
-              delete $window.localStorage.token
-              deferred.reject (Auth.user = null)
-          return deferred.promise
-
-        @logout: ->
+        # Remove the token from windows localStorage. Also clear the user
+        # field of Auth.
+        @clearToken: (verbose = true) ->
+          console.log 'Error: Invalid user/pass' if verbose
           delete $window.localStorage.token
-          Auth.user = null
+          Auth.user = undefined
+
+        # Given a login and password, will make a request to /authenticate
+        # with the credentials. Returns a promise that is resolved with the
+        @login: (login, pass) ->
+          $q.fcall =>
+            $http.post '/authenticate', login: login, pass: pass
+            .success (data) => @storeToken data
+            .error @clearToken
+
+        # Clears the token from windows localStorage and forces a new whoami
+        # request, to refresh user.
+        @logout: ->
+          do @clearToken
           Auth.whoami true # force whoami
          
 ])

@@ -24,7 +24,7 @@ module.exports = Auth =
   # request body in User database, and will response with either a
   # token or a 401.
   authenticate: (req, res) ->
-    return res.send 401 if !(creds = validateParams req)
+    return res.send 401 if !(creds = Auth.validate req)
     isAuthed = Student.authenticate creds.login, creds.pass
     isAuthed
       .then (token) -> res.json token

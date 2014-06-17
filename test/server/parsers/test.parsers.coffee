@@ -31,7 +31,7 @@ describe 'Parsers', ->
 
       if process.env.API then describe '#extract', ->
 
-        ttSchema = require 'test/parsers/cate/schema.timetable_parser.coffee'
+        ttSchema = require 'test/server/parsers/cate/schema.timetable_parser.coffee'
         TimetableProxy = new HTTPProxy ParserTools.cate.TimetableParser
         queryPeriod = (period) ->
           query = {}
@@ -46,7 +46,7 @@ describe 'Parsers', ->
 
     describe 'StudentIDParser', ->
 
-      sidSchema = require 'test/parsers/teachdb/schema.student_id_parser.coffee'
+      sidSchema = require 'test/server/parsers/teachdb/schema.student_id_parser.coffee'
       StudentIDParser = ParserTools.teachdb.StudentIDParser
       StudentIDProxy = new HTTPProxy StudentIDParser
       tids = [
@@ -78,7 +78,7 @@ describe 'Parsers', ->
       
       if not process.env.UNIT_ONLY then describe '#extract', ->
 
-        studentSchema = require 'test/parsers/teachdb/schema.student_parser.coffee'
+        studentSchema = require 'test/server/parsers/teachdb/schema.student_parser.coffee'
         it "should validate JSON for tid #{creds.opt.tid}", (done) ->
           validate studentSchema, StudentProxy, tid: creds.opt.tid, done
 

@@ -1,9 +1,11 @@
 # vi: set foldmethod=marker
 mongoose = require 'mongoose'
+assert = require 'assert'
+
 Models = require 'app/models'
 Student = Models.Student
+
 db = require 'test/db'
-assert = require 'assert'
 creds = require 'test/creds'
 
 studentSeeds = require 'test/seeds/students'

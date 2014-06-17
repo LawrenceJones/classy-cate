@@ -5,7 +5,7 @@ auth.controller\
     (Auth,   $scope,   $http,   $window,   $state) ->
 
       $scope.input =
-        user: null
+        login: null
         pass: null
 
       $scope.denied  = false
@@ -13,7 +13,7 @@ auth.controller\
 
       $scope.submit = ->
         $scope.waiting = true
-        authed = Auth.login $scope.input.user, $scope.input.pass
+        authed = Auth.login $scope.input.login, $scope.input.pass
         authed.then (data) ->
           if $window.blockedHash?
             $window.location = $window.blockedHash
