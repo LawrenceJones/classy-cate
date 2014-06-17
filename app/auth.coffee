@@ -30,9 +30,13 @@ module.exports = Auth =
       .then (token) -> res.json token
       .catch (err) -> reject res, err
 
+  whoami: (req, res) ->
+    res.json user: req.dbuser
+
 # Given an express app, configures auth utilities
 Auth.configure = (app) ->
   app.use '/api', Auth.midware
   app.post '/authenticate', Auth.authenticate
+  app.get '/authenticate', Auth.whoami
 
 

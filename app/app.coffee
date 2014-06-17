@@ -104,7 +104,7 @@ module.exports = class GrepDoc
 if !module.parent
   grepDoc = new GrepDoc
   grepDoc.usejwt()
-  grepDoc.secureAPI()  if NODE_ENV != 'testing'
+  grepDoc.secureAPI()
   grepDoc.hotCompile() if NODE_ENV == 'development'
   grepDoc.route()
   grepDoc.serveStatic()
