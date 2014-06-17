@@ -54,7 +54,8 @@
     "karma-html2js-preprocessor": "^0.1.0",
     "read": "*",
     "karma-growl": "^0.1.0",
-    "karma-spec-reporter": "0.0.13"
+    "karma-spec-reporter": "0.0.13",
+    "karma-ng-jade2js-preprocessor": "^0.1.2"
   },
   "engines": {
     "node": "0.10.x"

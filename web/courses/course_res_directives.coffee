@@ -2,13 +2,13 @@ grepdoc = angular.module 'grepdoc'
 
 grepdoc.directive 'courseNote', ($window) ->
   restrict: 'A'
-  templateUrl: '/partials/directives/course_note'
+  templateUrl: '/partials/directives/course_note.html'
   scope: note: '='
   replace: true
 
 grepdoc.directive 'courseExercise', ->
   restrict: 'A'
-  templateUrl: '/partials/directives/course_exercise'
+  templateUrl: '/partials/directives/course_exercise.html'
   scope: exercise: '='
   replace: true
 
@@ -19,7 +19,7 @@ grepdoc.directive 'courseExercise', ->
 
 grepdoc.directive 'courseGrade', ->
   restrict: 'A'
-  templateUrl: '/partials/directives/course_grade'
+  templateUrl: '/partials/directives/course_grade.html'
   scope: grade: '='
   replace: true
 

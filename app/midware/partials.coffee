@@ -18,7 +18,7 @@
 # Behaviour with { prefix: /partials, views: views } is
 # that a request to / as a url will render the layout.jade
 # file.
-# A request to /partials/bookings will render the booking
+# A request to /partials/bookings.html will render the booking
 # jade file within the /bookings folder. If a views subdir
 # contains multiple views to be rendered, then the url req
 # must specify filename.
@@ -28,11 +28,11 @@
 #     GET /
 #     {views}/layout.jade
 #
-#     GET /partials/:name
+#     GET /partials/:name.html
 #     {views}/:name.jade          <- 1st preference
 #     {views}/:name/:name.jade    <- fallback
 #
-#     GET /partials/:name/:file.jade
+#     GET /partials/:name/:file.html
 #     {views}/:name/:file.jade
 #
 
@@ -53,19 +53,23 @@ module.exports = (options) ->
   # Remove the first slash for uniformity
   options.prefix = options.prefix.replace /^\/+/, ''
 
-  urlRex = new RegExp "^/(#{options.prefix}/([^/]+)(/([^/]+))?)?$"
+  urlRex = new RegExp "^/(#{options.prefix}/([^/]+)(/([^/]+))?)?\.html$"
 
   genPath = (name, file) ->
     if name and file
       return [path.join options.views, name, "#{file}.jade"]
     else if name
-      inViews = path.join options.views, "#{name}.jade"
-      inDir = path.join options.views, name, "#{name}.jade"
+      jadeFile = "#{name}.jade"
+      inViews = path.join options.views, jadeFile
+      inDir = path.join options.views, name, jadeFile
       return [inViews, inDir]
     else
       [path.join options.views, 'layout.jade']
 
   (req, res, next) ->
+    if /^\/?$/.test req.path
+      layout = path.join options.views, 'layout.jade'
+      return res.send jade.renderFile layout
     if (/get/i.test req.method) and (urlRex.test req.path)
       [_,_,name,_,file] = req.path.match urlRex
       if jpaths = genPath name, file

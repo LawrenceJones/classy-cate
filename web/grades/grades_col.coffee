@@ -28,7 +28,7 @@ grepdoc.directive 'gradeBadge', ->
 grepdoc.directive 'courseGrades', ->
   restrict: 'E'
   replace: true
-  templateUrl: '/partials/directives/course_grades'
+  templateUrl: '/partials/directives/course_grades.html'
   scope:
     course: '='
 

@@ -6,9 +6,18 @@ module.exports = ->
 
   # preprocess matching files before serving them to the browser
   # available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-  preprocessors: {
+  preprocessors:
     '**/*.coffee': ['coffee']
-  }
+    '**/*.jade': ['ng-jade2js']
+
+  # TODO - Not yet working
+  ngJade2JsPreprocessor:
+    # Strip this from the file path
+    stripPrefix: 'views/'
+    # Prepend this to the
+    prependPrefix: 'partials/'
+    # Allow loading with module('templates')
+    moduleName: 'templates'
   
   # list of files / patterns to load in the browser
   files : [
@@ -27,6 +36,12 @@ module.exports = ->
     'public/lib/ui.bootstrap/src/tooltip/tooltip.js'
     'public/lib/bootstrap/dist/js/bootstrap.js'
 
+    # View files
+    'views/*.jade'
+
+    # Data seeds
+    'test/seeds/*.coffee'
+
     # Module registration
     'web/modules.coffee'
 
@@ -38,6 +53,10 @@ module.exports = ->
     'test/client/lib/chai-should.coffee'
     'test/client/lib/chai-expect.coffee'
 
+  ]
+
+  exclude: [
+    'test/seeds/index.coffee'
   ]
 
   # start these browsers
@@ -53,3 +72,4 @@ module.exports = ->
 
   # web server port
   port: 9876
+

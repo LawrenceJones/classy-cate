@@ -1,4 +1,4 @@
-module.exports = userSeeds =
+studentSeeds =
 
   lawrence: ->
     validFrom: 1348873200000# {{{
@@ -80,3 +80,5 @@ module.exports = userSeeds =
         class: 'c1'
       ]# }}}
 
+if window? then window.students = studentSeeds
+else module.exports = studentSeeds

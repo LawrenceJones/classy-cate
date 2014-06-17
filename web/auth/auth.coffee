@@ -2,7 +2,7 @@ auth = angular.module 'auth'
 auth.factory\
 ( 'Auth'
 , [ '$q', '$http', '$window', '$state'
-    ($q, $http, $window, $state) ->
+    ($q,   $http,   $window,   $state) ->
 
       deferred = null
 
@@ -12,10 +12,13 @@ auth.factory\
 
         # Returns user information for the currently logged in user
         @whoami: (force = false) ->
-          @user = undefined if force
-          $q.fcall =>
-            return @user if @user?
-            $http.get(url: '/authenticate').success (@user) => @user
+          Auth.user = undefined if force
+          def = $q.defer()
+          if not Auth.user?
+            $http.get '/authenticate'
+            .success (user) => def.resolve(Auth.user = user)
+          else def.resolve Auth.user
+          def.promise
 
         # Sets the token value in the windows localStorage. Returns the
         # JSON token string.
@@ -23,6 +26,7 @@ auth.factory\
           console.log 'Success: Authenticated' if verbose
           Auth.user = data.user
           $window.localStorage.token = data.token
+          return data
 
         # Remove the token from windows localStorage. Also clear the user
         # field of Auth.
@@ -33,11 +37,13 @@ auth.factory\
 
         # Given a login and password, will make a request to /authenticate
         # with the credentials. Returns a promise that is resolved with the
-        @login: (login, pass) ->
-          $q.fcall =>
-            $http.post '/authenticate', login: login, pass: pass
-            .success (data) => @storeToken data
-            .error @clearToken
+        @login: (login, pass, verbose = false) ->
+          def = $q.defer()
+          req = $http
+            method: 'POST', url: '/authenticate'
+          .success (data) -> def.resolve Auth.storeToken data, verbose
+          .error -> def.reject Auth.clearToken verbose
+          def.promise
 
         # Clears the token from windows localStorage and forces a new whoami
         # request, to refresh user.

@@ -35,7 +35,7 @@ grepdoc.config [
     # Login page for college credentials.
     $stateProvider.state 'login', {
       url: '/login'
-      templateUrl: '/partials/login'
+      templateUrl: '/partials/login.html'
     }
 
     # Abstract parent to force loading user first
@@ -50,37 +50,37 @@ grepdoc.config [
     $stateProvider.state 'app.profile', {
       url: '/profile'
       controller: 'ProfileCtrl'
-      templateUrl: '/partials/profile'
+      templateUrl: '/partials/profile.html'
     }
 
     $stateProvider.state 'app.courses', {
       url: '/courses'
       controller: 'CoursesCtrl'
-      templateUrl: '/partials/courses'
+      templateUrl: '/partials/courses.html'
     }
 
     $stateProvider.state 'app.courses.view', {
       url: '/:cid'
       controller: 'CoursesViewCtrl'
-      templateUrl: '/partials/courses_view'
+      templateUrl: '/partials/courses_view.html'
     }
 
     $stateProvider.state 'app.timetable', {
       url: '/timetable?period'
       controller: ->
-      templateUrl: '/partials/timetable'
+      templateUrl: '/partials/timetable.html'
     }
 
     $stateProvider.state 'app.grades', {
       url: '/grades'
       controller: 'GradesCtrl'
-      templateUrl: '/partials/grades'
+      templateUrl: '/partials/grades.html'
     }
 
     $stateProvider.state 'app.discussions', {
       url: '/discussions'
       controller: ->
-      templateUrl: '/partials/discussions'
+      templateUrl: '/partials/discussions.html'
     }
 
 
@@ -94,7 +94,7 @@ grepdoc.config [
             def.resolve hits
           def.promise
       controller: 'AuditCtrl'
-      templateUrl: '/partials/audit'
+      templateUrl: '/partials/audit.html'
     }
 
 ]
