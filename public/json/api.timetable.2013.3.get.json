@@ -23,6 +23,9 @@
           "start": 1390521600000,
           "end": 1391126400000,
           "mailto": "mailto:alw@doc.ic.ac.uk?subject=Module 202 'Software Engineering - Algorithms' - Exercise 4",
+          "submission": false,
+          "group": false,
+          "assessed": false,
           "givens": {
             "year": "2013",
             "period": "3",
@@ -39,6 +42,9 @@
           "start": 1391385600000,
           "end": 1391731200000,
           "mailto": "mailto:alw@doc.ic.ac.uk?subject=Module 202 'Software Engineering - Algorithms' - Exercise 5",
+          "submission": false,
+          "group": false,
+          "assessed": false,
           "givens": {
             "year": "2013",
             "period": "3",
@@ -55,6 +61,9 @@
           "start": 1391990400000,
           "end": 1392336000000,
           "mailto": "mailto:alw@doc.ic.ac.uk?subject=Module 202 'Software Engineering - Algorithms' - Exercise 6",
+          "submission": false,
+          "group": false,
+          "assessed": false,
           "givens": {
             "year": "2013",
             "period": "3",
@@ -71,6 +80,9 @@
           "start": 1392595200000,
           "end": 1392940800000,
           "mailto": "mailto:bglocker@doc.ic.ac.uk?subject=Module 202 'Software Engineering - Algorithms' - Exercise 7",
+          "submission": false,
+          "group": false,
+          "assessed": false,
           "spec": "showfile.cgi?key=2013:3:1135:c2:SPECS:am8112",
           "givens": {
             "year": "2013",
@@ -88,6 +100,9 @@
           "start": 1393459200000,
           "end": 1395100800000,
           "mailto": "mailto:bglocker@doc.ic.ac.uk?subject=Module 202 'Software Engineering - Algorithms' - Exercise 3",
+          "submission": true,
+          "group": true,
+          "assessed": true,
           "spec": "showfile.cgi?key=2013:3:1028:c2:SPECS:am8112",
           "moduleName": "Software Engineering",
           "moduleID": "202"
@@ -99,6 +114,9 @@
           "start": 1390435200000,
           "end": 1390953600000,
           "mailto": "mailto:alw@doc.ic.ac.uk?subject=Module 202 'Software Engineering - Algorithms' - Exercise 1",
+          "submission": true,
+          "group": false,
+          "assessed": false,
           "moduleName": "Software Engineering",
           "moduleID": "202"
         },
@@ -109,6 +127,9 @@
           "start": 1391126400000,
           "end": 1392768000000,
           "mailto": "mailto:alw@doc.ic.ac.uk?subject=Module 202 'Software Engineering - Algorithms' - Exercise 2",
+          "submission": false,
+          "group": true,
+          "assessed": true,
           "spec": "showfile.cgi?key=2013:3:768:c2:SPECS:am8112",
           "moduleName": "Software Engineering",
           "moduleID": "202"
@@ -120,6 +141,9 @@
           "start": 1393200000000,
           "end": 1393545600000,
           "mailto": "mailto:bglocker@doc.ic.ac.uk?subject=Module 202 'Software Engineering - Algorithms' - Exercise 8",
+          "submission": false,
+          "group": false,
+          "assessed": false,
           "spec": "showfile.cgi?key=2013:3:1152:c2:SPECS:am8112",
           "givens": {
             "year": "2013",
@@ -137,6 +161,9 @@
           "start": 1393804800000,
           "end": 1394150400000,
           "mailto": "mailto:bglocker@doc.ic.ac.uk?subject=Module 202 'Software Engineering - Algorithms' - Exercise 9",
+          "submission": false,
+          "group": false,
+          "assessed": false,
           "spec": "showfile.cgi?key=2013:3:1153:c2:SPECS:am8112",
           "givens": {
             "year": "2013",
@@ -154,6 +181,9 @@
           "start": 1394409600000,
           "end": 1394755200000,
           "mailto": "mailto:bglocker@doc.ic.ac.uk?subject=Module 202 'Software Engineering - Algorithms' - Exercise 10",
+          "submission": false,
+          "group": false,
+          "assessed": false,
           "spec": "showfile.cgi?key=2013:3:1188:c2:SPECS:am8112",
           "givens": {
             "year": "2013",
@@ -185,6 +215,9 @@
           "start": 1395964800000,
           "end": 1395964800000,
           "mailto": "mailto:mjw03@doc.ic.ac.uk?subject=Module 211 'Operating Systems' - Exercise 1",
+          "submission": true,
+          "group": false,
+          "assessed": true,
           "moduleName": "Operating Systems",
           "moduleID": "211"
         }
@@ -209,6 +242,9 @@
           "start": 1392249600000,
           "end": 1393459200000,
           "mailto": "mailto:axgopala@doc.ic.ac.uk?subject=Module 212 'Networks and Communications' - Exercise 1",
+          "submission": true,
+          "group": false,
+          "assessed": true,
           "spec": "showfile.cgi?key=2013:3:878:c2:SPECS:am8112",
           "moduleName": "Networks and Communications",
           "moduleID": "212"
@@ -220,6 +256,9 @@
           "start": 1394668800000,
           "end": 1395878400000,
           "mailto": "mailto:prp@doc.ic.ac.uk?subject=Module 212 'Networks and Communications' - Exercise 2",
+          "submission": true,
+          "group": false,
+          "assessed": true,
           "spec": "showfile.cgi?key=2013:3:1163:c2:SPECS:am8112",
           "moduleName": "Networks and Communications",
           "moduleID": "212"
@@ -245,6 +284,9 @@
           "start": 1390867200000,
           "end": 1391990400000,
           "mailto": "mailto:mpsha@doc.ic.ac.uk?subject=Module 231 'Introduction to Artificial Intelligence' - Exercise 3",
+          "submission": false,
+          "group": false,
+          "assessed": false,
           "spec": "showfile.cgi?key=2013:3:761:c2:SPECS:am8112",
           "givens": {
             "year": "2013",
@@ -262,6 +304,9 @@
           "start": 1392681600000,
           "end": 1393977600000,
           "mailto": "mailto:ft@doc.ic.ac.uk?subject=Module 231 'Introduction to Artificial Intelligence' - Exercise 5",
+          "submission": false,
+          "group": false,
+          "assessed": false,
           "spec": "showfile.cgi?key=2013:3:980:c2:SPECS:am8112",
           "givens": {
             "year": "2013",
@@ -279,6 +324,9 @@
           "start": 1394668800000,
           "end": 1395187200000,
           "mailto": "mailto:ft@doc.ic.ac.uk?subject=Module 231 'Introduction to Artificial Intelligence' - Exercise 7",
+          "submission": true,
+          "group": false,
+          "assessed": true,
           "spec": "showfile.cgi?key=2013:3:1185:c2:SPECS:am8112",
           "givens": {
             "year": "2013",
@@ -296,6 +344,9 @@
           "start": 1391558400000,
           "end": 1393977600000,
           "mailto": "mailto:ft@doc.ic.ac.uk?subject=Module 231 'Introduction to Artificial Intelligence' - Exercise 1",
+          "submission": true,
+          "group": true,
+          "assessed": true,
           "spec": "showfile.cgi?key=2013:3:748:c2:SPECS:am8112",
           "givens": {
             "year": "2013",
@@ -313,6 +364,9 @@
           "start": 1390867200000,
           "end": 1391990400000,
           "mailto": "mailto:mpsha@doc.ic.ac.uk?subject=Module 231 'Introduction to Artificial Intelligence' - Exercise 2",
+          "submission": false,
+          "group": false,
+          "assessed": false,
           "spec": "showfile.cgi?key=2013:3:757:c2:SPECS:am8112",
           "givens": {
             "year": "2013",
@@ -330,6 +384,9 @@
           "start": 1392681600000,
           "end": 1393977600000,
           "mailto": "mailto:ft@doc.ic.ac.uk?subject=Module 231 'Introduction to Artificial Intelligence' - Exercise 4",
+          "submission": false,
+          "group": false,
+          "assessed": false,
           "spec": "showfile.cgi?key=2013:3:978:c2:SPECS:am8112",
           "givens": {
             "year": "2013",
@@ -347,6 +404,9 @@
           "start": 1394582400000,
           "end": 1395187200000,
           "mailto": "mailto:cis11@doc.ic.ac.uk?subject=Module 231 'Introduction to Artificial Intelligence' - Exercise 6",
+          "submission": false,
+          "group": false,
+          "assessed": false,
           "spec": "showfile.cgi?key=2013:3:1157:c2:SPECS:am8112",
           "givens": {
             "year": "2013",
@@ -378,6 +438,9 @@
           "start": 1391040000000,
           "end": 1391644800000,
           "mailto": "mailto:ae@doc.ic.ac.uk?subject=Module 233 'Computational Techniques' - Exercise 3",
+          "submission": false,
+          "group": false,
+          "assessed": false,
           "spec": "showfile.cgi?key=2013:3:867:c2:SPECS:am8112",
           "givens": {
             "year": "2013",
@@ -395,6 +458,9 @@
           "start": 1392249600000,
           "end": 1393372800000,
           "mailto": "mailto:ae@doc.ic.ac.uk?subject=Module 233 'Computational Techniques' - Exercise 5",
+          "submission": false,
+          "group": false,
+          "assessed": false,
           "spec": "showfile.cgi?key=2013:3:929:c2:SPECS:am8112",
           "givens": {
             "year": "2013",
@@ -412,6 +478,9 @@
           "start": 1393545600000,
           "end": 1394150400000,
           "mailto": "mailto:pgh@doc.ic.ac.uk?subject=Module 233 'Computational Techniques' - Exercise 7",
+          "submission": false,
+          "group": false,
+          "assessed": false,
           "spec": "showfile.cgi?key=2013:3:1050:c2:SPECS:am8112",
           "givens": {
             "year": "2013",
@@ -429,6 +498,9 @@
           "start": 1394755200000,
           "end": 1395705600000,
           "mailto": "mailto:pgh@doc.ic.ac.uk?subject=Module 233 'Computational Techniques' - Exercise 9",
+          "submission": true,
+          "group": false,
+          "assessed": true,
           "spec": "showfile.cgi?key=2013:3:1169:c2:SPECS:am8112",
           "givens": {
             "year": "2013",
@@ -446,6 +518,9 @@
           "start": 1391731200000,
           "end": 1392940800000,
           "mailto": "mailto:ae@doc.ic.ac.uk?subject=Module 233 'Computational Techniques' - Exercise 1",
+          "submission": true,
+          "group": false,
+          "assessed": true,
           "spec": "showfile.cgi?key=2013:3:870:c2:SPECS:am8112",
           "moduleName": "Computational Techniques",
           "moduleID": "233"
@@ -457,6 +532,9 @@
           "start": 1395360000000,
           "end": 1395964800000,
           "mailto": "mailto:pgh@doc.ic.ac.uk?subject=Module 233 'Computational Techniques' - Exercise 10",
+          "submission": false,
+          "group": false,
+          "assessed": false,
           "spec": "showfile.cgi?key=2013:3:1193:c2:SPECS:am8112",
           "givens": {
             "year": "2013",
@@ -474,6 +552,9 @@
           "start": 1390435200000,
           "end": 1391040000000,
           "mailto": "mailto:ae@doc.ic.ac.uk?subject=Module 233 'Computational Techniques' - Exercise 2",
+          "submission": false,
+          "group": false,
+          "assessed": false,
           "spec": "showfile.cgi?key=2013:3:699:c2:SPECS:am8112",
           "givens": {
             "year": "2013",
@@ -491,6 +572,9 @@
           "start": 1391644800000,
           "end": 1392249600000,
           "mailto": "mailto:ae@doc.ic.ac.uk?subject=Module 233 'Computational Techniques' - Exercise 4",
+          "submission": false,
+          "group": false,
+          "assessed": false,
           "spec": "showfile.cgi?key=2013:3:868:c2:SPECS:am8112",
           "givens": {
             "year": "2013",
@@ -508,6 +592,9 @@
           "start": 1392854400000,
           "end": 1393977600000,
           "mailto": "mailto:ae@doc.ic.ac.uk?subject=Module 233 'Computational Techniques' - Exercise 6",
+          "submission": false,
+          "group": false,
+          "assessed": false,
           "spec": "showfile.cgi?key=2013:3:1004:c2:SPECS:am8112",
           "givens": {
             "year": "2013",
@@ -525,6 +612,9 @@
           "start": 1394150400000,
           "end": 1395273600000,
           "mailto": "mailto:pgh@doc.ic.ac.uk?subject=Module 233 'Computational Techniques' - Exercise 8",
+          "submission": false,
+          "group": false,
+          "assessed": false,
           "spec": "showfile.cgi?key=2013:3:1123:c2:SPECS:am8112",
           "givens": {
             "year": "2013",
@@ -556,6 +646,9 @@
           "start": 1389571200000,
           "end": 1390348800000,
           "mailto": "mailto:mjw03@doc.ic.ac.uk?subject=Module 261 'Laboratory 2' - Exercise 39",
+          "submission": true,
+          "group": false,
+          "assessed": false,
           "spec": "showfile.cgi?key=2013:3:594:c2:SPECS:am8112",
           "moduleName": "Laboratory 2",
           "moduleID": "261"
@@ -567,6 +660,9 @@
           "start": 1390780800000,
           "end": 1391385600000,
           "mailto": "mailto:mjw03@doc.ic.ac.uk?subject=Module 261 'Laboratory 2' - Exercise 8",
+          "submission": false,
+          "group": true,
+          "assessed": true,
           "spec": "showfile.cgi?key=2013:3:740:c2:SPECS:am8112",
           "moduleName": "Laboratory 2",
           "moduleID": "261"
@@ -578,6 +674,9 @@
           "start": 1392595200000,
           "end": 1394582400000,
           "mailto": "mailto:mjw03@doc.ic.ac.uk?subject=Module 261 'Laboratory 2' - Exercise 10",
+          "submission": false,
+          "group": true,
+          "assessed": true,
           "spec": "showfile.cgi?key=2013:3:742:c2:SPECS:am8112",
           "moduleName": "Laboratory 2",
           "moduleID": "261"
@@ -589,6 +688,9 @@
           "start": 1389571200000,
           "end": 1390780800000,
           "mailto": "mailto:mjw03@doc.ic.ac.uk?subject=Module 261 'Laboratory 2' - Exercise 7",
+          "submission": true,
+          "group": false,
+          "assessed": true,
           "spec": "showfile.cgi?key=2013:3:585:c2:SPECS:am8112",
           "moduleName": "Laboratory 2",
           "moduleID": "261"
@@ -600,6 +702,9 @@
           "start": 1391385600000,
           "end": 1393200000000,
           "mailto": "mailto:mjw03@doc.ic.ac.uk?subject=Module 261 'Laboratory 2' - Exercise 9",
+          "submission": false,
+          "group": true,
+          "assessed": true,
           "spec": "showfile.cgi?key=2013:3:741:c2:SPECS:am8112",
           "moduleName": "Laboratory 2",
           "moduleID": "261"
@@ -611,6 +716,9 @@
           "start": 1394409600000,
           "end": 1395964800000,
           "mailto": "mailto:mjw03@doc.ic.ac.uk?subject=Module 261 'Laboratory 2' - Exercise 11",
+          "submission": false,
+          "group": true,
+          "assessed": true,
           "spec": "showfile.cgi?key=2013:3:743:c2:SPECS:am8112",
           "moduleName": "Laboratory 2",
           "moduleID": "261"
@@ -636,6 +744,9 @@
           "start": 1395619200000,
           "end": 1395964800000,
           "mailto": "mailto:mjw03@doc.ic.ac.uk?subject=Module 271 '2nd Year Group Projects' - Exercise 40",
+          "submission": true,
+          "group": false,
+          "assessed": false,
           "spec": "showfile.cgi?key=2013:3:1221:c2:SPECS:am8112",
           "moduleName": "2nd Year Group Projects",
           "moduleID": "271"
@@ -661,6 +772,9 @@
           "start": 1389571200000,
           "end": 1389916800000,
           "mailto": "mailto:mjw03@doc.ic.ac.uk?subject=Module 272 'Team Skills Development' - Exercise 1",
+          "submission": false,
+          "group": false,
+          "assessed": true,
           "spec": "showfile.cgi?key=2013:3:566:c2:SPECS:am8112",
           "givens": {
             "year": "2013",
@@ -692,6 +806,9 @@
           "start": 1389571200000,
           "end": 1389571200000,
           "mailto": "mailto:mjw03@doc.ic.ac.uk?subject=Module 276 'Introduction to Prolog' - Exercise 7",
+          "submission": false,
+          "group": false,
+          "assessed": true,
           "moduleName": "Introduction to Prolog",
           "moduleID": "276"
         }
@@ -722,6 +839,9 @@
           "start": 1391472000000,
           "end": 1392681600000,
           "mailto": "mailto:tbecker@doc.ic.ac.uk?subject=Module 210 'Computer Architecture' - Exercise 1",
+          "submission": true,
+          "group": false,
+          "assessed": true,
           "spec": "showfile.cgi?key=2013:3:850:c2:SPECS:am8112",
           "moduleName": "Computer Architecture",
           "moduleID": "210"
@@ -733,6 +853,9 @@
           "start": 1394496000000,
           "end": 1395705600000,
           "mailto": "mailto:tbecker@doc.ic.ac.uk?subject=Module 210 'Computer Architecture' - Exercise 2",
+          "submission": true,
+          "group": false,
+          "assessed": true,
           "spec": "showfile.cgi?key=2013:3:1131:c2:SPECS:am8112",
           "moduleName": "Computer Architecture",
           "moduleID": "210"

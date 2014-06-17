@@ -1,16 +1,18 @@
-$coursework-colour: #dff0d8;
-$tutorial-colour: #d9edf7;
-$default-exercise-colour: #fcf8e3;
+$assessed-ex-colour: #a9c3b1;
+$submission-ex-colour: #bbb2b2;
+$group-assessed-ex-colour: #dea5a4;
+$default-exercise-colour: #f0f0f0;
 $course-name-bg-colour: #f8f8f8;
-$weekend-bg-color: #e7e7e7;
-$today-vertical-bar-colour: #d9534f;
-$row-exercises-height: 30px;
+$weekend-bg-color: #f0f0f0;
+$today-vertical-bar-colour: #fbeec2;
+$row-exercises-height: 45px;
 $course-names-border-spacing: 2px;
-$thead-margin-bottom: 10px;
+$days-margin-bottom: 10px;
 $day-height: 20px;
 $day-padding: 6px;
 $day-border: 1px;
 $day-width: 30px;
+
 
 #timetable {
 
@@ -28,18 +30,22 @@ $day-width: 30px;
 
   table {
     table-layout: fixed; 
-    border-collapse: separate;
+    border-collapse: collapse;
   }
 
   #table-course-names {
 
     table {
-      border-spacing: $course-names-border-spacing;
-      margin-top: 2 * ($day-height + 2 * $day-padding + 2 * $day-border) +
-                  $thead-margin-bottom - $course-names-border-spacing;
+      margin-top: 2 * ($day-height + 2 * $day-padding) +
+                  $days-margin-bottom + 3 * $day-border;
+    }
+
+    tr {
+      height: $row-exercises-height;
     }
 
     td {
+      padding: 0 8px;
       background-color: $course-name-bg-colour;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -61,6 +67,15 @@ $day-width: 30px;
 
   #date-exs {
 
+    table#days-header {
+      background-color: white;
+      margin-bottom: $days-margin-bottom; 
+    }
+
+    table#course-body {
+      border-collapse: separate;
+    }
+
     col {
       width: $day-width;
     }
@@ -74,15 +89,6 @@ $day-width: 30px;
     }
 
  
-    /* This will separate the thead and the
-       first tbody (i.e. days and exercises) */
-    tbody:first-of-type::before {
-      line-height: $thead-margin-bottom;
-      content:"-";
-      color: white; /* to hide text */
-      display: block;
-    }
-
     #days-header {
 
       th {
@@ -96,31 +102,44 @@ $day-width: 30px;
       .wrap-cell {
         height: $day-height;
         line-height: $day-height;
-        overflow: visible;
       }
 
     }
     
-    .course-body {
+    #course-body {
+
+      table {
+        border-collapse: separate;
+      }
 
       td {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
         vertical-align: middle;
+        padding: 0 8px;
       }
 
-      .coursework {
-        background-color: $coursework-colour;
-      }
-
-      .tutorial {
-        background-color: $tutorial-colour;
-      }
-
-      .other-exercise {
+      .default-exercise {
         background-color: $default-exercise-colour;
       }
+
+      .assessed {
+        background-color: $assessed-ex-colour;
+      }
+
+      .group-assessed {
+        background-color: $group-assessed-ex-colour;
+      }
+
+      .submission {
+        background-color: $submission-ex-colour;
+      }
+
+      .exercise {
+        border-bottom: 0;
+      }
+
 
     }
   }

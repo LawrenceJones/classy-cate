@@ -6,10 +6,13 @@
 
   .col-md-10
     .table-responsive#date-exs
-      table.table
+      table.table#days-header
         colgroup
           col(ng-repeat='day in period.days track by $index')
-        thead#days-header(days-bar)
-        tbody.course-body(ng-repeat='course in courses')
+        thead(days-bar)
+      table.table#course-body
+        colgroup
+          col(ng-repeat='day in period.days track by $index')
+        tbody(ng-repeat='course in courses')
           tr(ng-repeat='row in course.rows')
             td(exercise-box, ng-repeat='box in row', box='box')
