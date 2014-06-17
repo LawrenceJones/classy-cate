@@ -41,6 +41,7 @@ auth.factory\
           def = $q.defer()
           req = $http
             method: 'POST', url: '/authenticate'
+            data: login: login, pass: pass
           .success (data) -> def.resolve Auth.storeToken data, verbose
           .error -> def.reject Auth.clearToken verbose
           def.promise

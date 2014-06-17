@@ -61,7 +61,7 @@ module.exports = class HTTPProxy
   # CATE has accepted the credentials.
   @auth: (user, pass) ->
     options =
-      url: 'https://cate.doc.ic.ac.uk'
+      url: 'https://teachdb.doc.ic.ac.uk'
       auth:
         user: user, pass: pass
         sendImmediately: true

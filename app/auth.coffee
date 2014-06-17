@@ -1,6 +1,7 @@
 mongoose = require 'mongoose'
 require './etc/db'
 Student = mongoose.model 'Student'
+HTTPProxy = require 'app/parsers/http_proxy'
 
 module.exports = Auth =
 
@@ -24,11 +25,11 @@ module.exports = Auth =
   # request body in User database, and will response with either a
   # token or a 401.
   authenticate: (req, res) ->
-    return res.send 401 if !(creds = Auth.validate req)
-    isAuthed = Student.authenticate creds.login, creds.pass
+    return res.send 401 if !(creds = Auth.validate req.body)
+    isAuthed = HTTPProxy.auth creds.login, creds.pass
     isAuthed
-      .then (token) -> res.json token
-      .catch (err) -> reject res, err
+      .then (data) -> res.json data
+      .catch (err) -> res.send(err ? 401)
 
   whoami: (req, res) ->
     res.json user: req.dbuser
