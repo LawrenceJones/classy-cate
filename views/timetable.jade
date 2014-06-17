@@ -4,12 +4,13 @@
     table.table
       tr(course-cell='course', ng-repeat='course in courses')
 
+  // The col in both tables force each table cell to have the same width
   .col-md-10
-    .table-responsive#date-exs
-      table.table#days-header
+    .table-responsive#period-exs
+      table.table#period-header
         colgroup
           col(ng-repeat='day in period.days track by $index')
-        thead(days-bar)
+        thead(period-bar)
       table.table#course-body
         colgroup
           col(ng-repeat='day in period.days track by $index')

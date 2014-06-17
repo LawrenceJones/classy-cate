@@ -5,6 +5,8 @@ $default-exercise-colour: #f0f0f0;
 $course-name-bg-colour: #f8f8f8;
 $weekend-bg-color: #f0f0f0;
 $today-vertical-bar-colour: #fbeec2;
+$day-highlighted-colour: #f9c236;
+$weekend-highlighted-colour: #bd8802;
 $row-exercises-height: 45px;
 $course-names-border-spacing: 2px;
 $days-margin-bottom: 10px;
@@ -48,26 +50,20 @@ $day-width: 30px;
       padding: 0 8px;
       background-color: $course-name-bg-colour;
       overflow: hidden;
-      text-overflow: ellipsis;
       vertical-align: middle;
       text-align: center;
-      white-space: normal;
     }
 
     a {
       color: black;
     }
 
-    .wrap-cell {
-      word-wrap: break-word;
-    }
-
   }
 
 
-  #date-exs {
+  #period-exs {
 
-    table#days-header {
+    table#period-header {
       background-color: white;
       margin-bottom: $days-margin-bottom; 
     }
@@ -89,7 +85,7 @@ $day-width: 30px;
     }
 
  
-    #days-header {
+    #period-header {
 
       th {
         border: $day-border solid #ddd;
@@ -102,6 +98,16 @@ $day-width: 30px;
       .wrap-cell {
         height: $day-height;
         line-height: $day-height;
+      }
+
+      .highlighted-day {
+        background-color: $day-highlighted-colour;
+        border-left: 0;
+        border-right: 0;
+      }
+
+      .highlighted-day.weekend {
+        background-color: $weekend-highlighted-colour;
       }
 
     }

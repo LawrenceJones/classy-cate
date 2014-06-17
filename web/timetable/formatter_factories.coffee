@@ -50,9 +50,11 @@ classy.factory 'CourseFormatter', (Current) ->
       subrow = 0
     rows
 
-  getOptions = (ex, date) ->
-    colspan: (ex?.start.getDatesTo(ex.end).length) ? 1
+  getOptions = (ex, date, position) ->
+    lengthInCells = (ex?.start.getDatesTo(ex.end).length) ? 1
+    colspan: lengthInCells
     isToday: Current.isToday date
+    position: [position, position+lengthInCells-1]
 
   formatCourses = (timetable) ->
     timetable.modules.map (course) ->
@@ -63,12 +65,18 @@ classy.factory 'CourseFormatter', (Current) ->
           i = 0
           # For each day, insert an exercise (if present) or an
           # empty cell with colspan 1
-          for date in timetable.start.getDatesTo timetable.end
+          for date, position in timetable.start.getDatesTo timetable.end
             i++ while (row[i]?.end.getTime()) < date.getTime()
             if (date.midnight().getTime()) is (row[i]?.start.midnight().getTime())
-              formattedRow.push {ex: row[i], options: getOptions row[i], date}
+              formattedRow.push {
+                            ex: row[i]
+                            options: getOptions row[i], date, position
+                          }
             else if (not row[i]?) or not contains(row[i], date)
-              formattedRow.push {ex: null, options: getOptions null, date}
+              formattedRow.push {
+                            ex: null
+                            options: getOptions null, date, position
+                          }
           formattedRow
 
   return formatCourses
