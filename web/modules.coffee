@@ -1,6 +1,6 @@
 # Create modules
 auth = angular.module 'auth', []
-classy = angular.module 'classy', [
+grepdoc = angular.module 'grepdoc', [
   'ui.router'
   'ui.bootstrap.modal'
   'ui.bootstrap.accordion'
@@ -22,7 +22,7 @@ Date::printTime = ->
   @toTimeString().match(/^(\d+):(\d+)/)[0]
 
 # Configure the routes for the module
-classy.config [
+grepdoc.config [
   '$httpProvider', '$stateProvider', '$urlRouterProvider',
   ($httpProvider,   $stateProvider,   $urlRouterProvider) ->
 
@@ -101,7 +101,7 @@ classy.config [
 
 
 # Service to provide useful datas true at this moment of time
-classy.service 'Current', (Convert) ->
+grepdoc.service 'Current', (Convert) ->
   academicYear: ->
     if (current = new Date).getMonth() < 8
       return current.getFullYear() - 1
@@ -114,7 +114,7 @@ classy.service 'Current', (Convert) ->
     Convert.periodToTerm @period()
 
 # 
-classy.service 'AppState', (Auth, Current, Users, $location, $q) ->
+grepdoc.service 'AppState', (Auth, Current, Users, $location, $q) ->
   currentYear:    Current.academicYear()
   currentPeriod:  Current.period()
   currentTerm:    Current.term()
@@ -144,7 +144,7 @@ classy.service 'AppState', (Auth, Current, Users, $location, $q) ->
     def.promise
 
 
-classy.run ($q, $rootScope, $state, $stateParams, $location, AppState) ->
+grepdoc.run ($q, $rootScope, $state, $stateParams, $location, AppState) ->
 
   # Keep track of state in $rootScope
   $rootScope.$on '$stateChangeSuccess', ($event, state, $stateParams) ->

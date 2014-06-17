@@ -1,5 +1,5 @@
 should = require 'should'
-creds = require 'test/creds'
+creds = require 'test/server/creds'
 jayschema = new (JaySchema = require 'jayschema')
 
 ParserTools = require 'app/parsers'

@@ -157,7 +157,8 @@ task 'test', [], async: true, (pattern) ->
   title 'Running mocha test suite'# {{{
   spawn\
   ( 'mocha'
-    [ '--recursive', '--compilers', 'coffee:coffee-script/register'
+    [ 'test/server', '--recursive'
+      '--compilers', 'coffee:coffee-script/register'
       '--globals', 'newW,clickpage', '--growl'
       '--reporter', 'spec', '--colors', '--timeout', if process.API then '5000' else '1000'
       '--grep', pattern ? '' ]
@@ -173,6 +174,14 @@ task 'watch', [], async: true, (pattern) ->
       , '-e', "\"#{cmd}\"" ]
     , 'Failed to run watchme. Run npm install?' ]
   ).finally complete# }}}
+
+desc 'Start karma tests'
+task 'karma', [], async: true, ->
+  title 'Starting karma testing'# {{{
+  chain\
+  ( [ './node_modules/karma/bin/karma'
+    [ 'start', 'test/karma.UNIT.conf.coffee' ]
+    , 'Failed to start karma' ] )# }}}
 
 # API Tasks ############################################
 

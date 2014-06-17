@@ -1,6 +1,6 @@
-classy = angular.module 'classy'
+grepdoc = angular.module 'grepdoc'
 
-classy.directive 'collapsiblePanel', ->
+grepdoc.directive 'collapsiblePanel', ->
   restrict: 'A'
 
   link: ($scope, $panel, attr) ->

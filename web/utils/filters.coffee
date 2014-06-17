@@ -1,9 +1,9 @@
-classy = angular.module 'classy'
+grepdoc = angular.module 'grepdoc'
 
 # Filter for use on ng-repeat.
 # Use as:
 #   ng-repeat="array | column <column number>:<total columns>"
-classy.filter 'column', ->
+grepdoc.filter 'column', ->
   (arr, col, numCols) ->
     perCol = arr.length / numCols
     first  = Math.round(perCol*col)
@@ -11,10 +11,10 @@ classy.filter 'column', ->
     arr[first..last]
 
 # Sorts an array numerically ascending
-classy.filter 'numericalSort', ->
+grepdoc.filter 'numericalSort', ->
   (arr) -> arr.sort()
 
 # Reverses an array
-classy.filter 'reverse', ->
+grepdoc.filter 'reverse', ->
   (arr) -> arr.reverse()
 

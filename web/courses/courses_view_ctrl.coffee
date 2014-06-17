@@ -1,6 +1,6 @@
-classy = angular.module 'classy'
+grepdoc = angular.module 'grepdoc'
 
-classy.factory 'Courses', (Resource, AppState, Format, Convert) ->
+grepdoc.factory 'Courses', (Resource, AppState, Format, Convert) ->
   class Courses extends Resource({
     actions:
       get: '/api/courses/:year/:cid'
@@ -27,13 +27,13 @@ classy.factory 'Courses', (Resource, AppState, Format, Convert) ->
       "This course runs in the #{Format.asEnglishList terms} 
         #{Format.pluraliseIf 'term', terms.length}"
 
-classy.factory 'Notes', (Resource) ->
+grepdoc.factory 'Notes', (Resource) ->
   class Notes extends Resource({
     relations:
       time: Date
   })
 
-classy.factory 'Exercises', (Resource) ->
+grepdoc.factory 'Exercises', (Resource) ->
   class Exercises extends Resource({
     relations:
       start: Date
@@ -41,13 +41,13 @@ classy.factory 'Exercises', (Resource) ->
       givens: 'Givens'
   })
 
-classy.factory 'Givens', (Resource) ->
+grepdoc.factory 'Givens', (Resource) ->
   class Givens extends Resource({
     relations:
       time: Date
   })
 
-classy.controller 'CoursesViewCtrl', ($scope, $stateParams, $state, $q, Courses, Grades) ->
+grepdoc.controller 'CoursesViewCtrl', ($scope, $stateParams, $state, $q, Courses, Grades) ->
 
   $q.all [(Courses.get $stateParams).$promise, (Grades.all $stateParams).$promise]
     .then ([course, grades]) ->

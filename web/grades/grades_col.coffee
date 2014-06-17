@@ -1,7 +1,7 @@
-classy = angular.module 'classy'
+grepdoc = angular.module 'grepdoc'
 
 
-classy.directive 'gradeBadge', ->
+grepdoc.directive 'gradeBadge', ->
 
   getColourClass = (grade) ->
     if /^(A[\*+]?)|B$/.test grade then return 'success'
@@ -25,7 +25,7 @@ classy.directive 'gradeBadge', ->
       .text grade
 
 
-classy.directive 'courseGrades', ->
+grepdoc.directive 'courseGrades', ->
   restrict: 'E'
   replace: true
   templateUrl: '/partials/directives/course_grades'

@@ -5,8 +5,8 @@ assert = require 'assert'
 Models = require 'app/models'
 Student = Models.Student
 
-db = require 'test/db'
-creds = require 'test/creds'
+db = require 'test/server/db'
+creds = require 'test/server/creds'
 
 studentSeeds = require 'test/seeds/students'
 

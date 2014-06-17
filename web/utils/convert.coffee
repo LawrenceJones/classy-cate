@@ -1,8 +1,8 @@
-classy = angular.module 'classy'
+grepdoc = angular.module 'grepdoc'
 
 # Service for converting various datas
 # Example use: `Convert.termToPeriod 2`
-classy.service 'Convert', ->
+grepdoc.service 'Convert', ->
   
   periodToTerm: (period) ->
     Math.ceil period / 2

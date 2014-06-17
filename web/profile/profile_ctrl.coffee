@@ -1,6 +1,6 @@
-classy = angular.module 'classy'
+grepdoc = angular.module 'grepdoc'
 
-classy.factory 'Users', (Resource) ->
+grepdoc.factory 'Users', (Resource) ->
   class Users extends Resource({
     actions:
       get: '/api/users/:login'
@@ -12,7 +12,7 @@ classy.factory 'Users', (Resource) ->
     tutorName: ->
       [@tutor?.title, @tutor?.fname, @tutor?.lname].join " "
 
-classy.controller 'ProfileCtrl', ($scope, AppState) ->
+grepdoc.controller 'ProfileCtrl', ($scope, AppState) ->
 
     # TODO: tidy up, balance properly, consider first years
     $scope.profile = (profile = AppState.user)

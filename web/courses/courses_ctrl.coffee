@@ -1,11 +1,11 @@
-classy = angular.module 'classy'
+grepdoc = angular.module 'grepdoc'
 
 # Filters out any courses in arr that don't run in term
-classy.filter 'runsInTerm', ->
+grepdoc.filter 'runsInTerm', ->
   (arr, term) -> arr.filter (course) -> term in course.terms
 
 
-classy.controller 'CoursesCtrl', ($scope, $stateParams, $state, Courses) ->
+grepdoc.controller 'CoursesCtrl', ($scope, $stateParams, $state, Courses) ->
 
   ($scope.courses = Courses.all $stateParams).$promise
     .then ((response) -> )

@@ -1,7 +1,7 @@
-classy = angular.module 'classy'
+grepdoc = angular.module 'grepdoc'
 
 # <i mime-type-icon="pdf"></i>
-classy.directive 'mimeTypeIcon', ->
+grepdoc.directive 'mimeTypeIcon', ->
 
   # Returns a fontawesome class name for icon based on given exercise type
   getIcon = (type) ->

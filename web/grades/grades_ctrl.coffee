@@ -1,7 +1,7 @@
-classy = angular.module 'classy'
+grepdoc = angular.module 'grepdoc'
 
 # Represents a module of grades
-classy.factory 'Grades', (Resource, AppState) ->
+grepdoc.factory 'Grades', (Resource, AppState) ->
   class Grades extends Resource({
     actions:
       all: '/api/grades/:year'
@@ -16,7 +16,7 @@ classy.factory 'Grades', (Resource, AppState) ->
           @exercises.splice j, 1
       return @ if @exercises.length > 0
 
-classy.controller 'GradesCtrl', ($scope, Grades, $stateParams, $state) ->
+grepdoc.controller 'GradesCtrl', ($scope, Grades, $stateParams, $state) ->
 
   # Removes ungraded exercises and filters empty courses from given courses
   clean = (courses) ->

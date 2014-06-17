@@ -52,10 +52,15 @@
     "karma-safari-launcher": "^0.1.1",
     "karma-requirejs": "^0.2.2",
     "karma-html2js-preprocessor": "^0.1.0",
-    "karma-ng-scenario": "^0.1.0",
-    "read": "*"
+    "read": "*",
+    "karma-growl": "^0.1.0"
   },
   "engines": {
     "node": "0.10.x"
+  },
+  "devDependencies": {
+    "karma-opera-launcher": "^0.1.0",
+    "karma-ie-launcher": "^0.1.5",
+    "karma-phantomjs-launcher": "^0.1.4"
   }
 }

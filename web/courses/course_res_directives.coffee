@@ -1,12 +1,12 @@
-classy = angular.module 'classy'
+grepdoc = angular.module 'grepdoc'
 
-classy.directive 'courseNote', ($window) ->
+grepdoc.directive 'courseNote', ($window) ->
   restrict: 'A'
   templateUrl: '/partials/directives/course_note'
   scope: note: '='
   replace: true
 
-classy.directive 'courseExercise', ->
+grepdoc.directive 'courseExercise', ->
   restrict: 'A'
   templateUrl: '/partials/directives/course_exercise'
   scope: exercise: '='
@@ -17,13 +17,13 @@ classy.directive 'courseExercise', ->
       $tbody.closest("table").find("tbody").not($tbody).find(".ex-given").addClass("hide")
       $tbody.find(".ex-given").toggleClass("hide")
 
-classy.directive 'courseGrade', ->
+grepdoc.directive 'courseGrade', ->
   restrict: 'A'
   templateUrl: '/partials/directives/course_grade'
   scope: grade: '='
   replace: true
 
-classy.directive 'discussionsBadge', (Format) ->
+grepdoc.directive 'discussionsBadge', (Format) ->
   getCol = (num) ->
     return 'success' if num > 10
     return 'info' if 5 < num <= 10

@@ -1,7 +1,7 @@
-classy = angular.module 'classy'
+grepdoc = angular.module 'grepdoc'
 
 # Support hover dropdown toggle
-classy.directive 'dropdownHover', ->
+grepdoc.directive 'dropdownHover', ->
   restrict: 'AC'
   link: ($scope, $a, attr) ->
     $dd = $a.parent()

@@ -1,5 +1,5 @@
-classy = angular.module 'classy'
+grepdoc = angular.module 'grepdoc'
 
-classy.controller 'NavCtrl', ($scope, AppState) ->
+grepdoc.controller 'NavCtrl', ($scope, AppState) ->
   $scope.currentYear = AppState.currentYear
   $scope.user = AppState.user

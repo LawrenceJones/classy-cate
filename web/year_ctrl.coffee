@@ -1,6 +1,6 @@
-classy = angular.module 'classy'
+grepdoc = angular.module 'grepdoc'
 
-classy.controller 'YearCtrl', ($scope, $state, AppState) ->
+grepdoc.controller 'YearCtrl', ($scope, $state, AppState) ->
   $scope.availableYears = AppState.availableYears
 
   $scope.changeYear = (year) ->

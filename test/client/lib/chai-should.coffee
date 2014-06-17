@@ -1,0 +1,1 @@
+should = chai.should()

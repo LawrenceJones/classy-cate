@@ -1,6 +1,6 @@
-classy = angular.module 'classy'
+grepdoc = angular.module 'grepdoc'
 
-classy.directive\
+grepdoc.directive\
 ( 'hljs'
 , [ ->
       restrict: 'A'
@@ -13,7 +13,7 @@ classy.directive\
 ])
 
 
-classy.controller\
+grepdoc.controller\
 ( 'AuditCtrl'
 , [ '$scope', 'hits', ($scope, hits) ->
 
