@@ -46,13 +46,13 @@ module.exports = class GrepDoc
 
   # Connects to mongodb client
   connectDb: ->
-    (require './db').connect(config)
+    (require './etc/db').connect(config)
 
   # Routes in sequential order
   route: ->
     do @connectDb
     [
-      './api/courses/routes'
+      # TODO
     ]
       .map (routePath) =>
         (require routePath).configure(@app)
@@ -65,7 +65,7 @@ module.exports = class GrepDoc
   # return the credentials if it is passed 'USER_CREDENTIALS' as a
   # parameter. This enables easy prevention of credential abuse.
   usejwt: ->
-    app.use '/api', jwt
+    @app.use '/api', jwt
       secret: config.express.SECRET
       lock: 'USER_CREDENTIALS'
 
@@ -75,7 +75,7 @@ module.exports = class GrepDoc
     @app.get '/css/app.css', cssget config.paths.styles_dir     # sass
     @app.get '/js/app.js', ngget                                # app.js
       angularPath: config.paths.web_dir
-    app.use partials                                          # jade
+    @app.use partials                                           # jade
       views:  config.paths.views_dir
       prefix: '/partials'
 

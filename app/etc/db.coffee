@@ -1,51 +1,29 @@
+# vi: set fdm=marker
 mongoose = require 'mongoose'
 ObjectId = mongoose.Schema.ObjectId
 $q = require 'q'
-require './model'
+Models = require '../models'
+config = require './config'
 
 # Initial db setup
-module.exports = (config, verbose = true, onlyLoadModels = false) ->
+module.exports =
 
-  Models = [Exam, Upload, CateModule] = [ # Load database models
-    '../exams/exam_model'
-    '../uploads/upload_model'
-    '../modules/cate_module_model'
-  ]
-    .map (modelPath) -> (require modelPath)
+  connect: (uri) ->
 
-  return if onlyLoadModels
+    [name, host, port] = [
+      config.mongodb.NAME
+      config.mongodb.HOST
+      config.mongodb.PORT
+    ]
+    mongoose.connect uri || "mongodb://#{host}:#{port}/#{name}"
 
-  [name, host, port] = [
-    config.mongodb.NAME
-    config.mongodb.HOST
-    config.mongodb.PORT
-  ]
-  mongoose.connect config.mongodb.MLAB || "mongodb://#{host}:#{port}/#{name}"
+    def = $q.defer()
 
-  # Reference connection
-  db = mongoose.connection
-  db.once 'error', ->
-    console.error 'Error connecting to database'
-    process.exit 1
-  db.once 'open', ->
-    console.log 'Database successfully opened!' if verbose
-
-  # Resets database if RESET_DB env is on
-  if process.env.RESET_DB
-    rms = Models.map (Model) ->
-      Model.remove {}, (err) ->
-        if err? then d.reject err else d.resolve()
-      (d = $q.defer()).promise
-    $q.all rms
-      .then ->
-        console.log 'Reset Database!'
-      .catch (err) ->
-        console.error err.toString()
-        console.error 'Failed to Reset Database!'
-
-  # If argument is set, intelligently match modules against related
-  # exams.
-  if process.env.GENERATE_RELATED
-    CateModule.generateRelated()
-
-
+    # Reference connection
+    db = mongoose.connection
+    db.on 'error', ->
+      def.reject 'Error connecting to database'
+    db.once 'open', ->
+      def.resolve 'Database successfully opened!'
+    def.promise
+  

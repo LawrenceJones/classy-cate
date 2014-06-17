@@ -1,5 +1,5 @@
 mongoose = require 'mongoose'
-require './db'
+require './etc/db'
 Student = mongoose.model 'Student'
 
 module.exports = Auth =
