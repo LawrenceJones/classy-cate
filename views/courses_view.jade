@@ -1,0 +1,59 @@
+mixin course-heading
+  h2.course-heading
+    | {{ course.cid }}: {{ course.name }}
+
+mixin notes-panel
+  .panel.panel-default.notes-panel#notes-collapse(collapsible-panel)
+    .panel-heading
+      h3.panel-title Notes
+    .panel-body.table-panel
+      table.table.table-hover.course-notes.resource-list
+        tbody
+          tr(ng-repeat='note in course.notes', course-note note='note')
+          
+mixin grades-panel
+  .panel.panel-default.grades-panel#grades-collapse(collapsible-panel collapse-default)
+    .panel-heading(style='vertical-align: middle')
+      h3.panel-title Grades
+    .panel-body.table-panel
+      table.table.table-hover.course-grades
+        tbody
+          tr(ng-repeat='grade in course.grades' course-grade grade='grade')
+
+mixin exercises-panel
+  .panel.panel-default.exercises-panel#exercises-collapse(collapsible-panel)
+    .panel-heading 
+      h3.panel-title Exercises
+    .panel-body.table-panel
+      table.table.table-hover.course-exercises.resource-list
+        tbody(course-exercise exercise='exercise' ng-repeat='exercise in course.exercises')
+        
+mixin discussions-panel
+  .panel.panel-default.discussions-panel
+    .panel-heading
+      h3.panel-title Discussions
+    .panel-body.table-panel
+      table.table.table-hover
+        tbody
+          tr(ng-repeat='discussion in course.discussions')
+            td {{ discussion.title }}
+            td {{ discussion.author }}
+            td {{ discussion.time.format() }}
+            td
+              span.badge {{ discussion.posts }}
+
+
+.row
+  .col-md-12
+    +course-heading
+.row
+  .col-md-12
+    .lead {{ course.describeTerms() }}
+.row
+  .col-md-6
+    +notes-panel
+    +grades-panel
+  .col-md-6
+    +exercises-panel
+    +discussions-panel
+

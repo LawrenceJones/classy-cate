@@ -1,0 +1,89 @@
+.panel-collapse-trigger {
+  float: right;
+  color: grey;
+  cursor: pointer;
+}
+
+.panel-body table {
+  margin: 0 !important;
+}
+
+.table-panel {
+  padding: 0 !important;
+}
+
+.course-heading {
+  i { margin-left: 3px; }
+}
+
+.exercises-panel table tbody {
+  border: 0px !important;
+}
+
+table.resource-list {
+  tr {
+    td {
+      vertical-align: middle;
+    }
+    .number {
+      width: 6%;
+      text-align: center;
+    }
+    .icon {
+      width: 6%;
+      text-align: center;
+    }
+    .title {
+      width: 78%;
+    }
+    .discussions {
+      width: 10%;
+      text-align: center;
+    }
+    .time {
+      color: grey;
+      font-size: 11px;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    span.disc-badge {
+      width: 100%;
+      cursor: pointer;
+    }
+  }
+}
+
+
+table.course-exercises {
+  tr.ex-given {
+    td .ex-given-container {
+      margin: 0px 40px;
+      border: 1px solid red;
+    }
+  }
+}
+
+
+table.course-grades {
+  tr {
+    .number {
+      width: 6%;
+    }
+    .icon {
+      width: 6%;
+    }
+    .title {
+      width: 70%;
+    }
+    .time {
+      color: grey;
+      font-size: 11px;
+    }
+    .grade {
+      width: 18%;
+    }
+  }
+}

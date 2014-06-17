@@ -1,0 +1,20 @@
+.courses-col {
+  a {
+    color: inherit;
+  }
+}
+
+.index-filter {
+  margin-bottom: 20px;
+}
+
+table.courses-col {
+  tr {
+    .code {
+      width: 10%;
+    }
+    .name {
+      width: 90%;
+    }
+  }
+}

@@ -1,11 +1,12 @@
 classy = angular.module 'classy'
 
 # Represents a module of grades
-classy.factory 'Grades', (Resource) ->
+classy.factory 'Grades', (Resource, AppState) ->
   class Grades extends Resource({
     actions:
-      all: '/api/grades'
-    defaultParams: year: 2013
+      all: '/api/grades/:year'
+    defaultParams:
+      year: AppState.currentYear
   })
     
     # Removes all ungraded exercises
@@ -15,8 +16,7 @@ classy.factory 'Grades', (Resource) ->
           @exercises.splice j, 1
       return @ if @exercises.length > 0
 
-
-classy.controller 'GradesCtrl', ($scope, Grades) ->
+classy.controller 'GradesCtrl', ($scope, Grades, $stateParams, $state) ->
 
   # Removes ungraded exercises and filters empty courses from given courses
   clean = (courses) ->
@@ -39,7 +39,12 @@ classy.controller 'GradesCtrl', ($scope, Grades) ->
     (shortest cols).push course for course in courses
     return cols
 
-  Grades.all().$promise.then (courses) ->
-    $scope.courses = clean courses
-    $scope.cols    = columnise $scope.courses, 3
+  Grades.all({ year: $stateParams.year }).$promise
+    .then (response) ->
+      $scope.courses = clean response.data
+      $scope.cols    = columnise $scope.courses, 3
+
+    .catch (err) ->
+      # For now, redirect to default grades page if 404: TODO
+      $state.go 'app.profile' if err.status is 404
 

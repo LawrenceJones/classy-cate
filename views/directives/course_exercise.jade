@@ -1,0 +1,21 @@
+tbody.course-exercise
+  tr.ex-title
+    td.number {{ exercise.number }}
+    td.icon
+      i(mime-type-icon='exercise.type')
+    td.title
+      a {{ exercise.title }}
+      .time
+        | active {{ exercise.start.format() + ' - ' + exercise.end.format() }}
+    td.discussions
+      discussions-badge(discussions='exercise.discussions')
+  tr.ex-given.hide.active(ng-repeat='given in exercise.givens')
+    td.number
+    td.icon
+      i(mime-type-icon='given.type')
+    td.title
+      a {{ given.title }}
+      .small.time
+        | at {{ given.time.printTime() }} on {{ given.time.format() }}
+    td 
+

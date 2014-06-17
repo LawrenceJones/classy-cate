@@ -3,7 +3,7 @@
   "validTo": 1412208000000,
   "tid": 10060127,
   "name": "Software Engineering - Algorithms",
-  "cid": 202,
+  "cid": "202",
   "terms": [
     2
   ],
@@ -26,9 +26,9 @@
       "title": "Administration",
       "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:458::NOTES:thb12",
       "time": 1390151094000,
+      "owner": "alw",
       "discussions": [
-        12345,
-        23456
+        1, 2, 3, 4, 5
       ]
     },
     {
@@ -37,9 +37,9 @@
       "title": "Introduction",
       "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:459::NOTES:thb12",
       "time": 1390151094000,
+      "owner": "alw",
       "discussions": [
-        12345,
-        23456
+        1, 2
       ]
     },
     {
@@ -48,9 +48,9 @@
       "title": "Randomised Algorithms",
       "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:460::NOTES:thb12",
       "time": 1390151094000,
+      "owner": "alw",
       "discussions": [
-        12345,
-        23456
+        1
       ]
     },
     {
@@ -59,9 +59,8 @@
       "title": "String Matching Algorithms",
       "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:521::NOTES:thb12",
       "time": 1390751357000,
+      "owner": "alw",
       "discussions": [
-        12345,
-        23456
       ]
     },
     {
@@ -70,9 +69,9 @@
       "title": "Radix Searching Algorithms",
       "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:629::NOTES:thb12",
       "time": 1391726877000,
+      "owner": "alw",
       "discussions": [
-        12345,
-        23456
+        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
       ]
     },
     {
@@ -81,9 +80,9 @@
       "title": "Divide and Conquer",
       "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:744::NOTES:thb12",
       "time": 1394199873000,
+      "owner": "bglocker",
       "discussions": [
-        12345,
-        23456
+        1, 2
       ]
     },
     {
@@ -92,9 +91,9 @@
       "title": "Dynamic Programming",
       "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:826::NOTES:thb12",
       "time": 1394199873000,
+      "owner": "bglocker",
       "discussions": [
-        12345,
-        23456
+        1, 2, 3, 4, 5, 6, 7, 8
       ]
     },
     {
@@ -103,9 +102,9 @@
       "title": "Greedy Algorithms",
       "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:889::NOTES:thb12",
       "time": 1394199873000,
+      "owner": "bglocker",
       "discussions": [
-        12345,
-        23456
+        1, 2, 3, 4
       ]
     },
     {
@@ -114,9 +113,9 @@
       "title": "Graph Algorithms",
       "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:938::NOTES:thb12",
       "time": 1395423458000,
+      "owner": "bglocker",
       "discussions": [
-        12345,
-        23456
+        1, 2, 3, 4, 5, 6, 7
       ]
     }
   ],
@@ -124,21 +123,20 @@
     {
       "number": "1",
       "type": "ESSAY",
-      "name": "Group Formation for CWs",
+      "title": "Group Formation for CWs",
       "start": 1294409600000,
       "end": 1395964800000,
       "mailto": "mailto:foo@foo.com",
       "spec": "",
       "givens": [],
       "discussions": [
-        12345,
-        23456
+        1
       ]
     },
     {
       "number": "2",
       "type": "CW",
-      "name": "Randomised Algorithms",
+      "title": "Randomised Algorithms",
       "start": 1294409600000,
       "end": 1395964800000,
       "mailto": "mailto:foo@foo.com",
@@ -152,14 +150,13 @@
         }
       ],
       "discussions": [
-        12345,
-        23456
+        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
       ]
     },
     {
       "number": "3",
       "type": "CW",
-      "name": "Divide and Conquer",
+      "title": "Divide and Conquer",
       "start": 1294409600000,
       "end": 1395964800000,
       "mailto": "mailto:foo@foo.com",
@@ -173,14 +170,13 @@
         }
       ],
       "discussions": [
-        12345,
-        23456
+        1, 2, 3, 4, 5, 6
       ]
     },
     {
       "number": "4",
       "type": "TUT",
-      "name": "Exercise Batch 1",
+      "title": "Exercise Batch 1",
       "start": 1294409600000,
       "end": 1395964800000,
       "mailto": "mailto:foo@foo.com",
@@ -194,14 +190,13 @@
         }
       ],
       "discussions": [
-        12345,
-        23456
+        1, 2
       ]
     },
     {
       "number": "5",
       "type": "TUT",
-      "name": "Exercise Batch 2",
+      "title": "Exercise Batch 2",
       "start": 1294409600000,
       "end": 1395964800000,
       "mailto": "mailto:foo@foo.com",
@@ -215,14 +210,13 @@
         }
       ],
       "discussions": [
-        12345,
-        23456
+        1, 2, 3, 4, 5
       ]
     },
     {
       "number": "6",
       "type": "TUT",
-      "name": "Exercise Batch 3",
+      "title": "Exercise Batch 3",
       "start": 1294409600000,
       "end": 1395964800000,
       "mailto": "mailto:foo@foo.com",
@@ -236,14 +230,13 @@
         }
       ],
       "discussions": [
-        12345,
-        23456
+        1, 2, 3, 4, 5, 6, 7, 8
       ]
     },
     {
       "number": "7",
       "type": "TUT",
-      "name": "Exercise 4 - Divide and Conquer",
+      "title": "Exercise 4 - Divide and Conquer",
       "start": 1294409600000,
       "end": 1395964800000,
       "mailto": "mailto:foo@foo.com",
@@ -257,14 +250,13 @@
         }
       ],
       "discussions": [
-        12345,
-        23456
+        1, 2, 3
       ]
     },
     {
       "number": "8",
       "type": "TUT",
-      "name": "Exercise 5 - Dynamic Programming",
+      "title": "Exercise 5 - Dynamic Programming",
       "start": 1294409600000,
       "end": 1395964800000,
       "mailto": "mailto:foo@foo.com",
@@ -278,14 +270,13 @@
         }
       ],
       "discussions": [
-        12345,
-        23456
+        1, 2, 3, 4, 5, 6
       ]
     },
     {
       "number": "9",
       "type": "TUT",
-      "name": "Exercise 6 - Greedy Algorithms",
+      "title": "Exercise 6 - Greedy Algorithms",
       "start": 1294409600000,
       "end": 1395964800000,
       "mailto": "mailto:foo@foo.com",
@@ -299,14 +290,13 @@
         }
       ],
       "discussions": [
-        12345,
-        23456
+        1, 2, 3
       ]
     },
     {
       "number": "10",
       "type": "TUT",
-      "name": "Exercise 7 - Graph Algorithms",
+      "title": "Exercise 7 - Graph Algorithms",
       "start": 1294409600000,
       "end": 1395964800000,
       "mailto": "mailto:foo@foo.com",
@@ -320,13 +310,8 @@
         }
       ],
       "discussions": [
-        12345,
-        23456
+        1
       ]
     }
-  ],
-  "discussions": [
-    12345,
-    67890
   ]
 }

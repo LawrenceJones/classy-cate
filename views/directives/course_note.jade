@@ -1,0 +1,11 @@
+tr.course-note
+  td.number {{ note.number }}
+  td.icon
+    i(mime-type-icon='note.restype')
+  td.title
+    a(href='{{ note.link }}', target='_blank') {{ note.title }}
+    .time
+      | by {{ note.owner }} at {{ note.time.printTime()  }} on {{ note.time.format() }}
+  td.discussions
+    discussions-badge(discussions='note.discussions')
+
