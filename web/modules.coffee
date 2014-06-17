@@ -50,16 +50,34 @@ classy.config [
       templateUrl: '/partials/login'
     }
 
-    $stateProvider.state 'app.course', {
-      url: '/course/:mid'
+    $stateProvider.state 'app.courses', {
+      url: '/courses'
+      controller: ->
+      templateUrl: '/partials/courses'
+    }
+
+    $stateProvider.state 'app.courses.view', {
+      url: '/:cid'
       controller: 'CourseCtrl'
-      templateUrl: '/partials/course'
+      templateUrl: '/partials/course_view'
+    }
+
+    $stateProvider.state 'app.timetable', {
+      url: '/timetable'
+      controller: ->
+      templateUrl: '/partials/timetable'
     }
 
     $stateProvider.state 'app.grades', {
       url: '/grades'
       controller: 'GradesCtrl'
       templateUrl: '/partials/grades'
+    }
+
+    $stateProvider.state 'app.discussions', {
+      url: '/discussions'
+      controller: ->
+      templateUrl: '/partials/discussions'
     }
 
 
@@ -79,18 +97,20 @@ classy.config [
 ]
 
 classy.run ($q, $rootScope) ->
-
+  
   # Keep track of state in $rootScope
   $rootScope.$on '$stateChangeSuccess', ($event, state) ->
     $rootScope.currentState = state.name
+    $rootScope.courseState = /app\.courses/.test state.name
 
   $rootScope.registeredCourses = [
     {
       name: 'Software Engineering - Algorithms'
-      mid: '202'
+      cid: '202'
     }
     {
       name: 'Operating Systems'
-      mid: '211'
+      cid: '211'
     }
   ]
+

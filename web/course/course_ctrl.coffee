@@ -3,7 +3,7 @@ classy = angular.module 'classy'
 classy.factory 'Courses', (Resource) ->
   class Courses extends Resource({
     actions:
-      get: '/api/courses/:year/:mid'
+      get: '/api/courses/:year/:cid'
     defaultParams: year: 2013
     relations:
       notes: 'Notes'
@@ -27,7 +27,7 @@ classy.factory 'Exercises', (Resource) ->
   })
 
 classy.controller 'CourseCtrl', ($scope, $stateParams, Courses) ->
-  ($scope.course = Courses.get(mid: $stateParams.mid)).$promise
+  ($scope.course = Courses.get(cid: $stateParams.cid)).$promise
   .then (course) ->
     console.log course
   .catch (err) ->

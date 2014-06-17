@@ -1,0 +1,13 @@
+.panel.panel-default
+  .panel-heading(ui-sref='app.courses.view({mid: course.mid})')
+    h3.panel-title
+      a {{ course.mid + ': ' + course.name }}
+  table.table.panel-body.course-grades
+    tbody
+      tr(ng-repeat='grade in course.exercises')
+        td.number {{ grade.number }}
+        td.icon
+          i(mime-type-icon='grade.type')
+        td.title {{ grade.title }}
+        td.grade
+          grade-badge(grade='grade.grade')

@@ -1,6 +1,9 @@
-mixin li-anchor(text, state)
+mixin li-icon(icon, state, msg)
   li(ui-sref!=state, ui-sref-active='active')
-    a= text
+    a
+      i.fa(class!=icon)
+      span(class='nav-text-default', ui-sref!=state, 
+           ui-sref-active='nav-text-active')= msg
 
 mixin extra-links
   li.visible-lg.visible-md
@@ -10,42 +13,61 @@ mixin extra-links
   li.visible-lg
     a(ui-sref='audit') Security
 
-.navbar.navbar-default
-  .container-fluid
-    .navbar-header
-      button.navbar-toggle(data-toggle='collapse', data-target='#nav-links')
-        span.sr-only Toggle navigation
-        span.icon-bar
-        span.icon-bar
-        span.icon-bar
-      a.navbar-brand(ui-sref='app.dashboard') CATe
-      span#cc-version
-    .collapse.navbar-collapse#nav-links
-      ul.nav.navbar-nav
-        li.dropdown
-          a.dropdown-toggle(data-toggle='dropdown')
-            | Courses 
-            span.caret
-          ul.dropdown-menu
-            li(ng-repeat='course in registeredCourses', 
-               ui-sref!='app.course({mid: course.mid})', 
-               ui-sref-active='active')
-              a {{ course.mid + ': ' + course.name }}
-        +li-anchor('Exercises', "app.exercises")
-        +li-anchor('Grades', 'app.grades')
-        +li-anchor('Discussions', 'app.discussions')
-      ul.nav.navbar-right.navbar-nav
-        li.dropdown
-          a.dropdown-toggle(data-toggle='dropdown')
-            i.fa.fa-cog.fa-lg
-          ul.dropdown-menu
-            li
-              a Settings
-            li.auth-logout
-              a Logout
-            li.divider
-            li
-              a Report Issue
-            li
-              a Project GitHub
+mixin user-links
+  li.dropdown
+    a.dropdown-toggle.user-link(data-toggle='dropdown')
+      | Tom Burnell
+      i.fa.fa-user
+    ul.dropdown-menu
+      li
+        a Settings
+      li
+        a(auth-logout) Logout
+      li.divider
+      li
+        a Report Issue
+      li
+        a Project GitHub
 
+mixin span-state(state, text)
+  span(class='nav-text-default', ui-sref!=state
+       ui-sref-active='nav-text-active')= text
+
+mixin course-selector
+  li.dropdown.course-selector(ng-class='{active:courseState}')
+    a.dropdown-toggle(data-toggle='dropdown')
+      i.fa.fa-book
+      //- State names, hidden by default, displayed upon switch
+      span(ng-repeat='course in registeredCourses')
+        +span-state('app.courses.view({cid: course.cid})', 
+                    "{{course.cid + ': ' + course.name}}")
+      +span-state('app.courses', 'All Courses')
+      span.caret
+    ul.dropdown-menu
+      li(ng-repeat='course in registeredCourses', 
+         ui-sref='app.courses.view({cid: course.cid})', ui-sref-active='active')
+        a {{ course.cid + ': ' + course.name }}
+      li.divider
+      li(ui-sref='app.courses', ui-sref-active='active')
+        a All Courses
+
+
+nav.navbar.navbar-default.navbar-fixed-top(role='navigation')
+  .container
+    .container-fluid
+      .navbar-header
+        button.navbar-toggle(data-toggle='collapse', data-target='#nav-links')
+          span.sr-only Toggle navigation
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+        a.navbar-brand.site-logo(ui-sref='app.dashboard') JANe
+        span#cc-version
+      .collapse.navbar-collapse#nav-links
+        ul.nav.navbar-right.navbar-nav
+          +course-selector()
+          +li-icon('fa-calendar', 'app.timetable', 'Timetable')
+          +li-icon('fa-trophy', 'app.grades', 'Grades')
+          +li-icon('fa-comment', 'app.discussions', 'Discussions')
+          +user-links()
+       

@@ -16,7 +16,13 @@ classy.directive 'mimeTypeIcon', ->
 
   restrict: 'A'
   replace: true
-  template: "<i class=\"fa\"></i>"
+  template: "<i class=\"fa\" data-placement=\"top\"></i>"
   link: ($scope, $i, attr) ->
-    $i.addClass getIcon $scope.$eval(attr.mimeTypeIcon)
+    type = $scope.$eval attr.mimeTypeIcon
+    $i.addClass getIcon type
+
+    # Add and enable tooltip
+    $i.attr "title", type
+    $i.attr "data-toggle", "tooltip"
+    $i.tooltip()
 

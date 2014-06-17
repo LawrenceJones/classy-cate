@@ -1,6 +1,3 @@
-.navbar {
-  margin-top: 15px;
-}
 ul.change-year {
   span.year {
     font-weight: bold;
@@ -11,4 +8,27 @@ ul.change-year {
     width: $btn-width;
     min-width: $btn-width;
   }
+}
+
+.nav-text-default {
+  display: none;
+  margin-left: 8px;
+}
+
+.nav-text-active {
+  display: inline !important;
+}
+
+.user-link {
+  border-left: 1px dotted #e4e4e4;
+  i { margin-left: 10px; }
+}
+
+.course-selector {
+  span.caret { margin-left: 8px; }
+}
+
+.site-logo {
+  font-family: Signika;
+  font-size: 25px;
 }
