@@ -1,5 +1,3 @@
-console.log 'This'
-
 describe 'Auth unit tests', ->
 
   [$compile, $rootScope] = [null, null]
