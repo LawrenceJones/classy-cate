@@ -9,7 +9,7 @@ tbody.course-exercise
         | active {{ exercise.start.format() + ' - ' + exercise.end.format() }}
     td.discussions
       discussions-badge(discussions='exercise.discussions')
-  tr.ex-given.hide(ng-repeat='given in exercise.givens')
+  tr.ex-given.hide.active(ng-repeat='given in exercise.givens')
     td.number
     td.icon
       i(mime-type-icon='given.type')

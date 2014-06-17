@@ -1,0 +1,308 @@
+{
+  "_link": "/api/users/thb12",
+  "login": "thb12",
+  "fname": "Thomas",
+  "lname": "Burnell",
+  "profile": "https://cate.doc.ic.ac.uk/photo/student/pics12/thb12.jpg",
+  "cand": "00728783",
+  "tutor": {
+    "login": "imh",
+    "title": "Prof",
+    "fname": "Ian",
+    "lname": "Hodkinson"
+  },
+  "entryYear": 2012,
+  "enrolment": [
+    {
+      "year": 2012,
+      "class": "c1",
+      "courses": [
+        {
+          "_link": "/api/courses/2012/112",
+          "cid": "112",
+          "name": "Hardware",
+          "eid": "C114",
+          "terms": [ 1 ],
+          "classes": [ "c1" ],
+          "level": 3
+        },
+        {
+          "_link": "/api/courses/2012/113",
+          "cid": "113",
+          "name": "Architecture",
+          "eid": "C114",
+          "terms": [ 2 ],
+          "classes": [ "c1", "j1" ],
+          "level": 3
+        },
+        {
+          "_link": "/api/courses/2012/120.1",
+          "cid": "120.1",
+          "name": "Programming I",
+          "eid": "+CX120",
+          "terms": [ 1 ],
+          "classes": [ "c1", "j1" ],
+          "level": 3
+        },
+        {
+          "_link": "/api/courses/2012/120.2",
+          "cid": "120.2",
+          "name": "Programming II",
+          "eid": "+XC120",
+          "terms": [ 1, 2, 3 ],
+          "classes": [ "c1", "j1" ],
+          "level": 3
+        },
+        {
+          "_link": "/api/courses/2012/120.3",
+          "cid": "120.3",
+          "name": "Programming III",
+          "eid": "+XC120",
+          "terms": [ 3 ],
+          "classes": [ "c1", "j1" ],
+          "level": 3
+        },
+        {
+          "_link": "/api/courses/2012/130",
+          "cid": "130",
+          "name": "Databases I",
+          "eid": "C130",
+          "terms": [ 2 ],
+          "classes": [ "c1" ],
+          "level": 3
+        },
+        {
+          "_link": "/api/courses/2012/140",
+          "cid": "140",
+          "name": "Logic",
+          "eid": "C146",
+          "terms": [ 1 ],
+          "classes": [ "c1", "j1" ],
+          "level": 3
+        },
+        {
+          "_link": "/api/courses/2012/141",
+          "cid": "141",
+          "name": "Reasoning about Programs",
+          "eid": "C146",
+          "terms": [ 2 ],
+          "classes": [ "c1" ],
+          "level": 3
+        },
+        {
+          "_link": "/api/courses/2012/142",
+          "cid": "142",
+          "name": "Discrete Mathematics",
+          "eid": "+C147",
+          "terms": [ 1, 2 ],
+          "classes": [ "c1" ],
+          "level": 3
+        },
+        {
+          "_link": "/api/courses/2012/145",
+          "cid": "145",
+          "name": "Mathematical Methods",
+          "eid": "+C147",
+          "terms": [ 1 ],
+          "classes": [ "c1" ],
+          "level": 3
+        },
+        {
+          "_link": "/api/courses/2012/161",
+          "cid": "161",
+          "name": "Laboratory 1",
+          "eid": "XC161",
+          "terms": [ 1, 2, 3 ],
+          "classes": [ "c1" ],
+          "level": 3
+        },
+        {
+          "_link": "/api/courses/2012/163",
+          "cid": "163",
+          "name": "Computing Topics",
+          "eid": "XC163",
+          "terms": [ 2 ],
+          "classes": [ "c1" ],
+          "level": 3
+        },
+        {
+          "_link": "/api/courses/2012/164",
+          "cid": "164",
+          "name": "Ethics in Computing 1",
+          "eid": "XC164",
+          "terms": [ 2 ],
+          "classes": [ "c1", "j1" ],
+          "level": 3
+        },
+        {
+          "_link": "/api/courses/2012/165",
+          "cid": "165",
+          "name": "Presentation Skills",
+          "eid": "C165",
+          "terms": [ 2 ],
+          "classes": [ "c1" ],
+          "level": 3
+        }
+      ]
+    },
+    {
+      "year": 2013,
+      "class": "c2",
+      "courses": [
+        {
+          "_link": "/api/courses/2013/202",
+          "cid": "202",
+          "name": "Software Engineering - Algorithms",
+          "eid": "C224",
+          "terms": [ 2 ],
+          "classes": [ "c2", "j2", "v5" ],
+          "level": 3
+        },
+        {
+          "_link": "/api/courses/2013/203",
+          "cid": "203",
+          "name": "Human-Centred Design",
+          "eid": "C203",
+          "terms": [ 3 ],
+          "classes": [ "c2", "j2" ],
+          "level": 3
+        },
+        {
+          "_link": "/api/courses/2013/210",
+          "cid": "210",
+          "name": "Computer Architecture",
+          "eid": "C210",
+          "terms": [ 2 ],
+          "classes": [ "c2" ],
+          "level": 3
+        },
+        {
+          "_link": "/api/courses/2013/211",
+          "cid": "211",
+          "name": "Operating Systems",
+          "eid": "C214",
+          "terms": [ 2 ],
+          "classes": [ "c2", "j2" ],
+          "level": 3
+        },
+        {
+          "_link": "/api/courses/2013/212",
+          "cid": "212",
+          "name": "Networks and Communications",
+          "eid": "C214",
+          "terms": [ 2 ],
+          "classes": [ "c2" ],
+          "level": 3
+        },
+        {
+          "_link": "/api/courses/2013/220",
+          "cid": "220",
+          "name": "Software Engineering Design",
+          "eid": "C224",
+          "terms": [ 1 ],
+          "classes": [ "c2", "j2" ],
+          "level": 3
+        },
+        {
+          "_link": "/api/courses/2013/221",
+          "cid": "221",
+          "name": "Compilers",
+          "eid": "C244",
+          "terms": [ 1 ],
+          "classes": [ "c2", "j2", "o3" ],
+          "level": 3
+        },
+        {
+          "_link": "/api/courses/2013/223",
+          "cid": "223",
+          "name": "Concurrency",
+          "eid": "C223",
+          "terms": [ 1 ],
+          "classes": [ "c2", "j2" ],
+          "level": 3
+        },
+        {
+          "_link": "/api/courses/2013/233",
+          "cid": "233",
+          "name": "Computational Techniques",
+          "eid": "C233",
+          "terms": [ 2 ],
+          "classes": [ "c2" ],
+          "level": 3
+        },
+        {
+          "_link": "/api/courses/2013/240",
+          "cid": "240",
+          "name": "Models of Computation",
+          "eid": "C244",
+          "terms": [ 1 ],
+          "classes": [ "c2", "j2", "j3" ],
+          "level": 3
+        },
+        {
+          "_link": "/api/courses/2013/245",
+          "cid": "245",
+          "name": "Statistics",
+          "eid": "C245",
+          "terms": [ 1 ],
+          "classes": [ "c2" ],
+          "level": 3
+        },
+        {
+          "_link": "/api/courses/2013/261",
+          "cid": "261",
+          "name": "Laboratory 2",
+          "eid": "XC261",
+          "terms": [ 1, 2 ],
+          "classes": [ "c2", "j2" ],
+          "level": 3
+        },
+        {
+          "_link": "/api/courses/2013/271",
+          "cid": "271",
+          "name": "2nd Year Group Projects",
+          "eid": "XC271",
+          "terms": [ 3 ],
+          "classes": [ "c2", "j2" ],
+          "level": 3
+        },
+        {
+          "_link": "/api/courses/2013/272",
+          "cid": "272",
+          "name": "Team Skills Development",
+          "eid": "C272",
+          "terms": [ 2 ],
+          "classes": [ "c2", "j2" ],
+          "level": 3
+        },
+        {
+          "_link": "/api/courses/2013/275",
+          "cid": "275",
+          "name": "C++ Introduction",
+          "eid": "-",
+          "terms": [ 1 ],
+          "classes": [ "c2", "j2" ],
+          "level": 3
+        },
+        {
+          "_link": "/api/courses/2013/276",
+          "cid": "276",
+          "name": "Introduction to Prolog",
+          "eid": "C276",
+          "terms": [ 1, 2 ],
+          "classes": [ "c2", "j2" ],
+          "level": 3
+        },
+        {
+          "_link": "/api/courses/2013/277",
+          "cid": "277",
+          "name": "Introduction to Perl",
+          "eid": "C277",
+          "terms": [ 2 ],
+          "classes": [ "c2", "j2" ],
+          "level": 3
+        }
+      ]
+    }
+  ]
+}

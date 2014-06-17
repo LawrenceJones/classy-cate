@@ -1,3 +1,17 @@
+.panel-collapse-trigger {
+  float: right;
+  color: grey;
+  cursor: pointer;
+}
+
+.panel-body table {
+  margin: 0 !important;
+}
+
+.table-panel {
+  padding: 0 !important;
+}
+
 .course-heading {
   i { margin-left: 3px; }
 }
@@ -20,10 +34,10 @@ table.resource-list {
       text-align: center;
     }
     .title {
-      width: 80%;
+      width: 78%;
     }
     .discussions {
-      width: 8%;
+      width: 10%;
       text-align: center;
     }
     .time {
@@ -48,6 +62,28 @@ table.course-exercises {
     td .ex-given-container {
       margin: 0px 40px;
       border: 1px solid red;
+    }
+  }
+}
+
+
+table.course-grades {
+  tr {
+    .number {
+      width: 6%;
+    }
+    .icon {
+      width: 6%;
+    }
+    .title {
+      width: 70%;
+    }
+    .time {
+      color: grey;
+      font-size: 11px;
+    }
+    .grade {
+      width: 18%;
     }
   }
 }

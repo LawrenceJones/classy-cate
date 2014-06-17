@@ -3,7 +3,7 @@ mixin column(index)
     course-grades(ng-repeat='course in cols['+index+']' course='course')
 
 mixin courses
-  .col-sm-12(ng-repeat='course in courses | orderBy: \'mid\'')
+  .col-sm-12(ng-repeat='course in courses | orderBy: \'cid\'')
     course-grades(course='course')
 
 .row

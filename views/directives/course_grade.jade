@@ -1,0 +1,11 @@
+tr.course-grade
+  td.number {{ grade.number }}
+  td.icon
+    i(mime-type-icon='grade.type')
+  td.title
+    | {{ grade.title }}
+    .time
+      | submitted at TIME by SUBMITTER
+  td.grade
+    grade-badge(grade='grade.grade')
+
