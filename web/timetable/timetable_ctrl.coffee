@@ -1,12 +1,12 @@
 classy = angular.module 'classy'
 
-classy.factory 'Timetable', (Resource) ->
+classy.factory 'Timetable', (Resource, AppState) ->
   class Timetable extends Resource({
     actions:
       get: '/api/timetable/:year/:period'
     defaultParams:
-      year: 2013
-      period: 3
+      year: AppState.currentYear
+      period: AppState.currentPeriod
     relations:
       start: Date
       end: Date
@@ -18,13 +18,23 @@ classy.factory 'TimetableCourse', (Resource) ->
     relations: exercises: 'Exercise'
   })
 
-classy.controller 'TimetableCtrl', ($scope, $stateParams, Timetable,
-                                    CourseFormatter, PeriodFormatter) ->
+classy.controller 'TimetableCtrl', ($scope, $stateParams, $modal,
+                    Timetable, CourseFormatter, PeriodFormatter) ->
 
-  (timetable = Timetable.get({})).$promise
+  (timetable = Timetable.get($stateParams)).$promise
   .then (course) ->
     $scope.period = PeriodFormatter timetable.start, timetable.end
     $scope.courses = CourseFormatter timetable
+    
+    $scope.open = (box) ->
+      if box.ex?
+        $modal.open {
+          templateUrl: '/partials/exercise_modal'
+          controller: 'ExerciseModalCtrl'
+          resolve:
+            ex: -> box.ex
+            cid: -> box.options.cid
+        }
 
   .catch (err) ->
     console.log err

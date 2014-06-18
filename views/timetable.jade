@@ -16,4 +16,4 @@
           col(ng-repeat='day in period.days track by $index')
         tbody(ng-repeat='course in courses')
           tr(ng-repeat='row in course.rows')
-            td(exercise-box, ng-repeat='box in row', box='box')
+            td(exercise-box, ng-repeat='box in row', box='box' ng-click='open(box)')
