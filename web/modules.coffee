@@ -68,6 +68,8 @@ classy.config [
       reloadOnSearch: false
       resolve:
         user: (AppState) -> AppState.loaded()
+        grades: (Grades, $stateParams) ->
+          Grades.all $stateParams
     }
 
     $stateProvider.state 'app.profile', {
@@ -86,6 +88,9 @@ classy.config [
       url: '/:cid'
       controller: 'CoursesViewCtrl'
       templateUrl: '/partials/courses_view'
+      resolve:
+        course: (Courses, $stateParams) ->
+          Courses.get $stateParams
     }
 
     $stateProvider.state 'app.timetable', {

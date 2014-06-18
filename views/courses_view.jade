@@ -9,7 +9,7 @@ mixin notes-panel
     .panel-body.table-panel
       table.table.table-hover.course-notes.resource-list
         tbody
-          tr(ng-repeat='note in course.notes', course-note note='note')
+          tr(ng-repeat='note in notes.collection', course-note note='note')
           
 mixin grades-panel
   .panel.panel-default.grades-panel#grades-collapse(collapsible-panel collapse-default)
@@ -18,7 +18,7 @@ mixin grades-panel
     .panel-body.table-panel
       table.table.table-hover.course-grades
         tbody
-          tr(ng-repeat='grade in course.grades' course-grade grade='grade')
+          tr(ng-repeat='grade in grades' course-grade grade='grade')
 
 mixin exercises-panel
   .panel.panel-default.exercises-panel#exercises-collapse(collapsible-panel)
@@ -26,7 +26,7 @@ mixin exercises-panel
       h3.panel-title Exercises
     .panel-body.table-panel
       table.table.table-hover.course-exercises.resource-list
-        tbody(course-exercise exercise='exercise' ng-repeat='exercise in course.exercises')
+        tbody(course-exercise exercise='exercise' ng-repeat='exercise in exercises.collection')
         
 mixin discussions-panel
   .panel.panel-default.discussions-panel
