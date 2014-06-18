@@ -179,6 +179,7 @@ classy.run ($q, $rootScope, $state, $stateParams, $location, DateUtils, AppState
   $rootScope.$on '$stateChangeSuccess', ($event, state, $stateParams) ->
     $rootScope.currentState = state.name
     $rootScope.courseState  = /app\.courses/.test state.name
+    $rootScope.userState = /app\.profile/.test state.name
 
     AppState.updateYear (parseInt year) if (year = $stateParams.year)?
       
