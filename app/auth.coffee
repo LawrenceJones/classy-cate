@@ -28,7 +28,8 @@ module.exports = Auth =
     return res.send 401 if !(creds = Auth.validate req.body)
     isAuthed = Student.auth creds.login, creds.pass
     isAuthed
-      .then (user) -> res.json student.api()
+      .then (data) ->
+        res.json new Student.model(data).api()
       .catch (err) -> res.send err ? 401
       .done()
 

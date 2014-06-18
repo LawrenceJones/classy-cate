@@ -2,6 +2,9 @@ $q = require 'q'
 Schema = (mongoose = require 'mongoose').Schema
 ObjectId = Schema.Types.ObjectId
 
+Api = require 'app/api'
+ApiFormats = require './student_model.api'
+
 config = require 'app/etc/config'
 require 'app/etc/db'
 
@@ -35,44 +38,11 @@ studentSchema = mongoose.Schema
     class: String
   ]
 
-formats =
-  '1A': ->
-    _meta:
-      link: "/api/users/#{@login}"
-      login: @login
-      tid: @tid
-    validFrom: @validFrom
-    validTo: @validTo
-    tid: @tid
-    login: @login
-    email: @email
-    salutation: @salutation
-    fname: @fname
-    lname: @lname
-    origin: @origin
-    entryYear: @entryYear
-    url: @url
-    cand: @cand
-    profile: @profile
-    courses: @courses.map (c) ->
-      _meta:
-        link: "/api/courses/#{c.year}/#{c.cid}"
-        year: c.year
-        cid: c.cid
-      data:
-        cid: c.cid
-        name: c.name
-        eid: c.eid
-        terms: c.terms
-        classes: c.classes
-    enrolment: @enrolment
+# Register Student API formatters
+Api.register studentSchema, ApiFormats
 
-studentSchema.methods.api = (version = process.env.API_VERSION) ->
-  json = formats[version]?.call? @
-  if json then json else throw new Error """
-  Format #{version} not supported"""
-
-# Shorthand method for registering a student with plain json data
+# Shorthand method for registering a student with plain json data,
+# used to fill test database.
 register = (data, cb) ->
   student = new Student data
   student.save (err) ->
@@ -98,8 +68,9 @@ getDbStudent = (login) ->
 #
 # Returns a promise that is resolved with an object in the form...
 #
-#   tid: tid, login: login
+#   tid: tid
 #
+# Login is excluded for consistency and frankly very little need.
 getTid = (login, creds) ->
   getDbStudent(login).then (student) ->
     if student?.tid then tid: student.tid
@@ -145,10 +116,12 @@ authWrapper = (login, pass) ->
 Student = mongoose.model 'Student', studentSchema
 module.exports =
 
+  # Basic model content
   model: Student
-  formats: formats
+  formats: ApiFormats
   schema: studentSchema
 
+  # Helper functions
   register: register
   get: getStudent
   getTeachdb: getTeachdbStudent

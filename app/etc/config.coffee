@@ -40,5 +40,6 @@ module.exports = config =
     web_dir:    path.join root_dir, 'web'
     seed_dir:   path.join root_dir, 'public', 'json'
   exams_timestamp: null
+  API_VERSION: '1A'
 
   
