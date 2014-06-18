@@ -57,19 +57,20 @@ classy.factory 'CourseSplitter', ->
 classy.factory 'CourseFormatter', (Current, CourseSplitter) ->
   contains = (ex, date) -> ex.start <= date <= ex.end
     
-  getOptions = (ex, date, position) ->
+  getOptions = (ex, date, position, cid) ->
     lengthInCells = (ex?.start.getDatesTo(ex.end).length) ? 1
     colspan: lengthInCells
     isToday: Current.isToday date
     position: [position, position+lengthInCells-1]
+    cid: cid
 
   formatCourses = (timetable) ->
     timetable.courses.map (course) ->
       courseTable =
         name: course.name
-        rows: getRows timetable, course.exercises
+        rows: getRows timetable, course.exercises, course.cid
 
-  getRows = (timetable, exercises) ->
+  getRows = (timetable, exercises, cid) ->
     (CourseSplitter exercises).map (row) ->
       formattedRow = []
       i = 0
@@ -80,12 +81,12 @@ classy.factory 'CourseFormatter', (Current, CourseSplitter) ->
         if (date.midnight().getTime()) is (row[i]?.start.midnight().getTime())
           formattedRow.push {
                         ex: row[i]
-                        options: getOptions row[i], date, position
+                        options: getOptions row[i], date, position, cid
                       }
         else if (not row[i]?) or not contains(row[i], date)
           formattedRow.push {
                         ex: null
-                        options: getOptions null, date, position
+                        options: getOptions null, date, position, cid
                       }
       formattedRow
 

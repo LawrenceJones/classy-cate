@@ -53,7 +53,7 @@ classy.directive 'exerciseBox', ->
             <td colspan='{{box.options.colspan}}'>
               <div class='wrap-cell'>
                 <i ng-if='box.ex' mime-type-icon='box.ex.type'></i>
-                {{box.ex.name}}
+                <span ng-if='box.ex'>{{box.ex.num}}: {{box.ex.title}}</span>
               </div>
             </td>
   """
@@ -70,9 +70,18 @@ classy.directive 'exerciseBox', ->
         $(e).removeClass 'highlighted-day'
 
     if box.ex?
-      $elem.addClass "panel panel-default exercise #{getExerciseClass box.ex}"
-      $elem.hover highlightsDays, removeHighlightsDays
+      $elem
+        .addClass "panel panel-default exercise #{getExerciseClass box.ex}"
+        .hover highlightsDays, removeHighlightsDays
     else
       $elem.addClass "today" if box.options.isToday
     
 
+
+
+    ###
+    # grepdoc.controller 'MyCtrl', ($state) ->
+    #     $state.go 'app.timetable', (year: 2013, period: 3, class: "c2")
+    #
+    #
+    ###
