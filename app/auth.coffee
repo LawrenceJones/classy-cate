@@ -28,12 +28,12 @@ module.exports = Auth =
     return res.send 401 if !(creds = Auth.validate req.body)
     isAuthed = Student.auth creds.login, creds.pass
     isAuthed
-      .then (data) -> res.json data
+      .then (user) -> res.json student.api()
       .catch (err) -> res.send err ? 401
       .done()
 
   whoami: (req, res) ->
-    res.json user: req.dbuser
+    res.json user: req.dbuser.api()
 
 # Given an express app, configures auth utilities
 Auth.configure = (app) ->

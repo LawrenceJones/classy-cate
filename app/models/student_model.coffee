@@ -1,6 +1,8 @@
 $q = require 'q'
 Schema = (mongoose = require 'mongoose').Schema
 ObjectId = Schema.Types.ObjectId
+
+config = require 'app/etc/config'
 require 'app/etc/db'
 
 HTTPProxy = require 'app/proxies/http_proxy'
@@ -65,7 +67,7 @@ formats =
         classes: c.classes
     enrolment: @enrolment
 
-studentSchema.methods.api = (version) ->
+studentSchema.methods.api = (version = process.env.API_VERSION) ->
   json = formats[version]?.call? @
   if json then json else throw new Error """
   Format #{version} not supported"""
@@ -82,7 +84,11 @@ register = (data, cb) ->
 #
 # Returns a promise that is resolved with a database student object.
 getDbStudent = (login) ->
-  $q.nfcall Student.findOne, login: login
+  def = $q.defer()
+  Student.findOne login: login, (err, student) ->
+    if err then def.reject err
+    else def.resolve student
+  def.promise
 
 # Given a students login, returns a promise that is resolved with the
 # students teachdb ID.

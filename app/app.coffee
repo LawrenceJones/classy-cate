@@ -45,8 +45,8 @@ module.exports = class GrepDoc
     @app.use bodyParser.urlencoded()                           # params
 
   # Connects to mongodb client
-  connectDb: ->
-    (require './etc/db').connect(config)
+  connectDb: (verbose = false) ->
+    db = (require './etc/db').connect(config)
 
   # Routes in sequential order
   route: ->
@@ -103,7 +103,7 @@ if !module.parent
   grepDoc.hotCompile() if NODE_ENV == 'development'
   grepDoc.route()
   grepDoc.serveStatic()
-  grepDoc.connectDb()
+  grepDoc.connectDb(undefined, true)
   grepDoc.run undefined, (err, msg) ->
     if err then throw new Error msg
     else console.log msg
