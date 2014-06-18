@@ -6,6 +6,7 @@ module.exports = formats =
       link: "/api/users/#{@login}"
       login: @login
       tid: @tid
+      token: @token ? null
     validFrom: @validFrom
     validTo: @validTo
     tid: @tid

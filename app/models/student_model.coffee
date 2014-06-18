@@ -1,6 +1,7 @@
 $q = require 'q'
 Schema = (mongoose = require 'mongoose').Schema
 ObjectId = Schema.Types.ObjectId
+jwt = require 'jsonwebtoken'
 
 Api = require 'app/api'
 ApiFormats = require './student_model.api'
@@ -102,6 +103,19 @@ getStudent = (login, creds, force = false) ->
     if student and not force then student
     else getTeachdbStudent login, creds, student?.tid
 
+# Given a javascript payload, signs into a jsonwebtoken using the
+# servers secret key. Used to attach to req.user.
+jwtSign = (payload, expiry = config.express.AUTH_EXPIRY) ->
+  jwt.sign\
+  ( payload
+  , config.express.SECRET
+  , expiresInMinutes: expiry )
+
+# Allows a student instance to sign itself, given the password.
+studentSchema.methods.signToken = (password, expiry) ->
+  @token = jwtSign user: @login, pass: password, expiry
+  return @
+
 # Wraps around the getStudent function to allow easier authentication.
 # If successful, the returned promise will be resolved with user data
 # along with a token located in the _meta child.
@@ -109,9 +123,13 @@ getStudent = (login, creds, force = false) ->
 #   LOGIN: College login
 #   PASS:  Password for Imperial systems
 #
-# Forces a real request into teachdb.
+# Forces a real request into teachdb. The student instance has a fresh
+# auth token signed into it's _meta field which the client can then
+# pick up.
 authWrapper = (login, pass) ->
-  getStudent login, user: login, pass: pass, true
+  creds = user: login, pass: pass
+  getStudent(login, creds).then (student) ->
+    student.signToken pass
 
 Student = mongoose.model 'Student', studentSchema
 module.exports =
@@ -127,4 +145,5 @@ module.exports =
   getTeachdb: getTeachdbStudent
   getTid: getTid
   auth: authWrapper
+  sign: jwtSign
 

@@ -10,7 +10,7 @@ module.exports = Auth =
     Student.findOne login: req.user.login, (err, student) ->
       if err? or !(req.dbuser = student)?
         res.send 401, 'Token expired'
-      else next()
+      else next?()
 
   # Validates user credentials. Only if both login and password
   # have been supplied will this function return a truthy value.
@@ -33,13 +33,19 @@ module.exports = Auth =
       .catch (err) -> res.send err ? 401
       .done()
 
-  whoami: (req, res) ->
-    res.json user: req.dbuser.api()
+  # Guard the reauth route with the same jwt protection as /api
+  # routes, verifying that the user is actually logged in and behind
+  # a security wall before we release any sensitive data.
+  reauthenticate: (req, res) ->
+    res.json req.dbuser.signToken(req.user.pass).api()
+
 
 # Given an express app, configures auth utilities
 Auth.configure = (app) ->
+  # Guard the entirety of /api
   app.use '/api', Auth.midware
+  # Token signing
   app.post '/authenticate', Auth.authenticate
-  app.get '/authenticate', Auth.whoami
+  app.patch '/authenticate', Auth.midware, Auth.reauthenticate
 
 

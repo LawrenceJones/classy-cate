@@ -20,8 +20,7 @@ module.exports = config =
     PORT: process.env.PORT || 50000
     # Assign secret
     SECRET: fs.readFileSync secret_path, 'utf8'
-  jwt:
-    TOKEN_EXPIRY: 12 * 60
+    AUTH_EXPIRY: 12 * 60
   users: new Object()
   mongodb:
     NAME: 'classy-cate'
