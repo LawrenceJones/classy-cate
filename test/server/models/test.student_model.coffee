@@ -40,10 +40,9 @@ describe 'StudentModel', ->
     Student.auth creds.user, creds.pass
     .should.be.fulfilled
 
-  it 'should fail to authenticate with scrambled password', (done) ->
+  it 'should fail to authenticate with scrambled password', ->
     Student.auth creds.user, 'djiowjeiow'
-    .then -> assert.fail()
-    .catch -> do done
+    .should.be.rejected
 
   describe '#getTid', ->
 
@@ -57,9 +56,9 @@ describe 'StudentModel', ->
 
   describe '#getTeachdb', ->
 
-    it 'should fail without crash with no credentials', (done) ->
+    it 'should fail without crash with no credentials', ->
       Student.getTeachdb lawrence().login, null # no creds
-      .catch (err) -> err.should.be.ok; do done
+      .should.be.rejected
 
   describe '#get', ->
 

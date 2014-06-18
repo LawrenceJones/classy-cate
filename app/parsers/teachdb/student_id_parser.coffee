@@ -8,6 +8,8 @@ module.exports = class StudentIDParser extends TIDParser
   # Eg. {login: "lmj112"}
   @url: (query) ->
     login = query.login
-    if not login? then throw Error 'Missing login query parameters'
+    if not login?
+      throw Error 'Missing login, required to parse user'
     super value: login, table: 'Student', argKey: 'arg1'
+
 

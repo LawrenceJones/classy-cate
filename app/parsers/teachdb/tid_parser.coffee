@@ -25,7 +25,5 @@ module.exports = class TIDParser extends HTMLParser
     argKey = query.argKey
     value = query.value
     table = query.table
-    if not (argKey && value && table)
-      throw Error 'Missing login query parameters'
     "#{@TEACH_DOMAIN}/db/viewtab?table=#{table}&#{argKey}=#{value}"
 

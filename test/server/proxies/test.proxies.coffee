@@ -24,3 +24,13 @@ describe 'HTTPProxy', ->
       .should.deep.equal exp
 
 
+  describe 'StudentProxy', ->
+
+    StudentProxy = require 'app/proxies/teachdb/student_proxy'
+
+    it 'should get user for lmj112', ->
+      StudentProxy.makeRequest login: 'lmj112', creds
+      .should.eventually.include
+        login: 'lmj112'
+        email: 'lawrence.jones12@imperial.ac.uk'
+

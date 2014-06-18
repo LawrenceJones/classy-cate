@@ -10,7 +10,8 @@ config = require 'app/etc/config'
 require 'app/etc/db'
 
 StudentProxy = require 'app/proxies/teachdb/student_proxy'
-
+HTTPProxy = require 'app/proxies/http_proxy'
+StudentIDProxy = new HTTPProxy(require 'app/parsers/teachdb/student_id_parser')
 
 studentSchema = mongoose.Schema
   validFrom: Number
@@ -55,9 +56,7 @@ register = (data, cb) ->
 # Returns a promise that is resolved with a database student object.
 getDbStudent = (login) ->
   def = $q.defer()
-  Student.findOne login: login, (err, student) ->
-    if err then def.reject err
-    else def.resolve student
+  Student.findOne login: login, def.makeNodeResolver()
   def.promise
 
 # Given a students login, returns a promise that is resolved with the
@@ -85,11 +84,10 @@ getTid = (login, creds) ->
 #
 # Returns a promise that is resolved with a student mongoose object.
 getTeachdbStudent = (login, creds, tid = false) ->
-  $q.fcall ->
-    if tid then tid: tid else getTid login, creds
-  .then (query) ->
-    StudentProxy.makeRequest query, creds
-
+  StudentProxy.makeRequest login: login, creds
+  .then (student) ->
+    new Student student
+    
 # Fetches a student, either from our database or from teachdb if no
 # record is present.
 #
@@ -127,12 +125,9 @@ studentSchema.methods.signToken = (password, expiry) ->
 # auth token signed into it's _meta field which the client can then
 # pick up.
 authWrapper = (login, pass) ->
-  def = $q.defer()
   creds = user: login, pass: pass
-  getStudent(login, creds).then (student) ->
-    def.resolve student.signToken pass
-  .catch(def.reject).done()
-  def.promise
+  getTeachdbStudent(login, creds).then (student) ->
+    student.signToken pass
 
 Student = mongoose.model 'Student', studentSchema
 module.exports =
