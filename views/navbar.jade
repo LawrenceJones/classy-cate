@@ -14,11 +14,13 @@ mixin extra-links
     a(ui-sref='audit') Security
 
 mixin user-links
-  li.dropdown
+  li.dropdown(ng-class='{active: userState}')
     a.dropdown-toggle.user-link.nav-left-divided(data-toggle='dropdown')
       | {{ user.fname }}
       i.fa.fa-user
     ul.dropdown-menu
+      li(ui-sref='app.profile', ui-sref-active='active')
+        a Profile
       li
         a Settings
       li

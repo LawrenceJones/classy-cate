@@ -16,11 +16,14 @@ classy.factory 'Grades', (Resource, AppState) ->
           @exercises.splice j, 1
       return @ if @exercises.length > 0
 
-classy.controller 'GradesCtrl', ($scope, Grades, $stateParams, $state) ->
-
-  # Removes ungraded exercises and filters empty courses from given courses
-  clean = (courses) ->
+# Service for cleaning an array of graded courses. All ungraded exercises
+# are first removed, and any remaining courses with no graded exercises are
+# removed.
+classy.service 'GradesCleaner', ->
+  clean: (courses) ->
     (courses.map (course) -> course.clean()).filter (course) -> course?
+
+classy.controller 'GradesCtrl', ($scope, $stateParams, $state, grades) ->
 
   # Sorts courses into numCols (>0) balanced columns, giving a 2D array
   columnise = (courses, numCols) ->
@@ -39,12 +42,6 @@ classy.controller 'GradesCtrl', ($scope, Grades, $stateParams, $state) ->
     (shortest cols).push course for course in courses
     return cols
 
-  Grades.all({ year: $stateParams.year }).$promise
-    .then (response) ->
-      $scope.courses = clean response.data
-      $scope.cols    = columnise $scope.courses, 3
-
-    .catch (err) ->
-      # For now, redirect to default grades page if 404: TODO
-      $state.go 'app.profile' if err.status is 404
+  $scope.courses = grades
+  $scope.cols    = columnise $scope.courses, 3
 

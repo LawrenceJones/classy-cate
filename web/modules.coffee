@@ -68,6 +68,9 @@ classy.config [
       reloadOnSearch: false
       resolve:
         user: (AppState) -> AppState.loaded()
+        grades: (Grades, GradesCleaner, $stateParams) ->
+          (Grades.all $stateParams).$promise.then (resp) ->
+            GradesCleaner.clean resp.data
     }
 
     $stateProvider.state 'app.profile', {
@@ -86,6 +89,9 @@ classy.config [
       url: '/:cid'
       controller: 'CoursesViewCtrl'
       templateUrl: '/partials/courses_view'
+      resolve:
+        course: (Courses, $stateParams) ->
+          Courses.get $stateParams
     }
 
     $stateProvider.state 'app.timetable', {
@@ -179,6 +185,7 @@ classy.run ($q, $rootScope, $state, $stateParams, $location, DateUtils, AppState
   $rootScope.$on '$stateChangeSuccess', ($event, state, $stateParams) ->
     $rootScope.currentState = state.name
     $rootScope.courseState  = /app\.courses/.test state.name
+    $rootScope.userState = /app\.profile/.test state.name
 
     AppState.updateYear (parseInt year) if (year = $stateParams.year)?
       
