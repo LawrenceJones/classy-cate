@@ -21,9 +21,13 @@ It is important to note that `cid` and `eid` change dependent on the academic ye
 | `tid`   | `Teachdb ID` | Represents the index into the teachdb database for this item | `14678, lmj112` |
 | `eid`   | `Exam ID` | Represents the exam code | `C224, Software Engineering` |
 
+As a side note on API performance, the vast majority of our routes are bottlenecked by the response times of their
+remote resource. Taking Student information for example, a Student's data is parsed in a two level process, first
+resolving a Students teachdb ID from their given login, and then indexing into the teachdb page to parse more information.
+
 # Group Authentication
 
-## Login [/authenticate]
+## User Login [/authenticate]
 CATe API makes use of JSON WebTokens to make requests on behalf of users to the underlying CATe/DoC services.
 
 The basic setup requries an initial authorization request, where the user supplies their college login and password.
@@ -34,36 +38,14 @@ Any requests to routes prefixed with `/api` must then include the token in the H
 
 Example header. `Authorization: Bearer TOKEN`
 
-### Generate new auth token [POST]
-+ Request (application/json)
-  {
-    user: "lmj112",
-    pass: "password"
-  }
-
-+ Response 200 (application/json)
-  + Body
-    {
-      token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoibG1qMTEyIiwicGFzcyI6InRlblQxbnlGaW5nZXJzIiwiZXhwIjoxNDAyMjI4ODY3LCJpYXQiOjE0MDIxODU2Njd9.kFePbr8qBmo6onQ8akwDUz0Xu_j1fXNbjNuGq4pVr_8"
-    }
-
-+ Response 401 (application/json)
-
-# Group User
-
-## User [/api/users/{login}]
-Each user represents a valid login for all Imperial systems, and specifically for CATe.
-
-+ Parameters
-  + login (string,`lmj112`) ... College login.
-
 + Model (application/json)
 
   {
     _meta: {
       link: "/api/users/lmj112",
       login: "lmj112",
-      tid: 14678
+      tid: 14678,
+      token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoibG1qMTE"
     },
     validFrom: 1348873200000,             // Time for which this student is enrolled
     validTo: 1474930800000,               // Limit of current enrolment status
@@ -116,10 +98,24 @@ Each user represents a valid login for all Imperial systems, and specifically fo
     ]
   }
 
-### Retrieve User Information [GET]
-+ Request
+### Generate new auth token [POST]
++ Request (application/json)
   + Headers
     Authorization: Bearer TOKEN
+  + Body
+    {
+      user: "lmj112",
+      pass: "password"
+    }
+
++ Response 200
+
+  [User][]
+
++ Response 401
+
+### Refresh token [GET]
++ Request (application/json)
 
 + Response 200
 
@@ -177,7 +173,6 @@ Every timetable view is defined by the desired year, period and class of the stu
                 link: "/api/courses/2013/203/exercises/1/givens"
               }
             }
-            
           }
         ]
       }

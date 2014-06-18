@@ -57,5 +57,8 @@ module.exports = class HTMLParser
       throw error: code: 404, msg: 'Module not found'
     [moduleID, moduleName]
 
+# Easy wrapper for generating a HTTPProxy of a parser.
+HTMLParser.__defineGetter__('proxy', -> new HTTPProxy @)
+
 
 
