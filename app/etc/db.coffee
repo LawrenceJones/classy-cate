@@ -4,10 +4,16 @@ ObjectId = mongoose.Schema.ObjectId
 $q = require 'q'
 Models = require '../models'
 
+conn = null
+
 # Initial db setup
 module.exports =
 
+  # Allow a single connection per process.
   connect: (config, verbose = false) ->
+
+    # Singleton
+    return conn if conn
 
     [name, host, port] = [
       config.mongodb.NAME

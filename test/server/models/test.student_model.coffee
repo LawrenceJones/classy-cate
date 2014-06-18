@@ -36,6 +36,15 @@ describe 'StudentModel', ->
       student.should.be.ok
       do done
 
+  it 'should authenticate successfully with ~/.imp details', ->
+    Student.auth creds.user, creds.pass
+    .should.be.fulfilled
+
+  it 'should fail to authenticate with scrambled password', (done) ->
+    Student.auth creds.user, 'djiowjeiow'
+    .then -> assert.fail()
+    .catch -> do done
+
   describe '#getTid', ->
 
     it 'should resolve tid from login', ->

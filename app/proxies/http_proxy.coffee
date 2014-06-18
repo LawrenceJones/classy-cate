@@ -1,28 +1,50 @@
 $q = require 'q'
 request = require 'request'
 process.setMaxListeners 0
+$q.longStackSupport = true
 
-# Adaption of Q's nfcall for selecting the third of the callback
-# arguments.
-nf3call = (func, args...) ->
-  def = $q.defer()
-  func args..., (err, res, body) ->
-    if err then def.reject err
-    else def.resolve body
-  def.promise
+HTMLParser = require 'app/parsers/html_parser'
 
-# Class for the basic HTTP proxy. All instances will own a parser,
-# which will facilitate parsing the html source that this class
-# will fetch.
-#
-# User credentials ARE handled here, and care is required.
 module.exports = class HTTPProxy
 
-  # Constructed using a HTMLParser class
-  constructor: (@Parser) ->
-    if not @Parser.HTML_PARSER
-      throw Error "Invalid HTMLParser object: #{@Parser}"
+  # Construct with a collection of HTMLParsers to be processed in the
+  # order given. These are to be chained together to allow a single
+  # promise to be returned for successful transmission.
+  constructor: (@parsers...) ->
+    for Parser in @parsers
+      if not Parser.HTML_PARSER then throw Error """
+      Incorrect arguments supplied to HTTPProxy constructor.
+      All arguments must be HTMLParsers.
+      """
 
+  # Runs through the chain of the proxy calls in sequence, passing
+  # the result of each subsequent call in as the query to run the
+  # next proxy against.
+  #
+  # Example is a chain of StudentIDParser StudentParser.
+  #
+  # First StudentIDParser will be run against the inital query, which
+  # we can say is {login: 'lmj112'}. This is then resolved using the ID
+  # parser to produce a {tid: 14678} object, which is then chained
+  # once more to the StudentProxy.
+  makeRequest: (query, user, delay = 0, salt = 0) ->
+
+    @parsers.reduce(
+      (prev, Parser) =>
+        prev.then (result) =>
+          @runParser Parser, result, user
+      @runParser @parsers[0], query, user
+    )
+
+  # Dispatches the request to scrap from our Proxy to our remote,
+  # and uses the PARSER to extract data from the response.
+  runParser: (Parser, query, user) ->
+    $q.fcall =>
+      url = Parser.url query
+      @reqcall request, @makeOptions url, user
+      .then (data) ->
+        Parser.parse url, query, data
+    
   # Returns an object suitable for use with the Request library.
   # Exp format.
   #
@@ -36,37 +58,12 @@ module.exports = class HTTPProxy
     auth.sendImmediately = true
     reqOptions = url: url, auth: auth
 
-  # Will generate a url from the parser, then using the supplied
-  # USER function, will access the credentials and make the request.
-  #
-  # Returns a promise that is resolved with the parsed data.
-  # If query if an ARRAY, will process each query individually.
-  #
-  # DELAY is the amount of time to delay the request by. Used to
-  # prevent contention for site target on large numbers of queries.
-  #
-  # SALT is used for multiple requests when they are better spread
-  # randomly over a time period. Again, is optional. Used for past
-  # paper scraping where +12 requests can cause congestion.
-  makeRequest: (query, user, delay = 0, salt = 0) ->
-
-    # If query is a promise, then first resolve.
-    $q.when query, (query) =>
-
-      # If query is an array then map over and generate a collective promise
-      if query instanceof Array
-        return $q.all query.map (q) =>
-          @makeRequest q, user, (delay + Math.random()*salt)
-
-      # Parse url from query
-      url = @Parser.url query
-
-      # Make request, feed result through parser and resolve promise.
-      $q.delay(1000*delay).then =>
-        nf3call request, @makeOptions url, user
-
-      # Pass the data through the Parser instance
-      .then (data) =>
-        @Parser.parse url, query, data
-
+  # Adaption of Q's nfcall for selecting the third of the callback
+  # arguments.
+  reqcall: (func, args...) ->
+    def = $q.defer()
+    func args..., (err, res, body) ->
+      if err then def.reject err
+      else def.resolve code: res.statusCode, body: body
+    def.promise
 

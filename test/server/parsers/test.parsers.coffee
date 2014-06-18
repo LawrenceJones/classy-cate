@@ -53,12 +53,9 @@ describe 'HTMLParser', ->
 
       tids.map (elem) ->
         [login, exp] = elem
-        it "should resolve #{login} to tid = #{exp}", (done) ->
+        it "should resolve #{login} to tid = #{exp}", ->
           validate(sidSchema, StudentIDProxy, login: login)
-          .then (json) ->
-            expect(json.tid).to.equal exp; do done
-          .catch (err) ->
-            console.log err
+          .should.eventually.have.key 'tid', exp
 
             
 

@@ -103,7 +103,6 @@ if !module.parent
   grepDoc.hotCompile() if NODE_ENV == 'development'
   grepDoc.route()
   grepDoc.serveStatic()
-  grepDoc.connectDb(undefined, true)
   grepDoc.run undefined, (err, msg) ->
     if err then throw new Error msg
     else console.log msg

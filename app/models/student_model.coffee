@@ -9,9 +9,8 @@ ApiFormats = require './student_model.api'
 config = require 'app/etc/config'
 require 'app/etc/db'
 
-HTTPProxy = require 'app/proxies/http_proxy'
-StudentProxy = new HTTPProxy require 'app/parsers/teachdb/student_parser'
-StudentIDProxy = new HTTPProxy require 'app/parsers/teachdb/student_id_parser'
+StudentProxy = require 'app/proxies/teachdb/student_proxy'
+
 
 studentSchema = mongoose.Schema
   validFrom: Number
@@ -73,7 +72,8 @@ getDbStudent = (login) ->
 #
 # Login is excluded for consistency and frankly very little need.
 getTid = (login, creds) ->
-  getDbStudent(login).then (student) ->
+  getDbStudent(login)
+  .then (student) ->
     if student?.tid then tid: student.tid
     else StudentIDProxy.makeRequest login: login, creds
 
@@ -127,9 +127,12 @@ studentSchema.methods.signToken = (password, expiry) ->
 # auth token signed into it's _meta field which the client can then
 # pick up.
 authWrapper = (login, pass) ->
+  def = $q.defer()
   creds = user: login, pass: pass
   getStudent(login, creds).then (student) ->
-    student.signToken pass
+    def.resolve student.signToken pass
+  .catch(def.reject).done()
+  def.promise
 
 Student = mongoose.model 'Student', studentSchema
 module.exports =
