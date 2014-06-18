@@ -68,8 +68,9 @@ classy.config [
       reloadOnSearch: false
       resolve:
         user: (AppState) -> AppState.loaded()
-        grades: (Grades, $stateParams) ->
-          Grades.all $stateParams
+        grades: (Grades, GradesCleaner, $stateParams) ->
+          (Grades.all $stateParams).$promise.then (resp) ->
+            GradesCleaner.clean resp.data
     }
 
     $stateProvider.state 'app.profile', {

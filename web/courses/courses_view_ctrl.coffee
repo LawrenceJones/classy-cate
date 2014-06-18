@@ -35,5 +35,3 @@ classy.controller 'CoursesViewCtrl', ($scope, $stateParams, course, grades, Note
   $scope.notes     = Notes.get $stateParams
   $scope.exercises = Exercises.get $stateParams
 
-  console.log $scope.course
-
