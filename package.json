@@ -40,7 +40,7 @@
     "should": "^4.0.4",
     "jayschema": "^0.2.7",
     "colorize": "git://github.com/LawrenceJones/colorize",
-    "watchme": "^0.3.3",
+    "watchme": "^0.4.0",
     "karma-coffee-preprocessor": "^0.2.1",
     "karma-jasmine": "^0.2.2",
     "chai": "^1.9.1",
@@ -55,7 +55,8 @@
     "read": "*",
     "karma-growl": "^0.1.0",
     "karma-spec-reporter": "0.0.13",
-    "karma-ng-jade2js-preprocessor": "^0.1.2"
+    "karma-ng-jade2js-preprocessor": "^0.1.2",
+    "chai-as-promised": "^4.1.1"
   },
   "engines": {
     "node": "0.10.x"
@@ -63,6 +64,7 @@
   "devDependencies": {
     "karma-opera-launcher": "^0.1.0",
     "karma-ie-launcher": "^0.1.5",
-    "karma-phantomjs-launcher": "^0.1.4"
+    "karma-phantomjs-launcher": "^0.1.4",
+    "mocha-as-promised": "^2.0.0"
   }
 }

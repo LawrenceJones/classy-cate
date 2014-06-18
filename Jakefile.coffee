@@ -160,7 +160,8 @@ task 'test', [], async: true, (pattern) ->
     [ 'test/server', '--recursive'
       '--compilers', 'coffee:coffee-script/register'
       '--globals', 'newW,clickpage', '--growl'
-      '--reporter', 'spec', '--colors', '--timeout', if process.API then '5000' else '1000'
+      '--reporter', 'spec', '--colors'
+      '--timeout', if process.API then '5000' else '1500'
       '--grep', pattern ? '' ]
     stdio: 'inherit' )# }}}
 

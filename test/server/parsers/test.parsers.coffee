@@ -1,27 +1,24 @@
-should = require 'should'
+$q = require 'q'
 creds = require 'test/server/creds'
 jayschema = new (JaySchema = require 'jayschema')
 
 ParserTools = require 'app/parsers'
 HTTPProxy = ParserTools.HTTPProxy
 
-validate = (schema, Proxy, query, done, cb) ->
-  req = Proxy.makeRequest query, creds
-  req.then (json) ->
-    jayschema.validate json, schema, (errs = []) ->
-      if errs.length > 0
-        errors = {}
-        for err in errs
-          (errors[err.desc] ?= []).push err
-        for own desc,errs of errors
-          console.error """\n
-          #{errs.length} instances of error "#{desc}"
-          Errors at [#{err.instanceContext+', ' for err in errs[0..1]}]\n
-          """
-        should.fail errs
-      cb?(json) || done?()
-  req.catch (err) ->
-    should.fail err
+# Given a jayschema, remote resource proxy and query parameters,
+# will attempt to make request and validate against schema.
+# Returns promise that is resolved if the instance checks out.
+validate = (schema, Proxy, query) ->
+  Proxy.makeRequest query, creds
+  .then (json) ->
+    jayschema.validate json, schema
+    return json
+  .catch (errs) ->
+    console.log errs
+    errors = {}
+    (errors[err.desc] ?= []).push err for err in errs
+    console.log desc for desc in Object.keys errors
+    throw Error
   
 describe 'Parsers', ->
 
@@ -39,16 +36,15 @@ describe 'Parsers', ->
           query.period = period; query
 
         [1..6].map (p) ->
-          it "should validate JSON for period #{p}", (done) ->
-            validate ttSchema, TimetableProxy, queryPeriod(p), done
+          it "should validate JSON for period #{p}", ->
+            validate ttSchema, TimetableProxy, queryPeriod(p)
 
   describe 'teachdb', ->
 
     describe 'StudentIDParser', ->
 
       sidSchema = require 'test/server/parsers/teachdb/schema.student_id_parser.coffee'
-      StudentIDParser = ParserTools.teachdb.StudentIDParser
-      StudentIDProxy = new HTTPProxy StudentIDParser
+      StudentIDProxy = new HTTPProxy ParserTools.teachdb.StudentIDParser
       tids = [
         ['lmj112', 14678]
         ['thb12', 14658]
@@ -58,10 +54,12 @@ describe 'Parsers', ->
       tids.map (elem) ->
         [login, exp] = elem
         it "should resolve #{login} to tid = #{exp}", (done) ->
-          validate sidSchema, StudentIDProxy, login: login, null, (student) ->
-            student.tid.should.eql exp if exp
-            student.login.should.eql login
-            do done
+          validate(sidSchema, StudentIDProxy, login: login)
+          .then (json) ->
+            expect(json.tid).to.equal exp; do done
+          .catch (err) ->
+            console.log err
+
             
 
     describe 'StudentParser', ->
@@ -80,7 +78,8 @@ describe 'Parsers', ->
 
         studentSchema = require 'test/server/parsers/teachdb/schema.student_parser.coffee'
         it "should validate JSON for tid #{creds.opt.tid}", (done) ->
-          validate studentSchema, StudentProxy, tid: creds.opt.tid, done
+          validate studentSchema, StudentProxy, tid: creds.opt.tid
+          .then (-> do done), done
 
       describe '#estimateYearStudied', ->
         estimateYears = StudentParser._helpers.estimateYearsStudied
@@ -97,10 +96,7 @@ describe 'Parsers', ->
       describe '#combinations', ->
         it "should return [['A','B'],['A','C'],['B','C']] when choosing 2 from ['A','B','C']", ->
           combos = StudentParser._helpers.combinations ['A','B','C'], 2
-          combos.should.containEql ['A','B']
-          combos.should.containEql ['A','C']
-          combos.should.containEql ['B','C']
-          combos.should.have.length 3
+          combos.should.deep.equal [['A','B'], ['A','C'], ['B','C']]
 
       describe '#findLongestRuns', ->
         findLongestRuns = StudentParser._helpers.findLongestRuns
@@ -110,13 +106,12 @@ describe 'Parsers', ->
           runs.should.not.have.key 'j2'
 
         it 'should accurately count successive classes', ->
-          runs.should.containEql c1: 3, c2:2
+          runs.should.deep.include c1: 3, c2:2
 
       describe '#bestGuessClasses', ->
         guesses = StudentParser._helpers.bestGuessClasses courses, 2012, new Date('12 June 2014')
         it 'should guess c1 and c2', ->
-          guesses.should.containEql 'c1', 'c2'
-          guesses.should.have.length 2
+          guesses.should.deep.equal ['c1', 'c2']
 
       describe '#url', ->
         it 'should generate correct url', ->

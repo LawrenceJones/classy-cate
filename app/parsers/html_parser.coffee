@@ -1,6 +1,7 @@
 $q = require 'q'
 jsdom = require 'jsdom'
 jquery = require 'jquery'
+HTTPProxy = require './http_proxy'
 
 # Base class for all HTML parsers. The general usage pattern
 # is: initialise the parser with the html src url, the query
@@ -56,9 +57,6 @@ module.exports = class HTMLParser
     if !moduleID?
       throw error: code: 404, msg: 'Module not found'
     [moduleID, moduleName]
-
-# Easy wrapper for generating a HTTPProxy of a parser.
-HTMLParser.__defineGetter__('proxy', -> new HTTPProxy @)
 
 
 

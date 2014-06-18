@@ -1,7 +1,5 @@
 # vi: set foldmethod=marker
 mongoose = require 'mongoose'
-assert = require 'assert'
-
 Models = require 'app/models'
 Student = Models.Student
 
@@ -39,21 +37,13 @@ describe 'StudentModel', ->
 
   describe '#getTid', ->
 
-    it 'should resolve tid from login', (done) ->
+    it 'should resolve tid from login', ->
       Student.getTid nic().login, creds
-      .then (student) ->
-        student.should.eql
-          tid: nic().tid, login: nic().login
-        do done
-      .catch done
+      .should.eventually.eql tid: nic().tid
 
-    it 'should catch invalid tid', (done) ->
+    it 'should catch invalid tid', ->
       Student.getTid 'totally_invalid', creds
-      .then (student) ->
-        student.should.eql
-          login: 'totally_invalid', tid: null
-        do done
-      .catch done
+      .should.eventually.eql tid: null
 
   describe '#getTeachdb', ->
 
@@ -73,9 +63,8 @@ describe 'StudentModel', ->
       Student.model.find {}, (err, students) -># {{{
         for json in students.map((b) -> b.api '1A')
           json.should.be.ok
-          json.should.have.properties [
-            'login', 'tid', 'email', 'fname', 'lname'
-            'cand', 'validFrom', 'validTo'
+          json.should.include.keys [
+            'login', 'tid', 'email', 'fname', 'lname', 'cand'
           ]
           do done# }}}
         
