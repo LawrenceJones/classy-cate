@@ -18,6 +18,7 @@ studentSeeds = require 'test/seeds/students'
 # Seed database before each test
 beforeEach (done) ->
   Student.register lawrence(), (err, student) ->
+    expect(err).to.be.null
     student.should.be.ok
     do done
 

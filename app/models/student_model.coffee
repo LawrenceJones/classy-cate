@@ -1,9 +1,9 @@
 $q = require 'q'
-
 Schema = (mongoose = require 'mongoose').Schema
 ObjectId = Schema.Types.ObjectId
+require 'app/etc/db'
 
-HTTPProxy = require 'app/parsers/http_proxy'
+HTTPProxy = require 'app/proxies/http_proxy'
 StudentProxy = new HTTPProxy require 'app/parsers/teachdb/student_parser'
 StudentIDProxy = new HTTPProxy require 'app/parsers/teachdb/student_id_parser'
 
@@ -82,10 +82,7 @@ register = (data, cb) ->
 #
 # Returns a promise that is resolved with a database student object.
 getDbStudent = (login) ->
-  def = $q.defer()
-  Student.findOne login: login, (err, student) ->
-    def.resolve student
-  def.promise
+  $q.nfcall Student.findOne, login: login
 
 # Given a students login, returns a promise that is resolved with the
 # students teachdb ID.
@@ -126,8 +123,7 @@ getTeachdbStudent = (login, creds, tid = false) ->
 getStudent = (login, creds, force = false) ->
   getDbStudent(login).then (student) ->
     if student and not force then student
-    else
-      getTeachdbStudent login, creds, student?.tid ? undefined
+    else getTeachdbStudent login, creds, student?.tid
 
 # Wraps around the getStudent function to allow easier authentication.
 # If successful, the returned promise will be resolved with user data

@@ -1,7 +1,7 @@
 # Parser tools manifest
 module.exports =
 
-  HTTPProxy:  require './http_proxy'
+  HTTPProxy:  require '../proxies/http_proxy'
   HTMLParser: require './html_parser'
 
   # CATe Parsers

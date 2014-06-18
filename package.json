@@ -16,7 +16,7 @@
     "compression": "^1.0.7",
     "express": "^4.4.3",
     "express-force-ssl": "^0.2.0",
-    "express-jwt": "git://github.com/LawrenceJones/express-jwt",
+    "express-jwt": "*",
     "gridfs-stream": "^0.4.1",
     "highlight.js": "^8.0.0",
     "jade": "*",

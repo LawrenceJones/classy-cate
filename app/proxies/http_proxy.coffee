@@ -32,9 +32,7 @@ module.exports = class HTTPProxy
   #     sendImmediately: true
   #
   makeOptions: (url, user) ->
-    # Retrieve the user credentials from the jwt store, or if testing
-    # and supplied as USER then user that.
-    auth = user?('USER_CREDENTIALS') ? user ? {}
+    auth = user ? {}
     auth.sendImmediately = true
     reqOptions = url: url, auth: auth
 

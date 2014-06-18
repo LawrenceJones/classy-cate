@@ -1,5 +1,5 @@
 $q = require 'q'
-HTTPProxy = require 'app/parsers/http_proxy'
+HTTPProxy = require 'app/proxies/http_proxy'
 StudentParser = require 'app/parsers/teachdb/student_parser'
 
 # Mongoose access

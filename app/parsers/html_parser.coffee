@@ -1,7 +1,7 @@
 $q = require 'q'
 jsdom = require 'jsdom'
 jquery = require 'jquery'
-HTTPProxy = require './http_proxy'
+HTTPProxy = require 'app/proxies/http_proxy'
 
 # Base class for all HTML parsers. The general usage pattern
 # is: initialise the parser with the html src url, the query
