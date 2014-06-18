@@ -152,17 +152,26 @@ task 'init-subs', [], async: true, ->
     [ 'Successfully init/update git submodules' ]
   )# }}}
 
-desc 'Runs mocha for tests'
-task 'test', [], async: true, (pattern) ->
+desc 'Runs mocha for tests, mocha args passed as key:val params'
+task 'test', [], async: true, (args...) ->
   title 'Running mocha test suite'# {{{
+
+  opts = []
+  cmdRex = /^([A-Za-z]+):(.+)$/
+  args.map (arg) ->
+    if cmdRex.test arg
+      [_, k, v] = arg.match cmdRex
+      opts.push "--#{k}", v
+
   spawn\
   ( 'mocha'
-    [ 'test/server', '--recursive'
+    [ 'test/server/spec_helper.coffee'
+      'test/server', '--recursive'
       '--compilers', 'coffee:coffee-script/register'
       '--globals', 'newW,clickpage', '--growl'
       '--reporter', 'spec', '--colors'
       '--timeout', if process.API then '5000' else '1500'
-      '--grep', pattern ? '' ]
+    ].concat opts
     stdio: 'inherit' )# }}}
 
 desc 'Start test watching'

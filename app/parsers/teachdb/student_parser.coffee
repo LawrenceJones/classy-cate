@@ -96,38 +96,39 @@ module.exports = class StudentParser extends HTMLParser
 
   # Extracts data from html
   extract: ($) ->
+    try
+      user = new Object
+      $('table[cellpadding=4] td[bgcolor=#cfdfdf]').map ->
+        $key = $(this)
+        $val = $key.next()
+        if (kv = keyParser strip($key), $val.text().trim())?
+          [key, val] = kv
+          user[key] = val unless val is ''
 
-    user = new Object
-    $('table[cellpadding=4] td[bgcolor=#cfdfdf]').map ->
-      $key = $(this)
-      $val = $key.next()
-      if (kv = keyParser strip($key), $val.text().trim())?
-        [key, val] = kv
-        user[key] = val unless val is ''
+      $courseTbl = $("h2:contains('Required Courses')").parent().parent()
+      if $courseTbl.length is 0
+        throw new Error 'Failed to find course table'
 
-    $courseTbl = $("h2:contains('Required Courses')").parent().parent()
-    if $courseTbl.length is 0
-      throw new Error 'Failed to find course table'
+      user.courses = []
+      $courseTbl.find('tr:gt(0)').map ->
+        d = [cid, name, eid, _terms, _, _classes] =
+          $(@).find('td:gt(0)').map -> strip $(@)
+        terms = _terms.split(',').map (t) -> parseInt t, 10
+        classes = _classes.split /,\s+/
+        user.courses.push
+          cid: cid, name: name, eid: T_Eid eid
+          terms: terms, classes: classes
 
-    user.courses = []
-    $courseTbl.find('tr:gt(0)').map ->
-      d = [cid, name, eid, _terms, _, _classes] =
-        $(@).find('td:gt(0)').map -> strip $(@)
-      terms = _terms.split(',').map (t) -> parseInt t, 10
-      classes = _classes.split /,\s+/
-      user.courses.push
-        cid: cid, name: name, eid: T_Eid eid
-        terms: terms, classes: classes
+      # Try to guess students classes
+      user.enrolment =
+        (for c,i in bestGuessClasses(user.courses, user.entryYear) ? []
+          year: user.entryYear+i, class: c)
 
-    # Try to guess students classes
-    user.enrolment =
-      (for c,i in bestGuessClasses(user.courses, user.entryYear) ? []
-        year: user.entryYear+i, class: c)
+    catch err
 
-    user['_meta'] =
-      tid: user.tid
-      login: user.login
-    user
+    return tid: n if err
+    user['_meta'] = tid: user.tid, login: user.login
+    return user
 
   # Requires a teachdb student ID
   # Eg. {tid: 10020175}

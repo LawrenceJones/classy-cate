@@ -34,7 +34,7 @@ module.exports = class HTTPProxy
   makeOptions: (url, user) ->
     # Retrieve the user credentials from the jwt store, or if testing
     # and supplied as USER then user that.
-    auth = user?('USER_CREDENTIALS') ? user
+    auth = user?('USER_CREDENTIALS') ? user ? {}
     auth.sendImmediately = true
     reqOptions = url: url, auth: auth
 
@@ -70,15 +70,5 @@ module.exports = class HTTPProxy
       # Pass the data through the Parser instance
       .then (data) =>
         @Parser.parse url, query, data
-
-  # Takes user login and password, resolves promise on whether
-  # CATE has accepted the credentials.
-  @auth: (user, pass) ->
-    $q.nf3call request,
-      url: 'https://teachdb.doc.ic.ac.uk'
-      auth:
-        user: user, pass: pass
-        sendImmediately: true
-
 
 

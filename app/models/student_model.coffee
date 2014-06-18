@@ -83,7 +83,8 @@ register = (data, cb) ->
 # Returns a promise that is resolved with a database student object.
 getDbStudent = (login) ->
   def = $q.defer()
-  Student.findOne login: login, def.makeNodeResolver()
+  Student.findOne login: login, (err, student) ->
+    def.resolve student
   def.promise
 
 # Given a students login, returns a promise that is resolved with the
@@ -98,7 +99,7 @@ getDbStudent = (login) ->
 #
 getTid = (login, creds) ->
   getDbStudent(login).then (student) ->
-    if student then tid: student.tid, login: student.login
+    if student?.tid then tid: student.tid
     else StudentIDProxy.makeRequest login: login, creds
 
 # Takes a LOGIN and optional TID value.
@@ -108,8 +109,9 @@ getTid = (login, creds) ->
 #   TID:   Optional teachdb ID of student, to skip indexing
 #
 # Returns a promise that is resolved with a student mongoose object.
-getTeachdbStudent = (login, creds, tid) ->
-  $q.fcall -> if tid then tid: tid else getTid login, creds
+getTeachdbStudent = (login, creds, tid = false) ->
+  $q.fcall ->
+    if tid then tid: tid else getTid login, creds
   .then (query) ->
     StudentProxy.makeRequest query, creds
 
@@ -118,13 +120,25 @@ getTeachdbStudent = (login, creds, tid) ->
 #
 #   LOGIN: College login
 #   CREDS: Authentication credentials
-#   FORCE: Forces a rescrape
+#   FORCE: Will rescrape Teachdb without supplying database
 #
 # Returns a promise that is resolved with a student object.
 getStudent = (login, creds, force = false) ->
   getDbStudent(login).then (student) ->
-    if student then student
-    else getTeachdbStudent login, creds
+    if student and not force then student
+    else
+      getTeachdbStudent login, creds, student?.tid ? undefined
+
+# Wraps around the getStudent function to allow easier authentication.
+# If successful, the returned promise will be resolved with user data
+# along with a token located in the _meta child.
+#
+#   LOGIN: College login
+#   PASS:  Password for Imperial systems
+#
+# Forces a real request into teachdb.
+authWrapper = (login, pass) ->
+  getStudent login, user: login, pass: pass, true
 
 Student = mongoose.model 'Student', studentSchema
 module.exports =
@@ -137,4 +151,5 @@ module.exports =
   get: getStudent
   getTeachdb: getTeachdbStudent
   getTid: getTid
+  auth: authWrapper
 

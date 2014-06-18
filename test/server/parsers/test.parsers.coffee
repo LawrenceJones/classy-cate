@@ -1,8 +1,8 @@
 $q = require 'q'
-creds = require 'test/server/creds'
 jayschema = new (JaySchema = require 'jayschema')
 
 ParserTools = require 'app/parsers'
+HTMLParser = ParserTools.HTMLParser
 HTTPProxy = ParserTools.HTTPProxy
 
 # Given a jayschema, remote resource proxy and query parameters,
@@ -20,7 +20,7 @@ validate = (schema, Proxy, query) ->
     console.log desc for desc in Object.keys errors
     throw Error
   
-describe 'Parsers', ->
+describe 'HTMLParser', ->
 
   describe 'CATe', ->
 

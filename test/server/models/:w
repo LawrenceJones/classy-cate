@@ -47,9 +47,10 @@ describe 'StudentModel', ->
 
   describe '#getTeachdb', ->
 
-    it 'should fail without crash with no credentials', (done) ->
+    it 'should fetch student info from teachdb if forced', ->
+      console.log '?HER'
       Student.getTeachdb lawrence().login, null # no creds
-      .catch (err) -> err.should.be.ok; do done
+      .should.be.rejected
 
   describe '#get', ->
 
