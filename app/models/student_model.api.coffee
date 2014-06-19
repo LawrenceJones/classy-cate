@@ -25,7 +25,7 @@ module.exports = formats =
       for e in @enrolment
         year ?= e.year if c.classes.indexOf(e.class) != -1
       _meta:
-        link: "/api/courses/#{c.year}/#{c.cid}"
+        link: "/api/courses/#{year}/#{c.cid}"
       cid: c.cid
       year: year
       name: c.name
