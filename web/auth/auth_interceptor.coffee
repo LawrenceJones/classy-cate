@@ -10,7 +10,6 @@ auth.factory\
         if $window.localStorage.token
           config.headers.Authorization =
             "Bearer #{$window.localStorage.token}"
-        console.log 'CONF', config.headers.Authorization
         return config || $q.when config
 
       responseError: (response) ->

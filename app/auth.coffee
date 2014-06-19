@@ -7,20 +7,16 @@ $q = require 'q'
 
 module.exports = Auth =
 
-  # Midware to guard unauthorized access by parsing jsonwebtokens
-  midware: (req, res, next) ->
-    if not req.user?
-      res.send 401, 'Token expired'
-    else next()
-
   # Verifies student is in database also
-  strictAuth: (login, pass) ->
-    $q.fcall ->
+  midware: (req, res, next) ->
+    $q.call ->
+      [login, pass] = [req.user.user, req.user.pass]
+    .then ->
       Student.getDbStudent req.user.login
     .then (student) ->
       req.dbuser = student
       next?()
-    .catch -> res.send 401, 'SRICT Token expired'
+    .catch -> res.send 401, 'Token expired'
     .done()
 
   # Validates user credentials. Only if both login and password
@@ -50,13 +46,9 @@ module.exports = Auth =
   reauthenticate: (req, res) ->
     res.json req.dbuser.signToken(req.user.pass).api()
 
-  # Returns the current users details.
-  # TODO - Temporary bandaid over non-functioning cacheing.
+  # Returns the current users details, only database accesses.
   whoami: (req, res) ->
-    req.body =
-      login: req.user.user
-      pass: req.user.pass
-    Auth.authenticate req, res
+    res.json req.dbuser.api()
 
 # Given an express app, configures auth utilities
 Auth.configure = (app) ->

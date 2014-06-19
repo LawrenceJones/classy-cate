@@ -17,7 +17,8 @@ studentSchema = mongoose.Schema
   validFrom: Number
   validTo: Number
   tid: Number
-  login: String
+  login:
+    type: String, index: true, unique: true
   email: String
   salutaion: String
   fname: String
@@ -77,7 +78,8 @@ getTid = (login, creds) ->
     if student?.tid then tid: student.tid
     else StudentIDProxy.makeRequest login: login, creds
 
-# Takes a LOGIN and optional TID value.
+# Takes a LOGIN and optional TID value, requests the data and SAVES
+# THIS INTO THE DATABASE AS A CACHE.
 #
 #   LOGIN: College login
 #   CREDS: Authentication credentials
@@ -87,10 +89,15 @@ getTid = (login, creds) ->
 getTeachdbStudent = (login, creds, tid = false) ->
   StudentProxy.makeRequest login: login, creds
   .then (student) ->
-    new Student student
+    def = $q.defer()
+    Student.findOneAndUpdate\
+    ( login: student.login
+    , student
+    , upsert: true, multi: false ).exec()
     
 # Fetches a student, either from our database or from teachdb if no
-# record is present.
+# record is present. If pulled from teachdb, then will be updated in
+# database to reflect this.
 #
 #   LOGIN: College login
 #   CREDS: Authentication credentials
