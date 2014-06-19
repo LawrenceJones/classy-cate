@@ -26,6 +26,8 @@ classy.factory 'Courses', (Resource, AppState, Format, Convert) ->
 
 classy.controller 'CoursesViewCtrl', ($scope, $stateParams, course, grades, Notes, Exercises) ->
 
+  # console.log grades
+
   filterGrades = (grades, cid) ->
     grades = (grades.filter (c) -> c.cid is cid)[0]
     grades?.clean()?.exercises ? []
@@ -34,4 +36,6 @@ classy.controller 'CoursesViewCtrl', ($scope, $stateParams, course, grades, Note
   $scope.grades    = filterGrades grades, course.cid
   $scope.notes     = Notes.get $stateParams
   $scope.exercises = Exercises.get $stateParams
+
+  console.log $scope.grades
 

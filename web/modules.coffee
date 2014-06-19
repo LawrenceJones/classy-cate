@@ -139,7 +139,7 @@ classy.service 'Current', (Convert) ->
     current.getFullYear()
 
   period: ->
-    5 # TODO: calculate this
+    3 # TODO: calculate this
 
   term: ->
     Convert.periodToTerm @period()
