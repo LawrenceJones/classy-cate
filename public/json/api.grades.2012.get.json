@@ -1,0 +1,708 @@
+[
+  {
+    "cid": "112",
+    "name": "Hardware",
+    "exercises": [
+      {
+        "id": 1,
+        "type": "CW",
+        "title": "Combinatorial Design",
+        "setBb": "dfg",
+        "declaration": "Tue - 30 Oct (v1)",
+        "extension": "",
+        "submission": "h: Tue - 30 Octe(1): Tue - 30 Oct 12:35:05",
+        "grade": "A*"
+      },
+      {
+        "id": 2,
+        "type": "CW",
+        "title": "Sequential Design",
+        "setBb": "dfg",
+        "declaration": "Tue - 22 Jan (v1)",
+        "extension": "",
+        "submission": "h: Tue - 22 Jane(1): Tue - 22 Jan 10:57:47",
+        "grade": "A*"
+      }
+    ],
+    "term": "Term(s): 1",
+    "submission": "REQUIRED",
+    "level": "Level 3"
+  },
+  {
+    "cid": "113",
+    "name": "Architecture",
+    "exercises": [
+      {
+        "id": 4,
+        "type": "CW",
+        "title": "ASSESSED_EX1",
+        "setBb": "nx210",
+        "declaration": "Tue - 19 Feb (v1)",
+        "extension": "",
+        "submission": "e(1): Tue - 19 Feb 19:02:23",
+        "grade": "A*"
+      }
+    ],
+    "term": "Term(s): 2",
+    "submission": "REQUIRED",
+    "level": "Level 3"
+  },
+  {
+    "cid": "120.1",
+    "name": "Programming I",
+    "exercises": [
+      {
+        "id": 2,
+        "type": "OT",
+        "title": "Haskell driving test",
+        "setBb": "ajf",
+        "declaration": "Wed - 14 Nov (v1)",
+        "extension": "",
+        "submission": "e(1): Wed - 14 Nov 14:53:30",
+        "grade": "A*"
+      },
+      {
+        "id": 3,
+        "type": "OT",
+        "title": "Haskell final test",
+        "setBb": "ajf",
+        "declaration": "Wed - 16 Jan (v1)",
+        "extension": "",
+        "submission": "e(1): Wed - 16 Jan 18:47:23",
+        "grade": "A*"
+      }
+    ],
+    "term": "Term(s): 1",
+    "submission": "REQUIRED",
+    "level": "Level 3"
+  },
+  {
+    "cid": "120.2",
+    "name": "Programming II",
+    "exercises": [
+      {
+        "id": 1,
+        "type": "OT",
+        "title": "Practice Java Test",
+        "setBb": "tora",
+        "declaration": "Thu - 03 Jan (v1)",
+        "extension": "",
+        "submission": "e(1): Thu - 03 Jan 11:58:33",
+        "grade": "A*"
+      },
+      {
+        "id": 7,
+        "type": "OT",
+        "title": "Driving Test Section B",
+        "setBb": "ar3",
+        "declaration": "Wed - 20 Mar (v1)",
+        "extension": "",
+        "submission": "e(1): Wed - 20 Mar 15:32:20",
+        "grade": "A*"
+      },
+      {
+        "id": 10,
+        "type": "OT",
+        "title": "ON-LINE TEST",
+        "setBb": "ar3",
+        "declaration": "Wed - 08 May (v1)",
+        "extension": "",
+        "submission": "e(1): Wed - 08 May 17:04:18",
+        "grade": "A+"
+      },
+      {
+        "id": 19,
+        "type": "OT",
+        "title": "Driving Test Section A",
+        "setBb": "afd",
+        "declaration": "Wed - 20 Mar (v1)",
+        "extension": "",
+        "submission": "e(1): Wed - 20 Mar 15:32:20",
+        "grade": "A+"
+      },
+      {
+        "id": 20,
+        "type": "OT",
+        "title": "Final Test - Section A",
+        "setBb": "afd",
+        "declaration": "Wed - 08 May (v1)",
+        "extension": "",
+        "submission": "e(1): Wed - 08 May 17:06:41",
+        "grade": "A+"
+      }
+    ],
+    "term": "Term(s): 1,2",
+    "submission": "REQUIRED",
+    "level": "Level 3"
+  },
+  {
+    "cid": "120.3",
+    "name": "Programming III",
+    "exercises": [
+      {
+        "id": 1,
+        "type": "CW",
+        "title": "ARM11 - Forming Groups",
+        "setBb": "tora",
+        "declaration": "Tue - 14 May (v7)",
+        "extension": "",
+        "submission": "as4712 (c1)",
+        "grade": ""
+      },
+      {
+        "id": 2,
+        "type": "CW",
+        "title": "ARM11 - Checkpoint",
+        "setBb": "tora",
+        "declaration": "Fri - 31 May (v7)",
+        "extension": "",
+        "submission": "as4712 (c1)e(1): Fri - 31 May 18:54:59",
+        "grade": "A*"
+      },
+      {
+        "id": 3,
+        "type": "CW",
+        "title": "ARM11 - Report",
+        "setBb": "tora",
+        "declaration": "Wed - 05 Jun (v7)",
+        "extension": "",
+        "submission": "as4712 (c1)e(1): Fri - 14 Jun 23:06:29",
+        "grade": "A*"
+      },
+      {
+        "id": 4,
+        "type": "CW",
+        "title": "ARM11 - Presentation Slides",
+        "setBb": "tora",
+        "declaration": "Tue - 18 Jun (v7)",
+        "extension": "",
+        "submission": "as4712 (c1)e(1): Tue - 18 Jun 18:33:30",
+        "grade": "A*"
+      },
+      {
+        "id": 5,
+        "type": "OT",
+        "title": "C Test",
+        "setBb": "tora",
+        "declaration": "Mon - 17 Jun (v1)",
+        "extension": "",
+        "submission": "e(1): Mon - 17 Jun 11:41:12",
+        "grade": "A*"
+      }
+    ],
+    "term": "Term(s): 3",
+    "submission": "REQUIRED",
+    "level": "Level 3"
+  },
+  {
+    "cid": "130",
+    "name": "Databases I",
+    "exercises": [
+      {
+        "id": 1,
+        "type": "T",
+        "title": "CWTest 1500-1700",
+        "setBb": "nd",
+        "declaration": "Tue - 12 Feb (v1)",
+        "extension": "",
+        "submission": "h: Tue - 12 Feb",
+        "grade": "A+"
+      }
+    ],
+    "term": "Term(s): 2",
+    "submission": "REQUIRED",
+    "level": "Level 3"
+  },
+  {
+    "cid": "140",
+    "name": "Logic",
+    "exercises": [
+      {
+        "id": 1,
+        "type": "PMT",
+        "title": "Syntax",
+        "setBb": "imh",
+        "declaration": "Mon - 15 Oct (v1)",
+        "extension": "",
+        "submission": "h: Mon - 15 Oct",
+        "grade": "A*"
+      },
+      {
+        "id": 2,
+        "type": "PMT",
+        "title": "Translations",
+        "setBb": "imh",
+        "declaration": "Mon - 22 Oct (v1)",
+        "extension": "",
+        "submission": "h: Mon - 22 Oct",
+        "grade": "A+"
+      },
+      {
+        "id": 3,
+        "type": "PMT",
+        "title": "Arguments",
+        "setBb": "imh",
+        "declaration": "Mon - 29 Oct (v1)",
+        "extension": "",
+        "submission": "h: Mon - 29 Oct",
+        "grade": "A*"
+      },
+      {
+        "id": 4,
+        "type": "PMT",
+        "title": "Equivs + nat ded",
+        "setBb": "imh",
+        "declaration": "Mon - 05 Nov (v1)",
+        "extension": "",
+        "submission": "h: Mon - 05 Nov",
+        "grade": "A+"
+      },
+      {
+        "id": 7,
+        "type": "PMT",
+        "title": "Semantics and translations",
+        "setBb": "imh",
+        "declaration": "Mon - 26 Nov (v1)",
+        "extension": "",
+        "submission": "h: Mon - 26 Nov",
+        "grade": "A*"
+      },
+      {
+        "id": 11,
+        "type": "T",
+        "title": "Xmas test",
+        "setBb": "imh",
+        "declaration": "Thu - 13 Dec (v1)",
+        "extension": "",
+        "submission": "h: Thu - 13 Dec",
+        "grade": "A+"
+      }
+    ],
+    "term": "Term(s): 1",
+    "submission": "REQUIRED",
+    "level": "Level 3"
+  },
+  {
+    "cid": "141",
+    "name": "Reasoning about Programs",
+    "exercises": [
+      {
+        "id": 1,
+        "type": "PMT",
+        "title": "Structural_Induction",
+        "setBb": "mjw03",
+        "declaration": "Fri - 01 Feb (v1)",
+        "extension": "",
+        "submission": "h: Fri - 01 Feb",
+        "grade": "A*"
+      },
+      {
+        "id": 2,
+        "type": "PMT",
+        "title": "Well-Founded Induction",
+        "setBb": "mjw03",
+        "declaration": "Fri - 08 Feb (v1)",
+        "extension": "",
+        "submission": "h: Fri - 08 Feb",
+        "grade": "A*"
+      },
+      {
+        "id": 3,
+        "type": "PMT",
+        "title": "Loops",
+        "setBb": "mjw03",
+        "declaration": "Fri - 22 Feb (v1)",
+        "extension": "",
+        "submission": "h: Fri - 22 Feb",
+        "grade": "B"
+      },
+      {
+        "id": 4,
+        "type": "PMT",
+        "title": "Loops - Part 2",
+        "setBb": "mjw03",
+        "declaration": "Fri - 08 Mar (v1)",
+        "extension": "",
+        "submission": "h: Fri - 08 Mar",
+        "grade": "A+"
+      }
+    ],
+    "term": "Term(s): 2",
+    "submission": "REQUIRED",
+    "level": "Level 3"
+  },
+  {
+    "cid": "142",
+    "name": "Discrete Mathematics",
+    "exercises": [
+      {
+        "id": 1,
+        "type": "PMT",
+        "title": "Exercise1",
+        "setBb": "yg",
+        "declaration": "Tue - 20 Nov (v1)",
+        "extension": "",
+        "submission": "h: Tue - 20 Nov",
+        "grade": "A*"
+      },
+      {
+        "id": 7,
+        "type": "PMT",
+        "title": "Graph Algorithms",
+        "setBb": "iccp",
+        "declaration": "Fri - 01 Mar (v1)",
+        "extension": "",
+        "submission": "h: Fri - 01 Mar",
+        "grade": "A*"
+      },
+      {
+        "id": 9,
+        "type": "PMT",
+        "title": "Sorting",
+        "setBb": "iccp",
+        "declaration": "Fri - 15 Mar (v1)",
+        "extension": "",
+        "submission": "h: Fri - 15 Mar",
+        "grade": "A+"
+      }
+    ],
+    "term": "Term(s): 1,2",
+    "submission": "REQUIRED",
+    "level": "Level 3"
+  },
+  {
+    "cid": "145",
+    "name": "Mathematical Methods",
+    "exercises": [
+      {
+        "id": 1,
+        "type": "MMT",
+        "title": "Diagnostic Test",
+        "setBb": "jb",
+        "declaration": "Thu - 04 Oct (v1)",
+        "extension": "",
+        "submission": "h: Thu - 04 Oct",
+        "grade": "A*"
+      },
+      {
+        "id": 2,
+        "type": "MMT",
+        "title": "Sequences and Limits",
+        "setBb": "jb",
+        "declaration": "Mon - 22 Oct (v1)",
+        "extension": "",
+        "submission": "h: Mon - 22 Oct",
+        "grade": "A+"
+      },
+      {
+        "id": 3,
+        "type": "MMT",
+        "title": "Series",
+        "setBb": "jb",
+        "declaration": "Mon - 29 Oct (v1)",
+        "extension": "",
+        "submission": "h: Mon - 29 Oct",
+        "grade": "A*"
+      },
+      {
+        "id": 4,
+        "type": "MMT",
+        "title": "Power series",
+        "setBb": "jb",
+        "declaration": "Mon - 05 Nov (v1)",
+        "extension": "",
+        "submission": "h: Mon - 05 Nov",
+        "grade": "A+"
+      },
+      {
+        "id": 5,
+        "type": "MMT",
+        "title": "Complex Numbers",
+        "setBb": "jb",
+        "declaration": "Mon - 12 Nov (v1)",
+        "extension": "",
+        "submission": "h: Mon - 12 Nov",
+        "grade": "A*"
+      },
+      {
+        "id": 6,
+        "type": "MMT",
+        "title": "Assessed Coursework",
+        "setBb": "jb",
+        "declaration": "Mon - 19 Nov (v1)",
+        "extension": "",
+        "submission": "h: Mon - 19 Nov",
+        "grade": "A*"
+      },
+      {
+        "id": 7,
+        "type": "MMT",
+        "title": "Vectors",
+        "setBb": "jb",
+        "declaration": "Mon - 26 Nov (v1)",
+        "extension": "",
+        "submission": "h: Mon - 26 Nov",
+        "grade": "A*"
+      },
+      {
+        "id": 8,
+        "type": "MMT",
+        "title": "Matrices",
+        "setBb": "jb",
+        "declaration": "Tue - 04 Dec (v1)",
+        "extension": "",
+        "submission": "h: Tue - 04 Dec",
+        "grade": "A*"
+      },
+      {
+        "id": 9,
+        "type": "T",
+        "title": "Christmas Test",
+        "setBb": "jb",
+        "declaration": "Thu - 13 Dec (v1)",
+        "extension": "",
+        "submission": "h: Thu - 13 Dec",
+        "grade": "A+"
+      }
+    ],
+    "term": "Term(s): 1",
+    "submission": "REQUIRED",
+    "level": "Level 3"
+  },
+  {
+    "cid": "161",
+    "name": "Laboratory 1",
+    "exercises": [
+      {
+        "id": 1,
+        "type": "PPT",
+        "title": "Haskell Quadratic",
+        "setBb": "tora",
+        "declaration": "Fri - 05 Oct (v1)",
+        "extension": "",
+        "submission": "e(1): Fri - 05 Oct 16:11:47",
+        "grade": "A"
+      },
+      {
+        "id": 2,
+        "type": "PPT",
+        "title": "Haskell Recursion",
+        "setBb": "tora",
+        "declaration": "Fri - 12 Oct (v1)",
+        "extension": "",
+        "submission": "e(1): Fri - 12 Oct 17:53:04",
+        "grade": "A"
+      },
+      {
+        "id": 3,
+        "type": "PPT",
+        "title": "Haskell HTML",
+        "setBb": "tora",
+        "declaration": "Fri - 19 Oct (v1)",
+        "extension": "",
+        "submission": "e(1): Fri - 19 Oct 18:52:08",
+        "grade": "A+"
+      },
+      {
+        "id": 4,
+        "type": "PPT",
+        "title": "Haskell L Systems",
+        "setBb": "tora",
+        "declaration": "Fri - 26 Oct (v1)",
+        "extension": "",
+        "submission": "e(1): Fri - 26 Oct 18:54:35",
+        "grade": "A*"
+      },
+      {
+        "id": 5,
+        "type": "PPT",
+        "title": "Haskell Calculus",
+        "setBb": "tora",
+        "declaration": "Tue - 06 Nov (v1)",
+        "extension": "",
+        "submission": "e(1): Tue - 06 Nov 18:59:36",
+        "grade": "A*"
+      },
+      {
+        "id": 6,
+        "type": "PPT",
+        "title": "Haskell Expression Parsing",
+        "setBb": "tora",
+        "declaration": "Wed - 07 Nov (v1)",
+        "extension": "",
+        "submission": "e(1): Fri - 09 Nov 18:53:45",
+        "grade": "A*"
+      },
+      {
+        "id": 7,
+        "type": "PPT",
+        "title": "Java Recursion",
+        "setBb": "tora",
+        "declaration": "Mon - 26 Nov (v1)",
+        "extension": "",
+        "submission": "e(1): Mon - 26 Nov 14:44:46",
+        "grade": "A*"
+      },
+      {
+        "id": 8,
+        "type": "PPT",
+        "title": "Java Loops and Arrays",
+        "setBb": "tora",
+        "declaration": "Mon - 03 Dec (v1)",
+        "extension": "",
+        "submission": "e(1): Mon - 03 Dec 14:44:51",
+        "grade": "A*"
+      },
+      {
+        "id": 9,
+        "type": "PPT",
+        "title": "Java Owari",
+        "setBb": "tora",
+        "declaration": "Mon - 10 Dec (v1)",
+        "extension": "",
+        "submission": "e(1): Mon - 10 Dec 18:05:33",
+        "grade": "A*"
+      },
+      {
+        "id": 10,
+        "type": "PPT",
+        "title": "Java Picture Processing",
+        "setBb": "tora",
+        "declaration": "Sun - 27 Jan (v1)",
+        "extension": "",
+        "submission": "e(1): Sun - 27 Jan 21:43:54",
+        "grade": "A*"
+      },
+      {
+        "id": 11,
+        "type": "PPT",
+        "title": "Java Turtle Interpreter",
+        "setBb": "tora",
+        "declaration": "Mon - 04 Feb (v1)",
+        "extension": "",
+        "submission": "e(1): Fri - 08 Feb 15:44:06",
+        "grade": "A*"
+      },
+      {
+        "id": 12,
+        "type": "PPT",
+        "title": "Java Discrete Event Simulation",
+        "setBb": "tora",
+        "declaration": "Mon - 18 Feb (v1)",
+        "extension": "",
+        "submission": "e(1): Mon - 18 Feb 18:30:49",
+        "grade": "A*"
+      },
+      {
+        "id": 13,
+        "type": "PPT",
+        "title": "Java Spreadsheet",
+        "setBb": "tora",
+        "declaration": "Fri - 01 Mar (v1)",
+        "extension": "",
+        "submission": "e(1): Fri - 01 Mar 22:54:46",
+        "grade": "A*"
+      },
+      {
+        "id": 14,
+        "type": "PPT",
+        "title": "SQL Film Queries",
+        "setBb": "tora",
+        "declaration": "Mon - 25 Feb (v1)",
+        "extension": "",
+        "submission": "e(1): Mon - 25 Feb 16:32:19",
+        "grade": "A*"
+      },
+      {
+        "id": 15,
+        "type": "PPT",
+        "title": "Assembler Matrix Multiplication",
+        "setBb": "tora",
+        "declaration": "Mon - 04 Mar (v1)",
+        "extension": "",
+        "submission": "e(1): Mon - 04 Mar 16:21:50",
+        "grade": "A*"
+      },
+      {
+        "id": 16,
+        "type": "PPT",
+        "title": "Java Dictionary",
+        "setBb": "tora",
+        "declaration": "Mon - 11 Mar (v1)",
+        "extension": "",
+        "submission": "e(1): Mon - 11 Mar 09:13:39",
+        "grade": "A*"
+      }
+    ],
+    "term": "Term(s): 1,2,3",
+    "submission": "REQUIRED",
+    "level": "Level 3"
+  },
+  {
+    "cid": "163",
+    "name": "Computing Topics",
+    "exercises": [
+      {
+        "id": 1,
+        "type": "PROJ",
+        "title": "Webpages",
+        "setBb": "mvalerae",
+        "declaration": "Thu - 14 Mar (v7)",
+        "extension": "",
+        "submission": "e(1): Thu - 14 Mar 17:36:38",
+        "grade": "A"
+      },
+      {
+        "id": 2,
+        "type": "PROJ",
+        "title": "Presentation",
+        "setBb": "mvalerae",
+        "declaration": "Wed - 20 Mar (v7)",
+        "extension": "",
+        "submission": "e(1): Wed - 20 Mar 12:53:40",
+        "grade": "A"
+      }
+    ],
+    "term": "Term(s): 2",
+    "submission": "REQUIRED",
+    "level": "Level 3"
+  },
+  {
+    "cid": "164",
+    "name": "Ethics in Computing 1",
+    "exercises": [
+      {
+        "id": 1,
+        "type": "CW",
+        "title": "Ethics Coursework",
+        "setBb": "ealpay",
+        "declaration": "Fri - 08 Feb (v13)",
+        "extension": "",
+        "submission": "e(1): Fri - 08 Feb 14:43:03",
+        "grade": "A"
+      }
+    ],
+    "term": "Term(s): 2",
+    "submission": "REQUIRED",
+    "level": "Level 3"
+  },
+  {
+    "cid": "165",
+    "name": "Presentation Skills",
+    "exercises": [
+      {
+        "id": 1,
+        "type": "T",
+        "title": "Attendance record",
+        "setBb": "ealpay",
+        "declaration": "Tue - 19 Mar (v1)",
+        "extension": "",
+        "submission": "h: Tue - 19 Mar",
+        "grade": "A*"
+      }
+    ],
+    "term": "Term(s): 2",
+    "submission": "REQUIRED",
+    "level": "Level 3"
+  }
+]
