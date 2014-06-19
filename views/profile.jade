@@ -10,7 +10,7 @@ mixin column(year)
           th.co-exam.hidden-xs Exam
           th.co-terms Terms
           th.co-classes.visible-lg.visible-sm Classes
-          th.co-level Level
+          th.hide.co-level Level
       tbody
         tr(ng-repeat="course in profile.courses | year:"+year)
           td.co-code
@@ -21,7 +21,7 @@ mixin column(year)
             a(exam-link='course') {{ course.eid }}
           td.co-terms {{ course.terms.join(", ") }}
           td.co-classes.visible-lg.visible-sm {{ course.classes.join(", ") }}
-          td.co-level {{ course.level }}
+          td.hide.co-level {{ course.level }}
  
 .row
   .col-md-12
@@ -41,7 +41,7 @@ mixin column(year)
             td.entry {{ profile.entryYear }}
           tr
             th.p-tutor.active Personal Tutor
-            td.p-tutor Ian Hodkinson (imh)
+            td.p-tutor {{ profile.tutor }}
 
     +column(2012)
   .col-md-6

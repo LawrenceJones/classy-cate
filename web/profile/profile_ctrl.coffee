@@ -12,7 +12,6 @@ grepdoc.factory 'Users', (Resource) ->
 grepdoc.controller 'ProfileCtrl', ($scope, AppState, Auth) ->
 
     # TODO: tidy up, balance properly, consider first years
-    console.log 'Profile'
     $scope.profile = profile = AppState.user = Auth.user
 
     console.log $scope.profile
