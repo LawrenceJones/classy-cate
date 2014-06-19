@@ -1,0 +1,232 @@
+{
+  "_meta": {
+    "link": "/api/courses/2013/233/exercises"
+  },
+  "collection": [
+    {
+      "number": "1",
+      "type": "CW",
+      "title": "Course work 1",
+      "start": 1391731200000,
+      "end": 1395964800000,
+      "mailto": "",
+      "spec": "",
+      "givens": [
+        {
+          "type": "specification",
+          "title": "spec-233-1.pdf",
+          "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:870:c2:SPECS:thb12",
+          "time": 0
+        }
+      ]
+    },
+    {
+      "number": "2",
+      "type": "TUT",
+      "title": "Exercises 1",
+      "start": 1390435200000,
+      "end": 1391040000000,
+      "mailto": "",
+      "spec": "",
+      "givens": [
+        {
+          "type": "specification",
+          "title": "spec-233-2.pdf",
+          "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:699:c2:SPECS:thb12",
+          "time": 0
+        },
+        {
+          "type": "answer",
+          "title": "cttut1-s.pdf",
+          "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:783:c2:MODELS:thb12",
+          "time": 0
+        }
+      ]
+    },
+    {
+      "number": "3",
+      "type": "TUT",
+      "title": "Exercises 2",
+      "start": 1391040000000,
+      "end": 1391644800000,
+      "mailto": "",
+      "spec": "",
+      "givens": [
+        {
+          "type": "specification",
+          "title": "spec-233-3.pdf",
+          "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:867:c2:SPECS:thb12",
+          "time": 0
+        },
+        {
+          "type": "answer",
+          "title": "cttut2s.pdf",
+          "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:863:c2:MODELS:thb12",
+          "time": 0
+        }
+      ]
+    },
+    {
+      "number": "4",
+      "type": "TUT",
+      "title": "Exercises 3",
+      "start": 1391644800000,
+      "end": 1392249600000,
+      "mailto": "",
+      "spec": "",
+      "givens": [
+        {
+          "type": "specification",
+          "title": "spec-233-4.pdf",
+          "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:868:c2:SPECS:thb12",
+          "time": 0
+        },
+        {
+          "type": "answer",
+          "title": "cttut3s.pdf",
+          "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:869:c2:MODELS:thb12",
+          "time": 0
+        }
+      ]
+    },
+    {
+      "number": "5",
+      "type": "TUT",
+      "title": "Exercises 4",
+      "start": 1392249600000,
+      "end": 1393372800000,
+      "mailto": "",
+      "spec": "",
+      "givens": [
+        {
+          "type": "specification",
+          "title": "spec-233-5.pdf",
+          "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:929:c2:SPECS:thb12",
+          "time": 0
+        },
+        {
+          "type": "answer",
+          "title": "cttut4s.pdf",
+          "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:976:c2:MODELS:thb12",
+          "time": 0
+        }
+      ]
+    },
+    {
+      "number": "6",
+      "type": "TUT",
+      "title": "Exercises 5",
+      "start": 1392854400000,
+      "end": 1393977600000,
+      "mailto": "",
+      "spec": "",
+      "givens": [
+        {
+          "type": "specification",
+          "title": "spec-233-6.pdf",
+          "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:1004:c2:SPECS:thb12",
+          "time": 0
+        },
+        {
+          "type": "answer",
+          "title": "cttut5s.pdf",
+          "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:1130:c2:MODELS:thb12",
+          "time": 0
+        }
+      ]
+    },
+    {
+      "number": "7",
+      "type": "TUT",
+      "title": "Norms+Condition",
+      "start": 1393545600000,
+      "end": 1394150400000,
+      "mailto": "",
+      "spec": "",
+      "givens": [
+        {
+          "type": "specification",
+          "title": "spec-233-7.pdf",
+          "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:1050:c2:SPECS:thb12",
+          "time": 0
+        },
+        {
+          "type": "answer",
+          "title": "cttut6.pdf",
+          "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:1051:c2:MODELS:thb12",
+          "time": 0
+        }
+      ]
+    },
+    {
+      "number": "8",
+      "type": "TUT",
+      "title": "MetricSpaces+Convergence",
+      "start": 1394150400000,
+      "end": 1395273600000,
+      "mailto": "",
+      "spec": "",
+      "givens": [
+        {
+          "type": "specification",
+          "title": "spec-233-8.pdf",
+          "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:1123:c2:SPECS:thb12",
+          "time": 0
+        },
+        {
+          "type": "answer",
+          "title": "cttut7.pdf",
+          "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:1124:c2:MODELS:thb12",
+          "time": 0
+        }
+      ]
+    },
+    {
+      "number": "9",
+      "type": "CW",
+      "title": "LaplaceTransforms",
+      "start": 1394755200000,
+      "end": 1395705600000,
+      "mailto": "",
+      "spec": "",
+      "givens": [
+        {
+          "type": "specification",
+          "title": "spec-233-9.pdf",
+          "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:1169:c2:SPECS:thb12",
+          "time": 0
+        },
+        {
+          "type": "answer",
+          "title": "cttut8.pdf",
+          "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:1170:c2:MODELS:thb12",
+          "time": 0
+        }
+      ]
+    },
+    {
+      "number": "10",
+      "type": "TUT",
+      "title": "Optimisation",
+      "start": 1395360000000,
+      "end": 1395964800000,
+      "mailto": "",
+      "spec": "",
+      "givens": [
+        {
+          "type": "specification",
+          "title": "spec-233-10.pdf",
+          "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:1193:c2:SPECS:thb12",
+          "time": 0
+        },
+        {
+          "type": "answer",
+          "title": "Cttut9.pdf",
+          "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:1194:c2:MODELS:thb12",
+          "time": 0
+        }
+      ]
+    }
+  ]
+}
+

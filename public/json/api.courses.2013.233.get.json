@@ -1,0 +1,21 @@
+{
+  "_meta": {
+    "link": "/api/courses/2013/233"
+  },
+  "cid": "233",
+  "name": "Computational Techniques",
+  "terms": [2],
+  "classes": [
+    "c2"
+  ],
+  "notes": {
+    "_meta": {
+      "link": "/api/courses/2013/233/notes"
+    }
+  },
+  "exercises": {
+    "_meta": {
+      "link": "/api/courses/2013/233/exercises"
+    }
+  }
+}
