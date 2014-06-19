@@ -1,8 +1,9 @@
 grepdoc = angular.module 'grepdoc'
 
-grepdoc.controller 'navYearDropdown', ->
-  restrict: 'AE'
-  templateUrl: '/partials/directives/nav_year_dropdown'
+grepdoc.directive 'navYearDropdown', ->
+  restrict: 'AEC'
+  replace: true
+  templateUrl: '/partials/directives/nav_year_dropdown.html'
   controller: ($scope, $state, AppState) ->
     $scope.availableYears = AppState.availableYears
     $scope.changeYear = (year) ->
