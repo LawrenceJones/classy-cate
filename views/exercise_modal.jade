@@ -11,5 +11,4 @@
           a(href='{{ex.spec}}') spec-{{cid}}-{{ex.num}}.pdf
     .cate-button
       .btn-group
-        button.btn.btn-default.btn-lg(ng-if="ex.submission" type="button")
-          | Submit on CATe
+        a.btn.btn-default.btn-lg(ng-if='ex.handin' target='_blank' href='{{ex.handin}}') Submit on CATe

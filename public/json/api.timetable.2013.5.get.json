@@ -122,7 +122,7 @@
           "group": true,
           "assessed": true,
           "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:5:1224:c2:SPECS:USER",
-          "handin": "handins.cgi?key=2013:5:598:c2:new:USER",
+          "handin": "https://cate.doc.ic.ac.uk/handins.cgi?key=2013:5:598:c2:new:USER",
           "moduleName": "2nd Year Group Projects",
           "moduleID": "271"
         }
