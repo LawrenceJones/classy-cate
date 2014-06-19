@@ -15,6 +15,7 @@ module.exports = formats =
     salutation: @salutation
     fname: @fname
     lname: @lname
+    tutor: @tutor
     origin: @origin
     entryYear: @entryYear
     url: @url

@@ -119,6 +119,15 @@ module.exports = class StudentParser extends HTMLParser
           cid: cid, name: name, eid: T_Eid eid
           terms: terms, classes: classes
 
+      user.tutor = null
+      $tutorTbl = $("h2:contains('Tutors/Supervisors')").parent().parent()
+      for row in $tutorTbl.find 'tr:gt(1)'
+        [tlogin, trole, _, _, tfname, tlname] =
+          $(row).find('td:gt(1)').map -> strip $(@)
+        if trole == 'Tutor'
+          user.tutor = "#{tfname} #{tlname} (#{tlogin})"
+          break
+
       # Try to guess students classes
       user.enrolment =
         (for c,i in bestGuessClasses(user.courses, user.entryYear) ? []

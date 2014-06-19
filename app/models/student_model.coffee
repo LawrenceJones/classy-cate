@@ -23,6 +23,7 @@ studentSchema = mongoose.Schema
   fname: String
   lname: String
   origin: String
+  tutor: String
   entryYear: Number
   url: String
   cand: String
