@@ -23,7 +23,6 @@ classy.controller 'TimetableCtrl', ($scope, $stateParams, $state, $modal,
 
   (timetable = Timetable.get($stateParams)).$promise
   .then (course) ->
-    console.log timetable.period
     $scope.periodRange = PeriodFormatter timetable.start, timetable.end
     $scope.courses = CourseFormatter timetable
     $scope.choosePeriod = (period) ->

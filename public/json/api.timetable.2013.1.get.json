@@ -23,7 +23,10 @@
           "start": 1381791600000,
           "end": 1382310000000,
           "mailto": "mailto:rbc@doc.ic.ac.uk?subject=Module 220 'Software Engineering Design' - Exercise 2",
-          "spec": "showfile.cgi?key=2013:1:67:c2:SPECS:am8112",
+          "submission": false,
+          "group": false,
+          "assessed": false,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:67:c2:SPECS:USER",
           "givens": {
             "year": "2013",
             "period": "1",
@@ -40,7 +43,10 @@
           "start": 1383004800000,
           "end": 1383868800000,
           "mailto": "mailto:rbc@doc.ic.ac.uk?subject=Module 220 'Software Engineering Design' - Exercise 4",
-          "spec": "showfile.cgi?key=2013:1:188:c2:SPECS:am8112",
+          "submission": true,
+          "group": false,
+          "assessed": true,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:188:c2:SPECS:USER",
           "moduleName": "Software Engineering Design",
           "moduleID": "220"
         },
@@ -51,7 +57,10 @@
           "start": 1384214400000,
           "end": 1384732800000,
           "mailto": "mailto:rbc@doc.ic.ac.uk?subject=Module 220 'Software Engineering Design' - Exercise 6",
-          "spec": "showfile.cgi?key=2013:1:307:c2:SPECS:am8112",
+          "submission": false,
+          "group": false,
+          "assessed": false,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:307:c2:SPECS:USER",
           "givens": {
             "year": "2013",
             "period": "1",
@@ -68,7 +77,10 @@
           "start": 1385424000000,
           "end": 1385942400000,
           "mailto": "mailto:rbc@doc.ic.ac.uk?subject=Module 220 'Software Engineering Design' - Exercise 8",
-          "spec": "showfile.cgi?key=2013:1:455:c2:SPECS:am8112",
+          "submission": false,
+          "group": false,
+          "assessed": false,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:455:c2:SPECS:USER",
           "moduleName": "Software Engineering Design",
           "moduleID": "220"
         },
@@ -79,7 +91,10 @@
           "start": 1381186800000,
           "end": 1381705200000,
           "mailto": "mailto:rbc@doc.ic.ac.uk?subject=Module 220 'Software Engineering Design' - Exercise 1",
-          "spec": "showfile.cgi?key=2013:1:47:c2:SPECS:am8112",
+          "submission": false,
+          "group": false,
+          "assessed": false,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:47:c2:SPECS:USER",
           "moduleName": "Software Engineering Design",
           "moduleID": "220"
         },
@@ -90,7 +105,10 @@
           "start": 1382396400000,
           "end": 1382918400000,
           "mailto": "mailto:rbc@doc.ic.ac.uk?subject=Module 220 'Software Engineering Design' - Exercise 3",
-          "spec": "showfile.cgi?key=2013:1:71:c2:SPECS:am8112",
+          "submission": false,
+          "group": false,
+          "assessed": false,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:71:c2:SPECS:USER",
           "givens": {
             "year": "2013",
             "period": "1",
@@ -107,7 +125,10 @@
           "start": 1383609600000,
           "end": 1384128000000,
           "mailto": "mailto:rbc@doc.ic.ac.uk?subject=Module 220 'Software Engineering Design' - Exercise 5",
-          "spec": "showfile.cgi?key=2013:1:292:c2:SPECS:am8112",
+          "submission": false,
+          "group": false,
+          "assessed": false,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:292:c2:SPECS:USER",
           "givens": {
             "year": "2013",
             "period": "1",
@@ -124,7 +145,10 @@
           "start": 1384819200000,
           "end": 1385337600000,
           "mailto": "mailto:rbc@doc.ic.ac.uk?subject=Module 220 'Software Engineering Design' - Exercise 7",
-          "spec": "showfile.cgi?key=2013:1:413:c2:SPECS:am8112",
+          "submission": false,
+          "group": false,
+          "assessed": false,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:413:c2:SPECS:USER",
           "moduleName": "Software Engineering Design",
           "moduleID": "220"
         },
@@ -135,14 +159,17 @@
           "start": 1386028800000,
           "end": 1386547200000,
           "mailto": "mailto:rbc@doc.ic.ac.uk?subject=Module 220 'Software Engineering Design' - Exercise 9",
-          "spec": "showfile.cgi?key=2013:1:519:c2:SPECS:am8112",
+          "submission": false,
+          "group": false,
+          "assessed": false,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:519:c2:SPECS:USER",
           "moduleName": "Software Engineering Design",
           "moduleID": "220"
         }
       ]
     },
     {
-      "id": "221",
+      "cid": "221",
       "name": "Compilers",
       "notes": [
         {
@@ -160,7 +187,10 @@
           "start": 1382310000000,
           "end": 1383264000000,
           "mailto": "mailto:phjk@doc.ic.ac.uk?subject=Module 221 'Compilers' - Exercise 2",
-          "spec": "showfile.cgi?key=2013:1:176:c2:SPECS:am8112",
+          "submission": true,
+          "group": false,
+          "assessed": true,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:176:c2:SPECS:USER",
           "moduleName": "Compilers",
           "moduleID": "221"
         },
@@ -171,14 +201,17 @@
           "start": 1381705200000,
           "end": 1382482800000,
           "mailto": "mailto:mjw03@doc.ic.ac.uk?subject=Module 221 'Compilers' - Exercise 1",
-          "spec": "showfile.cgi?key=2013:1:115:c2:SPECS:am8112",
+          "submission": true,
+          "group": true,
+          "assessed": true,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:115:c2:SPECS:USER",
           "moduleName": "Compilers",
           "moduleID": "221"
         }
       ]
     },
     {
-      "id": "223",
+      "cid": "223",
       "name": "Concurrency",
       "notes": [
         {
@@ -196,7 +229,10 @@
           "start": 1381705200000,
           "end": 1382310000000,
           "mailto": "mailto:da04@doc.ic.ac.uk?subject=Module 223 'Concurrency' - Exercise 2",
-          "spec": "showfile.cgi?key=2013:1:22:c2:SPECS:am8112",
+          "submission": false,
+          "group": false,
+          "assessed": false,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:22:c2:SPECS:USER",
           "givens": {
             "year": "2013",
             "period": "1",
@@ -213,7 +249,10 @@
           "start": 1384732800000,
           "end": 1385942400000,
           "mailto": "mailto:da04@doc.ic.ac.uk?subject=Module 223 'Concurrency' - Exercise 6",
-          "spec": "showfile.cgi?key=2013:1:312:c2:SPECS:am8112",
+          "submission": true,
+          "group": false,
+          "assessed": true,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:312:c2:SPECS:USER",
           "givens": {
             "year": "2013",
             "period": "1",
@@ -230,7 +269,10 @@
           "start": 1382310000000,
           "end": 1384128000000,
           "mailto": "mailto:da04@doc.ic.ac.uk?subject=Module 223 'Concurrency' - Exercise 3",
-          "spec": "showfile.cgi?key=2013:1:26:c2:SPECS:am8112",
+          "submission": false,
+          "group": false,
+          "assessed": false,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:26:c2:SPECS:USER",
           "givens": {
             "year": "2013",
             "period": "1",
@@ -247,7 +289,10 @@
           "start": 1384732800000,
           "end": 1385942400000,
           "mailto": "mailto:da04@doc.ic.ac.uk?subject=Module 223 'Concurrency' - Exercise 7",
-          "spec": "showfile.cgi?key=2013:1:51:c2:SPECS:am8112",
+          "submission": false,
+          "group": false,
+          "assessed": false,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:51:c2:SPECS:USER",
           "givens": {
             "year": "2013",
             "period": "1",
@@ -264,7 +309,10 @@
           "start": 1381100400000,
           "end": 1382310000000,
           "mailto": "mailto:da04@doc.ic.ac.uk?subject=Module 223 'Concurrency' - Exercise 1",
-          "spec": "showfile.cgi?key=2013:1:24:c2:SPECS:am8112",
+          "submission": false,
+          "group": false,
+          "assessed": false,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:24:c2:SPECS:USER",
           "givens": {
             "year": "2013",
             "period": "1",
@@ -281,7 +329,10 @@
           "start": 1382482800000,
           "end": 1383264000000,
           "mailto": "mailto:da04@doc.ic.ac.uk?subject=Module 223 'Concurrency' - Exercise 4",
-          "spec": "showfile.cgi?key=2013:1:177:c2:SPECS:am8112",
+          "submission": true,
+          "group": false,
+          "assessed": true,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:177:c2:SPECS:USER",
           "moduleName": "Concurrency",
           "moduleID": "223"
         },
@@ -292,7 +343,10 @@
           "start": 1384128000000,
           "end": 1385337600000,
           "mailto": "mailto:da04@doc.ic.ac.uk?subject=Module 223 'Concurrency' - Exercise 5",
-          "spec": "showfile.cgi?key=2013:1:49:c2:SPECS:am8112",
+          "submission": false,
+          "group": false,
+          "assessed": false,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:49:c2:SPECS:USER",
           "givens": {
             "year": "2013",
             "period": "1",
@@ -309,14 +363,17 @@
           "start": 1385510400000,
           "end": 1386288000000,
           "mailto": "mailto:da04@doc.ic.ac.uk?subject=Module 223 'Concurrency' - Exercise 8",
-          "spec": "showfile.cgi?key=2013:1:468:c2:SPECS:am8112",
+          "submission": false,
+          "group": false,
+          "assessed": false,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:468:c2:SPECS:USER",
           "moduleName": "Concurrency",
           "moduleID": "223"
         }
       ]
     },
     {
-      "id": "240",
+      "cid": "240",
       "name": "Models of Computation",
       "notes": [
         {
@@ -334,6 +391,9 @@
           "start": 1383091200000,
           "end": 1384214400000,
           "mailto": "mailto:pg@doc.ic.ac.uk?subject=Module 240 'Models of Computation' - Exercise 1",
+          "submission": true,
+          "group": false,
+          "assessed": true,
           "givens": {
             "year": "2013",
             "period": "1",
@@ -350,6 +410,9 @@
           "start": 1385510400000,
           "end": 1386547200000,
           "mailto": "mailto:pg@doc.ic.ac.uk?subject=Module 240 'Models of Computation' - Exercise 2",
+          "submission": true,
+          "group": false,
+          "assessed": true,
           "givens": {
             "year": "2013",
             "period": "1",
@@ -362,7 +425,7 @@
       ]
     },
     {
-      "id": "245",
+      "cid": "245",
       "name": "Statistics",
       "notes": [
         {
@@ -380,7 +443,10 @@
           "start": 1381705200000,
           "end": 1382310000000,
           "mailto": "mailto:mjw03@doc.ic.ac.uk?subject=Module 245 'Statistics' - Exercise 3",
-          "spec": "showfile.cgi?key=2013:1:243:c2:SPECS:am8112",
+          "submission": false,
+          "group": false,
+          "assessed": false,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:243:c2:SPECS:USER",
           "givens": {
             "year": "2013",
             "period": "1",
@@ -397,7 +463,10 @@
           "start": 1383264000000,
           "end": 1383868800000,
           "mailto": "mailto:mmavraka@doc.ic.ac.uk?subject=Module 245 'Statistics' - Exercise 5",
-          "spec": "showfile.cgi?key=2013:1:261:c2:SPECS:am8112",
+          "submission": false,
+          "group": false,
+          "assessed": false,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:261:c2:SPECS:USER",
           "givens": {
             "year": "2013",
             "period": "1",
@@ -414,7 +483,10 @@
           "start": 1384473600000,
           "end": 1385078400000,
           "mailto": "mailto:mmavraka@doc.ic.ac.uk?subject=Module 245 'Statistics' - Exercise 7",
-          "spec": "showfile.cgi?key=2013:1:431:c2:SPECS:am8112",
+          "submission": false,
+          "group": false,
+          "assessed": false,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:431:c2:SPECS:USER",
           "givens": {
             "year": "2013",
             "period": "1",
@@ -431,7 +503,10 @@
           "start": 1385683200000,
           "end": 1386288000000,
           "mailto": "mailto:mmavraka@doc.ic.ac.uk?subject=Module 245 'Statistics' - Exercise 9",
-          "spec": "showfile.cgi?key=2013:1:529:c2:SPECS:am8112",
+          "submission": false,
+          "group": false,
+          "assessed": false,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:529:c2:SPECS:USER",
           "givens": {
             "year": "2013",
             "period": "1",
@@ -448,7 +523,10 @@
           "start": 1385078400000,
           "end": 1385683200000,
           "mailto": "mailto:mmavraka@doc.ic.ac.uk?subject=Module 245 'Statistics' - Exercise 8",
-          "spec": "showfile.cgi?key=2013:1:433:c2:SPECS:am8112",
+          "submission": false,
+          "group": false,
+          "assessed": false,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:433:c2:SPECS:USER",
           "givens": {
             "year": "2013",
             "period": "1",
@@ -465,7 +543,10 @@
           "start": 1381100400000,
           "end": 1381705200000,
           "mailto": "mailto:mjw03@doc.ic.ac.uk?subject=Module 245 'Statistics' - Exercise 2",
-          "spec": "showfile.cgi?key=2013:1:241:c2:SPECS:am8112",
+          "submission": false,
+          "group": false,
+          "assessed": false,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:241:c2:SPECS:USER",
           "givens": {
             "year": "2013",
             "period": "1",
@@ -482,7 +563,10 @@
           "start": 1382655600000,
           "end": 1383264000000,
           "mailto": "mailto:mmavraka@doc.ic.ac.uk?subject=Module 245 'Statistics' - Exercise 4",
-          "spec": "showfile.cgi?key=2013:1:260:c2:SPECS:am8112",
+          "submission": false,
+          "group": false,
+          "assessed": false,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:260:c2:SPECS:USER",
           "givens": {
             "year": "2013",
             "period": "1",
@@ -499,7 +583,10 @@
           "start": 1383868800000,
           "end": 1384473600000,
           "mailto": "mailto:mmavraka@doc.ic.ac.uk?subject=Module 245 'Statistics' - Exercise 6",
-          "spec": "showfile.cgi?key=2013:1:375:c2:SPECS:am8112",
+          "submission": false,
+          "group": false,
+          "assessed": false,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:375:c2:SPECS:USER",
           "givens": {
             "year": "2013",
             "period": "1",
@@ -516,14 +603,17 @@
           "start": 1384732800000,
           "end": 1386720000000,
           "mailto": "mailto:mjw03@doc.ic.ac.uk?subject=Module 245 'Statistics' - Exercise 1",
-          "spec": "showfile.cgi?key=2013:1:423:c2:SPECS:am8112",
+          "submission": true,
+          "group": false,
+          "assessed": true,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:423:c2:SPECS:USER",
           "moduleName": "Statistics",
           "moduleID": "245"
         }
       ]
     },
     {
-      "id": "261",
+      "cid": "261",
       "name": "Laboratory 2",
       "notes": [
         {
@@ -541,7 +631,10 @@
           "start": 1381100400000,
           "end": 1382310000000,
           "mailto": "mailto:mjw03@doc.ic.ac.uk?subject=Module 261 'Laboratory 2' - Exercise 2",
-          "spec": "showfile.cgi?key=2013:1:29:c2:SPECS:am8112",
+          "submission": true,
+          "group": false,
+          "assessed": true,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:29:c2:SPECS:USER",
           "moduleName": "Laboratory 2",
           "moduleID": "261"
         },
@@ -552,7 +645,10 @@
           "start": 1383523200000,
           "end": 1385424000000,
           "mailto": "mailto:mjw03@doc.ic.ac.uk?subject=Module 261 'Laboratory 2' - Exercise 4",
-          "spec": "showfile.cgi?key=2013:1:291:c2:SPECS:am8112",
+          "submission": true,
+          "group": true,
+          "assessed": true,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:291:c2:SPECS:USER",
           "moduleName": "Laboratory 2",
           "moduleID": "261"
         },
@@ -563,7 +659,10 @@
           "start": 1385942400000,
           "end": 1386892800000,
           "mailto": "mailto:mjw03@doc.ic.ac.uk?subject=Module 261 'Laboratory 2' - Exercise 6",
-          "spec": "showfile.cgi?key=2013:1:497:c2:SPECS:am8112",
+          "submission": true,
+          "group": false,
+          "assessed": true,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:497:c2:SPECS:USER",
           "moduleName": "Laboratory 2",
           "moduleID": "261"
         },
@@ -574,7 +673,10 @@
           "start": 1380495600000,
           "end": 1381100400000,
           "mailto": "mailto:mjw03@doc.ic.ac.uk?subject=Module 261 'Laboratory 2' - Exercise 1",
-          "spec": "showfile.cgi?key=2013:1:12:c2:SPECS:am8112",
+          "submission": true,
+          "group": false,
+          "assessed": true,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:12:c2:SPECS:USER",
           "moduleName": "Laboratory 2",
           "moduleID": "261"
         },
@@ -585,7 +687,10 @@
           "start": 1381705200000,
           "end": 1382050800000,
           "mailto": "mailto:mjw03@doc.ic.ac.uk?subject=Module 261 'Laboratory 2' - Exercise 40",
-          "spec": "showfile.cgi?key=2013:1:121:c2:SPECS:am8112",
+          "submission": true,
+          "group": false,
+          "assessed": false,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:121:c2:SPECS:USER",
           "moduleName": "Laboratory 2",
           "moduleID": "261"
         },
@@ -596,7 +701,10 @@
           "start": 1382310000000,
           "end": 1383609600000,
           "mailto": "mailto:mjw03@doc.ic.ac.uk?subject=Module 261 'Laboratory 2' - Exercise 3",
-          "spec": "showfile.cgi?key=2013:1:175:c2:SPECS:am8112",
+          "submission": true,
+          "group": true,
+          "assessed": true,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:175:c2:SPECS:USER",
           "moduleName": "Laboratory 2",
           "moduleID": "261"
         },
@@ -607,14 +715,17 @@
           "start": 1384732800000,
           "end": 1386288000000,
           "mailto": "mailto:mjw03@doc.ic.ac.uk?subject=Module 261 'Laboratory 2' - Exercise 5",
-          "spec": "showfile.cgi?key=2013:1:378:c2:SPECS:am8112",
+          "submission": true,
+          "group": true,
+          "assessed": true,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:378:c2:SPECS:USER",
           "moduleName": "Laboratory 2",
           "moduleID": "261"
         }
       ]
     },
     {
-      "id": "275",
+      "cid": "275",
       "name": "C++ Introduction",
       "notes": [
         {
@@ -627,7 +738,7 @@
       "exercises": []
     },
     {
-      "id": "276",
+      "cid": "276",
       "name": "Introduction to Prolog",
       "notes": [
         {
@@ -645,7 +756,10 @@
           "start": 1384128000000,
           "end": 1385337600000,
           "mailto": "mailto:mjs@doc.ic.ac.uk?subject=Module 276 'Introduction to Prolog' - Exercise 2",
-          "spec": "showfile.cgi?key=2013:1:325:c2:SPECS:am8112",
+          "submission": false,
+          "group": false,
+          "assessed": false,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:325:c2:SPECS:USER",
           "givens": {
             "year": "2013",
             "period": "1",
@@ -662,7 +776,10 @@
           "start": 1385942400000,
           "end": 1386892800000,
           "mailto": "mailto:mjs@doc.ic.ac.uk?subject=Module 276 'Introduction to Prolog' - Exercise 6",
-          "spec": "showfile.cgi?key=2013:1:506:c2:SPECS:am8112",
+          "submission": false,
+          "group": false,
+          "assessed": false,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:506:c2:SPECS:USER",
           "givens": {
             "year": "2013",
             "period": "1",
@@ -679,7 +796,10 @@
           "start": 1384128000000,
           "end": 1385337600000,
           "mailto": "mailto:mjs@doc.ic.ac.uk?subject=Module 276 'Introduction to Prolog' - Exercise 3",
-          "spec": "showfile.cgi?key=2013:1:332:c2:SPECS:am8112",
+          "submission": false,
+          "group": false,
+          "assessed": false,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:332:c2:SPECS:USER",
           "givens": {
             "year": "2013",
             "period": "1",
@@ -696,7 +816,10 @@
           "start": 1384819200000,
           "end": 1385683200000,
           "mailto": "mailto:mjs@doc.ic.ac.uk?subject=Module 276 'Introduction to Prolog' - Exercise 4",
-          "spec": "showfile.cgi?key=2013:1:414:c2:SPECS:am8112",
+          "submission": true,
+          "group": true,
+          "assessed": true,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:414:c2:SPECS:USER",
           "givens": {
             "year": "2013",
             "period": "1",
@@ -713,7 +836,10 @@
           "start": 1384128000000,
           "end": 1385337600000,
           "mailto": "mailto:mjs@doc.ic.ac.uk?subject=Module 276 'Introduction to Prolog' - Exercise 1",
-          "spec": "showfile.cgi?key=2013:1:321:c2:SPECS:am8112",
+          "submission": false,
+          "group": false,
+          "assessed": false,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:321:c2:SPECS:USER",
           "givens": {
             "year": "2013",
             "period": "1",
@@ -730,14 +856,17 @@
           "start": 1385942400000,
           "end": 1386892800000,
           "mailto": "mailto:mjs@doc.ic.ac.uk?subject=Module 276 'Introduction to Prolog' - Exercise 5",
-          "spec": "showfile.cgi?key=2013:1:504:c2:SPECS:am8112",
+          "submission": false,
+          "group": false,
+          "assessed": false,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:1:504:c2:SPECS:USER",
           "moduleName": "Introduction to Prolog",
           "moduleID": "276"
         }
       ]
     },
     {
-      "id": "701",
+      "cid": "701",
       "name": "Programming Competition Training",
       "notes": [],
       "exercises": []

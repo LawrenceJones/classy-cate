@@ -145,10 +145,7 @@ classy.service 'Current', (Convert) ->
     Convert.periodToTerm @period()
 
   isToday: (date) ->
-    # Timetable debugging version:
-    date.midnight().getTime() is (new Date(2014, 1, 15).midnight().getTime())
-    # Final version:
-    # (date.midnight().getTime()) is (new Date(Date.now()).midnight.getTime())
+    (date.midnight().getTime()) is (new Date(Date.now()).midnight().getTime())
     
 
 # 

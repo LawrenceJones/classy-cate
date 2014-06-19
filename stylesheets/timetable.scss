@@ -11,7 +11,7 @@ $row-exercises-height: 45px;
 $course-names-border-spacing: 2px;
 $margin-from-navbar: 10px;
 $period-chooser-height: 35px;
-$days-margin-bottom: 30px;
+$days-margin-bottom: 10px;
 $day-height: 20px;
 $day-padding: 6px;
 $day-border: 1px;
@@ -48,7 +48,7 @@ $day-width: 30px;
       // margin-top: 2 * ($day-height + 2 * $day-padding) +
       //             $days-margin-bottom + 3 * $day-border - 
       //             $margin-from-navbar;
-      margin-top: 62px;
+      margin-top: 42px;
     }
 
     tr {
@@ -162,3 +162,21 @@ $day-width: 30px;
 
 }
 
+#exercise-modal {
+  .modal-header {
+    padding-bottom: 0;
+  }
+
+  .modal-body {
+
+    .givens-exercise {
+      margin-top: 30px;
+    }
+
+    .cate-button {
+      margin-top: 40px;
+      text-align: center;
+    }
+
+  }
+}

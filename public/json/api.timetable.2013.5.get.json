@@ -1,0 +1,139 @@
+{
+  "year": "2013",
+  "period": "5",
+  "start": 1398639600000,
+  "end": 1403823600000,
+  "courses": [
+    {
+      "cid": "203",
+      "name": "Human-Centred Design",
+      "notes": [
+        {
+          "year": 2013,
+          "code": 20,
+          "period": 5,
+          "links": []
+        }
+      ],
+      "exercises": [
+        {
+          "num": "1",
+          "type": "PROJ",
+          "title": "HCD Presentation",
+          "start": 1401663600000,
+          "end": 1402009200000,
+          "mailto": "mailto:mjw03@doc.ic.ac.uk?subject=Module 203 'Human-Centred Design' - Exercise 1",
+          "submission": false,
+          "group": true,
+          "assessed": true,
+          "moduleName": "Human-Centred Design",
+          "moduleID": "203"
+        },
+        {
+          "num": "40",
+          "type": "REP",
+          "title": "HCD Groups",
+          "start": 1398639600000,
+          "end": 1400194800000,
+          "mailto": "mailto:mjw03@doc.ic.ac.uk?subject=Module 203 'Human-Centred Design' - Exercise 40",
+          "submission": true,
+          "group": true,
+          "assessed": false,
+          "moduleName": "Human-Centred Design",
+          "moduleID": "203"
+        },
+        {
+          "num": "2",
+          "type": "REP",
+          "title": "HCD Report",
+          "start": 1401404400000,
+          "end": 1402614000000,
+          "mailto": "mailto:mjw03@doc.ic.ac.uk?subject=Module 203 'Human-Centred Design' - Exercise 2",
+          "submission": true,
+          "group": true,
+          "assessed": true,
+          "moduleName": "Human-Centred Design",
+          "moduleID": "203"
+        }
+      ]
+    },
+    {
+      "cid": "271",
+      "name": "2nd Year Group Projects",
+      "notes": [
+        {
+          "year": 2013,
+          "code": 32,
+          "period": 5,
+          "links": []
+        }
+      ],
+      "exercises": [
+        {
+          "num": "4",
+          "type": "CW",
+          "title": "Law Case Study",
+          "start": 1400799600000,
+          "end": 1401836400000,
+          "mailto": "mailto:dham@doc.ic.ac.uk?subject=Module 271 '2nd Year Group Projects' - Exercise 4",
+          "submission": true,
+          "group": true,
+          "assessed": true,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:5:1257:c2:SPECS:USER",
+          "moduleName": "2nd Year Group Projects",
+          "moduleID": "271"
+        },
+        {
+          "num": "1",
+          "type": "REP",
+          "title": "Milestone Report",
+          "start": 1400454000000,
+          "end": 1401231600000,
+          "mailto": "mailto:mjw03@doc.ic.ac.uk?subject=Module 271 '2nd Year Group Projects' - Exercise 1",
+          "submission": true,
+          "group": true,
+          "assessed": true,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:5:1222:c2:SPECS:USER",
+          "moduleName": "2nd Year Group Projects",
+          "moduleID": "271"
+        },
+        {
+          "num": "2",
+          "type": "REP",
+          "title": "Project Report",
+          "start": 1401663600000,
+          "end": 1402441200000,
+          "mailto": "mailto:mjw03@doc.ic.ac.uk?subject=Module 271 '2nd Year Group Projects' - Exercise 2",
+          "submission": true,
+          "group": true,
+          "assessed": true,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:5:1223:c2:SPECS:USER",
+          "moduleName": "2nd Year Group Projects",
+          "moduleID": "271"
+        },
+        {
+          "num": "3",
+          "type": "PROJ",
+          "title": "Demonstration and Presentation",
+          "start": 1402873200000,
+          "end": 1403218800000,
+          "mailto": "mailto:mjw03@doc.ic.ac.uk?subject=Module 271 '2nd Year Group Projects' - Exercise 3",
+          "submission": true,
+          "group": true,
+          "assessed": true,
+          "spec": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:5:1224:c2:SPECS:USER",
+          "handin": "handins.cgi?key=2013:5:598:c2:new:USER",
+          "moduleName": "2nd Year Group Projects",
+          "moduleID": "271"
+        }
+      ]
+    },
+    {
+      "id": "701",
+      "name": "Programming Competition Training",
+      "notes": [],
+      "exercises": []
+    }
+  ],
+  "termTitle": "Summer Term 2013-2014"
+}
