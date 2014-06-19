@@ -20,11 +20,14 @@ module.exports = formats =
     url: @url
     cand: @cand
     profile: @profile
-    courses: @courses.map (c) ->
+    courses: @courses.map (c) =>
+      year = null
+      for e in @enrolment
+        year ?= e.year if c.classes.indexOf(e.class) != -1
       _meta:
         link: "/api/courses/#{c.year}/#{c.cid}"
-        year: c.year
       cid: c.cid
+      year: year
       name: c.name
       eid: c.eid
       terms: c.terms
