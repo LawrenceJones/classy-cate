@@ -27,6 +27,7 @@ module.exports = class HTMLParser
   @parse: (url, query, html) ->
     $ = jquery(window = jsdom.jsdom().createWindow())
     $('html').html html
+    throw Error 401 if /Authorization Required/.test $('title').html()
     parser = new @ url, query, $
     data = parser.extract $
     parser = $ = null

@@ -125,8 +125,8 @@ studentSchema.methods.signToken = (password, expiry) ->
 # auth token signed into it's _meta field which the client can then
 # pick up.
 authWrapper = (login, pass) ->
-  creds = user: login, pass: pass
-  getTeachdbStudent(login, creds).then (student) ->
+  getTeachdbStudent login, user: login, pass: pass
+  .then (student) ->
     student.signToken pass
 
 Student = mongoose.model 'Student', studentSchema
@@ -140,6 +140,7 @@ module.exports =
   # Helper functions
   register: register
   get: getStudent
+  getDb: getDbStudent
   getTeachdb: getTeachdbStudent
   getTid: getTid
   auth: authWrapper

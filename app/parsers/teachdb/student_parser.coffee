@@ -134,6 +134,7 @@ module.exports = class StudentParser extends HTMLParser
   # Eg. {tid: 10020175}
   @url: (query) ->
     tid = query.tid
-    if not tid then throw Error 'Missing query parameters'
+    if not tid then throw Error """
+    Missing tid for StudentParser #{JSON.stringify query}"""
     "#{@TEACH_DOMAIN}/db/All/viewrec?table=Student&id=#{tid}"
 

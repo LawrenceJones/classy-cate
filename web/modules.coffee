@@ -146,15 +146,6 @@ grepdoc.service 'AppState', (Auth, Current, Users, $location, $q) ->
 
 grepdoc.run ($q, $rootScope, $state, $stateParams, $location, AppState, $http) ->
 
-  $http
-    url: '/authenticate'
-    data: login: 'lmj112', pass: 'tenT1nyFingers'
-    method: 'POST'
-  .success ->
-    console.log arguments
-    
-
-
   # Keep track of state in $rootScope
   $rootScope.$on '$stateChangeSuccess', ($event, state, $stateParams) ->
     $rootScope.currentState = state.name

@@ -24,8 +24,9 @@ module.exports = class HTTPIndexedProxy extends HTTPProxy
   # As the ID resolves the tid, which can be used as an index
   # into StudentParser.
   makeRequest: (query, user, delay = 0, salt = 0) ->
-    @runParser @IndexParser, query, user
-    .then (result) =>
-      @runParser @Parser, result, user
+    [index, parse] = [@IndexParser, @Parser]
+    @runParser index, query, user
+    .then (secondKey) =>
+      @runParser parse, secondKey, user
 
 

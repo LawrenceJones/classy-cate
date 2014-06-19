@@ -36,13 +36,19 @@ describe 'StudentModel', ->
       student.should.be.ok
       do done
 
-  it 'should authenticate successfully with ~/.imp details', ->
+  it 'should authenticate successfully with ~/.imp details', (done) ->
     Student.auth creds.user, creds.pass
-    .should.be.fulfilled
+    .then (student) ->
+      student.api().should.have.property 'login', creds.user
+      do done
+    .catch done
 
-  it 'should fail to authenticate with scrambled password', ->
+  it 'should fail to authenticate with scrambled password', (done) ->
     Student.auth creds.user, 'djiowjeiow'
-    .should.be.rejected
+    .catch (err) ->
+      err.message.should.equal '401'
+      do done
+    .catch done
 
   describe '#getTid', ->
 
@@ -50,7 +56,7 @@ describe 'StudentModel', ->
       Student.getTid nic().login, creds
       .should.eventually.eql tid: nic().tid
 
-    it 'should catch invalid tid', ->
+    it 'should not fail on invalid tid', ->
       Student.getTid 'totally_invalid', creds
       .should.eventually.eql tid: null
 

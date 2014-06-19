@@ -15,8 +15,9 @@ auth.factory\
           Auth.user = undefined if force
           def = $q.defer()
           if not Auth.user?
-            $http.patch '/authenticate'
-            .success (user) => def.resolve(Auth.user = user)
+            $http.get '/whoami'
+            .success (user) -> def.resolve(Auth.user = user)
+            .error -> def.reject Error 404
           else def.resolve Auth.user
           def.promise
 
@@ -24,9 +25,7 @@ auth.factory\
         # JSON token string.
         @storeToken: (data, verbose = true) ->
           console.log 'Success: Authenticated' if verbose
-          Auth.user = data.user
-          $window.localStorage.token = data.token
-          return data
+          $window.localStorage.token = data
 
         # Remove the token from windows localStorage. Also clear the user
         # field of Auth.
@@ -43,10 +42,9 @@ auth.factory\
             method: 'POST', url: '/authenticate'
             data: login: login, pass: pass
           .success (student, status, headers, config) ->
-            console.log student
             Auth.storeToken student._meta.token, verbose
             delete student['token']
-            def.resolve student
+            def.resolve Auth.user = student
           .error -> def.reject Auth.clearToken verbose
           def.promise
 

@@ -23,10 +23,12 @@ module.exports = class HTTPProxy
   # Dispatches the request to scrap from our Proxy to our remote,
   # and uses the PARSER to extract data from the response.
   runParser: (Parser, query, user) ->
-    url = Parser.url query
-    @reqcall request, (@makeOptions url, user)
-    .then (data) ->
-      Parser.parse url, query, data
+    $q.fcall -> Parser.url query
+    .then (url) =>
+      @reqcall request, (@makeOptions url, user)
+      .catch -> throw Error 401
+      .then (data) ->
+        Parser.parse url, query, data
     
   # Returns an object suitable for use with the Request library.
   # Exp format.
@@ -47,9 +49,10 @@ module.exports = class HTTPProxy
   # arguments.
   # Resolves promise with a http status CODE and html BODY
   reqcall: (func, args...) ->
-    def = $q.defer()
-    func args..., (err, res, body) ->
-      if err then def.reject err
-      else def.resolve body
-    def.promise
+    $q.fcall ->
+      def = $q.defer()
+      func args..., (err, res, body) ->
+        if err then def.reject err
+        else def.resolve body
+      def.promise
 
