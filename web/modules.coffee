@@ -158,6 +158,7 @@ classy.service 'AppState', (Auth, Current, Users, $location, $q) ->
 
   updateYear: (year) ->
     if year in @availableYears then @currentYear = year
+    console.log "Set year to #{@currentYear}"
 
   # Returns a promise which resolves with a Users instance encapsulating
   # a user profile. Profile also added to AppState.user
