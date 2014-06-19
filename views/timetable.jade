@@ -7,11 +7,11 @@
         span(class="caret")
       ul.dropdown-menu
         li 
-          a(href='#' ng-click='choosePeriod(1)') Autumn Term
+          a(ng-click='choosePeriod(1)') Autumn Term
         li 
-          a(href='#' ng-click='choosePeriod(3)') Spring Term
+          a(ng-click='choosePeriod(3)') Spring Term
         li 
-          a(href='#' ng-click='choosePeriod(5)') Summer Term
+          a(ng-click='choosePeriod(5)') Summer Term
             
     table.table
       tr(course-cell='course', ng-repeat='course in courses')
