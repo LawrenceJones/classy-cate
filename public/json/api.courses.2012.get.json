@@ -223,11 +223,32 @@
     "_link": "/api/courses/2013/245"
   },
   {
+    "cid": "252",
+    "name": "Foreign Language II",
+    "classes": [ "c2" ],
+    "terms": [ 1, 2 ],
+    "_link": "/api/courses/2013/252"
+  },
+  {
     "cid": "261",
     "name": "Laboratory 2",
-    "classes": [ "c2", "j2" ],
+    "classes": [ "c2" ],
     "terms": [ 1, 2 ],
     "_link": "/api/courses/2013/261"
+  },
+  {
+    "cid": "261J",
+    "name": "JMC2 Laboratory",
+    "classes": [ "j2" ],
+    "terms": [ 1, 2 ],
+    "_link": "/api/courses/2013/261J"
+  },
+  {
+    "cid": "265",
+    "name": "Ethics in Computing 2",
+    "classes": [],
+    "terms": [ 1 ],
+    "_link": "/api/courses/2013/265"
   },
   {
     "cid": "271",
