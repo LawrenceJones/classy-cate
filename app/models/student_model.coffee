@@ -57,9 +57,8 @@ register = (data, cb) ->
 #
 # Returns a promise that is resolved with a database student object.
 getDbStudent = (login) ->
-  def = $q.defer()
-  Student.findOne login: login, def.makeNodeResolver()
-  def.promise
+  $q.when Student.findOne(login: login).exec()
+  .catch -> return undefined
 
 # Given a students login, returns a promise that is resolved with the
 # students teachdb ID.

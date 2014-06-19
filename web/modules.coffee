@@ -112,7 +112,6 @@ grepdoc.service 'Current', (Convert) ->
   term: ->
     Convert.periodToTerm @period()
 
-# 
 grepdoc.service 'AppState', (Auth, Current, Users, $location, $q) ->
   currentYear:    Current.academicYear()
   currentPeriod:  Current.period()
@@ -124,7 +123,9 @@ grepdoc.service 'AppState', (Auth, Current, Users, $location, $q) ->
     if year in @availableYears then @currentYear = year
 
 
-grepdoc.run ($rootScope, $stateParams, AppState) ->
+grepdoc.run ($rootScope, $stateParams, AppState, Auth) ->
+
+  Auth.whoami true
 
   # Keep track of state in $rootScope
   $rootScope.$on '$stateChangeSuccess', ($event, state, $stateParams) ->

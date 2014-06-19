@@ -1,0 +1,11 @@
+li.nav-left-divided.dropdown(ng-controller='YearCtrl')
+  a.dropdown-toggle(data-toggle='dropdown')
+    i.fa.fa-history
+  ul.dropdown-menu
+    li.dropdown-header
+      | Academic year
+    li(ng-repeat='year in availableYears | numericalSort | reverse'
+        ng-click='changeYear(year)'
+        ng-class='{active: currentYear == year}')
+      a {{ year }}
+

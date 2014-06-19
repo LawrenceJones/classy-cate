@@ -9,14 +9,14 @@ module.exports = Auth =
 
   # Verifies student is in database also
   midware: (req, res, next) ->
-    $q.call ->
-      [login, pass] = [req.user.user, req.user.pass]
-    .then ->
-      Student.getDbStudent req.user.login
+    console.log "CHECK #{req.user.user}"
+    Student.getDb req.user.user
     .then (student) ->
+      throw Error 'Student not in DB' if not student?
       req.dbuser = student
       next?()
-    .catch -> res.send 401, 'Token expired'
+    .catch (err) ->
+      res.send 401, err.toString()
     .done()
 
   # Validates user credentials. Only if both login and password
@@ -48,6 +48,7 @@ module.exports = Auth =
 
   # Returns the current users details, only database accesses.
   whoami: (req, res) ->
+    console.log "WHOAMI #{req.user.user}"
     res.json req.dbuser.api()
 
 # Given an express app, configures auth utilities
