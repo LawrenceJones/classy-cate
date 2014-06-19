@@ -24,12 +24,10 @@ module.exports = formats =
       _meta:
         link: "/api/courses/#{c.year}/#{c.cid}"
         year: c.year
-        cid: c.cid
-      data:
-        cid: c.cid
-        name: c.name
-        eid: c.eid
-        terms: c.terms
-        classes: c.classes
+      cid: c.cid
+      name: c.name
+      eid: c.eid
+      terms: c.terms
+      classes: c.classes
     enrolment: @enrolment
 

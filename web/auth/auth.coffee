@@ -4,20 +4,19 @@ auth.factory\
 , [ '$q', '$http', '$window', '$state'
     ($q,   $http,   $window,   $state) ->
 
-      deferred = null
-
       class Auth
-
-        @user = null
 
         # Returns user information for the currently logged in user
         @whoami: (force = false) ->
           Auth.user = undefined if force
           def = $q.defer()
           if not Auth.user?
-            $http.get '/whoami'
+            $http
+              method: 'GET'
+              cache: true
+              url: '/api/whoami'
             .success (user) -> def.resolve(Auth.user = user)
-            .error -> def.reject Error 404
+            .error (err) -> def.reject err
           else def.resolve Auth.user
           def.promise
 

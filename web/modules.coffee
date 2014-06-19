@@ -43,8 +43,7 @@ grepdoc.config [
       abstract: true
       url: '?year'
       reloadOnSearch: false
-      resolve:
-        user: (AppState) -> AppState.loaded()
+      resolve: user: (Auth) -> Auth.whoami()
     }
 
     $stateProvider.state 'app.profile', {
@@ -124,27 +123,8 @@ grepdoc.service 'AppState', (Auth, Current, Users, $location, $q) ->
   updateYear: (year) ->
     if year in @availableYears then @currentYear = year
 
-  # Returns a promise which resolves with a Users instance encapsulating
-  # a user profile. Profile also added to AppState.user
-  loaded: ->
-    def = $q.defer()
-    def.resolve @user if @user?
 
-    (Auth.whoami true)
-      .then (login) =>
-        (Users.get login: 'thb12').$promise
-          .then (response) =>
-            @user = (user = response.data)
-            def.resolve user
-          .catch (err) ->
-            def.reject err
-      .catch (err) ->
-        def.reject err
-
-    def.promise
-
-
-grepdoc.run ($q, $rootScope, $state, $stateParams, $location, AppState, $http) ->
+grepdoc.run ($rootScope, $stateParams, AppState) ->
 
   # Keep track of state in $rootScope
   $rootScope.$on '$stateChangeSuccess', ($event, state, $stateParams) ->
@@ -152,43 +132,3 @@ grepdoc.run ($q, $rootScope, $state, $stateParams, $location, AppState, $http) -
     $rootScope.courseState  = /app\.courses/.test state.name
 
     AppState.updateYear (parseInt year) if (year = $stateParams.year)?
-      
-  $rootScope.registeredCourses = [
-    {
-      name: 'Software Engineering - Algorithms'
-      cid: '202'
-    }
-    {
-      name: 'Operating Systems'
-      cid: '211'
-    }
-    {
-      name: 'Networks and Communications'
-      cid: '212'
-    }
-    {
-      name: 'Introduction to Artificial Intelligence'
-      cid: '231'
-    }
-    {
-      name: 'Computational Techniques'
-      cid: '233'
-    }
-    {
-      name: 'Laboratory 2'
-      cid: '261'
-    }
-    {
-      name: '2nd Year Group Projects'
-      cid: '271'
-    }
-    {
-      name: 'Team Skills Development'
-      cid: '272'
-    }
-    {
-      name: 'Introduction to Prolog'
-      cid: '276'
-    }
-  ]
-

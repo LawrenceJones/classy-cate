@@ -4,16 +4,23 @@ HTTPProxy = require 'app/proxies/http_proxy'
 require 'app/etc/db'
 $q = require 'q'
 
+
 module.exports = Auth =
 
   # Midware to guard unauthorized access by parsing jsonwebtokens
   midware: (req, res, next) ->
+    if not req.user?
+      res.send 401, 'Token expired'
+    else next()
+
+  # Verifies student is in database also
+  strictAuth: (login, pass) ->
     $q.fcall ->
       Student.getDbStudent req.user.login
     .then (student) ->
       req.dbuser = student
       next?()
-    .catch -> res.send 401, 'Token expired'
+    .catch -> res.send 401, 'SRICT Token expired'
     .done()
 
   # Validates user credentials. Only if both login and password
@@ -44,18 +51,19 @@ module.exports = Auth =
     res.json req.dbuser.signToken(req.user.pass).api()
 
   # Returns the current users details.
+  # TODO - Temporary bandaid over non-functioning cacheing.
   whoami: (req, res) ->
-    if req.user?
-      res.json Student.getDb(req.user.login).api()
-    else res.send 404, 'Not found'
-
+    req.body =
+      login: req.user.user
+      pass: req.user.pass
+    Auth.authenticate req, res
 
 # Given an express app, configures auth utilities
 Auth.configure = (app) ->
 
   # Guard the entirety of /api
   app.use '/api', Auth.midware
-  app.get '/whoami', Auth.whoami
+  app.get '/api/whoami', Auth.whoami
 
   # Token signing
   app.post '/authenticate', Auth.authenticate
