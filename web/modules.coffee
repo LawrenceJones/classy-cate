@@ -83,6 +83,9 @@ classy.config [
       url: '/courses'
       controller: 'CoursesCtrl'
       templateUrl: '/partials/courses'
+      resolve:
+        courses: (Courses, $stateParams) ->
+          Courses.all $stateParams
     }
 
     $stateProvider.state 'app.courses.view', {
