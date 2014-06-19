@@ -22,6 +22,10 @@ classy.controller 'ExerciseModalCtrl', ($scope, $modalInstance, $stateParams,
         'Hurry up! Submission is due today!'
       else if Date.now() > ex.end
         'The deadline for submission is already passed!'
+      else
+        daysLeft = ex.end.getDate() - new Date(Date.now()).getDate()
+        plural = if daysLeft > 1 then 's' else ''
+        "You still have #{daysLeft} day#{plural} left before the deadline"
     else if ex.spec
       'No submission is required, but why don\'t you give it a try?'
 
