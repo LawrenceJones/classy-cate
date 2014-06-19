@@ -1,7 +1,7 @@
-mixin column(index)
-  .panel.panel-default(ng-repeat='year in cols['+index+']')
+mixin column(year)
+  .panel.panel-default
     .panel-heading
-      h3.panel-title {{ 'Class ' + year.class.toUpperCase()  + ' in ' + year.year }}
+      h3.panel-title Class {{ getClass(#{year}) }} in #{year} 
     table.table.table-striped.panel-body.course-registration
       thead
         tr
@@ -12,7 +12,7 @@ mixin column(index)
           th.co-classes.visible-lg.visible-sm Classes
           th.co-level Level
       tbody
-        tr(ng-repeat='course in year.courses')
+        tr(ng-repeat="course in profile.courses | year:"+year)
           td.co-code
             a(course-link='course') {{ course.cid }}
           td.co-name
@@ -41,9 +41,9 @@ mixin column(index)
             td.entry {{ profile.entryYear }}
           tr
             th.p-tutor.active Personal Tutor
-            td.p-tutor {{ profile.tutorName() + ' (' + profile.tutor.login + ')' }}
+            td.p-tutor Ian Hodkinson (imh)
 
-    +column(0)
+    +column(2012)
   .col-md-6
-    +column(1)
+    +column(2013)
 

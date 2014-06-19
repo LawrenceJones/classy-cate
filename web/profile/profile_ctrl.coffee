@@ -15,7 +15,14 @@ grepdoc.controller 'ProfileCtrl', ($scope, AppState, Auth) ->
     console.log 'Profile'
     $scope.profile = profile = AppState.user = Auth.user
 
-    $scope.cols = []
-    $scope.cols[0] = [ profile.enrolment[0] ]
-    $scope.cols[1] = [ profile.enrolment[1] ]
+    console.log $scope.profile
 
+    $scope.getClass = (year) ->
+      (profile.enrolment.filter (e) ->
+        e.year is year)[0].class.toUpperCase()
+
+    
+#
+grepdoc.filter 'year', ->
+  (arr, year) ->
+    arr.filter (course) -> year is course.year

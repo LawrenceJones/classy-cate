@@ -107,7 +107,7 @@ grepdoc.service 'Current', (Convert) ->
     current.getFullYear()
 
   period: ->
-    3 # TODO: calculate this
+    5 # TODO: calculate this
 
   term: ->
     Convert.periodToTerm @period()
@@ -132,3 +132,5 @@ grepdoc.run ($rootScope, $stateParams, AppState) ->
     $rootScope.courseState  = /app\.courses/.test state.name
 
     AppState.updateYear (parseInt year) if (year = $stateParams.year)?
+
+
