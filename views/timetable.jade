@@ -1,6 +1,18 @@
 .row#timetable
 
   .col-md-2.hidden-sm.hidden-xs#table-course-names
+    .btn-group.periodChooser
+      button.btn.btn-default.dropdown-toggle(type="button" data-toggle="dropdown")
+        | {{ periodTitle }}
+        span(class="caret")
+      ul.dropdown-menu
+        li 
+          a(href='#' ng-click='choosePeriod(1)') Autumn Term
+        li 
+          a(href='#' ng-click='choosePeriod(3)') Spring Term
+        li 
+          a(href='#' ng-click='choosePeriod(5)') Summer Term
+            
     table.table
       tr(course-cell='course', ng-repeat='course in courses')
 
@@ -9,11 +21,11 @@
     .table-responsive#period-exs
       table.table#period-header
         colgroup
-          col(ng-repeat='day in period.days track by $index')
+          col(ng-repeat='day in periodRange.days track by $index')
         thead(period-bar)
       table.table#course-body
         colgroup
-          col(ng-repeat='day in period.days track by $index')
+          col(ng-repeat='day in periodRange.days track by $index')
         tbody(ng-repeat='course in courses')
           tr(ng-repeat='row in course.rows')
             td(exercise-box, ng-repeat='box in row', box='box' ng-click='open(box)')

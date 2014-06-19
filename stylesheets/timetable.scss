@@ -9,7 +9,9 @@ $day-highlighted-colour: #fbeec2;
 $weekend-highlighted-colour: #f5db85;
 $row-exercises-height: 45px;
 $course-names-border-spacing: 2px;
-$days-margin-bottom: 10px;
+$margin-from-navbar: 10px;
+$period-chooser-height: 35px;
+$days-margin-bottom: 30px;
 $day-height: 20px;
 $day-padding: 6px;
 $day-border: 1px;
@@ -37,9 +39,16 @@ $day-width: 30px;
 
   #table-course-names {
 
+    .periodChooser {
+      margin-top: $margin-from-navbar;
+      height: $period-chooser-height;
+    }
+
     table {
-      margin-top: 2 * ($day-height + 2 * $day-padding) +
-                  $days-margin-bottom + 3 * $day-border;
+      // margin-top: 2 * ($day-height + 2 * $day-padding) +
+      //             $days-margin-bottom + 3 * $day-border - 
+      //             $margin-from-navbar;
+      margin-top: 62px;
     }
 
     tr {
@@ -65,6 +74,7 @@ $day-width: 30px;
 
     table#period-header {
       background-color: white;
+      margin-top: $margin-from-navbar;
       margin-bottom: $days-margin-bottom; 
     }
 

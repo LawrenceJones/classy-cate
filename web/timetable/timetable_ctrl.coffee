@@ -18,14 +18,23 @@ classy.factory 'TimetableCourse', (Resource) ->
     relations: exercises: 'Exercise'
   })
 
-classy.controller 'TimetableCtrl', ($scope, $stateParams, $modal,
+classy.controller 'TimetableCtrl', ($scope, $stateParams, $state, $modal,
                     Timetable, CourseFormatter, PeriodFormatter) ->
 
   (timetable = Timetable.get($stateParams)).$promise
   .then (course) ->
-    $scope.period = PeriodFormatter timetable.start, timetable.end
+    console.log timetable.period
+    $scope.periodRange = PeriodFormatter timetable.start, timetable.end
     $scope.courses = CourseFormatter timetable
+    $scope.choosePeriod = (period) ->
+      $state.go 'app.timetable', {period: period}
     
+    $scope.periodTitle = (
+            1: 'Autumn Term'
+            3: 'Spring Term'
+            5: 'Summer Term'
+        )[timetable.period]
+
     $scope.open = (box) ->
       if box.ex?
         $modal.open {

@@ -1,11 +1,11 @@
 thead
   tr#months-bar
-    th(colspan='{{values["size"]}}' ng-repeat='(month, values) in period.months')
+    th(colspan='{{values["size"]}}' ng-repeat='(month, values) in periodRange.months')
       .wrap-cell
         {{values['name']}}
 
   tr#days-bar
-    th(ng-repeat='day in period.days track by $index' ng-class='{today: day.isToday, weekend: day.isWeekend}')
+    th(ng-repeat='day in periodRange.days track by $index' ng-class='{today: day.isToday, weekend: day.isWeekend}')
       .wrap-cell
         {{day.number}}
 

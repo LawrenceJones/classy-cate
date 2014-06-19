@@ -24,7 +24,6 @@ classy.directive 'courseCell', ->
     $elem.css('height', "#{newHeight}px")
     $elem.css('line-height', "#{newHeight}px")
 
-
 classy.directive 'periodBar', ->
   restrict: 'A'
   replace: true
@@ -79,7 +78,6 @@ classy.directive 'exerciseBox', ->
 
 
 
-    ###
     # grepdoc.controller 'MyCtrl', ($state) ->
     #     $state.go 'app.timetable', (year: 2013, period: 3, class: "c2")
     #
