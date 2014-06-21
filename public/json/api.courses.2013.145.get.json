@@ -1,0 +1,21 @@
+{
+  "_meta": {
+    "link": "/api/courses/2012/145"
+  },
+  "cid": "145",
+  "name": "Mathematical Methods",
+  "terms": [1],
+  "classes": [
+    "c1"
+  ],
+  "notes": {
+    "_meta": {
+      "link": "/api/courses/2012/145/notes"
+    }
+  },
+  "exercises": {
+    "_meta": {
+      "link": "/api/courses/2012/145/exercises"
+    }
+  }
+}

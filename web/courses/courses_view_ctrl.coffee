@@ -8,9 +8,6 @@ grepdoc.factory 'Courses', (Resource, AppState, Format, Convert) ->
     defaultParams:
       year: AppState.currentYear
     relations:
-      notes: 'Notes'
-      exercises: 'Exercises'
-      grades: 'Grades'
       validTo: Date
       validFrom: Date
   })
@@ -24,42 +21,22 @@ grepdoc.factory 'Courses', (Resource, AppState, Format, Convert) ->
     describeTerms: ->
       return if not @terms?
       terms = @terms.map (term) -> Convert.termToName term
-      "This course runs in the #{Format.asEnglishList terms} 
+      "This course runs in the #{Format.asEnglishList terms}
         #{Format.pluraliseIf 'term', terms.length}"
 
-grepdoc.factory 'Notes', (Resource) ->
-  class Notes extends Resource({
-    relations:
-      time: Date
-  })
+grepdoc.controller\
+( 'CoursesViewCtrl'
+, ($scope, $stateParams, course, grades, Notes, Exercises) ->
 
-grepdoc.factory 'Exercises', (Resource) ->
-  class Exercises extends Resource({
-    relations:
-      start: Date
-      end: Date
-      givens: 'Givens'
-  })
+  filterGrades = (grades, cid) ->
+    grades = (grades.filter (c) -> c.cid is cid)[0]
+    grades?.clean()?.exercises ? []
 
-grepdoc.factory 'Givens', (Resource) ->
-  class Givens extends Resource({
-    relations:
-      time: Date
-  })
+  $scope.course    = course
+  $scope.grades    = filterGrades grades, course.cid
+  $scope.notes     = Notes.get $stateParams
+  $scope.exercises = Exercises.get $stateParams
 
-grepdoc.controller 'CoursesViewCtrl', ($scope, $stateParams, $state, $q, Courses, Grades) ->
-
-  $q.all [(Courses.get $stateParams).$promise, (Grades.all $stateParams).$promise]
-    .then ([course, grades]) ->
-
-      course = course.data
-      grades = (grades.data.filter (c) -> c.cid is course.cid)[0]
-      course.grades = grades?.clean()?.exercises ? []
-      $scope.course = course
-
-
-    .catch (err) ->
-      # For now, transition to courses index if 404: TODO
-      $state.go 'app.courses' if err.status is 404
-
+  console.log $scope.grades
+)
 

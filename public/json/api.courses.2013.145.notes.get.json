@@ -1,0 +1,151 @@
+{
+  "_meta": {
+    "link": "/api/courses/2012/145/notes"
+  },
+  "collection": [
+    {
+      "number": "1",
+      "restype": "pdf",
+      "title": "Introduction to Matrices",
+      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2012:1:81:c1:NOTES:thb12", 
+      "time": 1349444842000,
+      "owner": "jb"
+    },
+    {
+      "number": "2",
+      "restype": "pdf",
+      "title": "Introduction to Vectors",
+      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2012:1:82:c1:NOTES:thb12", 
+      "time": 1349444842000,
+      "owner": "jb"
+    },
+    {
+      "number": "3",
+      "restype": "pdf",
+      "title": "Pre-course Lecture (tablet)",
+      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2012:1:83:c1:NOTES:thb12", 
+      "time": 1349444956000,
+      "owner": "jb"
+    },
+    {
+      "number": "4",
+      "restype": "pdf",
+      "title": "Essential formulae and techniques",
+      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2012:1:120:c1:NOTES:thb12", 
+      "time": 1349799393000,
+      "owner": "jb"
+    },
+    {
+      "number": "5",
+      "restype": "pdf",
+      "title": "Sequences and Limits",
+      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2012:1:122:c1:NOTES:thb12", 
+      "time": 1349818006000,
+      "owner": "jb"
+    },
+    {
+      "number": "6",
+      "restype": "pdf",
+      "title": "Series",
+      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2012:1:123:c1:NOTES:thb12", 
+      "time": 1349818054000,
+      "owner": "jb"
+    },
+    {
+      "number": "7",
+      "restype": "pdf",
+      "title": "Power series",
+      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2012:1:124:c1:NOTES:thb12", 
+      "time": 1349818151000,
+      "owner": "jb"
+    },
+    {
+      "number": "8",
+      "restype": "pdf",
+      "title": "Complex Numbers",
+      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2012:1:125:c1:NOTES:thb12", 
+      "time": 1349818385000,
+      "owner": "jb"
+    },
+    {
+      "number": "9",
+      "restype": "pdf",
+      "title": "Sequences and Limits (tablet)",
+      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2012:1:126:c1:NOTES:thb12", 
+      "time": 1350583699000,
+      "owner": "jb"
+    },
+    {
+      "number": "10",
+      "restype": "pdf",
+      "title": "Series (tablet)",
+      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2012:1:181:c1:NOTES:thb12", 
+      "time": 1350583699000,
+      "owner": "jb"
+    },
+    {
+      "number": "11",
+      "restype": "pdf",
+      "title": "Power series (tablet)",
+      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2012:1:221:c1:NOTES:thb12", 
+      "time": 1351868780000,
+      "owner": "jb"
+    },
+    {
+      "number": "12",
+      "restype": "pdf",
+      "title": "Complex Numbers (tablet)",
+      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2012:1:283:c1:NOTES:thb12", 
+      "time": 1352473888000,
+      "owner": "jb"
+    },
+    {
+      "number": "13",
+      "restype": "pdf",
+      "title": "Vectors",
+      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2012:1:341:c1:NOTES:thb12", 
+      "time": 1352473888000,
+      "owner": "jb"
+    },
+    {
+      "number": "14",
+      "restype": "pdf",
+      "title": "Vectors (tablet)",
+      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2012:1:349:c1:NOTES:thb12", 
+      "time": 1353595910000,
+      "owner": "jb"
+    },
+    {
+      "number": "15",
+      "restype": "pdf",
+      "title": "Matrices",
+      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2012:1:366:c1:NOTES:thb12", 
+      "time": 1353540637000,
+      "owner": "jb"
+    },
+    {
+      "number": "16",
+      "restype": "pdf",
+      "title": "Matrices (tablet)",
+      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2012:1:373:c1:NOTES:thb12", 
+      "time": 1355159356000,
+      "owner": "jb"
+    },
+    {
+      "number": "17",
+      "restype": "pdf",
+      "title": "Calculus",
+      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2012:1:426:c1:NOTES:thb12", 
+      "time": 1355159385000,
+      "owner": "jb"
+    },
+    {
+      "number": "18",
+      "restype": "pdf",
+      "title": "Calculus (tablet)",
+      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2012:1:427:c1:NOTES:thb12", 
+      "time": 1355159439000,
+      "owner": "jb"
+    }
+  ]
+}

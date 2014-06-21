@@ -1,0 +1,14 @@
+.modal-fade#exercise-modal
+  .modal-header
+    h2.modal-title {{ex.num}} - {{ex.title}}
+    .lead {{getInfo()}}
+  .modal-body
+    h4 {{getSubmissionInfo()}}
+    .givens-exercise(ng-if='ex.spec')
+      h5 A thing or two to get you started
+      ul
+        li
+          a(href='{{ex.spec}}') spec-{{cid}}-{{ex.num}}.pdf
+    .cate-button
+      .btn-group
+        a.btn.btn-default.btn-lg(ng-if='ex.handin' target='_blank' href='{{ex.handin}}') Submit on CATe

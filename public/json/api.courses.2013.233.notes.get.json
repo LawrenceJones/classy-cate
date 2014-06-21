@@ -1,0 +1,103 @@
+{
+  "_meta": {
+    "link": "/api/courses/2013/233/notes"
+  },
+  "collection": [
+    {
+      "number": "1",
+      "restype": "pdf",
+      "title": "General lecture notes",
+      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:462:c2:NOTES:thb12",
+      "time": 1390224082000,
+      "owner": "ae"
+    },
+    {
+      "number": "2",
+      "restype": "pdf",
+      "title": "Countable sets",
+      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:463:c2:NOTES:thb12",
+      "time": 1390157050000,
+      "owner": "ae"
+    },
+    {
+      "number": "3",
+      "restype": "pdf",
+      "title": "Linear maps",
+      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:526:c2:NOTES:thb12",
+      "time": 1390767670000,
+      "owner": "ae"
+    },
+    {
+      "number": "4",
+      "restype": "pdf",
+      "title": "Vector nroms",
+      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:533:c2:NOTES:thb12",
+      "time": 1390767670000,
+      "owner": "ae"
+    },
+    {
+      "number": "5",
+      "restype": "pdf",
+      "title": "Rank and Nullity theorem",
+      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:583:c2:NOTES:thb12",
+      "time": 1391348969000,
+      "owner": "ae"
+    },
+    {
+      "number": "6",
+      "restype": "pdf",
+      "title": "Symmetric matrices",
+      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:631:c2:NOTES:thb12",
+      "time": 1392029480000,
+      "owner": "ae"
+    },
+    {
+      "number": "7",
+      "restype": "pdf",
+      "title": "Gaussian method",
+      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:718:c2:NOTES:thb12",
+      "time": 1392367707000,
+      "owner": "ae"
+    },
+    {
+      "number": "8",
+      "restype": "pdf",
+      "title": "Least square method",
+      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:785:c2:NOTES:thb12",
+      "time": 1392922753000,
+      "owner": "ae"
+    },
+    {
+      "number": "9",
+      "restype": "pdf",
+      "title": "Condition+Linear+Convergence",
+      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:800:c2:NOTES:thb12",
+      "time": 1393173083000,
+      "owner": "pgh"
+    },
+    {
+      "number": "10",
+      "restype": "pdf",
+      "title": "Ill-conditionedExample",
+      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:801:c2:NOTES:thb12",
+      "time": 1393174691000,
+      "owner": "pgh"
+    },
+    {
+      "number": "11",
+      "restype": "pdf",
+      "title": "LaplaceTransform",
+      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:904:c2:NOTES:thb12",
+      "time": 1394447676000,
+      "owner": "pgh"
+    },
+    {
+      "number": "12",
+      "restype": "pdf",
+      "title": "Hessian",
+      "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:905:c2:NOTES:thb12",
+      "time": 1394447718000,
+      "owner": "pgh"
+    }
+  ]
+}

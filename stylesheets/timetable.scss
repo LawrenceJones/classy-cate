@@ -1,0 +1,182 @@
+$assessed-ex-colour: #a9c3b1;
+$submission-ex-colour: #bbb2b2;
+$group-assessed-ex-colour: #dea5a4;
+$default-exercise-colour: #f0f0f0;
+$course-name-bg-colour: #f8f8f8;
+$weekend-bg-color: #f0f0f0;
+$today-vertical-bar-colour: rgba(40, 136, 173, 0.17);
+$day-highlighted-colour: #fbeec2;
+$weekend-highlighted-colour: #f5db85;
+$row-exercises-height: 45px;
+$course-names-border-spacing: 2px;
+$margin-from-navbar: 10px;
+$period-chooser-height: 35px;
+$days-margin-bottom: 10px;
+$day-height: 20px;
+$day-padding: 6px;
+$day-border: 1px;
+$day-width: 30px;
+
+
+#timetable {
+
+  .wrap-cell {
+    height: $row-exercises-height;
+    line-height: $row-exercises-height;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .table-responsive {
+    overflow: auto;
+  }
+
+  table {
+    table-layout: fixed; 
+    border-collapse: collapse;
+  }
+
+  #table-course-names {
+
+    .periodChooser {
+      margin-top: $margin-from-navbar;
+      height: $period-chooser-height;
+    }
+
+    table {
+      // margin-top: 2 * ($day-height + 2 * $day-padding) +
+      //             $days-margin-bottom + 3 * $day-border - 
+      //             $margin-from-navbar;
+      margin-top: 42px;
+    }
+
+    tr {
+      height: $row-exercises-height;
+    }
+
+    td {
+      padding: 0 8px;
+      background-color: $course-name-bg-colour;
+      overflow: hidden;
+      vertical-align: middle;
+      text-align: center;
+    }
+
+    a {
+      color: black;
+    }
+
+  }
+
+
+  #period-exs {
+
+    table#period-header {
+      background-color: white;
+      margin-top: $margin-from-navbar;
+      margin-bottom: $days-margin-bottom; 
+    }
+
+    table#course-body {
+      border-collapse: separate;
+    }
+
+    col {
+      width: $day-width;
+    }
+
+    .weekend {
+        background-color: $weekend-bg-color;
+     }
+
+    .today {
+      background: $today-vertical-bar-colour;
+    }
+
+ 
+    #period-header {
+
+      th {
+        border: $day-border solid #ddd;
+        padding: $day-padding;
+        font-weight: normal;
+        overflow: hidden;
+        text-align: center;
+      }
+
+      .wrap-cell {
+        height: $day-height;
+        line-height: $day-height;
+      }
+
+      .highlighted-day {
+        background-color: $day-highlighted-colour;
+        border-left: 0;
+        border-right: 0;
+      }
+
+      .highlighted-day.weekend {
+        background-color: $weekend-highlighted-colour;
+      }
+
+    }
+    
+    #course-body {
+
+      table {
+        border-collapse: separate;
+      }
+
+      td {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        vertical-align: middle;
+        padding: 0 8px;
+      }
+
+      .default-exercise {
+        background-color: $default-exercise-colour;
+      }
+
+      .assessed {
+        background-color: $assessed-ex-colour;
+      }
+
+      .group-assessed {
+        background-color: $group-assessed-ex-colour;
+      }
+
+      .submission {
+        background-color: $submission-ex-colour;
+      }
+
+      .exercise {
+        border-bottom: 0;
+      }
+
+    }
+
+  }
+
+}
+
+#exercise-modal {
+  .modal-header {
+    padding-bottom: 0;
+  }
+
+  .modal-body {
+
+    .givens-exercise {
+      margin-top: 30px;
+    }
+
+    .cate-button {
+      margin-top: 40px;
+      text-align: center;
+    }
+
+  }
+}

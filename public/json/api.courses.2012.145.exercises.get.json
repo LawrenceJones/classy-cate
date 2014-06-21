@@ -1,0 +1,189 @@
+{
+  "_meta": {
+    "link": "/api/courses/2012/145/exercises"
+  },
+  "collection": [
+    {
+      "number": "1",
+      "type": "MMT",
+      "title": "Diagnostic test",
+      "start": 1349740800000,
+      "end": 1349913600000,
+      "mailto": "",
+      "spec": "",
+      "givens": [
+      ]
+    },
+    {
+      "number": "2",
+      "type": "MMT",
+      "title": "Sequences and Limits",
+      "start": 1349740800000,
+      "end": 1350864000000,
+      "mailto": "",
+      "spec": "",
+      "givens": [
+        {
+          "type": "specification",
+          "title": "spec-145-2.pdf",
+          "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2012:1:151:c1:SPECS:USER",
+          "time": 0
+        }
+      ]
+    },
+    {
+      "number": "3",
+      "type": "MMT",
+      "title": "Series",
+      "start": 1350518400000,
+      "end": 1351468800000,
+      "mailto": "",
+      "spec": "",
+      "givens": [
+        {
+          "type": "specification",
+          "title": "spec-145-3.pdf",
+          "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2012:1:224:c1:SPECS:USER",
+          "time": 0
+        }
+      ]
+    },
+    {
+      "number": "4",
+      "type": "MMT",
+      "title": "Power series",
+      "start": 1351123200000,
+      "end": 1352073600000,
+      "mailto": "",
+      "spec": "",
+      "givens": [
+        {
+          "type": "specification",
+          "title": "spec-145-4.pdf",
+          "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2012:1:244:c1:SPECS:USER",
+          "time": 0
+        }
+      ]
+    },
+    {
+      "number": "5",
+      "type": "MMT",
+      "title": "Complex Numbers",
+      "start": 1351728000000,
+      "end": 1352678400000,
+      "mailto": "",
+      "spec": "",
+      "givens": [
+        {
+          "type": "specification",
+          "title": "spec-145-5.pdf",
+          "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2012:1:311:c1:SPECS:USER",
+          "time": 0
+        }
+      ]
+    },
+    {
+      "number": "6",
+      "type": "MMT",
+      "title": "Assessed Coursework",
+      "start": 1352332800000,
+      "end": 1353283200000,
+      "mailto": "",
+      "spec": "",
+      "givens": [
+        {
+          "type": "specification",
+          "title": "spec-145-6.pdf",
+          "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2012:1:347:c1:SPECS:USER",
+          "time": 0
+        }
+      ]
+    },
+    {
+      "number": "7",
+      "type": "MMT",
+      "title": "Vectors",
+      "start": 1352937600000,
+      "end": 1353888000000,
+      "mailto": "",
+      "spec": "",
+      "givens": [
+        {
+          "type": "specification",
+          "title": "spec-145-7.pdf",
+          "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2012:1:427:c1:SPECS:USER",
+          "time": 0
+        }
+      ]
+    },
+    {
+      "number": "8",
+      "type": "MMT",
+      "title": "Matrices",
+      "start": 1353628800000,
+      "end": 1354579200000,
+      "mailto": "",
+      "spec": "",
+      "givens": [
+        {
+          "type": "specification",
+          "title": "spec-145-8.pdf",
+          "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2012:1:482:c1:SPECS:USER",
+          "time": 0
+        }
+      ]
+    },
+    {
+      "number": "10",
+      "type": "TUT",
+      "title": "Extra Questions",
+      "start": 1352937600000,
+      "end": 1355443200000,
+      "mailto": "",
+      "spec": "",
+      "givens": [
+        {
+          "type": "specification",
+          "title": "spec-145-9.pdf",
+          "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2012:1:597:c1:SPECS:USER",
+          "time": 0
+        }
+      ]
+    },
+    {
+      "number": "11",
+      "type": "MMT",
+      "title": "Calculus",
+      "start": 1354147200000,
+      "end": 1354752000000,
+      "mailto": "",
+      "spec": "",
+      "givens": [
+        {
+          "type": "specification",
+          "title": "spec-145-10.pdf",
+          "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2012:1:529:c1:SPECS:USER",
+          "time": 0
+        }
+      ]
+    },
+    {
+      "number": "12",
+      "type": "MMT",
+      "title": "Practice Christmas Test",
+      "start": 1354838400000,
+      "end": 1355443200000,
+      "mailto": "",
+      "spec": "",
+      "givens": [
+        {
+          "type": "specification",
+          "title": "spec-145-10.pdf",
+          "link": "https://cate.doc.ic.ac.uk/showfile.cgi?key=2012:1:596:c1:SPECS:USER",
+          "time": 0
+        }
+      ]
+    }
+  ]
+}
+

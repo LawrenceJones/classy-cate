@@ -75,8 +75,8 @@ module.exports = class GrepDoc
       prefix: '/partials'
 
   # Supply json seed if present
-  seedApi: ->
-    app.use '/api', seedApi
+  seedAPI: ->
+    @app.use '/api', seedApi
       seedDir: config.paths.seed_dir
       prefix: '/api'
 
@@ -98,6 +98,9 @@ module.exports = class GrepDoc
 
 if !module.parent
   grepDoc = new GrepDoc
+
+  grepDoc.seedAPI() if process.env.SEED_API
+
   grepDoc.usejwt()
   grepDoc.secureAPI()
   grepDoc.hotCompile() if NODE_ENV == 'development'

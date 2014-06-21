@@ -13,13 +13,44 @@ grepdoc = angular.module 'grepdoc', [
 # Save the initial window state
 window.initialState = window.location.hash
 
-Date::format = ->
-  [d, m] = [@getDate(), @getMonth() + 1].map (n) ->
-    ('000' + n).slice -2
-  "#{d}/#{m}/#{@getFullYear()}"
+grepdoc.factory 'DateUtils', ->
 
-Date::printTime = ->
-  @toTimeString().match(/^(\d+):(\d+)/)[0]
+  Date::format = ->
+    [d, m] = [@getDate(), @getMonth() + 1].map (n) ->
+      ('000' + n).slice -2
+    "#{d}/#{m}/#{@getFullYear()}"
+
+  Date::printTime = ->
+    @toTimeString().match(/^(\d+):(\d+)/)[0]
+  
+  # Return an array of js dates in the range from the
+  # object date, to the given date
+  Date::getDatesTo = (end) ->
+    range = []
+    current = new Date(@) #Starting date
+    while current <= end
+      range.push current
+      current = new Date(current) #Starting date
+      current.setDate (current.getDate() + 1)
+    range
+
+  Date::isToday = ->
+    today = new Date
+    [d,m,y] = [@getDate(), @getMonth(), @getYear()]
+    d == today.getDate() &&
+    m == today.getMonth() &&
+    y == today.getYear()
+
+
+  # Returns a js date representing the midnight time.
+  Date::midnight = ->
+    mn = new Date(@)
+    mn.setHours 0, 0, 0, 0
+    mn
+  
+  Date.dayMS = 24*60*60*1000
+
+  return Date.prototype
 
 # Configure the routes for the module
 grepdoc.config [
@@ -43,7 +74,6 @@ grepdoc.config [
       abstract: true
       url: '?year'
       reloadOnSearch: false
-      resolve: user: (Auth) -> Auth.whoami()
     }
 
     $stateProvider.state 'app.profile', {
@@ -56,17 +86,23 @@ grepdoc.config [
       url: '/courses'
       controller: 'CoursesCtrl'
       templateUrl: '/partials/courses.html'
+      resolve:
+        courses: (Courses, $stateParams) ->
+          Courses.all $stateParams
     }
 
     $stateProvider.state 'app.courses.view', {
       url: '/:cid'
       controller: 'CoursesViewCtrl'
       templateUrl: '/partials/courses_view.html'
+      resolve:
+        course: (Courses, $stateParams) ->
+          Courses.get $stateParams
     }
 
     $stateProvider.state 'app.timetable', {
       url: '/timetable?period'
-      controller: ->
+      controller: 'TimetableCtrl'
       templateUrl: '/partials/timetable.html'
     }
 
@@ -98,7 +134,6 @@ grepdoc.config [
 
 ]
 
-
 # Service to provide useful datas true at this moment of time
 grepdoc.service 'Current', (Convert) ->
   academicYear: ->
@@ -113,6 +148,10 @@ grepdoc.service 'Current', (Convert) ->
     Convert.periodToTerm @period()
 
 grepdoc.service 'AppState', (Auth, Current, Users, $location, $q) ->
+
+  isToday: (date) ->
+    (date.midnight().getTime()) is (new Date(Date.now()).midnight().getTime())
+    
   currentYear:    Current.academicYear()
   currentPeriod:  Current.period()
   currentTerm:    Current.term()
@@ -121,9 +160,10 @@ grepdoc.service 'AppState', (Auth, Current, Users, $location, $q) ->
 
   updateYear: (year) ->
     if year in @availableYears then @currentYear = year
+    console.log "Set year to #{@currentYear}"
 
 
-grepdoc.run ($rootScope, $stateParams, AppState, Auth) ->
+grepdoc.run ($rootScope, $stateParams, AppState, Auth, DateUtils) ->
 
   Auth.whoami true
 
@@ -131,7 +171,7 @@ grepdoc.run ($rootScope, $stateParams, AppState, Auth) ->
   $rootScope.$on '$stateChangeSuccess', ($event, state, $stateParams) ->
     $rootScope.currentState = state.name
     $rootScope.courseState  = /app\.courses/.test state.name
+    $rootScope.userState = /app\.profile/.test state.name
 
     AppState.updateYear (parseInt year) if (year = $stateParams.year)?
-
 
