@@ -31,7 +31,8 @@ module.exports = class PastPaperParser extends HTMLParser
         [id, title] = $a.text().split ': '
         paper = (papers[id] ?= id: id, title: title, year: @query.year)
         paper.url = "#{@url}/#{$a.attr 'href'}"
-        (paper.classes ?= []).addUnique currentClass
+        if (paper.classes ?= []).indexOf(currentClass) == -1
+          paper.classes.push currentClass
 
     # Return the collection of papers
     year:   @query.year

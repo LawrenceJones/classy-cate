@@ -245,7 +245,7 @@ task 'run-parser', [], async: true, (pfile, params...) ->
     console.log '\n'+(JSON.stringify data, undefined, 2)+'\n'
     succeed 'Successfully parsed page'
   req.catch (err) ->
-    fail err.msg# }}}
+    fail err# }}}
 
 desc 'Generates resource URL from query parameters, using supplied parser'
 task 'gen-url', [], async: true, (pfile, params...) ->
