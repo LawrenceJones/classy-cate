@@ -232,11 +232,11 @@ parseQuery = (params) ->
 desc 'Runs a parser class given the supplied parameters'
 task 'run-parser', [], async: true, (pfile, params...) ->
   title "Attempting to run parser [#{pfile}]"# {{{
-  Proxy = new (require './app/parsers/http_proxy')(loadParser pfile)
+  Proxy = new (require './app/proxies/http_proxy')(loadParser pfile)
 
   log 'Loading Imperial credentials from ~/.imp'
   [user, pass] = fs.readFileSync(process.env.HOME+'/.imp', 'utf8').split /\n/
-  creds = -> user: user, pass: pass
+  creds = user: user, pass: pass
   query = parseQuery params
 
   # Make request with proxy
