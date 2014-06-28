@@ -193,6 +193,16 @@ task 'karma', [], async: true, ->
     [ 'start', 'test/karma.UNIT.conf.coffee' ]
     , 'Failed to start karma' ] )# }}}
 
+# Doc Tasks ############################################
+
+desc 'Runs the apiary gem to preview docs'
+task 'apiary', [], async: true, ->
+  title 'Loading apiary preview'# {{{
+  chain\
+  ( [ 'apiary', ['preview', 'apiary.apib']
+      'Failed to load apiary. Is it installed?' ]
+  ).finally complete# }}}
+
 # API Tasks ############################################
 
 methods = require 'express/node_modules/methods'
