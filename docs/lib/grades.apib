@@ -7,35 +7,34 @@ All students have a central grades page on CATe for each year of completed/curre
   + year (number,`2013`) ... Year of study.
 
 + Model (application/json)
-
-  [# {{{
-    {
-      course: {
-        cid: "202",
-        name: "Software Engineering - Algorithms",
-        _link: "/api/courses/2013/202"
-      },
-      exercises: [
+    [
         {
-          number: 1,
-          type: "ESSAY",
-          title: "Group Formation for CWs",
-          setBy: "alw",
-          declaration: {
-            time: 1390780800000,
-            version: 5
-          }
-          extension: 0,
-          submission: {
-            user: "lmj112",
-            time: 1390611260430,
-            version: 2
-          },
-          grade: "A+"
+            course: {
+                cid: "202",
+                name: "Software Engineering - Algorithms",
+                _link: "/api/courses/2013/202"
+            },
+            exercises: [
+                {
+                    number: 1,
+                    type: "ESSAY",
+                    title: "Group Formation for CWs",
+                    setBy: "alw",
+                    declaration: {
+                        time: 1390780800000,
+                        version: 5
+                    },
+                    extension: 0,
+                    submission: {
+                        user: "lmj112",
+                        time: 1390611260430,
+                        version: 2
+                    },
+                    grade: "A+"
+                }
+            ]
         }
-      ]
-    }
-  ]# }}}
+    ]
 
 ### Retrieve all Grades for Year [GET]
 + Request

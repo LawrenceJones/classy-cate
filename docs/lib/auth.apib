@@ -15,10 +15,10 @@ Example header. `Authorization: Bearer TOKEN`
 + Model (application/json)
     {
         _meta: {
-        link: "/api/users/lmj112",
-        login: "lmj112",
-        tid: 14678,
-        token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoibG1qMTE"
+            link: "/api/users/lmj112",
+            login: "lmj112",
+            tid: 14678,
+            token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoibG1qMTE"
         },
         validFrom: 1348873200000,             // Time for which this student is enrolled
         validTo: 1474930800000,               // Limit of current enrolment status
@@ -71,15 +71,15 @@ Example header. `Authorization: Bearer TOKEN`
         ]
     }
 
+
 ### Generate new auth token [POST]
 
 + Request (application/json)
-    + Body
-        [MODEL User](auth.req)
+    + Headers
+        Authorization: Bearer TOKEN
 
 + Response 200 (application/json)
-    + Body
-        [Login]
+    [Login][]
 
 + Response 401 (application/json)
 

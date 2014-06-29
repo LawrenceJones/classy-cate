@@ -1,0 +1,320 @@
+FORMAT: 1A
+HOST: cvm-g1327131.doc.ic.ac.uk:55000
+
+# Grep-Doc API
+
+The API built on top of Imperial College's CATe VLE system.
+
+A brief few points about this API are...
+
+- All `/api` routes should be requested with an HTTP `Authorization` header
+- Any embedded resources in JSON will have a `_link` property that states the route to that particular resource
+- All Date and Times are represented as a count of milliseconds from midnight 01/01/1970
+
+Various acronyms are used throughout the site to reference different resources. An explanation of these is shown below.
+
+It is important to note that `cid` and `eid` change dependent on the academic year. The acronyms are more to differentiate between other forms of ID than to be used independently to index these resources.
+
+| Acronym | Literal | Usage | Example |
+| ------- | ------- | ----- | ------- |
+| `cid`   | `Course ID` | References a course by the DoC code | `211, Operating Systems` |
+| `tid`   | `Teachdb ID` | Represents the index into the teachdb database for this item | `14678, lmj112` |
+| `eid`   | `Exam ID` | Represents the exam code | `C224, Software Engineering` |
+
+As a side note on API performance, the vast majority of our routes are bottlenecked by the response times of their
+remote resource. Taking Student information for example, a Student's data is parsed in a two level process, first
+resolving a Students teachdb ID from their given login, and then indexing into the teachdb page to parse more information.
+
+# Group Authentication
+
+## Login [/authenticate]
+
+CATe API makes use of JSON WebTokens to make requests on behalf of users to the underlying CATe/DoC services.
+
+The basic setup requries an initial authorization request, where the user supplies their college login and password.
+
+Credentials are then encrypted to generate a token string, which is passed back to the client on a 200 response.
+
+Any requests to routes prefixed with `/api` must then include the token in the HTTP `Authorization` header.
+
+Example header. `Authorization: Bearer TOKEN`
+
++ Model (application/json)
+    {
+        _meta: {
+            link: "/api/users/lmj112",
+            login: "lmj112",
+            tid: 14678,
+            token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoibG1qMTE"
+        },
+        validFrom: 1348873200000,             // Time for which this student is enrolled
+        validTo: 1474930800000,               // Limit of current enrolment status
+        tid: 14678,                           // Teach ID, an index into the teachdb database
+        login: "lmj112",                              // College login
+        email: "lawrence.jones12@imperial.ac.uk",     // College email
+        salutaion: "Mr.",                             // Official salutation Mr, Mrs, Ms...
+        fname: "Lawrence",                            // Firstname
+        lname: "Jones",                               // Lastname
+        origin: "HOME",                               // Student status
+        entryYear: 2012,                              // Year arrived at college
+        url: "http://www.doc.ic.ac.uk/~lmj112",       // Personal college sites
+        cand: "00730706",                             // Official candidate number
+        profile: "https://cate.doc.ic.ac.uk/photo/student/pics12/lmj112.jpg",   // url of CATe profile picture
+        courses: [
+        {
+            _meta: {
+            link: "/api/courses/2012/112",
+            year: 2012,
+            cid: "112"
+            },
+            cid: "112",                 // Course ID, unique with year of study
+            name: "Hardware",           // Name of course
+            eid: "C114",                // Associated exam ID
+            terms: [1],                 // Terms studied
+            classes: ["c1"]             // Classes that are enrolled into this course
+        },
+        {
+            _meta: {
+            link: "/api/courses/2013/240",
+            year: 2013,
+            cid: "240"
+            },
+            cid: "240",
+            name: "Models of Computation",
+            eid: "C244",
+            terms: [1],
+            classes: ["c2", "j2", "j3"]
+        }
+        ]
+        enrolment: [
+        {
+            year: 2012,   // In 2012, this student was enrolled in
+            class: "c1"   // class C1.
+        },
+        {
+            year: 2013,
+            class: "c2"
+        }
+        ]
+    }
+
+
+### Generate new auth token [POST]
+
++ Request (application/json)
+    + Headers
+        Authorization: Bearer TOKEN
+
++ Response 200 (application/json)
+    [Login][]
+
++ Response 401 (application/json)
+
+# Group Timetable
+Provides access to information on set exercises during the specified period.
+
+## Timetable [/api/timetable/{year}/{period}/{class}]
+Every timetable view is defined by the desired year, period and class of the student viewing.
+
++ Parameters
+  + class(string,`c2`) ... Desired timetable class.
+  + period(number,`5`) ... Number of 1..6 that represents term periods from Sept to Summer.
+  + year(number,`2013`) ... Year of study for the timetable.
+
++ Model (application/json)
+
+  {
+    _meta: {
+      link: "/api/timetable/2013/5/c2",
+      year: 2013,
+      period: 5,
+      class: "c2",
+      start: 1398639600000,
+      end: 1403823600000 
+    },
+    courses: [
+      {
+        _meta: {
+          link: "/api/courses/2013/203"
+        }
+        cid: "203",                             // Course ID, unique with year
+        name: "Human-Centered Design",          // Name of course
+        exercises: [
+          {
+            _meta: {
+              link: "/api/courses/2013/203/exercises/1"
+            }
+            num: 1,                           // Exercise number, sequential
+            type: "PROJ",                     // Type of exercise
+            title: "HCD Presentation",        // Exercise title by CATe
+            start: 1401663600000,             // Moment at which exercise became active
+            end: 1402009200000,               // Deadline or handin moment for exercise
+            // Formatted mailto reference to autostart email with appropriate subject
+            mailto: "mailto:mjw03@doc.ic.ac.uk?subject=Module 203 - 'Human-Centered Design' - Exercise 1",
+            handin: null,       // Link to the CATe handin page
+            submission: true,   // This exercise requires a submission
+            group: true,        // This exercise is run in groups
+            assessed: true,     // True if the grade for this exercise counts toward students degree
+            givens: {
+              _meta: {
+                link: "/api/courses/2013/203/exercises/1/givens"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+
+### Retrieve timetable [GET]
+
+# Group Course
+Course related resources of CATe API.
+
+## Course [/api/courses/{year}/{cid}]
+Each course is referenced by the year it was run along with it's cid (course ID). Both year and cid are required to find a course.
+
++ Parameters
+  + cid (string,`202`) ... The unique identifier for the course in CATe.
+  + year (number,`2013`) ... Year that the course was run.
+
++ Model (application/json)
+
+  {
+    _meta: {
+      link: "/api/courses/2013/202"
+    }
+    cid: "202",
+    name: "Software Engineering - Algorithms",
+    terms: [2],
+    classes: [
+      "c2", "j2", "v5"
+    ],
+    notes: {
+      _meta: {
+        link: "/api/courses/2013/202/notes"
+      },
+      collection: [
+        {
+          number: 1,
+          restype: "pdf",
+          title: "Administration",
+          link: "https://cate.doc.ic.ac.uk/showfile.cgi?key=2013:3:458::NOTES:lmj112",
+          time: 1390151094000,
+          discussions: [
+            {
+              title: "Where to find old Algorithm's notes",
+              _link: "/api/discussions/987654"
+            }
+          ]
+        }
+      ]
+    },
+    exercises: {
+      _meta: {
+        link: "/api/courses/2013/202/exercises"
+      }
+    }
+  }
+
+### Retrieve a Single Course [GET]
++ Request
+  + Headers
+    Authorization: Bearer TOKEN
+
++ Response 200
+
+  [Course][]
+
++ Response 401
+
+
+## Course Collection [/api/courses/{year}]
+Collection of all courses run on the given academic year.
+
+Represented as an array of embedded Courses, each course stating it's `cid`, `name` and respective href to more details.
+
++ Parameters
+  + year (number,`2013`) ... Year that desired courses were run.
+
++ Model (application/json)
+        [
+            {
+                cid: "202",
+                name: "Software Engineering - Algorithms",
+                classes: [
+                    "c2", "j2", "v5"
+                    ],
+                terms: [2],
+                _link: "/api/courses/2013/202"
+            },
+            {
+                cid: "211",
+                name: "Operating Systems",
+                classes: [
+                    "c2", "j2"
+                ],
+                terms: [2],
+                _link: "/api/courses/2013/211"
+            }
+        ]
+
+### Index Courses run during Year [GET]
++ Request
+  + Headers
+    Authorization: Bearer TOKEN
+
++ Response 200
+
+  [Course Collection][]
+
++ Response 401
+
+# Group Grades
+
+## Grades [/api/grades/{year}]
+All students have a central grades page on CATe for each year of completed/current study. This route exposes data on what modules were taken and what grades were received for said courses.
+
++ Parameters
+  + year (number,`2013`) ... Year of study.
+
++ Model (application/json)
+    [
+        {
+            course: {
+                cid: "202",
+                name: "Software Engineering - Algorithms",
+                _link: "/api/courses/2013/202"
+            },
+            exercises: [
+                {
+                    number: 1,
+                    type: "ESSAY",
+                    title: "Group Formation for CWs",
+                    setBy: "alw",
+                    declaration: {
+                        time: 1390780800000,
+                        version: 5
+                    },
+                    extension: 0,
+                    submission: {
+                        user: "lmj112",
+                        time: 1390611260430,
+                        version: 2
+                    },
+                    grade: "A+"
+                }
+            ]
+        }
+    ]
+
+### Retrieve all Grades for Year [GET]
++ Request
+  + Headers
+    Authorization: Bearer TOKEN
+
++ Response 200
+  
+  [Grades][]
+
++ Response 401

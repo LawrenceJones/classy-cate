@@ -11,7 +11,7 @@ Every timetable view is defined by the desired year, period and class of the stu
 
 + Model (application/json)
 
-  {# {{{
+  {
     _meta: {
       link: "/api/timetable/2013/5/c2",
       year: 2013,
@@ -52,7 +52,7 @@ Every timetable view is defined by the desired year, period and class of the stu
         ]
       }
     ]
-  }# }}}
+  }
 
 ### Retrieve timetable [GET]
 
@@ -66,7 +66,7 @@ Each course is referenced by the year it was run along with it's cid (course ID)
   + cid (string,`202`) ... The unique identifier for the course in CATe.
   + year (number,`2013`) ... Year that the course was run.
 
-+ Model (application/json)# {{{
++ Model (application/json)
 
   {
     _meta: {
@@ -103,7 +103,7 @@ Each course is referenced by the year it was run along with it's cid (course ID)
         link: "/api/courses/2013/202/exercises"
       }
     }
-  }# }}}
+  }
 
 ### Retrieve a Single Course [GET]
 + Request
@@ -126,27 +126,26 @@ Represented as an array of embedded Courses, each course stating it's `cid`, `na
   + year (number,`2013`) ... Year that desired courses were run.
 
 + Model (application/json)
-
-  [# {{{
-    {
-      cid: "202",
-      name: "Software Engineering - Algorithms",
-      classes: [
-        "c2", "j2", "v5"
-      ],
-      terms: [2],
-      _link: "/api/courses/2013/202"
-    },
-    {
-      cid: "211",
-      name: "Operating Systems",
-      classes: [
-        "c2", "j2"
-      ],
-      terms: [2],
-      _link: "/api/courses/2013/211"
-    }
-  ]# }}}
+        [
+            {
+                cid: "202",
+                name: "Software Engineering - Algorithms",
+                classes: [
+                    "c2", "j2", "v5"
+                    ],
+                terms: [2],
+                _link: "/api/courses/2013/202"
+            },
+            {
+                cid: "211",
+                name: "Operating Systems",
+                classes: [
+                    "c2", "j2"
+                ],
+                terms: [2],
+                _link: "/api/courses/2013/211"
+            }
+        ]
 
 ### Index Courses run during Year [GET]
 + Request

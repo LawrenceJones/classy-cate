@@ -195,8 +195,19 @@ task 'karma', [], async: true, ->
 
 # Doc Tasks ############################################
 
-desc 'Runs the apiary gem to preview docs'
-task 'apiary', [], async: true, ->
+docFiles = new jake.FileList('docs/**/*').toArray()
+
+desc 'Generates the apiary documentation using docs/index'
+file 'apiary.apib', docFiles, async: true, ->
+  title 'Launching docs compiler...'# {{{
+  chain\
+  ( [ 'coffee', ['docs'], 'Failed to compile docs' ]
+    [ 'git', ['add', 'apiary.apib'], 'Failed to add apiary.apib' ]
+    [ 'Successfully compiled apiary.apib' ]
+  ).finally complete# }}}
+
+desc 'Compiles the apiary.apib file, then previews'
+task 'apiary', ['apiary.apib'], async: true, ->
   title 'Loading apiary preview'# {{{
   chain\
   ( [ 'apiary', ['preview', 'apiary.apib']
